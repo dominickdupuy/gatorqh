@@ -1,0 +1,388 @@
+﻿import { useEffect, useState } from 'react';
+
+export function FooterCTA() {
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+  const [isLockingIn, setIsLockingIn] = useState(false);
+  const [flashScreen, setFlashScreen] = useState(false);
+  const [fuelLevel, setFuelLevel] = useState(0);
+
+  useEffect(() => {
+    const targetDate = new Date('2026-09-25T17:00:00').getTime();
+
+    const interval = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance > 0) {
+        setTimeLeft({
+          days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+          seconds: Math.floor((distance % (1000 * 60)) / 1000),
+        });
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (!isLockingIn) return;
+
+    setFuelLevel(0);
+
+    const start = window.setTimeout(() => setFuelLevel(100), 60);
+    const finish = window.setTimeout(() => {
+      const section = document.getElementById('register');
+      section?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 1800);
+
+    return () => {
+      window.clearTimeout(start);
+      window.clearTimeout(finish);
+    };
+  }, [isLockingIn]);
+
+  const countdownUnits = [
+    { label: 'DAYS', value: timeLeft.days },
+    { label: 'HOURS', value: timeLeft.hours },
+    { label: 'MINUTES', value: timeLeft.minutes },
+    { label: 'SECONDS', value: timeLeft.seconds },
+  ];
+
+  const handlePressStart = () => {
+    if (isLockingIn) return;
+
+    setFlashScreen(true);
+    setIsLockingIn(true);
+
+    window.setTimeout(() => setFlashScreen(false), 120);
+
+    try {
+      const audioContext = new (window.AudioContext ||
+        (window as typeof window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext!)();
+      const oscillator = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+      oscillator.type = 'square';
+      oscillator.frequency.setValueAtTime(988, audioContext.currentTime);
+      oscillator.frequency.exponentialRampToValueAtTime(1318, audioContext.currentTime + 0.08);
+      gain.gain.setValueAtTime(0.02, audioContext.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 0.16);
+      oscillator.connect(gain);
+      gain.connect(audioContext.destination);
+      oscillator.start();
+      oscillator.stop(audioContext.currentTime + 0.16);
+    } catch {
+      // Ignore audio failures and keep the visual interaction.
+    }
+  };
+
+  return (
+    <section id="register" className="relative overflow-hidden bg-[#050508] py-20 md:py-28">
+      <style>{`
+        @keyframes asteroidRotate {
+          from { transform: translate(-50%, -50%) rotate(0deg); }
+          to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        @keyframes thrustBurst {
+          0% {
+            transform: translateY(0) scale(1);
+            opacity: 0;
+          }
+          20% {
+            opacity: 1;
+          }
+          100% {
+            transform: translateY(26px) scale(0.4);
+            opacity: 0;
+          }
+        }
+
+        @keyframes trophyFloat {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-8px); }
+        }
+
+        @keyframes orbPulse {
+          0%, 100% { opacity: 0.35; transform: scale(1); }
+          50% { opacity: 0.7; transform: scale(1.08); }
+        }
+      `}</style>
+
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(4,74,148,0.2),transparent_34%),radial-gradient(circle_at_82%_78%,rgba(250,70,22,0.08),transparent_18%),linear-gradient(180deg,rgba(8,10,18,0.12),rgba(5,5,8,0.96))]" />
+        <div
+          className="absolute left-1/2 top-1/2 h-[140vmax] w-[140vmax] opacity-[0.18]"
+          style={{
+            transform: 'translate(-50%, -50%)',
+            animation: 'asteroidRotate 80s linear infinite',
+            backgroundImage: `
+              radial-gradient(circle at 18% 24%, rgba(156,201,255,0.35) 0 2px, transparent 2px),
+              radial-gradient(circle at 68% 30%, rgba(250,70,22,0.24) 0 3px, transparent 3px),
+              radial-gradient(circle at 76% 72%, rgba(156,201,255,0.25) 0 2px, transparent 2px),
+              radial-gradient(circle at 38% 84%, rgba(250,70,22,0.22) 0 4px, transparent 4px),
+              radial-gradient(circle at 52% 48%, rgba(156,201,255,0.15) 0 180px, transparent 180px),
+              linear-gradient(rgba(76,124,188,0.22) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(76,124,188,0.22) 1px, transparent 1px)
+            `,
+            backgroundSize: 'auto, auto, auto, auto, auto, 120px 120px, 120px 120px',
+          }}
+        />
+        <div className="absolute left-1/2 top-16 h-56 w-[42rem] -translate-x-1/2 bg-[#044a94]/12 blur-3xl" />
+        <div className="absolute -bottom-12 right-[-4rem] h-72 w-72 rounded-full bg-[#003087]/20 blur-3xl" />
+      </div>
+      {flashScreen && (
+        <div
+          aria-hidden="true"
+          className="pointer-events-none fixed inset-0 z-[10000] bg-[rgba(255,240,180,0.22)]"
+        />
+      )}
+
+      <div className="relative z-10 mx-auto flex w-full max-w-[1440px] justify-center px-6">
+        <div className="grid w-full max-w-[1200px] items-center gap-14 lg:grid-cols-[minmax(0,760px)_1fr]">
+          <div className="text-center lg:text-left">
+            <div className="mb-5 inline-flex items-center gap-2 border border-[#294f7d] bg-[#0b1524]/92 px-4 py-2 shadow-[0_0_18px_rgba(4,74,148,0.12)]">
+              <span
+                className="text-[#9cc9ff]"
+                style={{
+                  fontFamily: "'JetBrains Mono', monospace",
+                  fontSize: '13px',
+                  fontWeight: 700,
+                  letterSpacing: '1.5px',
+                }}
+              >
+                FINAL STAGE
+              </span>
+            </div>
+
+            <h2
+              className="mb-5 text-white"
+              style={{
+                fontFamily: 'var(--font-heading)',
+                fontSize: 'clamp(22px, 2.2vw, 28px)',
+                lineHeight: 1.55,
+                textShadow: '0 0 28px rgba(4, 74, 148, 0.2)',
+              }}
+            >
+              THE ARENA OPENS SEPTEMBER 25
+            </h2>
+
+            <p
+              className="mx-auto mb-10 max-w-2xl text-[rgba(255,255,255,0.74)] lg:mx-0"
+              style={{ fontFamily: "'Space Mono', monospace", fontSize: '18px', lineHeight: 1.6 }}
+            >
+              48 hours. $50,000. One High Score Board.
+            </p>
+
+            <button
+              onClick={handlePressStart}
+              className="group relative mb-10 w-full overflow-hidden sm:mb-12 sm:w-full"
+              style={{
+                background: 'linear-gradient(180deg, #7f97f2 0%, #5876dc 14%, #274aab 62%, #15357f 100%)',
+                border: '4px solid #102657',
+                boxShadow: `
+                  0 0 0 2px rgba(156, 201, 255, 0.12),
+                  0 0 22px rgba(4, 74, 148, 0.2),
+                  0 12px 30px rgba(0, 0, 0, 0.42),
+                  6px 6px 0 #102657
+                `,
+                padding: '1.15rem 1.6rem',
+                transition: 'transform 180ms ease, box-shadow 180ms ease',
+                clipPath: 'polygon(5% 0, 95% 0, 100% 22%, 100% 78%, 95% 100%, 5% 100%, 0 78%, 0 22%)',
+              }}
+            >
+              <div className="pointer-events-none absolute inset-0 border-[2px] border-[#dbe6ff]/18" />
+              <div className="pointer-events-none absolute inset-x-[3%] top-[6px] h-[2px] bg-[#eef4ff]/24" />
+              <div className="pointer-events-none absolute inset-x-[4%] bottom-[8px] h-[10px] bg-[#0b1f5d]/20 blur-[2px]" />
+              {!isLockingIn && (
+                <div className="pointer-events-none absolute inset-x-0 -bottom-1 flex justify-center gap-2 opacity-0 transition-opacity duration-150 group-hover:opacity-100">
+                  {[0, 1, 2, 3, 4, 5].map((index) => (
+                    <span
+                      key={index}
+                      style={{
+                        width: index % 2 === 0 ? '5px' : '4px',
+                        height: index % 2 === 0 ? '5px' : '4px',
+                        background: index % 2 === 0 ? '#9cc9ff' : '#FA4616',
+                        boxShadow: index % 2 === 0 ? '0 0 10px rgba(156, 201, 255, 0.75)' : '0 0 10px rgba(250, 70, 22, 0.7)',
+                        animation: `thrustBurst ${0.4 + index * 0.03}s ease-out infinite`,
+                        animationDelay: `${index * 0.04}s`,
+                      }}
+                    />
+                  ))}
+                </div>
+              )}
+              <div
+                className="relative z-10 flex flex-col items-center justify-center gap-3 group-hover:scale-[1.05]"
+                style={{
+                  transition: 'transform 180ms ease',
+                }}
+              >
+                <span
+                  style={{
+                    fontFamily: "'Press Start 2P', monospace",
+                    fontSize: 'clamp(20px, 3vw, 30px)',
+                    fontWeight: 700,
+                    letterSpacing: '5px',
+                    color: '#eef4ff',
+                    textShadow: `
+                      0 1px 0 rgba(11, 20, 45, 0.42),
+                      0 0 18px rgba(156, 201, 255, 0.16)
+                    `,
+                  }}
+                >
+                  {isLockingIn ? 'COIN ACCEPTED -' : 'PRESS START'}
+                </span>
+                <span
+                  style={{
+                    fontFamily: "'Press Start 2P', monospace",
+                    fontSize: 'clamp(10px, 1.4vw, 13px)',
+                    letterSpacing: '2px',
+                    color: '#d7e7ff',
+                    textShadow: '0 1px 0 rgba(11, 20, 45, 0.32)',
+                  }}
+                >
+                  {isLockingIn ? 'LOCKING IN YOUR SHIP...' : 'INSERT COIN TO ENTER THE ARENA'}
+                </span>
+                {isLockingIn && (
+                  <div className="mt-1 w-full max-w-[520px] border-[3px] border-[#8fb6ff] bg-[#0d1b44] p-1 shadow-[inset_0_0_12px_rgba(0,0,0,0.8)]">
+                    <div
+                      style={{
+                        width: `${fuelLevel}%`,
+                        height: '18px',
+                        background:
+                          'linear-gradient(90deg, #FA4616 0%, #9cc9ff 38%, #4f7dff 100%)',
+                        boxShadow: '0 0 16px rgba(79, 125, 255, 0.38)',
+                        transition: 'width 1.5s ease-out',
+                      }}
+                    />
+                  </div>
+                )}
+              </div>
+            </button>
+
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+              {countdownUnits.map((unit) => (
+                <div
+                  key={unit.label}
+                  className="border border-[#2A2A3E] bg-[#0B0D14]/92 px-4 py-5 shadow-[0_0_20px_rgba(4,74,148,0.1),inset_0_1px_0_rgba(255,255,255,0.03)]"
+                >
+                  <div
+                    className="mb-2 text-[#ff6231]"
+                    style={{
+                      fontFamily: "'DS-Digital', 'Orbitron', sans-serif",
+                      fontSize: 'clamp(42px, 5vw, 64px)',
+                      fontWeight: 700,
+                      lineHeight: 0.88,
+                      letterSpacing: '2px',
+                      textShadow: `
+                        0 0 10px rgba(250, 70, 22, 0.35),
+                        0 0 24px rgba(250, 70, 22, 0.16)
+                      `,
+                    }}
+                  >
+                    {String(unit.value).padStart(2, '0')}
+                  </div>
+                  <div
+                    className="text-[rgba(255,255,255,0.6)]"
+                    style={{
+                      fontFamily: "'JetBrains Mono', monospace",
+                      fontSize: '11px',
+                      fontWeight: 700,
+                      letterSpacing: '1.8px',
+                    }}
+                  >
+                    {unit.label}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex justify-center lg:justify-end lg:self-end">
+            <div className="relative w-full max-w-[320px]">
+              <div className="aspect-[4/5] overflow-hidden border border-[#183046] bg-[#070A11]/95 shadow-[0_0_24px_rgba(4,74,148,0.14),inset_0_0_0_1px_rgba(255,255,255,0.02)]">
+                <div className="relative flex h-full flex-col justify-between p-6">
+                  <div
+                    className="inline-flex self-start border border-[#1d3353] bg-[#0a1220]/90 px-3 py-2 text-[#9cc9ff]"
+                    style={{
+                      fontFamily: "'JetBrains Mono', monospace",
+                      fontSize: '10px',
+                      letterSpacing: '1.4px',
+                    }}
+                  >
+                    HIGH SCORE RELIC
+                  </div>
+
+                  <div className="relative flex flex-1 items-center justify-center">
+                    <div className="absolute h-40 w-40 rounded-full bg-[#044a94]/14 blur-3xl" />
+                    <div
+                      className="absolute h-24 w-24 rounded-full border border-[#9cc9ff]/35"
+                      style={{ animation: 'orbPulse 2.8s ease-in-out infinite' }}
+                    />
+                    <div
+                      className="relative"
+                      style={{ animation: 'trophyFloat 3.4s ease-in-out infinite' }}
+                    >
+                      <div className="relative h-[132px] w-[132px]">
+                        <div
+                          className="absolute left-1/2 top-0 h-[54px] w-[78px] -translate-x-1/2 bg-[#9cc9ff]"
+                          style={{
+                            clipPath: 'polygon(14% 0, 86% 0, 100% 22%, 84% 100%, 16% 100%, 0 22%)',
+                            boxShadow: '0 0 0 4px #365c8d, 0 0 18px rgba(156,201,255,0.12)',
+                          }}
+                        />
+                        <div className="absolute left-[16px] top-[14px] h-[18px] w-[14px] border-l-4 border-t-4 border-b-4 border-[#9cc9ff]" />
+                        <div className="absolute right-[16px] top-[14px] h-[18px] w-[14px] border-r-4 border-t-4 border-b-4 border-[#9cc9ff]" />
+                        <div className="absolute left-1/2 top-[58px] h-[18px] w-[16px] -translate-x-1/2 bg-[#5d79ea] shadow-[0_0_0_4px_#365c8d]" />
+                        <div className="absolute left-1/2 top-[80px] h-[16px] w-[52px] -translate-x-1/2 bg-[#274aab] shadow-[0_0_0_4px_#183046]" />
+                        <div className="absolute left-1/2 top-[100px] h-[14px] w-[84px] -translate-x-1/2 bg-[#0f1f38] shadow-[0_0_0_4px_#08111f]" />
+                        <div className="absolute left-1/2 top-[18px] h-[8px] w-[34px] -translate-x-1/2 bg-white/28 blur-[1px]" />
+                        <div className="absolute left-[24px] top-[18px] h-[6px] w-[6px] bg-[#FA4616] shadow-[76px_0_0_#FA4616,16px_58px_0_#FA4616,52px_58px_0_#FA4616]" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="border-t border-[#1d3353] pt-4">
+                    <div
+                      className="mb-2 text-[#eef4ff]"
+                      style={{
+                        fontFamily: "'Press Start 2P', monospace",
+                        fontSize: '11px',
+                        letterSpacing: '1px',
+                        lineHeight: 1.5,
+                      }}
+                    >
+                      TREASURE VAULT ONLINE
+                    </div>
+                    <div
+                      className="text-[rgba(255,255,255,0.55)]"
+                      style={{
+                        fontFamily: "'JetBrains Mono', monospace",
+                        fontSize: '11px',
+                        letterSpacing: '1.2px',
+                        lineHeight: 1.6,
+                      }}
+                    >
+                      CHAMPION CLASS REWARD // LOCK IN YOUR SHIP AND CHASE THE HIGH SCORE
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="absolute -left-1 -top-1 h-10 w-10 border-l-4 border-t-4 border-[#044a94]" />
+              <div className="absolute -right-1 -top-1 h-10 w-10 border-r-4 border-t-4 border-[#044a94]" />
+              <div className="absolute -bottom-1 -left-1 h-10 w-10 border-b-4 border-l-4 border-[#044a94]" />
+              <div className="absolute -bottom-1 -right-1 h-10 w-10 border-b-4 border-r-4 border-[#044a94]" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

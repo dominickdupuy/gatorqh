@@ -1,0 +1,51 @@
+name: Deploy GatorQH
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            set -e
+
+            echo "Resetting deployment directory..."
+            rm -rf /home/ec2-user/gatorqh
+
+            echo "Cloning fresh repo..."
+            git clone https://github.com/dominickdupuy/gatorqh.git /home/ec2-user/gatorqh
+
+            cd /home/ec2-user/gatorqh
+
+            echo "Installing dependencies..."
+            npm ci
+
+            echo "Building frontend..."
+            npm run build
+
+            echo "Installing Nginx if not present..."
+            sudo yum install -y nginx || sudo dnf install -y nginx
+
+            echo "Configuring Nginx..."
+            sudo cp nginx.conf /etc/nginx/conf.d/gatorqh.conf
+
+            echo "Testing Nginx configuration..."
+            sudo nginx -t
+
+            echo "Enabling and restarting services..."
+            sudo systemctl daemon-reload
+            sudo systemctl enable nginx
+            sudo systemctl restart nginx
+
+            echo "Deployment complete!"
+            echo "Site: https://gqhacks.com"

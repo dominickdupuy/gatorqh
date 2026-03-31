@@ -27,11 +27,9 @@ jobs:
 
             cd /home/ec2-user/gatorqh
 
-            echo "Switching to Node 20..."
-            export NVM_DIR="$HOME/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-            nvm install 20
-            nvm use 20
+            echo "Installing Node 20..."
+            curl -fsSL https://rpm.nodesource.com/setup_20.x | sudo bash -
+            sudo yum install -y nodejs
 
             echo "Installing dependencies..."
             npm ci

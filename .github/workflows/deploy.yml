@@ -19,17 +19,10 @@ jobs:
           script: |
             set -e
 
-            echo "Resetting deployment directory..."
-            rm -rf /home/ec2-user/gatorqh
-
-            echo "Cloning fresh repo..."
-            git clone https://github.com/dominickdupuy/gatorqh.git /home/ec2-user/gatorqh
-
             cd /home/ec2-user/gatorqh
 
-            echo "Installing Node 20..."
-            curl -fsSL https://rpm.nodesource.com/setup_20.x | sudo bash -
-            sudo dnf install -y nodejs --allowerasing
+            echo "Pulling latest code..."
+            git pull origin main
 
             echo "Installing dependencies..."
             npm ci
@@ -37,19 +30,14 @@ jobs:
             echo "Building frontend..."
             npm run build
 
-            echo "Installing Nginx if not present..."
-            sudo yum install -y nginx || sudo dnf install -y nginx
-
             echo "Configuring Nginx..."
-            sudo cp nginx.conf /etc/nginx/conf.d/gatorqh.conf
+            sudo cp nginx.conf /etc/nginx/conf.d/gqhacks.conf
 
             echo "Testing Nginx configuration..."
             sudo nginx -t
 
-            echo "Enabling and restarting services..."
-            sudo systemctl daemon-reload
-            sudo systemctl enable nginx
-            sudo systemctl restart nginx
+            echo "Reloading Nginx..."
+            sudo systemctl reload nginx
 
             echo "Deployment complete!"
             echo "Site: https://gqhacks.com"

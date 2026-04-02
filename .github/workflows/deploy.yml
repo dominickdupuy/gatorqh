@@ -22,17 +22,11 @@ jobs:
 
             cd /home/ec2-user/gatorqh
 
-            echo "Ensuring Node 20..."
-            if ! node --version | grep -q "^v20"; then
-              curl -fsSL https://rpm.nodesource.com/setup_20.x | sudo bash -
-              sudo dnf install -y nodejs --allowerasing
-            fi
-
             echo "Pulling latest code..."
             git pull origin main
 
             echo "Installing dependencies..."
-            npm ci
+            npm ci --ignore-scripts --engine-strict=false
 
             echo "Building frontend..."
             npm run build

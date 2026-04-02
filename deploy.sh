@@ -24,6 +24,8 @@ fi
 
 echo "[$(date)] Deploying $REMOTE..." >> "$LOG_FILE"
 
+PREV_LOCKFILE=$(md5sum package-lock.json 2>/dev/null || echo "none")
+
 git pull origin main >> "$LOG_FILE" 2>&1
 
 # Ensure Node 20
@@ -33,7 +35,15 @@ if ! node --version 2>/dev/null | grep -q "^v20"; then
   sudo dnf install -y nodejs --allowerasing >> "$LOG_FILE" 2>&1
 fi
 
-npm install --quiet >> "$LOG_FILE" 2>&1
+# Only reinstall deps if package-lock.json changed
+NEW_LOCKFILE=$(md5sum package-lock.json 2>/dev/null || echo "none")
+if [ "$PREV_LOCKFILE" != "$NEW_LOCKFILE" ] || [ ! -d node_modules ]; then
+  echo "[$(date)] Dependencies changed, running npm ci..." >> "$LOG_FILE"
+  npm ci --quiet >> "$LOG_FILE" 2>&1
+else
+  echo "[$(date)] Dependencies unchanged, skipping npm ci." >> "$LOG_FILE"
+fi
+
 npm run build >> "$LOG_FILE" 2>&1
 
 sudo cp nginx.conf /etc/nginx/conf.d/gqhacks.conf

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
-import quantClubLogo from './GQHLogo.JPG';
+import quantClubLogo from './GQHLogo.png';
 
 export function Navigation() {
   const [scrolled, setScrolled] = useState(false);
@@ -118,7 +118,7 @@ export function Navigation() {
 
       <div className="max-w-[1200px] mx-auto px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3 border border-[#253047] bg-[#0B0D14]/95 px-3 py-2 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.03)]">
-          <div className="flex h-12 w-12 items-center justify-center overflow-hidden bg-[#0B0D14] border-2 border-[#044a94] shadow-[0_0_18px_rgba(4,74,148,0.18)]">
+          <div className="flex h-14 w-14 items-center justify-center overflow-hidden bg-[#0B0D14] border-2 border-[#044a94] shadow-[0_0_18px_rgba(4,74,148,0.18)]">
             <img
               src={quantClubLogo}
               alt="Gator Quant Club logo"
@@ -126,10 +126,16 @@ export function Navigation() {
             />
           </div>
           <div className="hidden md:block">
-            <div className="text-white text-sm" style={{ fontFamily: "'Space Mono', monospace" }}>
-              QuantED
+            <div
+              className="text-white"
+              style={{ fontFamily: "'Space Mono', monospace", fontSize: '18px', fontWeight: 700, lineHeight: 1.1 }}
+            >
+              GQH
             </div>
-            <div className="text-[#9A9AA8]" style={{ fontFamily: "'Space Mono', monospace", fontSize: '11px', letterSpacing: '1px' }}>
+            <div
+              className="text-[#9A9AA8]"
+              style={{ fontFamily: "'Space Mono', monospace", fontSize: '13px', letterSpacing: '1px', lineHeight: 1.1 }}
+            >
               PLAYER 1 READY
             </div>
           </div>

@@ -242,7 +242,7 @@ export function Hero() {
         />
       </div>
 
-      <div className="relative z-10 mx-auto flex min-h-screen max-w-[1400px] flex-col items-center justify-center px-6 py-20 text-center">
+      <div className="relative z-10 mx-auto flex min-h-screen max-w-[1400px] flex-col items-center justify-center px-6 py-24 text-center">
         <div className="mb-4 flex w-full max-w-[980px] flex-wrap items-center justify-between gap-3">
           <div
             className="inline-flex items-center gap-3 border border-[#294f7d] bg-[#09111d]/92 px-4 py-3 shadow-[0_0_20px_rgba(4,74,148,0.12)]"

@@ -38,7 +38,7 @@ export function About() {
               ['--ribbon-border' as string]: '#111',
               ['--ribbon-shadow' as string]: '#7a1a00',
               ['--ribbon-depth' as string]: 'rgba(250,70,22,0.18)',
-              fontFamily: "'JetBrains Mono', monospace",
+              fontFamily: "'Space Mono', monospace",
               fontSize: '13px',
               fontWeight: 600,
               letterSpacing: '1.5px',
@@ -73,7 +73,7 @@ export function About() {
             <h2
               className="text-white mb-6"
               style={{
-                fontFamily: "'Rajdhani', sans-serif",
+                fontFamily: "'Orbitron', sans-serif",
                 fontSize: '36px',
                 fontWeight: 700,
                 lineHeight: 1.3,

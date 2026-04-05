@@ -20,14 +20,14 @@
   --brand-orange: #FA4616;
   --brand-blue: #003087;
   --brand-cyan: #044a94;
-  --brand-purple: #9B5DE5;
+  --brand-purple: #33d17a;
   --brand-green: #00B37A;
 
   /* ── Track Colors ── */
   --track-algo: #FA4616;
   --track-risk: #003087;
   --track-predict: #00B37A;
-  --track-blockchain: #9B5DE5;
+  --track-blockchain: #33d17a;
 
   /* ── Borders ── */
   --border: #2A2A3E;
@@ -55,11 +55,11 @@
   --ring: #044a94;
 
   /* ── Typography ── */
-  --font-pixel: 'Press Start 2P', monospace;
-  --font-vt: 'VT323', monospace;
-  --font-mono: 'JetBrains Mono', monospace;
-  --font-display: 'Rajdhani', sans-serif;
-  --font-body: 'Inter', sans-serif;
+  --font-pixel: 'Orbitron', sans-serif;
+  --font-vt: 'Space Mono', monospace;
+  --font-mono: 'Space Mono', monospace;
+  --font-display: 'Orbitron', sans-serif;
+  --font-body: 'Space Mono', monospace;
   --font-weight-medium: 500;
   --font-weight-normal: 400;
 
@@ -79,7 +79,7 @@
   /* ── Charts ── */
   --chart-1: #FA4616;
   --chart-2: #044a94;
-  --chart-3: #9B5DE5;
+  --chart-3: #33d17a;
   --chart-4: #003087;
   --chart-5: #00B37A;
 }

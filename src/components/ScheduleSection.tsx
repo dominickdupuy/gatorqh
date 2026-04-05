@@ -28,7 +28,7 @@ export function ScheduleSection() {
 
   const schedule = [
     {
-      day: "Day 1 - Friday, September 25",
+      day: "Day 1 - Friday, September 18",
       events: [
         { time: "5:00 PM", title: "Registration & Check-in", description: "Pick up your swag and meet fellow participants" },
         { time: "6:00 PM", title: "Opening Ceremony", description: "Keynote speakers and event kickoff" },
@@ -38,7 +38,7 @@ export function ScheduleSection() {
       ]
     },
     {
-      day: "Day 2 - Saturday, September 26",
+      day: "Day 2 - Saturday, September 19",
       events: [
         { time: "9:00 AM", title: "Breakfast", description: "Fuel up for the day ahead" },
         { time: "11:00 AM", title: "Workshop: ML for Trading", description: "Applied machine learning techniques" },
@@ -49,16 +49,16 @@ export function ScheduleSection() {
       ]
     },
     {
-      day: "Day 3 - Sunday, September 27",
+      day: "Day 3 - Sunday, September 20",
       events: [
-        { time: "9:00 AM", title: "Breakfast", description: "Final push begins" },
-        { time: "12:00 PM", title: "Hacking Ends", description: "Submit your projects" },
-        { time: "1:00 PM", title: "Lunch", description: "Relax and recharge" },
-        { time: "2:00 PM", title: "Project Demos", description: "Present your work to judges" },
-        { time: "4:00 PM", title: "Awards Ceremony", description: "Winners announced and prizes awarded" },
-        { time: "5:00 PM", title: "Closing & Farewell", description: "See you next year!" }
+        { time: "9:00 AM", title: "Breakfast", description: "Fuel up for the day ahead" },
+        { time: "11:00 AM", title: "Workshop: Demo Engineering", description: "Sharpen your pitch and product story" },
+        { time: "1:00 PM", title: "Final Build Sprint", description: "Polish, testing, and feature lock" },
+        { time: "3:00 PM", title: "Mentor Reviews", description: "Last feedback before submissions" },
+        { time: "6:00 PM", title: "Dinner", description: "Evening meal service" },
+        { time: "10:00 PM", title: "Late Night Fuel", description: "Final debugging and prep" }
       ]
-    }
+    },
   ];
 
   return (

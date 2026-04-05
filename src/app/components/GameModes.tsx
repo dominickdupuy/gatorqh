@@ -32,13 +32,13 @@ const fighterPixels: Record<Track['fighterType'], Pixel[]> = {
     { x: 12, y: 28, color: '#1a8cff' }, { x: 20, y: 28, color: '#1a8cff' },
   ],
   risk: [
-    { x: 20, y: 0, color: '#f2d1ff' }, { x: 16, y: 4, color: '#9b5de5' }, { x: 20, y: 4, color: '#f2d1ff' }, { x: 24, y: 4, color: '#9b5de5' },
-    { x: 12, y: 8, color: '#6530a3' }, { x: 16, y: 8, color: '#c48dff' }, { x: 20, y: 8, color: '#f2d1ff' }, { x: 24, y: 8, color: '#c48dff' }, { x: 28, y: 8, color: '#6530a3' },
-    { x: 8, y: 12, color: '#3f176f' }, { x: 12, y: 12, color: '#9b5de5' }, { x: 16, y: 12, color: '#c48dff' }, { x: 20, y: 12, color: '#f2d1ff' }, { x: 24, y: 12, color: '#c48dff' }, { x: 28, y: 12, color: '#9b5de5' }, { x: 32, y: 12, color: '#3f176f' },
-    { x: 4, y: 16, color: '#7d95b1' }, { x: 8, y: 16, color: '#6530a3' }, { x: 12, y: 16, color: '#9b5de5' }, { x: 16, y: 16, color: '#c48dff' }, { x: 20, y: 16, color: '#f2d1ff' }, { x: 24, y: 16, color: '#c48dff' }, { x: 28, y: 16, color: '#9b5de5' }, { x: 32, y: 16, color: '#6530a3' }, { x: 36, y: 16, color: '#7d95b1' },
-    { x: 8, y: 20, color: '#6530a3' }, { x: 12, y: 20, color: '#9b5de5' }, { x: 16, y: 20, color: '#c48dff' }, { x: 20, y: 20, color: '#f2d1ff' }, { x: 24, y: 20, color: '#c48dff' }, { x: 28, y: 20, color: '#9b5de5' }, { x: 32, y: 20, color: '#6530a3' },
-    { x: 12, y: 24, color: '#9b5de5' }, { x: 16, y: 24, color: '#c48dff' }, { x: 20, y: 24, color: '#f2d1ff' }, { x: 24, y: 24, color: '#c48dff' }, { x: 28, y: 24, color: '#9b5de5' },
-    { x: 16, y: 28, color: '#6530a3' }, { x: 24, y: 28, color: '#6530a3' },
+    { x: 20, y: 0, color: '#d8ffe8' }, { x: 16, y: 4, color: '#33d17a' }, { x: 20, y: 4, color: '#d8ffe8' }, { x: 24, y: 4, color: '#33d17a' },
+    { x: 12, y: 8, color: '#157a47' }, { x: 16, y: 8, color: '#7ff0b0' }, { x: 20, y: 8, color: '#d8ffe8' }, { x: 24, y: 8, color: '#7ff0b0' }, { x: 28, y: 8, color: '#157a47' },
+    { x: 8, y: 12, color: '#0c4d2f' }, { x: 12, y: 12, color: '#33d17a' }, { x: 16, y: 12, color: '#7ff0b0' }, { x: 20, y: 12, color: '#d8ffe8' }, { x: 24, y: 12, color: '#7ff0b0' }, { x: 28, y: 12, color: '#33d17a' }, { x: 32, y: 12, color: '#0c4d2f' },
+    { x: 4, y: 16, color: '#7d95b1' }, { x: 8, y: 16, color: '#157a47' }, { x: 12, y: 16, color: '#33d17a' }, { x: 16, y: 16, color: '#7ff0b0' }, { x: 20, y: 16, color: '#d8ffe8' }, { x: 24, y: 16, color: '#7ff0b0' }, { x: 28, y: 16, color: '#33d17a' }, { x: 32, y: 16, color: '#157a47' }, { x: 36, y: 16, color: '#7d95b1' },
+    { x: 8, y: 20, color: '#157a47' }, { x: 12, y: 20, color: '#33d17a' }, { x: 16, y: 20, color: '#7ff0b0' }, { x: 20, y: 20, color: '#d8ffe8' }, { x: 24, y: 20, color: '#7ff0b0' }, { x: 28, y: 20, color: '#33d17a' }, { x: 32, y: 20, color: '#157a47' },
+    { x: 12, y: 24, color: '#33d17a' }, { x: 16, y: 24, color: '#7ff0b0' }, { x: 20, y: 24, color: '#d8ffe8' }, { x: 24, y: 24, color: '#7ff0b0' }, { x: 28, y: 24, color: '#33d17a' },
+    { x: 16, y: 28, color: '#157a47' }, { x: 24, y: 28, color: '#157a47' },
   ],
   blockchain: [
     { x: 20, y: 0, color: '#fff6cb' }, { x: 16, y: 4, color: '#9b5de5' }, { x: 20, y: 4, color: '#ffe991' }, { x: 24, y: 4, color: '#9b5de5' },
@@ -77,8 +77,8 @@ function PixelShip({ type, accentColor }: { type: Track['fighterType']; accentCo
           <span className="shield shield--2" style={{ borderColor: `${accentColor}33` }} />
           <span className="asteroid asteroid--1" />
           <span className="asteroid asteroid--2" />
-          <span className="spark spark--1" style={{ backgroundColor: '#f2d1ff' }} />
-          <span className="spark spark--2" style={{ backgroundColor: '#f2d1ff' }} />
+          <span className="spark spark--1" style={{ backgroundColor: '#d8ffe8' }} />
+          <span className="spark spark--2" style={{ backgroundColor: '#d8ffe8' }} />
         </>
       )}
       {type === 'blockchain' && (
@@ -139,7 +139,7 @@ export function GameModes() {
       description: 'Develop robust risk models to protect portfolios and optimize returns.',
       comment: '// FIGHTER PROFILE: HEAVY SHIELD DEFENSE',
       badges: ['SHIELD WINGS', 'ARMOR', 'IMPACT ABSORB', 'CVaR'],
-      accentColor: '#9B5DE5',
+      accentColor: '#33d17a',
       fighterType: 'risk',
       callSign: 'AEGIS',
       systemLabel: 'DEFENSE MATRIX // ASTEROID READY',
@@ -472,12 +472,12 @@ export function GameModes() {
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-[#044a94]" />
               <div className="w-2 h-2 bg-[#FA4616]" />
-              <div className="w-2 h-2 bg-[#9B5DE5]" />
+              <div className="w-2 h-2 bg-[#33d17a]" />
             </div>
             <span
               className="text-[#9A9A9A]"
               style={{
-                fontFamily: "'JetBrains Mono', monospace",
+                fontFamily: "'Space Mono', monospace",
                 fontSize: '14px',
                 fontWeight: 600,
                 letterSpacing: '2px',
@@ -500,26 +500,58 @@ export function GameModes() {
           </h2>
         </div>
 
-        <div className="mb-8 flex items-center justify-between gap-4 border-2 border-[#044a94] bg-[#0A0A0A] px-6 py-2">
-          <span
-            style={{
-              fontFamily: "'Press Start 2P', monospace",
-              fontSize: '10px',
-              color: '#FA4616',
-            }}
-          >
-            SELECT YOUR FIGHTER
-          </span>
-          <span
-            style={{
-              fontFamily: "'JetBrains Mono', monospace",
-              fontSize: '10px',
-              color: '#9A9AA8',
-            }}
-          >
-            {'< > TO NAVIGATE  A TO SELECT'}
-            <span style={{ animation: 'blink 1s step-end infinite' }}> _</span>
-          </span>
+        <div className="relative mb-8 overflow-hidden border border-[#1d4f83] bg-[linear-gradient(180deg,#08101a_0%,#091523_55%,#07111d_100%)] px-5 py-4 shadow-[0_0_0_1px_rgba(4,74,148,0.22),0_0_24px_rgba(4,74,148,0.08)] md:px-7">
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#5db8ff]/60 to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#FA4616]/45 to-transparent" />
+          <div className="pointer-events-none absolute left-0 top-0 h-4 w-4 border-l-2 border-t-2 border-[#044a94]" />
+          <div className="pointer-events-none absolute right-0 top-0 h-4 w-4 border-r-2 border-t-2 border-[#044a94]" />
+          <div className="pointer-events-none absolute bottom-0 left-0 h-4 w-4 border-b-2 border-l-2 border-[#044a94]" />
+          <div className="pointer-events-none absolute bottom-0 right-0 h-4 w-4 border-b-2 border-r-2 border-[#044a94]" />
+
+          <div className="relative flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div className="flex items-center gap-4">
+              <div>
+                <div
+                  style={{
+                    fontFamily: "'Orbitron', sans-serif",
+                    fontSize: '13px',
+                    fontWeight: 700,
+                    color: '#FA4616',
+                    letterSpacing: '1.8px',
+                    textShadow: '0 0 10px rgba(250,70,22,0.2)',
+                  }}
+                >
+                  SELECT YOUR FIGHTER
+                </div>
+                <div
+                  style={{
+                    fontFamily: "'Space Mono', monospace",
+                    fontSize: '11px',
+                    color: '#7e90ab',
+                    letterSpacing: '1.2px',
+                  }}
+                >
+                  ARCADE TRACK SELECTION
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-start md:justify-end">
+              <div className="border border-[#203854] bg-[#0a1421]/90 px-4 py-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.03),0_0_18px_rgba(4,74,148,0.08)]">
+                <span
+                  style={{
+                    fontFamily: "'Space Mono', monospace",
+                    fontSize: '11px',
+                    color: '#a4acbb',
+                    letterSpacing: '1.1px',
+                  }}
+                >
+                  {'< > TO NAVIGATE  A TO SELECT'}
+                  <span style={{ animation: 'blink 1s step-end infinite' }}> _</span>
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6 md:gap-8">
@@ -573,7 +605,7 @@ export function GameModes() {
                 <h3
                   className="text-[#F4F4F4] mb-2 md:mb-3"
                   style={{
-                    fontFamily: "'Rajdhani', sans-serif",
+                    fontFamily: "'Orbitron', sans-serif",
                     fontSize: 'clamp(24px, 5vw, 32px)',
                     fontWeight: 700,
                     letterSpacing: '0.5px',
@@ -585,7 +617,7 @@ export function GameModes() {
                 <p
                   className="mb-4 md:mb-5"
                   style={{
-                    fontFamily: "'JetBrains Mono', monospace",
+                    fontFamily: "'Space Mono', monospace",
                     fontSize: '13px',
                     fontWeight: 600,
                     color: track.accentColor,
@@ -599,8 +631,8 @@ export function GameModes() {
                   <div
                     className="mb-1"
                     style={{
-                      fontFamily: "'Press Start 2P', monospace",
-                      fontSize: '8px',
+                      fontFamily: "'Orbitron', sans-serif",
+                      fontSize: '10px',
                       color: '#9A9AA8',
                       letterSpacing: '1.2px',
                     }}
@@ -609,8 +641,8 @@ export function GameModes() {
                   </div>
                   <div
                     style={{
-                      fontFamily: "'JetBrains Mono', monospace",
-                      fontSize: '12px',
+                      fontFamily: "'Space Mono', monospace",
+                      fontSize: '13px',
                       fontWeight: 700,
                       color: track.accentColor,
                       letterSpacing: '1px',
@@ -621,8 +653,8 @@ export function GameModes() {
                   <div
                     className="mt-2"
                     style={{
-                      fontFamily: "'JetBrains Mono', monospace",
-                      fontSize: '10px',
+                      fontFamily: "'Space Mono', monospace",
+                      fontSize: '11px',
                       color: '#9A9AA8',
                       letterSpacing: '0.8px',
                     }}
@@ -645,8 +677,8 @@ export function GameModes() {
                 <p
                   className="text-[#9A9AA8] mb-5 md:mb-6"
                   style={{
-                    fontFamily: "'JetBrains Mono', monospace",
-                    fontSize: '11px',
+                    fontFamily: "'Space Mono', monospace",
+                    fontSize: '12px',
                     fontWeight: 600,
                     letterSpacing: '0.8px',
                   }}
@@ -661,8 +693,8 @@ export function GameModes() {
                       className="px-3 py-1.5 bg-[#0A0A0A] border border-[#2A2A3E] transition-all duration-300"
                       style={{
                         borderColor: '#2A2A3E',
-                        fontFamily: "'JetBrains Mono', monospace",
-                        fontSize: '10px',
+                        fontFamily: "'Space Mono', monospace",
+                        fontSize: '11px',
                         fontWeight: 500,
                         color: track.accentColor,
                       }}
@@ -696,7 +728,7 @@ export function GameModes() {
             <div className="w-2 h-2 bg-[#044a94] animate-pulse" />
             <span
               className="text-[#9A9A9A]"
-              style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '11px' }}
+              style={{ fontFamily: "'Space Mono', monospace", fontSize: '12px' }}
             >
               All tracks eligible for main prize pool
             </span>

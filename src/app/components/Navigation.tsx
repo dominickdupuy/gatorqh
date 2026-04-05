@@ -75,12 +75,6 @@ export function Navigation() {
           width: 100%;
         }
 
-        .coin-btn::before {
-          content: '▶';
-          margin-right: 8px;
-          display: inline-block;
-        }
-
         .coin-btn::after {
           content: '';
           position: absolute;
@@ -132,10 +126,10 @@ export function Navigation() {
             />
           </div>
           <div className="hidden md:block">
-            <div className="text-white text-sm" style={{ fontFamily: "'JetBrains Mono', monospace" }}>
+            <div className="text-white text-sm" style={{ fontFamily: "'Space Mono', monospace" }}>
               GATOR_QUANT
             </div>
-            <div className="text-[#9A9AA8]" style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', letterSpacing: '1px' }}>
+            <div className="text-[#9A9AA8]" style={{ fontFamily: "'Space Mono', monospace", fontSize: '11px', letterSpacing: '1px' }}>
               PLAYER 1 READY
             </div>
           </div>
@@ -145,35 +139,35 @@ export function Navigation() {
           <button
             onClick={() => scrollToSection('about')}
             className="nav-link text-[#F4F4F4] hover:text-[#044a94] transition-colors"
-            style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '13px', fontWeight: 700, letterSpacing: '1px' }}
+            style={{ fontFamily: "'Space Mono', monospace", fontSize: '13px', fontWeight: 700, letterSpacing: '1px' }}
           >
             About
           </button>
           <button
             onClick={() => scrollToSection('game-modes')}
             className="nav-link text-[#F4F4F4] hover:text-[#044a94] transition-colors"
-            style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '13px', fontWeight: 700, letterSpacing: '1px' }}
+            style={{ fontFamily: "'Space Mono', monospace", fontSize: '13px', fontWeight: 700, letterSpacing: '1px' }}
           >
             Game Modes
           </button>
           <button
             onClick={() => scrollToSection('schedule')}
             className="nav-link text-[#F4F4F4] hover:text-[#044a94] transition-colors"
-            style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '13px', fontWeight: 700, letterSpacing: '1px' }}
+            style={{ fontFamily: "'Space Mono', monospace", fontSize: '13px', fontWeight: 700, letterSpacing: '1px' }}
           >
             Schedule
           </button>
           <button
             onClick={() => scrollToSection('sponsors')}
             className="nav-link text-[#F4F4F4] hover:text-[#044a94] transition-colors"
-            style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '13px', fontWeight: 700, letterSpacing: '1px' }}
+            style={{ fontFamily: "'Space Mono', monospace", fontSize: '13px', fontWeight: 700, letterSpacing: '1px' }}
           >
             Sponsors
           </button>
           <button
             onClick={launchFaqTerminal}
             className="nav-link text-[#F4F4F4] hover:text-[#044a94] transition-colors"
-            style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '13px', fontWeight: 700, letterSpacing: '1px' }}
+            style={{ fontFamily: "'Space Mono', monospace", fontSize: '13px', fontWeight: 700, letterSpacing: '1px' }}
           >
             FAQ
           </button>
@@ -187,8 +181,8 @@ export function Navigation() {
             border: '1px solid rgba(250,70,22,0.4)',
             color: '#FA4616',
             padding: '10px 20px',
-            fontFamily: "'Press Start 2P', monospace",
-            fontSize: '10px',
+            fontFamily: "'Orbitron', sans-serif",
+            fontSize: '11px',
             letterSpacing: '2px',
             position: 'relative',
             cursor: 'pointer',
@@ -252,8 +246,8 @@ export function Navigation() {
           >
             <span
               style={{
-                fontFamily: "'Press Start 2P', monospace",
-                fontSize: '10px',
+                fontFamily: "'Orbitron', sans-serif",
+                fontSize: '11px',
                 color: '#FA4616',
               }}
             >
@@ -261,8 +255,8 @@ export function Navigation() {
             </span>
             <span
               style={{
-                fontFamily: "'Press Start 2P', monospace",
-                fontSize: '10px',
+                fontFamily: "'Orbitron', sans-serif",
+                fontSize: '11px',
                 color: coinCount >= 3 ? '#4cff87' : '#FA4616',
                 animation: coinCount === 0 ? 'creditblink 1s infinite' : 'none',
               }}
@@ -275,8 +269,8 @@ export function Navigation() {
                   position: 'absolute',
                   right: '-4px',
                   top: '0',
-                  fontFamily: "'Press Start 2P', monospace",
-                  fontSize: '10px',
+                  fontFamily: "'Orbitron', sans-serif",
+                  fontSize: '11px',
                   color: '#FA4616',
                   animation: 'coinflash 150ms ease-out',
                 }}
@@ -298,40 +292,40 @@ export function Navigation() {
             <button
               onClick={() => scrollToSection('about')}
               className="nav-link text-[#F4F4F4] hover:text-[#044a94] text-left transition-colors"
-              style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '13px', fontWeight: 700, letterSpacing: '1px' }}
+              style={{ fontFamily: "'Space Mono', monospace", fontSize: '13px', fontWeight: 700, letterSpacing: '1px' }}
             >
               About
             </button>
             <button
               onClick={() => scrollToSection('game-modes')}
               className="nav-link text-[#F4F4F4] hover:text-[#044a94] text-left transition-colors"
-              style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '13px', fontWeight: 700, letterSpacing: '1px' }}
+              style={{ fontFamily: "'Space Mono', monospace", fontSize: '13px', fontWeight: 700, letterSpacing: '1px' }}
             >
               Game Modes
             </button>
             <button
               onClick={() => scrollToSection('schedule')}
               className="nav-link text-[#F4F4F4] hover:text-[#044a94] text-left transition-colors"
-              style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '13px', fontWeight: 700, letterSpacing: '1px' }}
+              style={{ fontFamily: "'Space Mono', monospace", fontSize: '13px', fontWeight: 700, letterSpacing: '1px' }}
             >
               Schedule
             </button>
             <button
               onClick={() => scrollToSection('sponsors')}
               className="nav-link text-[#F4F4F4] hover:text-[#044a94] text-left transition-colors"
-              style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '13px', fontWeight: 700, letterSpacing: '1px' }}
+              style={{ fontFamily: "'Space Mono', monospace", fontSize: '13px', fontWeight: 700, letterSpacing: '1px' }}
             >
               Sponsors
             </button>
             <button
               onClick={launchFaqTerminal}
               className="nav-link text-[#F4F4F4] hover:text-[#044a94] text-left transition-colors"
-              style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '13px', fontWeight: 700, letterSpacing: '1px' }}
+              style={{ fontFamily: "'Space Mono', monospace", fontSize: '13px', fontWeight: 700, letterSpacing: '1px' }}
             >
               FAQ
             </button>
             <button className="bg-[#FA4616] hover:bg-[#FA4616]/90 text-white px-6 py-3 border-2 border-[#044a94] shadow-[0_0_20px_rgba(4,74,148,0.3)] transition-all">
-              <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '14px', fontWeight: 600 }}>
+              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: '14px', fontWeight: 600 }}>
                 INSERT COIN -&gt;
               </span>
             </button>

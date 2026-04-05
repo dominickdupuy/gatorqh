@@ -1,9 +1,8 @@
 export function StatsBar() {
   const stats = [
-    { label: 'Registered Players', value: '256+', color: '#044a94' },
     { label: 'Treasure Vault', value: '$50,000', color: '#FA4616' },
-    { label: 'Duration', value: '48 Hours', color: '#9B5DE5' },
-    { label: 'Power Sponsors', value: '12+', color: '#044a94' },
+    { label: 'Duration', value: '36 Hours', color: '#33d17a' },
+    { label: 'Sponsors', value: '12+', color: '#044a94' },
   ];
 
   return (
@@ -15,7 +14,7 @@ export function StatsBar() {
           backgroundSize: '24px 24px',
         }}
       />
-      <div className="max-w-[1200px] mx-auto px-6 py-6">
+      <div className="mx-auto flex max-w-[1200px] flex-col items-center px-6 py-6">
         <div className="mb-4 text-center">
           <span
             className="pixel-frame-tag"
@@ -26,8 +25,8 @@ export function StatsBar() {
               ['--frame-shadow' as string]: '#182952',
               ['--frame-depth' as string]: 'rgba(18,49,124,0.24)',
               ['--frame-node' as string]: '#4646b8',
-              fontFamily: "'JetBrains Mono', monospace",
-              fontSize: '11px',
+              fontFamily: "'Space Mono', monospace",
+              fontSize: '12px',
               fontWeight: 700,
               letterSpacing: '2px',
             }}
@@ -35,13 +34,13 @@ export function StatsBar() {
             ARCADE STATUS BOARD
           </span>
         </div>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        <div className="grid w-full max-w-[960px] grid-cols-1 gap-4 md:grid-cols-3 md:gap-6">
           {stats.map((stat, index) => (
             <div key={index} className="text-center border border-[#253047] bg-[#121522] px-4 py-5 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.02)]">
               <div
                 className="mb-2"
                 style={{
-                  fontFamily: "'JetBrains Mono', monospace",
+                  fontFamily: "'Space Mono', monospace",
                   fontSize: 'clamp(24px, 3vw, 36px)',
                   fontWeight: 700,
                   color: stat.color,
@@ -53,8 +52,8 @@ export function StatsBar() {
               <div
                 className="text-[#9A9A9A]"
                 style={{
-                  fontFamily: "'JetBrains Mono', monospace",
-                  fontSize: '12px',
+                  fontFamily: "'Space Mono', monospace",
+                  fontSize: '13px',
                   fontWeight: 700,
                   letterSpacing: '1px',
                 }}

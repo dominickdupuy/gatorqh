@@ -1,4 +1,5 @@
-﻿import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { ShatterButton } from '@/components/ui/shatter-button';
 
 export function FooterCTA() {
   const [timeLeft, setTimeLeft] = useState({
@@ -12,7 +13,7 @@ export function FooterCTA() {
   const [fuelLevel, setFuelLevel] = useState(0);
 
   useEffect(() => {
-    const targetDate = new Date('2026-09-25T17:00:00').getTime();
+    const targetDate = new Date('2026-09-18T17:00:00').getTime();
 
     const interval = setInterval(() => {
       const now = new Date().getTime();
@@ -56,30 +57,7 @@ export function FooterCTA() {
   ];
 
   const handlePressStart = () => {
-    if (isLockingIn) return;
-
-    setFlashScreen(true);
-    setIsLockingIn(true);
-
-    window.setTimeout(() => setFlashScreen(false), 120);
-
-    try {
-      const audioContext = new (window.AudioContext ||
-        (window as typeof window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext!)();
-      const oscillator = audioContext.createOscillator();
-      const gain = audioContext.createGain();
-      oscillator.type = 'square';
-      oscillator.frequency.setValueAtTime(988, audioContext.currentTime);
-      oscillator.frequency.exponentialRampToValueAtTime(1318, audioContext.currentTime + 0.08);
-      gain.gain.setValueAtTime(0.02, audioContext.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 0.16);
-      oscillator.connect(gain);
-      gain.connect(audioContext.destination);
-      oscillator.start();
-      oscillator.stop(audioContext.currentTime + 0.16);
-    } catch {
-      // Ignore audio failures and keep the visual interaction.
-    }
+    return;
   };
 
   return (
@@ -151,8 +129,8 @@ export function FooterCTA() {
               <span
                 className="text-[#9cc9ff]"
                 style={{
-                  fontFamily: "'JetBrains Mono', monospace",
-                  fontSize: '13px',
+                  fontFamily: "'Space Mono', monospace",
+                  fontSize: '14px',
                   fontWeight: 700,
                   letterSpacing: '1.5px',
                 }}
@@ -170,19 +148,20 @@ export function FooterCTA() {
                 textShadow: '0 0 28px rgba(4, 74, 148, 0.2)',
               }}
             >
-              THE ARENA OPENS SEPTEMBER 25
+              THE ARENA OPENS SEPTEMBER 18
             </h2>
 
             <p
               className="mx-auto mb-10 max-w-2xl text-[rgba(255,255,255,0.74)] lg:mx-0"
-              style={{ fontFamily: "'Space Mono', monospace", fontSize: '18px', lineHeight: 1.6 }}
+              style={{ fontFamily: "'Space Mono', monospace", fontSize: '19px', lineHeight: 1.6 }}
             >
-              48 hours. $50,000. One High Score Board.
+              36 hours. $50,000. One High Score Board.
             </p>
 
-            <button
+            <ShatterButton
               onClick={handlePressStart}
-              className="group relative mb-10 w-full overflow-hidden sm:mb-12 sm:w-full"
+              shatterColor="#9cc9ff"
+              className="group relative mb-10 w-full overflow-hidden rounded-none sm:mb-12 sm:w-full"
               style={{
                 background: 'linear-gradient(180deg, #7f97f2 0%, #5876dc 14%, #274aab 62%, #15357f 100%)',
                 border: '4px solid #102657',
@@ -197,35 +176,15 @@ export function FooterCTA() {
                 clipPath: 'polygon(5% 0, 95% 0, 100% 22%, 100% 78%, 95% 100%, 5% 100%, 0 78%, 0 22%)',
               }}
             >
-              <div className="pointer-events-none absolute inset-0 border-[2px] border-[#dbe6ff]/18" />
-              <div className="pointer-events-none absolute inset-x-[3%] top-[6px] h-[2px] bg-[#eef4ff]/24" />
-              <div className="pointer-events-none absolute inset-x-[4%] bottom-[8px] h-[10px] bg-[#0b1f5d]/20 blur-[2px]" />
-              {!isLockingIn && (
-                <div className="pointer-events-none absolute inset-x-0 -bottom-1 flex justify-center gap-2 opacity-0 transition-opacity duration-150 group-hover:opacity-100">
-                  {[0, 1, 2, 3, 4, 5].map((index) => (
-                    <span
-                      key={index}
-                      style={{
-                        width: index % 2 === 0 ? '5px' : '4px',
-                        height: index % 2 === 0 ? '5px' : '4px',
-                        background: index % 2 === 0 ? '#9cc9ff' : '#FA4616',
-                        boxShadow: index % 2 === 0 ? '0 0 10px rgba(156, 201, 255, 0.75)' : '0 0 10px rgba(250, 70, 22, 0.7)',
-                        animation: `thrustBurst ${0.4 + index * 0.03}s ease-out infinite`,
-                        animationDelay: `${index * 0.04}s`,
-                      }}
-                    />
-                  ))}
-                </div>
-              )}
               <div
-                className="relative z-10 flex flex-col items-center justify-center gap-3 group-hover:scale-[1.05]"
+                className="relative z-10 flex flex-col items-center justify-center gap-3"
                 style={{
                   transition: 'transform 180ms ease',
                 }}
               >
                 <span
                   style={{
-                    fontFamily: "'Press Start 2P', monospace",
+                    fontFamily: "'Orbitron', sans-serif",
                     fontSize: 'clamp(20px, 3vw, 30px)',
                     fontWeight: 700,
                     letterSpacing: '5px',
@@ -240,8 +199,8 @@ export function FooterCTA() {
                 </span>
                 <span
                   style={{
-                    fontFamily: "'Press Start 2P', monospace",
-                    fontSize: 'clamp(10px, 1.4vw, 13px)',
+                    fontFamily: "'Orbitron', sans-serif",
+                    fontSize: 'clamp(11px, 1.4vw, 14px)',
                     letterSpacing: '2px',
                     color: '#d7e7ff',
                     textShadow: '0 1px 0 rgba(11, 20, 45, 0.32)',
@@ -264,7 +223,7 @@ export function FooterCTA() {
                   </div>
                 )}
               </div>
-            </button>
+            </ShatterButton>
 
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
               {countdownUnits.map((unit) => (
@@ -276,9 +235,9 @@ export function FooterCTA() {
                     className="mb-2 text-[#ff6231]"
                     style={{
                       fontFamily: "'DS-Digital', 'Orbitron', sans-serif",
-                      fontSize: 'clamp(42px, 5vw, 64px)',
+                      fontSize: 'clamp(54px, 6vw, 78px)',
                       fontWeight: 700,
-                      lineHeight: 0.88,
+                      lineHeight: 0.8,
                       letterSpacing: '2px',
                       textShadow: `
                         0 0 10px rgba(250, 70, 22, 0.35),
@@ -291,8 +250,8 @@ export function FooterCTA() {
                   <div
                     className="text-[rgba(255,255,255,0.6)]"
                     style={{
-                      fontFamily: "'JetBrains Mono', monospace",
-                      fontSize: '11px',
+                      fontFamily: "'Space Mono', monospace",
+                      fontSize: '12px',
                       fontWeight: 700,
                       letterSpacing: '1.8px',
                     }}
@@ -311,8 +270,8 @@ export function FooterCTA() {
                   <div
                     className="inline-flex self-start border border-[#1d3353] bg-[#0a1220]/90 px-3 py-2 text-[#9cc9ff]"
                     style={{
-                      fontFamily: "'JetBrains Mono', monospace",
-                      fontSize: '10px',
+                      fontFamily: "'Space Mono', monospace",
+                      fontSize: '11px',
                       letterSpacing: '1.4px',
                     }}
                   >
@@ -352,8 +311,8 @@ export function FooterCTA() {
                     <div
                       className="mb-2 text-[#eef4ff]"
                       style={{
-                        fontFamily: "'Press Start 2P', monospace",
-                        fontSize: '11px',
+                        fontFamily: "'Orbitron', sans-serif",
+                        fontSize: '12px',
                         letterSpacing: '1px',
                         lineHeight: 1.5,
                       }}
@@ -363,8 +322,8 @@ export function FooterCTA() {
                     <div
                       className="text-[rgba(255,255,255,0.55)]"
                       style={{
-                        fontFamily: "'JetBrains Mono', monospace",
-                        fontSize: '11px',
+                        fontFamily: "'Space Mono', monospace",
+                        fontSize: '12px',
                         letterSpacing: '1.2px',
                         lineHeight: 1.6,
                       }}

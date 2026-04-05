@@ -1,17 +1,19 @@
+import { ShatterButton } from '@/components/ui/shatter-button';
+
 export function Sponsors() {
   const sponsors = [
-    'QuantumTrade',
-    'AlphaFin',
-    'MarketMatrix',
-    'RiskLabs',
-    'ChainVault',
-    'DataFlow',
-    'TradeSphere',
-    'QuantEdge',
-    'CryptoCore',
-    'SignalWorks',
-    'VaultLabs',
-    'PulseMarkets',
+    'Placeholder A',
+    'Placeholder B',
+    'Placeholder C',
+    'Placeholder D',
+    'Placeholder E',
+    'Placeholder F',
+    'Placeholder G',
+    'Placeholder H',
+    'Placeholder I',
+    'Placeholder J',
+    'Placeholder K',
+    'Placeholder L',
   ];
 
   return (
@@ -27,7 +29,7 @@ export function Sponsors() {
                 ['--pill-border' as string]: '#171717',
                 ['--pill-shadow' as string]: '#5c1200',
                 ['--pill-depth' as string]: 'rgba(90,0,0,0.18)',
-                fontFamily: "'JetBrains Mono', monospace",
+                fontFamily: "'Space Mono', monospace",
                 fontSize: '12px',
                 fontWeight: 600,
               }}
@@ -38,7 +40,7 @@ export function Sponsors() {
           <h2
             className="text-white mb-4 text-center"
             style={{
-              fontFamily: "'Press Start 2P', monospace",
+              fontFamily: "'Orbitron', sans-serif",
               fontSize: 'clamp(10px, 2vw, 16px)',
               lineHeight: 1.7,
             }}
@@ -47,9 +49,9 @@ export function Sponsors() {
           </h2>
           <p
             className="text-[#9A9AA8] text-center"
-            style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '12px' }}
+            style={{ fontFamily: "'Space Mono', monospace", fontSize: '12px' }}
           >
-            // 12 POWER SPONSORS CONFIRMED
+            // 12 PLACEHOLDERS CONFIRMED
           </p>
         </div>
 
@@ -75,8 +77,8 @@ export function Sponsors() {
               >
                 <span
                   style={{
-                    fontFamily: "'JetBrains Mono', monospace",
-                    fontSize: '8px',
+                    fontFamily: "'Space Mono', monospace",
+                    fontSize: '10px',
                     color: '#444',
                   }}
                 >
@@ -86,8 +88,8 @@ export function Sponsors() {
               <div
                 className="text-center"
                 style={{
-                  fontFamily: "'JetBrains Mono', monospace",
-                  fontSize: '11px',
+                  fontFamily: "'Space Mono', monospace",
+                  fontSize: '12px',
                   color: '#9A9AA8',
                   letterSpacing: '2px',
                   textTransform: 'uppercase',
@@ -103,31 +105,41 @@ export function Sponsors() {
           <p
             className="mb-2"
             style={{
-              fontFamily: "'JetBrains Mono', monospace",
-              fontSize: '11px',
+              fontFamily: "'Space Mono', monospace",
+              fontSize: '12px',
               color: '#9A9AA8',
               textAlign: 'center',
             }}
           >
             // INTERESTED IN JOINING THE ROSTER?
           </p>
-          <a
-            href="mailto:team@gatorquant.com?subject=Power%20Sponsor%20Inquiry"
-            className="pixel-arrow-cta inline-block"
-            style={{
-              ['--arrow-bg-top' as string]: '#d63a32',
-              ['--arrow-bg-bottom' as string]: '#a41f16',
-              ['--arrow-text' as string]: '#fff4bf',
-              ['--arrow-border' as string]: '#171717',
-              ['--arrow-shadow' as string]: '#5c1200',
-              ['--arrow-depth' as string]: 'rgba(92,18,0,0.28)',
-              fontFamily: "'JetBrains Mono', monospace",
-              fontSize: '11px',
-              letterSpacing: '1px',
-            }}
-          >
-            BECOME A POWER SPONSOR
-          </a>
+          <div className="flex justify-center">
+            <ShatterButton
+              onClick={() => {
+                window.location.href = 'mailto:team@gatorquant.com?subject=Power%20Sponsor%20Inquiry';
+              }}
+              shatterColor="#FA4616"
+              className="pixel-arrow-cta inline-block border-0"
+              style={{
+                ['--arrow-bg-top' as string]: '#d63a32',
+                ['--arrow-bg-bottom' as string]: '#a41f16',
+                ['--arrow-text' as string]: '#fff4bf',
+                ['--arrow-border' as string]: '#171717',
+                ['--arrow-shadow' as string]: '#5c1200',
+                ['--arrow-depth' as string]: 'rgba(92,18,0,0.28)',
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: "'Space Mono', monospace",
+                  fontSize: '12px',
+                  letterSpacing: '1px',
+                }}
+              >
+                BECOME A POWER SPONSOR
+              </span>
+            </ShatterButton>
+          </div>
         </div>
       </div>
     </section>

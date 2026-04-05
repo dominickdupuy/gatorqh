@@ -140,7 +140,7 @@ export function HeroSection({ onNavigate }: { onNavigate?: (page: "home" | "regi
         <div className="flex flex-wrap items-center justify-center gap-6 mb-14">
           <div className="flex items-center gap-3 text-white bg-white/5 backdrop-blur-sm px-5 py-3 rounded-full border border-white/10">
             <Calendar className="w-5 h-5 text-cyan-400" />
-            <span className="font-mono">September 25-26th</span>
+            <span className="font-mono">September 18-20th</span>
           </div>
           <a 
             href="https://www.google.com/maps/place/Reitz+Union/@29.6434215,-82.3491298,17z/data=!3m1!4b1!4m6!3m5!1s0x88e8a376866319c9:0x7b1a9b6c4f5c9b7!8m2!3d29.6434215!4d-82.3465549!16s%2Fg%2F1tdk5nc7"

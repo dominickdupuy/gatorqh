@@ -5,9 +5,9 @@
 :root {
   --font-title: 'Russo One', sans-serif;
   --font-heading: 'Orbitron', sans-serif;
-  --font-card: 'Rajdhani', sans-serif;
   --font-body: 'Space Mono', monospace;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-card: var(--font-heading);
+  --font-mono: var(--font-body);
 }
 
 @keyframes scroll-left {
@@ -158,7 +158,7 @@ body {
 }
 
 .cabinet-frame__marquee span {
-  font-family: 'Press Start 2P', monospace;
+  font-family: var(--font-heading);
   font-size: clamp(8px, 0.9vw, 11px);
   letter-spacing: 2px;
   color: #ffb25e;

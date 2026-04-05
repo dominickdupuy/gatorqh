@@ -175,7 +175,7 @@ export function FAQ() {
           left: 50%;
           transform: translateX(-50%);
           color: rgba(149, 160, 149, 0.8);
-          font-family: 'Press Start 2P', monospace;
+          font-family: 'Orbitron', sans-serif;
           font-size: 10px;
           letter-spacing: 2px;
           white-space: nowrap;
@@ -316,7 +316,7 @@ export function FAQ() {
                 <p
                   className="mb-2 text-[#69d7ff]"
                   style={{
-                    fontFamily: "'Press Start 2P', monospace",
+                    fontFamily: "'Orbitron', sans-serif",
                     fontSize: '11px',
                     letterSpacing: '2px',
                   }}
@@ -326,7 +326,7 @@ export function FAQ() {
                 <p
                   className="text-[#dce9ff]"
                   style={{
-                    fontFamily: "'VT323', 'Press Start 2P', monospace",
+                    fontFamily: "'VT323', monospace",
                     fontSize: '22px',
                     letterSpacing: '2px',
                   }}
@@ -338,7 +338,7 @@ export function FAQ() {
                 <p
                   className="text-[#fa4616]"
                   style={{
-                    fontFamily: "'Press Start 2P', monospace",
+                    fontFamily: "'Orbitron', sans-serif",
                     fontSize: '10px',
                     letterSpacing: '1.5px',
                   }}
@@ -348,7 +348,7 @@ export function FAQ() {
                 <p
                   className="text-[#9cc9ff]"
                   style={{
-                    fontFamily: "'Press Start 2P', monospace",
+                    fontFamily: "'Orbitron', sans-serif",
                     fontSize: '10px',
                     letterSpacing: '1.5px',
                   }}
@@ -364,7 +364,7 @@ export function FAQ() {
                   <span
                     className="text-[#69d7ff]"
                     style={{
-                      fontFamily: "'Press Start 2P', monospace",
+                      fontFamily: "'Orbitron', sans-serif",
                       fontSize: '11px',
                       letterSpacing: '1.6px',
                     }}
@@ -374,7 +374,7 @@ export function FAQ() {
                   <span
                     className="text-[#fa4616]"
                     style={{
-                      fontFamily: "'VT323', 'Press Start 2P', monospace",
+                      fontFamily: "'VT323', monospace",
                       fontSize: '20px',
                       letterSpacing: '2px',
                     }}
@@ -405,7 +405,7 @@ export function FAQ() {
                             className={`${isActive ? 'text-[#ffffff]' : 'text-[#9cc9ff]'}`}
                             style={{
                               display: 'block',
-                              fontFamily: "'VT323', 'Press Start 2P', monospace",
+                              fontFamily: "'VT323', monospace",
                               fontSize: '26px',
                               letterSpacing: '1px',
                               lineHeight: 1.05,
@@ -418,7 +418,7 @@ export function FAQ() {
                             style={{
                               display: 'block',
                               marginTop: '4px',
-                              fontFamily: "'Space Mono', monospace",
+                              fontFamily: "'VT323', monospace",
                               fontSize: '12px',
                               letterSpacing: '1px',
                             }}
@@ -438,7 +438,7 @@ export function FAQ() {
                     <p
                       className="text-[#69d7ff]"
                       style={{
-                        fontFamily: "'Press Start 2P', monospace",
+                        fontFamily: "'Orbitron', sans-serif",
                         fontSize: '11px',
                         letterSpacing: '1.6px',
                       }}
@@ -448,7 +448,7 @@ export function FAQ() {
                     <p
                       className="mt-2 text-[#f4f7ff]"
                       style={{
-                        fontFamily: "'VT323', 'Press Start 2P', monospace",
+                        fontFamily: "'VT323', monospace",
                         fontSize: '30px',
                         letterSpacing: '1px',
                         lineHeight: 1,
@@ -460,7 +460,7 @@ export function FAQ() {
                   <div
                     className="text-[#faad94]"
                     style={{
-                      fontFamily: "'Space Mono', monospace",
+                      fontFamily: "'VT323', monospace",
                       fontSize: '12px',
                       letterSpacing: '1px',
                     }}
@@ -473,7 +473,7 @@ export function FAQ() {
                   <p
                     className="mb-4 text-[#faad94]"
                     style={{
-                      fontFamily: "'Space Mono', monospace",
+                      fontFamily: "'VT323', monospace",
                       fontSize: '13px',
                       letterSpacing: '1px',
                     }}
@@ -483,7 +483,7 @@ export function FAQ() {
                   <p
                     className="max-w-[58ch] text-[#f3f8ff]"
                     style={{
-                      fontFamily: "'VT323', 'Press Start 2P', monospace",
+                      fontFamily: "'VT323', monospace",
                       fontSize: '30px',
                       lineHeight: 1.22,
                       letterSpacing: '0.2px',
@@ -496,7 +496,7 @@ export function FAQ() {
                     <p
                       className="text-[#9cc9ff]"
                       style={{
-                        fontFamily: "'Space Mono', monospace",
+                        fontFamily: "'VT323', monospace",
                         fontSize: '12px',
                         letterSpacing: '1px',
                       }}

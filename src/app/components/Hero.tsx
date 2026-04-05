@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
+import { ShatterButton } from '@/components/ui/shatter-button';
 
-const titleLines = ['GATOR', 'QUANT', 'HACKATHON'];
-const featureTags = ['Signal stars', 'Rocket trajectories', 'Asteroid risk'];
-
+const titleLines = ['GATOR', 'QUANT', 'HACKS'];
 type Star = {
   x: number;
   y: number;
@@ -16,6 +15,14 @@ type Star = {
 export function Hero() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [scrollY, setScrollY] = useState(0);
+
+  const scrollToRegister = () => {
+    document.getElementById('register')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  const openSponsorMail = () => {
+    window.location.href = 'mailto:team@gatorquant.com?subject=Power%20Sponsor%20Inquiry';
+  };
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -51,7 +58,7 @@ export function Hero() {
       canvas.width = width;
       canvas.height = height;
       stars.length = 0;
-      for (let i = 0; i < 180; i += 1) {
+      for (let index = 0; index < 180; index += 1) {
         stars.push(createStar(width, height));
       }
     };
@@ -235,8 +242,8 @@ export function Hero() {
         />
       </div>
 
-      <div className="relative z-10 mx-auto flex min-h-screen max-w-[1400px] flex-col items-center justify-center px-6 py-24 text-center">
-        <div className="mb-8 flex w-full max-w-[980px] flex-wrap items-center justify-between gap-4">
+      <div className="relative z-10 mx-auto flex min-h-screen max-w-[1400px] flex-col items-center justify-center px-6 py-20 text-center">
+        <div className="mb-4 flex w-full max-w-[980px] flex-wrap items-center justify-between gap-3">
           <div
             className="inline-flex items-center gap-3 border border-[#294f7d] bg-[#09111d]/92 px-4 py-3 shadow-[0_0_20px_rgba(4,74,148,0.12)]"
             style={{
@@ -249,7 +256,7 @@ export function Hero() {
               style={{
                 fontFamily: "'Press Start 2P', monospace",
                 fontSize: '10px',
-                letterSpacing: '1.6px',
+                letterSpacing: '1px',
               }}
             >
               PLAYER 1
@@ -259,7 +266,7 @@ export function Hero() {
               style={{
                 fontFamily: "'Press Start 2P', monospace",
                 fontSize: '10px',
-                letterSpacing: '1.6px',
+                letterSpacing: '1px',
               }}
             >
               SPACE MARKET
@@ -278,7 +285,7 @@ export function Hero() {
               style={{
                 fontFamily: "'Press Start 2P', monospace",
                 fontSize: '10px',
-                letterSpacing: '1.6px',
+                letterSpacing: '1px',
               }}
             >
               CREDITS: 00
@@ -303,22 +310,29 @@ export function Hero() {
             }}
           >
             <div
-              className="pixel-badge pixel-pill mb-8 inline-flex items-center gap-3"
+              className="pixel-badge pixel-pill mb-5 inline-flex items-center gap-3"
               style={{
                 ['--pill-bg' as string]: '#6f88ff',
                 ['--pill-text' as string]: '#f2f5ff',
                 ['--pill-border' as string]: '#1a255a',
                 ['--pill-shadow' as string]: '#1a255a',
                 ['--pill-depth' as string]: 'rgba(4,74,148,0.22)',
-                fontFamily: "'Press Start 2P', monospace",
-                fontSize: '10px',
-                padding: '8px 16px',
-                letterSpacing: '2px',
+                fontFamily: "'Orbitron', sans-serif",
+                fontSize: '11px',
+                padding: '8px 18px',
+                letterSpacing: '2.2px',
                 imageRendering: 'pixelated',
               }}
             >
               <span
-                style={{ fontFamily: "'Press Start 2P', monospace", fontSize: '10px', color: '#f2f5ff', letterSpacing: '2px' }}
+                style={{
+                  fontFamily: "'Orbitron', sans-serif",
+                  fontSize: '11px',
+                  fontWeight: 800,
+                  color: '#f2f5ff',
+                  letterSpacing: '2.2px',
+                  textShadow: '0 0 10px rgba(242,245,255,0.18)',
+                }}
               >
                 PLAYER 1 // SPACE MARKET
               </span>
@@ -327,12 +341,12 @@ export function Hero() {
             <div className="mb-10 w-full max-w-[1320px]">
               {titleLines.map((line, index) => {
                 const isBottomLine = index === titleLines.length - 1;
-                const titleSize = isBottomLine ? 'clamp(49px, 8vw, 114px)' : 'clamp(47px, 7vw, 106px)';
+                const titleSize = isBottomLine ? 'clamp(56px, 9vw, 130px)' : 'clamp(54px, 8.6vw, 124px)';
 
                 return (
                 <div
                   key={line}
-                  className={`relative mx-auto flex justify-center ${isBottomLine ? '' : 'mb-2 md:mb-3'}`}
+                  className={`relative mx-auto flex justify-center ${isBottomLine ? '' : 'mb-1 md:mb-2'}`}
                 >
                   {[24, 16, 8].map((offset, layerIndex) => (
                     <span
@@ -345,9 +359,9 @@ export function Hero() {
                         fontWeight: 400,
                         letterSpacing: '0.02em',
                         lineHeight: 0.9,
+                        whiteSpace: 'nowrap',
                         transform: `translate(0px, ${offset}px)`,
                         color: layerIndex === 0 ? '#244a7a' : layerIndex === 1 ? '#1b3d68' : '#122d4d',
-                        textShadow: 'none',
                       }}
                     >
                       {line}
@@ -362,6 +376,7 @@ export function Hero() {
                       fontWeight: 400,
                       letterSpacing: '0.02em',
                       lineHeight: 0.9,
+                      whiteSpace: 'nowrap',
                       transform: 'translate(0px, -4px)',
                       color: '#dffcff',
                       opacity: 0.95,
@@ -377,6 +392,7 @@ export function Hero() {
                       fontWeight: 400,
                       letterSpacing: '0.02em',
                       lineHeight: 0.9,
+                      whiteSpace: 'nowrap',
                       color: '#74edff',
                       textShadow: `
                         0 1px 0 #c7fbff,
@@ -398,6 +414,7 @@ export function Hero() {
                       fontWeight: 400,
                       letterSpacing: '0.02em',
                       lineHeight: 0.9,
+                      whiteSpace: 'nowrap',
                       transform: 'translate(0px, 36px) scaleY(-1)',
                       transformOrigin: 'top center',
                       color: '#2e82cc',
@@ -416,7 +433,7 @@ export function Hero() {
             <p
               className="mb-5 text-[#9cc9ff]"
               style={{
-                fontFamily: "'Rajdhani', sans-serif",
+                fontFamily: "'Orbitron', sans-serif",
                 fontSize: 'clamp(24px, 3vw, 40px)',
                 fontWeight: 700,
                 letterSpacing: '0.06em',
@@ -430,13 +447,13 @@ export function Hero() {
               <div className="mb-3 flex flex-wrap items-center justify-between gap-3 border-b border-[#173154] pb-3">
                 <span
                   className="text-[#9cc9ff]"
-                  style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '11px', fontWeight: 700, letterSpacing: '1.8px' }}
+                  style={{ fontFamily: "'Space Mono', monospace", fontSize: '12px', fontWeight: 700, letterSpacing: '1.8px' }}
                 >
                   MISSION BRIEFING
                 </span>
                 <span
                   className="text-[#9A9AA8]"
-                  style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', fontWeight: 700, letterSpacing: '1.2px' }}
+                  style={{ fontFamily: "'Space Mono', monospace", fontSize: '11px', fontWeight: 700, letterSpacing: '1.2px' }}
                 >
                   QUANT ARCADE WORLD // HIGH SCORE RUN
                 </span>
@@ -444,7 +461,7 @@ export function Hero() {
               <div className="grid gap-4 md:grid-cols-[1.2fr_0.8fr]">
                 <p
                   className="text-left text-[#dce9ff]"
-                  style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '13px', lineHeight: 1.8 }}
+                  style={{ fontFamily: "'Space Mono', monospace", fontSize: '15px', lineHeight: 1.8 }}
                 >
                   Enter a neon-lit trading arena where each team chooses a strategy track, collects signals, survives volatility, and races toward the leaderboard through collaborative building, rapid prototyping, and live demo battles.
                 </p>
@@ -457,7 +474,7 @@ export function Hero() {
                     <div
                       key={item}
                       className="border border-[#173154] bg-[#0a1626] px-3 py-2 text-[#9cc9ff]"
-                      style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '11px', letterSpacing: '0.7px' }}
+                      style={{ fontFamily: "'Space Mono', monospace", fontSize: '12px', letterSpacing: '0.7px' }}
                     >
                       {item}
                     </div>
@@ -466,74 +483,37 @@ export function Hero() {
               </div>
             </div>
 
-            <div className="mb-8 flex flex-wrap items-center justify-center gap-3">
-              {featureTags.map((item) => (
-                <div
-                  key={item}
-                  className="border border-[#044a94]/70 bg-[#06101d]/80 px-4 py-2.5 text-[#dce9ff] shadow-[0_0_16px_rgba(4,74,148,0.12)]"
-                  style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '12px', lineHeight: 1.4 }}
-                >
-                  {item}
-                </div>
-              ))}
-            </div>
-
             <p
               className="mb-10 text-[#cbd6e8]"
               style={{
-                fontFamily: "'JetBrains Mono', monospace",
-                fontSize: '14px',
+                fontFamily: "'Space Mono', monospace",
+                fontSize: '15px',
                 lineHeight: 1.8,
               }}
             >
-              Sep 25-27 // Reitz Union, Gainesville // $50,000 Treasure Vault // 48 Hours
+              Sep 18-20 // Reitz Union, Gainesville // $50,000 Treasure Vault // 36 Hours
             </p>
 
             <div className="flex flex-col items-center gap-4 sm:flex-row">
-              <button
-                className="pixel-btn group relative overflow-hidden"
-                style={{
-                  background: '#FA4616',
-                  border: 'none',
-                  outline: '4px solid #c43010',
-                  boxShadow: '4px 4px 0px #7a1a00, 6px 6px 0px #000',
-                  fontFamily: "'Press Start 2P', monospace",
-                  fontSize: '11px',
-                  color: 'white',
-                  padding: '14px 28px',
-                  letterSpacing: '1px',
-                  cursor: 'pointer',
-                  imageRendering: 'pixelated',
-                  transition: 'none',
-                }}
+              <ShatterButton
+                onClick={scrollToRegister}
+                shatterColor="#FA4616"
+                className="pixel-btn group relative w-full border-0 text-white sm:w-auto"
               >
-                <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-                <span style={{ fontFamily: "'Press Start 2P', monospace", fontSize: '11px', letterSpacing: '1px' }}>
+                <span style={{ fontFamily: "'Orbitron', sans-serif", fontSize: '12px', letterSpacing: '1px' }}>
                   INSERT COIN -&gt; Register Now
                 </span>
-              </button>
+              </ShatterButton>
 
-              <button
-                className="pixel-btn group"
-                style={{
-                  background: '#0A0A0A',
-                  border: 'none',
-                  outline: '4px solid #044a94',
-                  boxShadow: '4px 4px 0px #052b5e, 6px 6px 0px #000',
-                  fontFamily: "'Press Start 2P', monospace",
-                  fontSize: '11px',
-                  color: '#9cc9ff',
-                  padding: '14px 28px',
-                  letterSpacing: '1px',
-                  cursor: 'pointer',
-                  imageRendering: 'pixelated',
-                  transition: 'none',
-                }}
+              <ShatterButton
+                onClick={openSponsorMail}
+                shatterColor="#9cc9ff"
+                className="pixel-btn group relative w-full border-0 sm:w-auto"
               >
-                <span style={{ fontFamily: "'Press Start 2P', monospace", fontSize: '11px', letterSpacing: '1px' }}>
-                  Become a Power Sponsor
+                <span style={{ fontFamily: "'Orbitron', sans-serif", fontSize: '12px', letterSpacing: '1px' }}>
+                  BECOME A POWER SPONSOR
                 </span>
-              </button>
+              </ShatterButton>
             </div>
           </div>
         </div>
@@ -541,7 +521,7 @@ export function Hero() {
         <div className="hero-marquee mt-10 w-full max-w-[1100px] overflow-hidden border-y border-[#173154] py-3">
           <div
             className="hero-marquee__track whitespace-nowrap text-[#9cc9ff]"
-            style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '11px', letterSpacing: '1.4px' }}
+            style={{ fontFamily: "'Space Mono', monospace", fontSize: '12px', letterSpacing: '1.4px' }}
           >
             {Array.from({ length: 10 }, () => 'ARCADE MARKET // BUILD MODELS // CLIMB THE LEADERBOARD // ').join('')}
           </div>
@@ -553,7 +533,7 @@ export function Hero() {
           <ChevronDown className="text-[#044a94]" size={28} strokeWidth={3} />
           <span
             className="text-[#9A9AA8]"
-            style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', letterSpacing: '1px' }}
+            style={{ fontFamily: "'Space Mono', monospace", fontSize: '11px', letterSpacing: '1px' }}
           >
             SCROLL
           </span>

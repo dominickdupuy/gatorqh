@@ -2,7 +2,14 @@ import { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import quantClubLogo from './GQHLogo.png';
 
-export function Navigation() {
+type AppPage = 'home' | 'interest';
+
+type NavigationProps = {
+  page?: AppPage;
+  onNavigate?: (page: AppPage) => void;
+};
+
+export function Navigation({ page = 'home', onNavigate }: NavigationProps = {}) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [coinCount, setCoinCount] = useState(0);
@@ -23,11 +30,20 @@ export function Navigation() {
   }, []);
 
   const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setMobileMenuOpen(false);
+    const run = () => {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+        setMobileMenuOpen(false);
+      }
+    };
+
+    if (page === 'interest' && onNavigate) {
+      onNavigate('home');
+      window.setTimeout(run, 80);
+      return;
     }
+    run();
   };
 
   const launchFaqTerminal = () => {
@@ -43,7 +59,14 @@ export function Navigation() {
     setCoinFlash(true);
 
     if (nextCount >= 3) {
-      scrollToSection('register');
+      if (page === 'interest' && onNavigate) {
+        onNavigate('home');
+        window.setTimeout(() => {
+          document.getElementById('register')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 80);
+      } else {
+        scrollToSection('register');
+      }
     }
   };
 
@@ -117,7 +140,11 @@ export function Navigation() {
       <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#FA4616]/50 to-transparent" />
 
       <div className="max-w-[1200px] mx-auto px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-3 border border-[#253047] bg-[#0B0D14]/95 px-3 py-2 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.03)]">
+        <button
+          type="button"
+          onClick={() => onNavigate?.('home')}
+          className="flex items-center gap-3 border border-[#253047] bg-[#0B0D14]/95 px-3 py-2 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.03)] text-left"
+        >
           <div className="flex h-14 w-14 items-center justify-center overflow-hidden bg-[#0B0D14] border-2 border-[#044a94] shadow-[0_0_18px_rgba(4,74,148,0.18)]">
             <img
               src={quantClubLogo}
@@ -139,7 +166,7 @@ export function Navigation() {
               PLAYER 1 READY
             </div>
           </div>
-        </div>
+        </button>
 
         <div className="hidden md:flex items-center gap-8">
           <button
@@ -177,6 +204,18 @@ export function Navigation() {
           >
             FAQ
           </button>
+          {onNavigate && (
+            <button
+              type="button"
+              onClick={() => onNavigate('interest')}
+              className={`nav-link transition-colors ${
+                page === 'interest' ? 'text-[#FA4616]' : 'text-[#F4F4F4] hover:text-[#044a94]'
+              }`}
+              style={{ fontFamily: "'Space Mono', monospace", fontSize: '13px', fontWeight: 700, letterSpacing: '1px' }}
+            >
+              Interest Form
+            </button>
+          )}
         </div>
 
         <button
@@ -330,6 +369,21 @@ export function Navigation() {
             >
               FAQ
             </button>
+            {onNavigate && (
+              <button
+                type="button"
+                onClick={() => {
+                  onNavigate('interest');
+                  setMobileMenuOpen(false);
+                }}
+                className={`nav-link text-left transition-colors ${
+                  page === 'interest' ? 'text-[#FA4616]' : 'text-[#F4F4F4] hover:text-[#044a94]'
+                }`}
+                style={{ fontFamily: "'Space Mono', monospace", fontSize: '13px', fontWeight: 700, letterSpacing: '1px' }}
+              >
+                Interest Form
+              </button>
+            )}
             <button className="bg-[#FA4616] hover:bg-[#FA4616]/90 text-white px-6 py-3 border-2 border-[#044a94] shadow-[0_0_20px_rgba(4,74,148,0.3)] transition-all">
               <span style={{ fontFamily: "'Space Mono', monospace", fontSize: '14px', fontWeight: 600 }}>
                 INSERT COIN -&gt;

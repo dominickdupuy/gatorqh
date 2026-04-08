@@ -12,7 +12,9 @@ type Star = {
   color: string;
 };
 
-export function Hero() {
+type AppPage = 'home' | 'interest';
+
+export function Hero({ onNavigate }: { onNavigate?: (page: AppPage) => void }) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [scrollY, setScrollY] = useState(0);
 
@@ -515,6 +517,17 @@ export function Hero() {
                 </span>
               </ShatterButton>
             </div>
+
+            {onNavigate && (
+              <button
+                type="button"
+                onClick={() => onNavigate('interest')}
+                className="mt-2 text-[#9cc9ff] underline decoration-[#044a94] underline-offset-4 transition-colors hover:text-[#cbd6e8]"
+                style={{ fontFamily: "'Space Mono', monospace", fontSize: '13px', letterSpacing: '0.08em' }}
+              >
+                Interest form (not registering yet)
+              </button>
+            )}
           </div>
         </div>
 

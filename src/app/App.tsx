@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { InterestForm } from '@/components/InterestForm';
 import { Navigation } from './components/Navigation';
 import { Hero } from './components/Hero';
 import { StatsBar } from './components/StatsBar';
@@ -10,6 +12,8 @@ import { FooterCTA } from './components/FooterCTA';
 import { Footer } from './components/Footer';
 
 export default function App() {
+  const [page, setPage] = useState<'home' | 'interest'>('home');
+
   return (
     <div className="site-shell min-h-screen">
       <style>{`
@@ -64,34 +68,40 @@ export default function App() {
           <div className="site-ambience__grid" />
           <div className="site-ambience__noise" />
         </div>
-        <Navigation />
-        <div className="site-section">
-          <Hero />
-        </div>
-        <div className="site-section">
-          <StatsBar />
-        </div>
-        <div className="site-section">
-          <About />
-        </div>
-        <div className="site-section">
-          <GameModes />
-        </div>
-        <div className="site-section">
-          <Schedule />
-        </div>
-        <div className="site-section">
-          <Sponsors />
-        </div>
-        <div className="site-section">
-          <FAQ />
-        </div>
-        <div className="site-section">
-          <FooterCTA />
-        </div>
-        <div className="site-section">
-          <Footer />
-        </div>
+        <Navigation page={page} onNavigate={setPage} />
+        {page === 'home' ? (
+          <>
+            <div className="site-section">
+              <Hero onNavigate={setPage} />
+            </div>
+            <div className="site-section">
+              <StatsBar />
+            </div>
+            <div className="site-section">
+              <About />
+            </div>
+            <div className="site-section">
+              <GameModes />
+            </div>
+            <div className="site-section">
+              <Schedule />
+            </div>
+            <div className="site-section">
+              <Sponsors />
+            </div>
+            <div className="site-section">
+              <FAQ />
+            </div>
+            <div className="site-section">
+              <FooterCTA />
+            </div>
+            <div className="site-section">
+              <Footer />
+            </div>
+          </>
+        ) : (
+          <InterestForm />
+        )}
       </div>
 
       <div

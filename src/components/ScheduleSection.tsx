@@ -88,7 +88,7 @@ export function ScheduleSection() {
             Event <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400 animate-gradient">Timeline</span>
           </h2>
           <p className="text-gray-400 text-lg max-w-3xl mx-auto">
-            48 hours packed with workshops, mentorship sessions, and non-stop building.
+            36 hours packed with workshops, mentorship sessions, and non-stop building.
           </p>
         </div>
         

@@ -134,7 +134,7 @@ export function HeroSection({ onNavigate }: { onNavigate?: (page: "home" | "regi
           Build the future of quantitative finance.
         </p>
         <p className="text-lg md:text-xl text-cyan-400 mb-12 font-mono">
-          48 hours of innovation, collaboration, and competition.
+          36 hours of innovation, collaboration, and competition.
         </p>
         
         <div className="flex flex-wrap items-center justify-center gap-6 mb-14">

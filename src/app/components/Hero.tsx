@@ -491,7 +491,7 @@ export function Hero() {
                 lineHeight: 1.8,
               }}
             >
-              Sep 18-20 // Reitz Union, Gainesville // $50,000 Treasure Vault // 36 Hours
+              Oct 2-4 // Reitz Union, Gainesville // $25,000 Treasure Vault // 36 Hours
             </p>
 
             <div className="flex flex-col items-center gap-4 sm:flex-row">

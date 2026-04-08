@@ -199,7 +199,7 @@ export function TracksSection() {
             <div className="h-full w-1/3 bg-gradient-to-r from-transparent via-cyan-400/10 to-transparent" />
           </div>
           <p className="text-cyan-400 font-mono text-lg mb-2 animate-pulse">TOTAL PRIZE POOL</p>
-          <p className="text-5xl md:text-6xl font-bold text-white font-mono animate-number-glow">$50,000</p>
+          <p className="text-5xl md:text-6xl font-bold text-white font-mono animate-number-glow">$25,000</p>
           <p className="text-gray-400 mt-2">Distributed across all tracks and special categories</p>
         </div>
       </div>

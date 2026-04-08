@@ -19,7 +19,7 @@ type ScheduleDay = {
 const days: ScheduleDay[] = [
   {
     label: 'Day 1',
-    date: 'Friday, Sep 18',
+    date: 'Thursday, Oct 2',
     sector: 'LAUNCH SECTOR',
     sectorColor: '#FA4616',
     sectorGlow: 'rgba(250,70,22,0.16)',
@@ -34,7 +34,7 @@ const days: ScheduleDay[] = [
   },
   {
     label: 'Day 2',
-    date: 'Saturday, Sep 19',
+    date: 'Friday, Oct 3',
     sector: 'VOLATILITY CORE',
     sectorColor: '#044a94',
     sectorGlow: 'rgba(4,74,148,0.18)',
@@ -49,7 +49,7 @@ const days: ScheduleDay[] = [
   },
   {
     label: 'Day 3',
-    date: 'Sunday, Sep 20',
+    date: 'Saturday, Oct 4',
     sector: 'FINAL BUILD PUSH',
     sectorColor: '#33d17a',
     sectorGlow: 'rgba(51,209,122,0.18)',

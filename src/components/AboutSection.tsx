@@ -66,7 +66,7 @@ export function AboutSection() {
           </h2>
           <p className="text-gray-400 text-lg max-w-3xl mx-auto leading-relaxed">
             Gator Quant Hackathon brings together the brightest minds in mathematics, computer science, and finance 
-            for an intensive 48-hour competition. Build algorithms, analyze markets, and create the next 
+            for an intensive 36-hour competition. Build algorithms, analyze markets, and create the next 
             generation of financial technology.
           </p>
         </div>

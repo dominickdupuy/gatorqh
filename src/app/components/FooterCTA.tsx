@@ -13,7 +13,7 @@ export function FooterCTA() {
   const [fuelLevel, setFuelLevel] = useState(0);
 
   useEffect(() => {
-    const targetDate = new Date('2026-09-18T17:00:00').getTime();
+    const targetDate = new Date('2026-10-02T17:00:00').getTime();
 
     const interval = setInterval(() => {
       const now = new Date().getTime();
@@ -155,7 +155,7 @@ export function FooterCTA() {
               className="mx-auto mb-10 max-w-2xl text-[rgba(255,255,255,0.74)] lg:mx-0"
               style={{ fontFamily: "'Space Mono', monospace", fontSize: '19px', lineHeight: 1.6 }}
             >
-              36 hours. $50,000. One High Score Board.
+              36 hours. $25,000. One High Score Board.
             </p>
 
             <ShatterButton

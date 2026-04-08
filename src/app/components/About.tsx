@@ -66,7 +66,7 @@ export function About() {
                 animation: 'typewriter 3s steps(24, end)',
               }}
             >
-              {"// INCOMING TRANSMISSION...\nThe market is open. Volatility is spiking.\n48 hours remain on the clock.\nYour models are the only thing standing between\norder and chaos.\nINSERT COIN TO CONTINUE..."}
+              {"// INCOMING TRANSMISSION...\nThe market is open. Volatility is spiking.\n36 hours remain on the clock.\nYour models are the only thing standing between\norder and chaos.\nINSERT COIN TO CONTINUE..."}
             </div>
 
             {/* Heading */}
@@ -87,7 +87,7 @@ export function About() {
               className="text-white mb-5 leading-relaxed"
               style={{ fontFamily: "'Space Mono', monospace", fontSize: '18px', lineHeight: 1.7 }}
             >
-              Gator Quant Hackathon is a 48-hour competitive event where students and professionals 
+              Gator Quant Hackathon is a 36-hour competitive event where students and professionals
               build algorithmic trading systems, risk analytics platforms, and predictive market models.
             </p>
 

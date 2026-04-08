@@ -1,6 +1,6 @@
 export function StatsBar() {
   const stats = [
-    { label: 'Treasure Vault', value: '$50,000', color: '#FA4616' },
+    { label: 'Treasure Vault', value: '$25,000', color: '#FA4616' },
     { label: 'Duration', value: '36 Hours', color: '#33d17a' },
     { label: 'Sponsors', value: '12+', color: '#044a94' },
   ];

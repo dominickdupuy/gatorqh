@@ -19,7 +19,7 @@ export function RegisterPage() {
             Register for <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Gator Quant Hackathon</span>
           </h1>
           <p className="text-gray-300 text-lg">
-            Join 500+ students for 48 hours of quantitative innovation
+            Join 500+ students for 36 hours of quantitative innovation
           </p>
         </div>
       </div>

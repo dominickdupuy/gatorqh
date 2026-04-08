@@ -29,7 +29,7 @@ const faqItems: FaqItem[] = [
     command: 'ARE THERE PRIZES?',
     prompt: 'Treasure vault is live.',
     answer:
-      'Yes. We have a $50,000 prize pool distributed across all four tracks, plus special prizes from sponsors. Winners also get mentorship opportunities and fast-tracked interviews.',
+      'Yes. We have a $25,000 prize pool distributed across all four tracks, plus special prizes from sponsors. Winners also get mentorship opportunities and fast-tracked interviews.',
   },
   {
     command: 'WHAT KIND OF WORKSHOPS ARE OFFERED?',

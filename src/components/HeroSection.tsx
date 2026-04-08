@@ -2,7 +2,7 @@ import { Button } from "./ui/button";
 import { Calendar, MapPin } from "lucide-react";
 import { useEffect, useRef } from "react";
 
-export function HeroSection({ onNavigate }: { onNavigate?: (page: "home" | "register") => void }) {
+export function HeroSection({ onNavigate }: { onNavigate?: (page: "home" | "register" | "interest") => void }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -154,16 +154,23 @@ export function HeroSection({ onNavigate }: { onNavigate?: (page: "home" | "regi
         </div>
         
         <div className="flex flex-wrap gap-4 justify-center mb-20">
-          <Button 
-            size="lg" 
+          <Button
+            size="lg"
             className="bg-gradient-to-r from-cyan-400 to-blue-500 text-black hover:from-cyan-300 hover:to-blue-400 font-bold px-8 py-6 text-lg shadow-[0_0_30px_rgba(0,188,212,0.5)] hover:shadow-[0_0_40px_rgba(0,188,212,0.7)] transition-all"
             onClick={handleRegisterClick}
           >
             Register Now
           </Button>
-          <Button 
-            size="lg" 
+          <Button
+            size="lg"
             className="bg-transparent border-2 border-cyan-400 text-cyan-400 hover:bg-cyan-400/10 font-bold px-8 py-6 text-lg backdrop-blur-sm transition-all"
+            onClick={() => onNavigate?.("interest")}
+          >
+            Interest Form
+          </Button>
+          <Button
+            size="lg"
+            className="bg-transparent border-2 border-white/30 text-white hover:bg-white/10 font-bold px-8 py-6 text-lg backdrop-blur-sm transition-all"
           >
             Become a Sponsor
           </Button>

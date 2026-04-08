@@ -3,7 +3,7 @@ import { Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 import logo from "../assets/logo.png";
 
-export function Navbar({ onNavigate }: { onNavigate?: (page: "home" | "register") => void }) {
+export function Navbar({ onNavigate }: { onNavigate?: (page: "home" | "register" | "interest") => void }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = [
@@ -27,6 +27,13 @@ export function Navbar({ onNavigate }: { onNavigate?: (page: "home" | "register"
     }
   };
 
+  const handleInterestClick = () => {
+    if (onNavigate) {
+      onNavigate("interest");
+      setIsOpen(false);
+    }
+  };
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-lg border-b border-cyan-400/20">
       <div className="max-w-6xl mx-auto px-6">
@@ -38,9 +45,9 @@ export function Navbar({ onNavigate }: { onNavigate?: (page: "home" | "register"
           </button>
           
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-4">
             {navLinks.map((link) => (
-              <a 
+              <a
                 key={link.name}
                 href={link.href}
                 className="text-gray-300 hover:text-cyan-400 transition-colors text-sm font-mono tracking-wide"
@@ -48,9 +55,17 @@ export function Navbar({ onNavigate }: { onNavigate?: (page: "home" | "register"
                 {link.name}
               </a>
             ))}
-            <Button 
-              size="sm" 
-              className="bg-gradient-to-r from-cyan-400 to-blue-500 text-black hover:from-cyan-300 hover:to-blue-400 font-bold shadow-[0_0_15px_rgba(0,188,212,0.3)] hover:shadow-[0_0_20px_rgba(0,188,212,0.5)] transition-all" 
+            <Button
+              size="sm"
+              variant="outline"
+              className="border-cyan-400/50 text-cyan-400 hover:bg-cyan-400/10 hover:border-cyan-400 font-bold font-mono shadow-[0_0_10px_rgba(0,188,212,0.1)] hover:shadow-[0_0_15px_rgba(0,188,212,0.3)] transition-all bg-transparent"
+              onClick={handleInterestClick}
+            >
+              Interest Form
+            </Button>
+            <Button
+              size="sm"
+              className="bg-gradient-to-r from-cyan-400 to-blue-500 text-black hover:from-cyan-300 hover:to-blue-400 font-bold shadow-[0_0_15px_rgba(0,188,212,0.3)] hover:shadow-[0_0_20px_rgba(0,188,212,0.5)] transition-all"
               onClick={handleRegisterClick}
             >
               Register
@@ -91,8 +106,15 @@ export function Navbar({ onNavigate }: { onNavigate?: (page: "home" | "register"
                   {link.name}
                 </a>
               ))}
-              <Button 
-                className="bg-gradient-to-r from-cyan-400 to-blue-500 text-black hover:from-cyan-300 hover:to-blue-400 font-bold w-full" 
+              <Button
+                variant="outline"
+                className="border-cyan-400/50 text-cyan-400 hover:bg-cyan-400/10 hover:border-cyan-400 font-bold font-mono bg-transparent w-full"
+                onClick={handleInterestClick}
+              >
+                Interest Form
+              </Button>
+              <Button
+                className="bg-gradient-to-r from-cyan-400 to-blue-500 text-black hover:from-cyan-300 hover:to-blue-400 font-bold w-full"
                 onClick={handleRegisterClick}
               >
                 Register

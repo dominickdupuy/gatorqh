@@ -7,11 +7,12 @@ import { FAQSection } from "./components/FAQSection";
 import { SponsorsSection } from "./components/SponsorsSection";
 import { Footer } from "./components/Footer";
 import { RegisterPage } from "./components/RegisterPage";
+import { InterestForm } from "./components/InterestForm";
 import { SmoothScroll } from "./components/SmoothScroll";
 import { useState } from "react";
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState<"home" | "register">("home");
+  const [currentPage, setCurrentPage] = useState<"home" | "register" | "interest">("home");
 
   if (currentPage === "register") {
     return (
@@ -19,6 +20,16 @@ export default function App() {
         <SmoothScroll />
         <Navbar onNavigate={setCurrentPage} />
         <RegisterPage />
+      </>
+    );
+  }
+
+  if (currentPage === "interest") {
+    return (
+      <>
+        <SmoothScroll />
+        <Navbar onNavigate={setCurrentPage} />
+        <InterestForm />
       </>
     );
   }

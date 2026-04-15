@@ -98,7 +98,7 @@ export function GameModes() {
     {
       title: 'Research & Alpha Discovery',
       tagline: 'Pitch a testable edge.',
-      description: 'A written and presentation track where participants propose a testable hypothesis with supporting analysis. This track is designed to attract strong analytical thinkers who may not be experienced coders. Marketing for this track should appeal to finance and economics students.',
+      description: 'Participants develop and present a testable market hypothesis supported by clear, structured analysis. The focus is on identifying signal, building a strong argument, and communicating it effectively. This track is best suited for students interested in finance, economics, or strategy who want to explore how ideas translate into potential alpha.',
       comment: '// FIGHTER PROFILE: THESIS LAB // PRESENTATION READY',
       badges: ['Finance', 'Economics', 'Hypothesis', 'Analysis'],
       accentColor: '#FA4616',
@@ -109,7 +109,7 @@ export function GameModes() {
     {
       title: 'Quantitative Puzzles & Brainteasers',
       tagline: 'Low barrier, high upside.',
-      description: 'Probability, combinatorics, and game theory problems with no dataset required. This is the widest funnel and should be marketed heavily toward CS and math students who may have never touched finance. The low barrier to entry is a key selling point.',
+      description: 'A problem-driven track centered on probability, combinatorics, and game theory. No prior finance experience or datasets required. Designed as the most accessible entry point, it challenges participants to think critically, solve efficiently, and apply mathematical reasoning in a competitive environment.',
       comment: '// FIGHTER PROFILE: PUZZLE ENGINE // FAST THINKING',
       badges: ['Probability', 'Combinatorics', 'Game Theory', 'No Dataset'],
       accentColor: '#044a94',
@@ -120,7 +120,7 @@ export function GameModes() {
     {
       title: 'Systematic Trading',
       tagline: 'Optimize the full strategy.',
-      description: 'Participants build a trading strategy and maximize risk-adjusted returns on historical data. Judged on Sharpe ratio, drawdown, and turnover. This track attracts the core quant audience and should be marketed toward students with programming and quantitative modeling experience.',
+      description: 'Participants build and refine a trading strategy using historical data and quantitative modeling. Performance is evaluated through metrics such as Sharpe ratio, drawdown, and turnover. This track is geared toward students with programming experience who want to apply technical skills to a more realistic trading workflow.',
       comment: '// FIGHTER PROFILE: STRATEGY CORE // RISK-ADJUSTED RUN',
       badges: ['Sharpe Ratio', 'Drawdown', 'Turnover', 'Historical Data'],
       accentColor: '#33d17a',

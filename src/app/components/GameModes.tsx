@@ -7,7 +7,7 @@ type Track = {
   comment: string;
   badges: string[];
   accentColor: string;
-  fighterType: 'algorithm' | 'analysis' | 'risk' | 'blockchain';
+  fighterType: 'algorithm' | 'analysis' | 'risk';
   callSign: string;
   systemLabel: string;
 };
@@ -40,14 +40,6 @@ const fighterPixels: Record<Track['fighterType'], Pixel[]> = {
     { x: 12, y: 24, color: '#33d17a' }, { x: 16, y: 24, color: '#7ff0b0' }, { x: 20, y: 24, color: '#d8ffe8' }, { x: 24, y: 24, color: '#7ff0b0' }, { x: 28, y: 24, color: '#33d17a' },
     { x: 16, y: 28, color: '#157a47' }, { x: 24, y: 28, color: '#157a47' },
   ],
-  blockchain: [
-    { x: 20, y: 0, color: '#fff6cb' }, { x: 16, y: 4, color: '#9b5de5' }, { x: 20, y: 4, color: '#ffe991' }, { x: 24, y: 4, color: '#9b5de5' },
-    { x: 8, y: 8, color: '#40226b' }, { x: 12, y: 8, color: '#9b5de5' }, { x: 16, y: 8, color: '#ffd348' }, { x: 20, y: 8, color: '#fff6cb' }, { x: 24, y: 8, color: '#ffd348' }, { x: 28, y: 8, color: '#9b5de5' }, { x: 32, y: 8, color: '#40226b' },
-    { x: 4, y: 12, color: '#40226b' }, { x: 8, y: 12, color: '#9b5de5' }, { x: 12, y: 12, color: '#b884ff' }, { x: 16, y: 12, color: '#ffd348' }, { x: 20, y: 12, color: '#fff6cb' }, { x: 24, y: 12, color: '#ffd348' }, { x: 28, y: 12, color: '#b884ff' }, { x: 32, y: 12, color: '#9b5de5' }, { x: 36, y: 12, color: '#40226b' },
-    { x: 8, y: 16, color: '#9b5de5' }, { x: 12, y: 16, color: '#b884ff' }, { x: 16, y: 16, color: '#ffd348' }, { x: 20, y: 16, color: '#fff6cb' }, { x: 24, y: 16, color: '#ffd348' }, { x: 28, y: 16, color: '#b884ff' }, { x: 32, y: 16, color: '#9b5de5' },
-    { x: 12, y: 20, color: '#9b5de5' }, { x: 16, y: 20, color: '#ffd348' }, { x: 20, y: 20, color: '#fff6cb' }, { x: 24, y: 20, color: '#ffd348' }, { x: 28, y: 20, color: '#9b5de5' },
-    { x: 16, y: 24, color: '#9b5de5' }, { x: 20, y: 24, color: '#ffd348' }, { x: 24, y: 24, color: '#9b5de5' },
-  ],
 };
 
 function PixelShip({ type, accentColor }: { type: Track['fighterType']; accentColor: string }) {
@@ -61,7 +53,6 @@ function PixelShip({ type, accentColor }: { type: Track['fighterType']; accentCo
           <span className="signal-ring signal-ring--2" style={{ borderColor: `${accentColor}35` }} />
           <span className="orbit orbit--1" style={{ backgroundColor: '#d6fbff' }} />
           <span className="orbit orbit--2" style={{ backgroundColor: '#7cf1ff' }} />
-          <span className="dish" style={{ borderColor: accentColor }} />
         </>
       )}
       {type === 'algorithm' && (
@@ -79,13 +70,6 @@ function PixelShip({ type, accentColor }: { type: Track['fighterType']; accentCo
           <span className="asteroid asteroid--2" />
           <span className="spark spark--1" style={{ backgroundColor: '#d8ffe8' }} />
           <span className="spark spark--2" style={{ backgroundColor: '#d8ffe8' }} />
-        </>
-      )}
-      {type === 'blockchain' && (
-        <>
-          <span className="block-node node--1" />
-          <span className="block-node node--2" />
-          <span className="block-node node--3" />
         </>
       )}
       <div className={`pixel-ship pixel-ship--${type}`}>
@@ -112,48 +96,37 @@ function PixelShip({ type, accentColor }: { type: Track['fighterType']; accentCo
 export function GameModes() {
   const tracks: Track[] = [
     {
-      title: 'Algorithm Design',
-      tagline: 'Speed is alpha.',
-      description: 'Build sophisticated trading algorithms using cutting-edge ML and quantitative methods.',
-      comment: '// FIGHTER PROFILE: AGGRESSIVE SPEED BUILD',
-      badges: ['THRUST', 'TARGET LOCK', 'QUANT ML', 'SIDE LASERS'],
+      title: 'Research & Alpha Discovery',
+      tagline: 'Pitch a testable edge.',
+      description: 'A written and presentation track where participants propose a testable hypothesis with supporting analysis. This track is designed to attract strong analytical thinkers who may not be experienced coders. Marketing for this track should appeal to finance and economics students.',
+      comment: '// FIGHTER PROFILE: THESIS LAB // PRESENTATION READY',
+      badges: ['Finance', 'Economics', 'Hypothesis', 'Analysis'],
       accentColor: '#FA4616',
       fighterType: 'algorithm',
-      callSign: 'REDLINE',
-      systemLabel: 'FORWARD THRUSTERS // LIVE FIRE',
+      callSign: 'THESIS',
+      systemLabel: 'RESEARCH DECK // ALPHA SIGNAL',
     },
     {
-      title: 'Market Analysis',
-      tagline: 'Forecast the next move.',
-      description: 'Analyze market patterns, trends, and sentiment to predict future movements.',
-      comment: '// FIGHTER PROFILE: SIGNAL SCAN RECON',
-      badges: ['RADAR DISH', 'SCANNERS', 'TREND MAPS', 'DATA ORBIT'],
+      title: 'Quantitative Puzzles & Brainteasers',
+      tagline: 'Low barrier, high upside.',
+      description: 'Probability, combinatorics, and game theory problems with no dataset required. This is the widest funnel and should be marketed heavily toward CS and math students who may have never touched finance. The low barrier to entry is a key selling point.',
+      comment: '// FIGHTER PROFILE: PUZZLE ENGINE // FAST THINKING',
+      badges: ['Probability', 'Combinatorics', 'Game Theory', 'No Dataset'],
       accentColor: '#044a94',
       fighterType: 'analysis',
-      callSign: 'ECHO',
-      systemLabel: 'SIGNAL RINGS // TARGET ACQUISITION',
+      callSign: 'RIDDLE',
+      systemLabel: 'LOGIC LOOPS // OPEN ENTRY',
     },
     {
-      title: 'Risk Management',
-      tagline: 'Survive volatility.',
-      description: 'Develop robust risk models to protect portfolios and optimize returns.',
-      comment: '// FIGHTER PROFILE: HEAVY SHIELD DEFENSE',
-      badges: ['SHIELD WINGS', 'ARMOR', 'IMPACT ABSORB', 'CVaR'],
+      title: 'Systematic Trading',
+      tagline: 'Optimize the full strategy.',
+      description: 'Participants build a trading strategy and maximize risk-adjusted returns on historical data. Judged on Sharpe ratio, drawdown, and turnover. This track attracts the core quant audience and should be marketed toward students with programming and quantitative modeling experience.',
+      comment: '// FIGHTER PROFILE: STRATEGY CORE // RISK-ADJUSTED RUN',
+      badges: ['Sharpe Ratio', 'Drawdown', 'Turnover', 'Historical Data'],
       accentColor: '#33d17a',
       fighterType: 'risk',
-      callSign: 'AEGIS',
-      systemLabel: 'DEFENSE MATRIX // ASTEROID READY',
-    },
-    {
-      title: 'Blockchain Finance',
-      tagline: 'Code the future of markets.',
-      description: 'Develop DeFi protocols, smart contract trading systems, or blockchain-based financial instruments.',
-      comment: '// FIGHTER PROFILE: NETWORK LINK CRUISER',
-      badges: ['DeFi', 'Smart Contracts', 'Web3', 'On-Chain'],
-      accentColor: '#9B5DE5',
-      fighterType: 'blockchain',
-      callSign: 'RELAY',
-      systemLabel: 'CHAIN NODES // LINK STABILITY',
+      callSign: 'VECTOR',
+      systemLabel: 'BACKTEST LOOP // EXECUTION STACK',
     },
   ];
 
@@ -253,11 +226,6 @@ export function GameModes() {
           35% { opacity: 1; transform: scale(1.2); }
         }
 
-        @keyframes nodeFloat {
-          0%, 100% { transform: translateY(0); opacity: 0.35; }
-          50% { transform: translateY(-6px); opacity: 0.8; }
-        }
-
         .ship-stage {
           position: relative;
           width: 84px;
@@ -273,6 +241,20 @@ export function GameModes() {
           height: 48px;
           image-rendering: pixelated;
           transition: transform 220ms ease;
+        }
+
+        .pixel-ship--algorithm {
+          top: 10px;
+        }
+
+        .pixel-ship--analysis {
+          left: 4px;
+          top: 10px;
+        }
+
+        .pixel-ship--risk {
+          left: 4px;
+          top: 10px;
         }
 
         .pixel {
@@ -296,7 +278,6 @@ export function GameModes() {
         .bullet,
         .signal-ring,
         .orbit,
-        .dish,
         .shield,
         .asteroid,
         .spark,
@@ -339,17 +320,6 @@ export function GameModes() {
           border-radius: 999px;
         }
 
-        .dish {
-          top: 2px;
-          left: 50%;
-          width: 10px;
-          height: 10px;
-          border: 2px solid;
-          border-bottom: 0;
-          border-radius: 10px 10px 0 0;
-          transform: translateX(-50%);
-        }
-
         .shield {
           top: 50%;
           left: 50%;
@@ -383,20 +353,8 @@ export function GameModes() {
         .spark--1 { left: 12px; top: 20px; }
         .spark--2 { right: 12px; top: 24px; }
 
-        .block-node {
-          width: 8px;
-          height: 8px;
-          background: #ffd348;
-          box-shadow: 4px 0 0 #9b5de5, 0 4px 0 #9b5de5;
-        }
-
-        .node--1 { left: -2px; top: 10px; }
-        .node--2 { right: -4px; top: 22px; }
-        .node--3 { left: 50%; bottom: 0; transform: translateX(-50%); }
-
         .group:hover .pixel-ship--algorithm,
-        .group:hover .pixel-ship--risk,
-        .group:hover .pixel-ship--blockchain {
+        .group:hover .pixel-ship--risk {
           animation: shipWobble 0.8s ease-in-out infinite;
         }
 
@@ -430,10 +388,6 @@ export function GameModes() {
         }
 
         .group:hover .orbit--2 { animation-duration: 3s; }
-        .group:hover .dish {
-          opacity: 1;
-          animation: dishSpin 2.2s linear infinite;
-        }
 
         .group:hover .shield {
           opacity: 1;
@@ -456,14 +410,6 @@ export function GameModes() {
         }
 
         .group:hover .spark--2 { animation-delay: 0.2s; }
-
-        .group:hover .block-node {
-          opacity: 1;
-          animation: nodeFloat 1.2s ease-in-out infinite;
-        }
-
-        .group:hover .node--2 { animation-delay: 0.18s; }
-        .group:hover .node--3 { animation-delay: 0.32s; }
       `}</style>
       <div className="game-modes-scanline absolute inset-0" />
       <div className="max-w-[1200px] mx-auto px-6">
@@ -554,7 +500,7 @@ export function GameModes() {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3 md:gap-8">
           {tracks.map((track, index) => (
             <div
               key={index}

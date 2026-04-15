@@ -96,7 +96,7 @@ export function About() {
               className="text-[#B0B0C0] mb-0 leading-relaxed"
               style={{ fontFamily: "'Space Mono', monospace", fontSize: '18px', lineHeight: 1.7 }}
             >
-              Compete across four challenging tracks, collaborate with brilliant minds, and showcase 
+              Compete across three challenging tracks, collaborate with brilliant minds, and showcase 
               your skills to top quantitative firms and fintech companies.
             </p>
           </div>

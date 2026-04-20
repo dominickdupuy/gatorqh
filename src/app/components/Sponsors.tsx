@@ -1,19 +1,25 @@
 import { ShatterButton } from '@/components/ui/shatter-button';
+import janeStreetLogo from '../../assets/jane-street.png';
+
+type Sponsor = {
+  name: string;
+  logo?: string;
+};
 
 export function Sponsors() {
-  const sponsors = [
-    'Placeholder A',
-    'Placeholder B',
-    'Placeholder C',
-    'Placeholder D',
-    'Placeholder E',
-    'Placeholder F',
-    'Placeholder G',
-    'Placeholder H',
-    'Placeholder I',
-    'Placeholder J',
-    'Placeholder K',
-    'Placeholder L',
+  const sponsors: Sponsor[] = [
+    { name: 'Jane Street', logo: janeStreetLogo },
+    { name: 'Placeholder B' },
+    { name: 'Placeholder C' },
+    { name: 'Placeholder D' },
+    { name: 'Placeholder E' },
+    { name: 'Placeholder F' },
+    { name: 'Placeholder G' },
+    { name: 'Placeholder H' },
+    { name: 'Placeholder I' },
+    { name: 'Placeholder J' },
+    { name: 'Placeholder K' },
+    { name: 'Placeholder L' },
   ];
 
   return (
@@ -67,36 +73,46 @@ export function Sponsors() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-[2px] w-full">
           {sponsors.map((sponsor) => (
             <div
-              key={sponsor}
-              className="group relative flex flex-col items-center justify-center gap-2 border border-[#1a1a2e] bg-[#0D0D1A] transition-all duration-200 cursor-pointer hover:bg-[#111128] hover:border-[#FA4616] hover:z-[2] hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(250,70,22,0.2)]"
+              key={sponsor.name}
+              className="group relative flex flex-col items-center justify-center gap-2 border border-[#1a1a2e] bg-[#0D0D1A] transition-all duration-200 cursor-pointer hover:bg-[#111128] hover:border-[#FA4616] hover:z-[2] hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(250,70,22,0.2)] p-6"
               style={{ aspectRatio: '16 / 9' }}
             >
-              <div
-                className="flex items-center justify-center border border-[#2a2a3e] bg-[#1a1a2e]"
-                style={{ width: '80px', height: '40px' }}
-              >
-                <span
-                  style={{
-                    fontFamily: "'Space Mono', monospace",
-                    fontSize: '10px',
-                    color: '#444',
-                  }}
-                >
-                  LOGO
-                </span>
-              </div>
-              <div
-                className="text-center"
-                style={{
-                  fontFamily: "'Space Mono', monospace",
-                  fontSize: '12px',
-                  color: '#9A9AA8',
-                  letterSpacing: '2px',
-                  textTransform: 'uppercase',
-                }}
-              >
-                {sponsor}
-              </div>
+              {sponsor.logo ? (
+                <img
+                  src={sponsor.logo}
+                  alt={`${sponsor.name} logo`}
+                  className="max-w-[80%] max-h-[70%] object-contain invert"
+                />
+              ) : (
+                <>
+                  <div
+                    className="flex items-center justify-center border border-[#2a2a3e] bg-[#1a1a2e]"
+                    style={{ width: '80px', height: '40px' }}
+                  >
+                    <span
+                      style={{
+                        fontFamily: "'Space Mono', monospace",
+                        fontSize: '10px',
+                        color: '#444',
+                      }}
+                    >
+                      LOGO
+                    </span>
+                  </div>
+                  <div
+                    className="text-center"
+                    style={{
+                      fontFamily: "'Space Mono', monospace",
+                      fontSize: '12px',
+                      color: '#9A9AA8',
+                      letterSpacing: '2px',
+                      textTransform: 'uppercase',
+                    }}
+                  >
+                    {sponsor.name}
+                  </div>
+                </>
+              )}
             </div>
           ))}
         </div>
@@ -116,7 +132,7 @@ export function Sponsors() {
           <div className="flex justify-center">
             <ShatterButton
               onClick={() => {
-                window.location.href = 'mailto:team@gatorquant.com?subject=Power%20Sponsor%20Inquiry';
+                window.location.href = 'mailto:dominickdupuy@ufl.edu?subject=Power%20Sponsor%20Inquiry';
               }}
               shatterColor="#FA4616"
               className="pixel-arrow-cta inline-block border-0"

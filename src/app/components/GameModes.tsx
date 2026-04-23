@@ -55,6 +55,9 @@ function PixelShip({ type, accentColor }: { type: Track['fighterType']; accentCo
           <span className="signal-ring signal-ring--2" style={{ borderColor: `${accentColor}35` }} />
           <span className="orbit orbit--1" style={{ backgroundColor: '#d6fbff' }} />
           <span className="orbit orbit--2" style={{ backgroundColor: '#7cf1ff' }} />
+          <span className="bullet bullet--1" style={{ backgroundColor: '#2457a6' }} />
+          <span className="bullet bullet--2" style={{ backgroundColor: '#2457a6' }} />
+          <span className="bullet bullet--3" style={{ backgroundColor: '#12376f' }} />
         </>
       )}
       {type === 'algorithm' && (
@@ -133,6 +136,7 @@ export function GameModes() {
   const [focusedTrackIndex, setFocusedTrackIndex] = useState(0);
   const [selectedTrackIndex, setSelectedTrackIndex] = useState(0);
   const previewTrack = tracks[focusedTrackIndex];
+  const selectedTrack = tracks[selectedTrackIndex];
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
@@ -471,13 +475,15 @@ export function GameModes() {
         .fighter-card {
           position: relative;
           min-height: 100%;
-          border: 1px solid rgba(40, 78, 126, 0.95);
+          border: 2px solid var(--track-accent);
           background:
             linear-gradient(180deg, rgba(9, 14, 28, 0.97), rgba(4, 8, 18, 0.98)),
             radial-gradient(circle at top, var(--track-glow), transparent 58%);
           box-shadow:
             0 0 0 2px rgba(8, 13, 25, 0.98),
             inset 0 0 0 1px rgba(255, 255, 255, 0.02),
+            inset 0 0 24px rgba(0, 0, 0, 0.22),
+            0 0 18px var(--track-shadow),
             0 0 26px rgba(0, 0, 0, 0.22);
           transition:
             transform 240ms ease,
@@ -489,13 +495,13 @@ export function GameModes() {
         .fighter-card::after {
           content: '';
           position: absolute;
-          inset: 8px;
+          inset: 6px;
           pointer-events: none;
         }
 
         .fighter-card::before {
-          border: 1px solid var(--track-outline);
-          opacity: 0.45;
+          border: 2px solid var(--track-outline);
+          opacity: 0.85;
         }
 
         .fighter-card::after {
@@ -511,12 +517,154 @@ export function GameModes() {
           opacity: 0.35;
         }
 
+        .fighter-card__corners {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          z-index: 1;
+        }
+
+        .fighter-card__corner {
+          position: absolute;
+          width: 24px;
+          height: 24px;
+          opacity: 0.98;
+          filter: drop-shadow(0 0 8px var(--track-accent));
+        }
+
+        .fighter-card__corner::before,
+        .fighter-card__corner::after {
+          content: '';
+          position: absolute;
+          background: var(--track-accent);
+          box-shadow: 0 0 8px var(--track-accent);
+        }
+
+        .fighter-card__corner--tl {
+          top: -2px;
+          left: -2px;
+        }
+
+        .fighter-card__corner--tr {
+          top: -2px;
+          right: -2px;
+        }
+
+        .fighter-card__corner--bl {
+          bottom: -2px;
+          left: -2px;
+        }
+
+        .fighter-card__corner--br {
+          bottom: -2px;
+          right: -2px;
+        }
+
+        .fighter-card__corner--tl::before,
+        .fighter-card__corner--tr::before,
+        .fighter-card__corner--bl::before,
+        .fighter-card__corner--br::before {
+          top: 0;
+          width: 20px;
+          height: 3px;
+        }
+
+        .fighter-card__corner--tl::after,
+        .fighter-card__corner--tr::after,
+        .fighter-card__corner--bl::after,
+        .fighter-card__corner--br::after {
+          left: 0;
+          width: 3px;
+          height: 20px;
+        }
+
+        .fighter-card__corner--tl::before {
+          left: 0;
+        }
+
+        .fighter-card__corner--tl::after {
+          top: 0;
+        }
+
+        .fighter-card__corner--tr::before {
+          right: 0;
+        }
+
+        .fighter-card__corner--tr::after {
+          top: 0;
+          left: auto;
+          right: 0;
+        }
+
+        .fighter-card__corner--bl::before {
+          bottom: 0;
+          top: auto;
+          left: 0;
+        }
+
+        .fighter-card__corner--bl::after {
+          bottom: 0;
+          top: auto;
+        }
+
+        .fighter-card__corner--br::before {
+          bottom: 0;
+          top: auto;
+          right: 0;
+        }
+
+        .fighter-card__corner--br::after {
+          bottom: 0;
+          top: auto;
+          left: auto;
+          right: 0;
+        }
+
+        .fighter-card__corner-step {
+          position: absolute;
+          width: 10px;
+          height: 10px;
+          border-color: var(--track-accent);
+          opacity: 0.98;
+          filter: drop-shadow(0 0 6px var(--track-accent));
+        }
+
+        .fighter-card__corner-step--tl {
+          top: 3px;
+          left: 3px;
+          border-top: 3px solid var(--track-accent);
+          border-left: 3px solid var(--track-accent);
+        }
+
+        .fighter-card__corner-step--tr {
+          top: 3px;
+          right: 3px;
+          border-top: 3px solid var(--track-accent);
+          border-right: 3px solid var(--track-accent);
+        }
+
+        .fighter-card__corner-step--bl {
+          bottom: 3px;
+          left: 3px;
+          border-bottom: 3px solid var(--track-accent);
+          border-left: 3px solid var(--track-accent);
+        }
+
+        .fighter-card__corner-step--br {
+          bottom: 3px;
+          right: 3px;
+          border-bottom: 3px solid var(--track-accent);
+          border-right: 3px solid var(--track-accent);
+        }
+
         .fighter-card:hover {
           transform: translateY(-6px);
           border-color: var(--track-accent);
           box-shadow:
             0 0 0 2px rgba(8, 13, 25, 0.98),
             inset 0 0 0 1px rgba(255, 255, 255, 0.03),
+            inset 0 0 28px rgba(0, 0, 0, 0.26),
+            0 0 18px var(--track-shadow),
             0 0 32px var(--track-shadow),
             0 0 52px rgba(0, 0, 0, 0.24);
         }
@@ -526,6 +674,8 @@ export function GameModes() {
           box-shadow:
             0 0 0 2px rgba(8, 13, 25, 0.98),
             inset 0 0 0 1px rgba(255, 255, 255, 0.03),
+            inset 0 0 30px rgba(0, 0, 0, 0.28),
+            0 0 22px var(--track-shadow),
             0 0 36px var(--track-shadow),
             0 0 56px rgba(0, 0, 0, 0.26);
         }
@@ -686,12 +836,12 @@ export function GameModes() {
                       fontFamily: "'Orbitron', sans-serif",
                       fontSize: '11px',
                       fontWeight: 700,
-                      color: previewTrack.accentColor,
+                      color: selectedTrack.accentColor,
                       letterSpacing: '1.2px',
-                      textShadow: `0 0 10px ${previewTrack.accentColor}33`,
+                      textShadow: `0 0 10px ${selectedTrack.accentColor}33`,
                     }}
                   >
-                    SELECT YOUR FIGHTER
+                    {selectedTrack.title.toUpperCase()}
                   </div>
                   <div
                     style={{
@@ -766,6 +916,16 @@ export function GameModes() {
                   className="absolute bottom-0 left-0 right-0 h-[2px] opacity-60"
                   style={{ background: `linear-gradient(90deg, transparent, ${track.accentColor}, transparent)` }}
                 />
+                <div className="fighter-card__corners">
+                  <span className="fighter-card__corner fighter-card__corner--tl" />
+                  <span className="fighter-card__corner fighter-card__corner--tr" />
+                  <span className="fighter-card__corner fighter-card__corner--bl" />
+                  <span className="fighter-card__corner fighter-card__corner--br" />
+                  <span className="fighter-card__corner-step fighter-card__corner-step--tl" />
+                  <span className="fighter-card__corner-step fighter-card__corner-step--tr" />
+                  <span className="fighter-card__corner-step fighter-card__corner-step--bl" />
+                  <span className="fighter-card__corner-step fighter-card__corner-step--br" />
+                </div>
 
                 <div className="relative z-10 flex h-full flex-col p-6 md:p-7">
                   <div className="mb-5 flex items-start justify-between gap-3">
@@ -780,7 +940,7 @@ export function GameModes() {
                         background: '#050913',
                       }}
                     >
-                      {selectedTrackIndex === index ? 'SELECTED' : focusedTrackIndex === index ? 'READY' : 'ACTIVE SLOT'}
+                      {selectedTrackIndex === index ? 'SELECTED' : 'ACTIVE SLOT'}
                     </span>
                   </div>
                   <div className="fighter-card__ship">

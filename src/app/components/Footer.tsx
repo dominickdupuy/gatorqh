@@ -4,7 +4,7 @@ import quantClubLogo from './GQHLogo.png';
 export function Footer() {
   return (
     <footer className="bg-[#1A1A2E] border-t-2 border-[#2A2A3E]">
-      <div className="mx-auto max-w-[1200px] px-6 py-10 md:py-12">
+      <div className="mx-auto max-w-[1200px] px-6 pb-10 pt-6 md:pb-12 md:pt-8">
         <div className="mb-8 grid gap-8 md:grid-cols-4">
           <div>
             <div className="mb-4 flex items-center gap-3">

@@ -23,7 +23,7 @@ export function Sponsors() {
   ];
 
   return (
-    <section id="sponsors" className="bg-[#0D0D1A] py-16 md:py-24">
+    <section id="sponsors" className="bg-[#0D0D1A] pb-16 pt-8 md:pb-24 md:pt-12">
       <div className="max-w-[1200px] mx-auto px-6">
         <div className="text-center mb-12 md:mb-16">
           <div className="mb-4">
@@ -40,7 +40,7 @@ export function Sponsors() {
                 fontWeight: 600,
               }}
             >
-              // POWERED_BY
+              POWERED BY
             </span>
           </div>
           <h2
@@ -57,7 +57,7 @@ export function Sponsors() {
             className="text-[#9A9AA8] text-center"
             style={{ fontFamily: "'Space Mono', monospace", fontSize: '12px' }}
           >
-            // 12 PLACEHOLDERS CONFIRMED
+            12 PLACEHOLDERS CONFIRMED
           </p>
         </div>
 
@@ -127,7 +127,7 @@ export function Sponsors() {
               textAlign: 'center',
             }}
           >
-            // INTERESTED IN JOINING THE ROSTER?
+            INTERESTED IN JOINING THE ROSTER?
           </p>
           <div className="flex justify-center">
             <ShatterButton

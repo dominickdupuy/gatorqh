@@ -194,6 +194,41 @@ export function Hero({ onNavigate }: { onNavigate?: (page: AppPage) => void }) {
           0% { background-position: 0 0; }
           100% { background-position: 0 32px; }
         }
+
+        .mission-console {
+          position: relative;
+          overflow: hidden;
+          border: 1px solid rgba(36, 92, 145, 0.85);
+          background:
+            linear-gradient(180deg, rgba(8, 14, 28, 0.95), rgba(4, 9, 20, 0.98)),
+            radial-gradient(circle at top, rgba(4, 74, 148, 0.08), transparent 45%);
+          box-shadow:
+            0 0 0 3px rgba(5, 11, 23, 0.98),
+            inset 0 0 0 1px rgba(129, 194, 255, 0.05),
+            0 0 26px rgba(4, 74, 148, 0.12);
+        }
+
+        .mission-console::before {
+          content: '';
+          position: absolute;
+          inset: 10px;
+          border: 1px solid rgba(43, 84, 133, 0.35);
+          pointer-events: none;
+        }
+
+        .mission-console::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          background: repeating-linear-gradient(
+            180deg,
+            rgba(255,255,255,0.02) 0 1px,
+            transparent 1px 4px
+          );
+          opacity: 0.18;
+        }
+
       `}</style>
 
       <div
@@ -245,7 +280,7 @@ export function Hero({ onNavigate }: { onNavigate?: (page: AppPage) => void }) {
       </div>
 
       <div className="relative z-10 mx-auto flex min-h-screen max-w-[1400px] flex-col items-center justify-center px-6 py-24 text-center">
-        <div className="mb-4 flex w-full max-w-[980px] flex-wrap items-center justify-between gap-3">
+        <div className="mb-1 flex w-full max-w-[980px] flex-wrap items-center justify-between gap-3 md:mb-2">
           <div
             className="inline-flex items-center gap-3 border border-[#294f7d] bg-[#09111d]/92 px-4 py-3 shadow-[0_0_20px_rgba(4,74,148,0.12)]"
             style={{
@@ -306,40 +341,11 @@ export function Hero({ onNavigate }: { onNavigate?: (page: AppPage) => void }) {
           <div
             className="hero-panel relative w-full max-w-[680px]"
             style={{
-              padding: '48px',
+              padding: '12px 48px 48px',
               position: 'relative',
               zIndex: 1,
             }}
           >
-            <div
-              className="pixel-badge pixel-pill mb-5 inline-flex items-center gap-3"
-              style={{
-                ['--pill-bg' as string]: '#6f88ff',
-                ['--pill-text' as string]: '#f2f5ff',
-                ['--pill-border' as string]: '#1a255a',
-                ['--pill-shadow' as string]: '#1a255a',
-                ['--pill-depth' as string]: 'rgba(4,74,148,0.22)',
-                fontFamily: "'Orbitron', sans-serif",
-                fontSize: '11px',
-                padding: '8px 18px',
-                letterSpacing: '2.2px',
-                imageRendering: 'pixelated',
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: "'Orbitron', sans-serif",
-                  fontSize: '11px',
-                  fontWeight: 800,
-                  color: '#f2f5ff',
-                  letterSpacing: '2.2px',
-                  textShadow: '0 0 10px rgba(242,245,255,0.18)',
-                }}
-              >
-                PLAYER 1 // SPACE MARKET
-              </span>
-            </div>
-
             <div className="mb-10 w-full max-w-[1320px]">
               {titleLines.map((line, index) => {
                 const isBottomLine = index === titleLines.length - 1;
@@ -438,81 +444,64 @@ export function Hero({ onNavigate }: { onNavigate?: (page: AppPage) => void }) {
                 fontFamily: "'Orbitron', sans-serif",
                 fontSize: 'clamp(24px, 3vw, 40px)',
                 fontWeight: 700,
-                letterSpacing: '0.06em',
+                letterSpacing: '0.03em',
+                lineHeight: 1.1,
                 textShadow: '0 0 24px rgba(4,74,148,0.28)',
               }}
             >
-              Build the Model. Beat the Market.
+              Build the Model.
+              <br />
+              Beat the Market.
             </p>
 
-            <div className="mx-auto mb-8 w-full max-w-[760px] border border-[#294252] bg-[#0a1118]/70 p-4 md:p-5 shadow-[0_0_24px_rgba(99,246,255,0.06)] backdrop-blur-sm">
-              <div className="mb-3 flex flex-wrap items-center justify-between gap-3 border-b border-[#173154] pb-3">
-                <span
-                  className="text-[#9cc9ff]"
-                  style={{ fontFamily: "'Space Mono', monospace", fontSize: '12px', fontWeight: 700, letterSpacing: '1.8px' }}
-                >
-                  MISSION BRIEFING
-                </span>
-                <span
-                  className="text-[#9A9AA8]"
-                  style={{ fontFamily: "'Space Mono', monospace", fontSize: '11px', fontWeight: 700, letterSpacing: '1.2px' }}
-                >
-                  QUANT ARCADE WORLD // HIGH SCORE RUN
-                </span>
-              </div>
-              <div className="grid gap-4 md:grid-cols-[1.2fr_0.8fr]">
-                <p
-                  className="text-left text-[#dce9ff]"
-                  style={{ fontFamily: "'Space Mono', monospace", fontSize: '15px', lineHeight: 1.8 }}
-                >
-                  Enter a neon-lit trading arena where each team chooses a strategy track, collects signals, survives volatility, and races toward the leaderboard through collaborative building, rapid prototyping, and live demo battles.
-                </p>
-                <div className="grid gap-2 text-left">
-                  {[
-                    'TRACKS = GAME MODES',
-                    'WORKSHOPS = POWER-UPS',
-                    'JUDGING = FINAL BOSS',
-                  ].map((item) => (
-                    <div
-                      key={item}
-                      className="border border-[#173154] bg-[#0a1626] px-3 py-2 text-[#9cc9ff]"
-                      style={{ fontFamily: "'Space Mono', monospace", fontSize: '12px', letterSpacing: '0.7px' }}
-                    >
-                      {item}
-                    </div>
-                  ))}
+            <div className="mission-console mx-auto mb-6 w-full max-w-[780px] px-3 py-3 md:px-4 md:py-4">
+              <div className="relative z-10 p-1">
+                <div className="mb-3 border-b border-[#1f67be] pb-2 text-left">
+                  <span
+                    className="text-[#2e86ff]"
+                    style={{ fontFamily: "'Press Start 2P', monospace", fontSize: 'clamp(10px,0.95vw,15px)', letterSpacing: '0.8px' }}
+                  >
+                    MISSION BRIEFING
+                  </span>
+                </div>
+
+                <div>
+                  <p
+                    className="text-left text-[#d7dee8]"
+                    style={{
+                      fontFamily: "'Space Mono', monospace",
+                      fontSize: 'clamp(13px,1.05vw,16px)',
+                      lineHeight: 1.7,
+                      letterSpacing: '0.01em',
+                    }}
+                  >
+                    Enter a neon-lit trading arena where each team chooses a strategy track,
+                    collects signals, survives volatility, and races toward the leaderboard
+                    through collaborative building, rapid prototyping, and live demo battles.
+                  </p>
                 </div>
               </div>
             </div>
 
-            <p
-              className="mb-10 text-[#cbd6e8]"
-              style={{
-                fontFamily: "'Space Mono', monospace",
-                fontSize: '15px',
-                lineHeight: 1.8,
-              }}
-            >
-              Oct 2-4 // Reitz Union, Gainesville // $25,000 Treasure Vault // 36 Hours
-            </p>
-
-            <div className="flex flex-col items-center gap-4 sm:flex-row">
+            <div className="mx-auto grid w-full max-w-[780px] gap-3 sm:grid-cols-2">
               <ShatterButton
                 onClick={scrollToRegister}
                 shatterColor="#FA4616"
-                className="pixel-btn group relative w-full border-0 text-white sm:w-auto"
+                className="pixel-btn group relative w-full border-0 text-white"
               >
-                <span style={{ fontFamily: "'Orbitron', sans-serif", fontSize: '12px', letterSpacing: '1px' }}>
-                  INSERT COIN -&gt; Register Now
+                <span style={{ display: 'block', width: '100%', textAlign: 'center', fontFamily: "'Orbitron', sans-serif", fontSize: '14px', letterSpacing: '1px' }}>
+                  REGISTER
+                  <br />
+                  NOW
                 </span>
               </ShatterButton>
 
               <ShatterButton
                 onClick={openSponsorMail}
                 shatterColor="#9cc9ff"
-                className="pixel-btn group relative w-full border-0 sm:w-auto"
+                className="pixel-btn group relative w-full border-0"
               >
-                <span style={{ fontFamily: "'Orbitron', sans-serif", fontSize: '12px', letterSpacing: '1px' }}>
+                <span style={{ display: 'block', width: '100%', textAlign: 'center', fontFamily: "'Orbitron', sans-serif", fontSize: '14px', letterSpacing: '1px' }}>
                   BECOME A POWER SPONSOR
                 </span>
               </ShatterButton>
@@ -522,8 +511,8 @@ export function Hero({ onNavigate }: { onNavigate?: (page: AppPage) => void }) {
               <button
                 type="button"
                 onClick={() => onNavigate('interest')}
-                className="mt-2 text-[#9cc9ff] underline decoration-[#044a94] underline-offset-4 transition-colors hover:text-[#cbd6e8]"
-                style={{ fontFamily: "'Space Mono', monospace", fontSize: '13px', letterSpacing: '0.08em' }}
+                className="mt-6 text-[#9cc9ff] underline decoration-[#044a94] underline-offset-4 transition-colors hover:text-[#cbd6e8]"
+                style={{ fontFamily: "'Space Mono', monospace", fontSize: '15px', letterSpacing: '0.08em' }}
               >
                 Interest form (not registering yet)
               </button>
@@ -531,7 +520,7 @@ export function Hero({ onNavigate }: { onNavigate?: (page: AppPage) => void }) {
           </div>
         </div>
 
-        <div className="hero-marquee mt-10 w-full max-w-[1100px] overflow-hidden border-y border-[#173154] py-3">
+        <div className="hero-marquee mt-6 w-full max-w-[1100px] overflow-hidden border-y border-[#173154] py-3">
           <div
             className="hero-marquee__track whitespace-nowrap text-[#9cc9ff]"
             style={{ fontFamily: "'Space Mono', monospace", fontSize: '12px', letterSpacing: '1.4px' }}
@@ -541,7 +530,7 @@ export function Hero({ onNavigate }: { onNavigate?: (page: AppPage) => void }) {
         </div>
       </div>
 
-      <div className="absolute bottom-8 left-1/2 z-20 -translate-x-1/2 animate-bounce">
+      <div className="absolute bottom-6 left-1/2 z-20 -translate-x-1/2 animate-bounce">
         <div className="flex flex-col items-center gap-2">
           <ChevronDown className="text-[#044a94]" size={28} strokeWidth={3} />
           <span

@@ -103,40 +103,39 @@ export function GameModes() {
       title: 'Research & Alpha Discovery',
       tagline: 'Pitch a testable edge.',
       description: 'Participants develop and present a testable market hypothesis supported by clear, structured analysis. The focus is on identifying signal, building a strong argument, and communicating it effectively. This track is best suited for students interested in finance, economics, or strategy who want to explore how ideas translate into potential alpha.',
-      comment: '// FIGHTER PROFILE: THESIS LAB // PRESENTATION READY',
+      comment: 'FIGHTER PROFILE: THESIS LAB | PRESENTATION READY',
       badges: ['Finance', 'Economics', 'Hypothesis', 'Analysis'],
       accentColor: '#FA4616',
       fighterType: 'algorithm',
       callSign: 'THESIS',
-      systemLabel: 'RESEARCH DECK // ALPHA SIGNAL',
+      systemLabel: 'RESEARCH DECK | ALPHA SIGNAL',
     },
     {
       title: 'Quantitative Puzzles & Brainteasers',
       tagline: 'Low barrier, high upside.',
       description: 'A problem-driven track centered on probability, combinatorics, and game theory. No prior finance experience or datasets required. Designed as the most accessible entry point, it challenges participants to think critically, solve efficiently, and apply mathematical reasoning in a competitive environment.',
-      comment: '// FIGHTER PROFILE: PUZZLE ENGINE // FAST THINKING',
+      comment: 'FIGHTER PROFILE: PUZZLE ENGINE | FAST THINKING',
       badges: ['Probability', 'Combinatorics', 'Game Theory', 'No Dataset'],
       accentColor: '#044a94',
       fighterType: 'analysis',
       callSign: 'RIDDLE',
-      systemLabel: 'LOGIC LOOPS // OPEN ENTRY',
+      systemLabel: 'LOGIC LOOPS | OPEN ENTRY',
     },
     {
       title: 'Systematic Trading',
       tagline: 'Optimize the full strategy.',
       description: 'Participants build and refine a trading strategy using historical data and quantitative modeling. Performance is evaluated through metrics such as Sharpe ratio, drawdown, and turnover. This track is geared toward students with programming experience who want to apply technical skills to a more realistic trading workflow.',
-      comment: '// FIGHTER PROFILE: STRATEGY CORE // RISK-ADJUSTED RUN',
+      comment: 'FIGHTER PROFILE: STRATEGY CORE | RISK-ADJUSTED RUN',
       badges: ['Sharpe Ratio', 'Drawdown', 'Turnover', 'Historical Data'],
       accentColor: '#33d17a',
       fighterType: 'risk',
       callSign: 'VECTOR',
-      systemLabel: 'BACKTEST LOOP // EXECUTION STACK',
+      systemLabel: 'BACKTEST LOOP | EXECUTION STACK',
     },
   ];
   const [focusedTrackIndex, setFocusedTrackIndex] = useState(0);
   const [selectedTrackIndex, setSelectedTrackIndex] = useState(0);
   const previewTrack = tracks[focusedTrackIndex];
-  const selectedTrack = tracks[selectedTrackIndex];
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
@@ -729,22 +728,6 @@ export function GameModes() {
           opacity: 0.5;
         }
 
-        .fighter-slot {
-          position: absolute;
-          bottom: -12px;
-          left: 50%;
-          transform: translateX(-50%);
-          padding: 2px 10px 3px;
-          border: 1px solid var(--track-accent);
-          background: #060b16;
-          font-family: var(--font-heading);
-          font-size: 11px;
-          font-weight: 700;
-          letter-spacing: 1.6px;
-          color: var(--track-accent);
-          box-shadow: 0 0 14px var(--track-shadow);
-        }
-
         .fighter-badge {
           display: inline-flex;
           width: fit-content;
@@ -836,12 +819,12 @@ export function GameModes() {
                       fontFamily: "'Orbitron', sans-serif",
                       fontSize: '11px',
                       fontWeight: 700,
-                      color: selectedTrack.accentColor,
+                      color: previewTrack.accentColor,
                       letterSpacing: '1.2px',
-                      textShadow: `0 0 10px ${selectedTrack.accentColor}33`,
+                      textShadow: `0 0 10px ${previewTrack.accentColor}33`,
                     }}
                   >
-                    {selectedTrack.title.toUpperCase()}
+                    {previewTrack.title.toUpperCase()}
                   </div>
                   <div
                     style={{
@@ -878,7 +861,7 @@ export function GameModes() {
             {tracks.map((track, index) => (
               <article
                 key={index}
-                className={`group fighter-card overflow-hidden cursor-pointer ${
+                className={`group fighter-card overflow-hidden cursor-pointer outline-none focus:outline-none focus-visible:outline-none ${
                   selectedTrackIndex === index ? 'fighter-card--selected' : ''
                 } ${
                   focusedTrackIndex === index ? 'fighter-card--focused' : ''
@@ -950,7 +933,6 @@ export function GameModes() {
                       }`}
                     >
                       <PixelShip type={track.fighterType} accentColor={track.accentColor} />
-                      <span className="fighter-slot">{index + 1}P</span>
                     </div>
                   </div>
 

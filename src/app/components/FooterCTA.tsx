@@ -61,7 +61,7 @@ export function FooterCTA() {
   };
 
   return (
-    <section id="register" className="relative overflow-hidden bg-[#050508] py-20 md:py-28">
+    <section id="register" className="relative overflow-hidden bg-[#050508] pb-20 pt-8 md:pb-28 md:pt-12">
       <style>{`
         @keyframes asteroidRotate {
           from { transform: translate(-50%, -50%) rotate(0deg); }
@@ -148,7 +148,7 @@ export function FooterCTA() {
                 textShadow: '0 0 28px rgba(4, 74, 148, 0.2)',
               }}
             >
-              THE ARENA OPENS SEPTEMBER 18
+              THE ARENA OPENS OCTOBER 2ND
             </h2>
 
             <p
@@ -160,20 +160,21 @@ export function FooterCTA() {
 
             <ShatterButton
               onClick={handlePressStart}
-              shatterColor="#9cc9ff"
+              shatterColor="#FA4616"
               className="group relative mb-10 w-full overflow-hidden rounded-none sm:mb-12 sm:w-full"
               style={{
-                background: 'linear-gradient(180deg, #7f97f2 0%, #5876dc 14%, #274aab 62%, #15357f 100%)',
-                border: '4px solid #102657',
+                background: 'linear-gradient(180deg, #151d2a 0%, #101722 45%, #0a1119 100%)',
+                border: '2px solid #294f7d',
                 boxShadow: `
-                  0 0 0 2px rgba(156, 201, 255, 0.12),
-                  0 0 22px rgba(4, 74, 148, 0.2),
-                  0 12px 30px rgba(0, 0, 0, 0.42),
-                  6px 6px 0 #102657
+                  0 0 0 2px rgba(8, 14, 26, 0.95),
+                  inset 0 0 0 1px rgba(156, 201, 255, 0.06),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.04),
+                  0 0 24px rgba(4, 74, 148, 0.14),
+                  0 16px 32px rgba(0, 0, 0, 0.42)
                 `,
-                padding: '1.15rem 1.6rem',
+                padding: '1.1rem 1.5rem',
                 transition: 'transform 180ms ease, box-shadow 180ms ease',
-                clipPath: 'polygon(5% 0, 95% 0, 100% 22%, 100% 78%, 95% 100%, 5% 100%, 0 78%, 0 22%)',
+                clipPath: 'polygon(4% 0, 96% 0, 100% 18%, 100% 82%, 96% 100%, 4% 100%, 0 82%, 0 18%)',
               }}
             >
               <div
@@ -184,14 +185,13 @@ export function FooterCTA() {
               >
                 <span
                   style={{
-                    fontFamily: "'Orbitron', sans-serif",
-                    fontSize: 'clamp(20px, 3vw, 30px)',
+                    fontFamily: "'Press Start 2P', monospace",
+                    fontSize: 'clamp(16px, 2.1vw, 24px)',
                     fontWeight: 700,
-                    letterSpacing: '5px',
+                    letterSpacing: '2px',
                     color: '#eef4ff',
                     textShadow: `
-                      0 1px 0 rgba(11, 20, 45, 0.42),
-                      0 0 18px rgba(156, 201, 255, 0.16)
+                      0 0 14px rgba(156, 201, 255, 0.12)
                     `,
                   }}
                 >
@@ -199,11 +199,12 @@ export function FooterCTA() {
                 </span>
                 <span
                   style={{
-                    fontFamily: "'Orbitron', sans-serif",
-                    fontSize: 'clamp(11px, 1.4vw, 14px)',
-                    letterSpacing: '2px',
-                    color: '#d7e7ff',
-                    textShadow: '0 1px 0 rgba(11, 20, 45, 0.32)',
+                    fontFamily: "'Space Mono', monospace",
+                    fontSize: 'clamp(10px, 1vw, 12px)',
+                    fontWeight: 700,
+                    letterSpacing: '1.4px',
+                    color: isLockingIn ? '#ffb08a' : '#9cc9ff',
+                    textTransform: 'uppercase',
                   }}
                 >
                   {isLockingIn ? 'LOCKING IN YOUR SHIP...' : 'INSERT COIN TO ENTER THE ARENA'}
@@ -328,7 +329,7 @@ export function FooterCTA() {
                         lineHeight: 1.6,
                       }}
                     >
-                      CHAMPION CLASS REWARD // LOCK IN YOUR SHIP AND CHASE THE HIGH SCORE
+                      CHAMPION CLASS REWARD | LOCK IN YOUR SHIP AND CHASE THE HIGH SCORE
                     </div>
                   </div>
                 </div>

@@ -75,12 +75,26 @@ export function Schedule() {
   const day = days[activeDay];
 
   return (
-    <section id="schedule" className="relative overflow-hidden bg-[#0F0F1F] py-16 md:py-24">
+    <section id="schedule" className="relative overflow-hidden bg-[#0F0F1F] pb-16 pt-8 md:pb-24 md:pt-12">
       <style>{`
         .schedule-shell {
+          position: relative;
+          border: 1px solid rgba(36, 92, 145, 0.9);
           background:
-            linear-gradient(180deg, rgba(16, 21, 36, 0.96), rgba(10, 14, 24, 0.96)),
-            radial-gradient(circle at top right, rgba(4, 74, 148, 0.08), transparent 30%);
+            linear-gradient(180deg, rgba(8, 14, 28, 0.96), rgba(4, 9, 20, 0.98)),
+            radial-gradient(circle at top, rgba(4, 74, 148, 0.08), transparent 45%);
+          box-shadow:
+            0 0 0 3px rgba(5, 11, 23, 0.98),
+            inset 0 0 0 1px rgba(129, 194, 255, 0.06),
+            0 0 30px rgba(4, 74, 148, 0.16);
+        }
+
+        .schedule-shell::before {
+          content: '';
+          position: absolute;
+          inset: 10px;
+          border: 1px solid rgba(43, 84, 133, 0.4);
+          pointer-events: none;
         }
 
         .schedule-row + .schedule-row {
@@ -201,9 +215,14 @@ export function Schedule() {
         </div>
 
         <div
-          className="schedule-shell mx-auto max-w-[980px] overflow-hidden border border-[#253047] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.02)]"
+          className="schedule-shell mx-auto max-w-[980px] overflow-hidden"
           style={{
-            boxShadow: `0 0 50px ${day.sectorGlow}, inset 0 0 0 1px rgba(255,255,255,0.02)`,
+            boxShadow: `
+              0 0 0 3px rgba(5, 11, 23, 0.98),
+              inset 0 0 0 1px rgba(129, 194, 255, 0.06),
+              0 0 30px rgba(4, 74, 148, 0.16),
+              0 0 50px ${day.sectorGlow}
+            `,
           }}
         >
           <div className="h-1 w-full" style={{ backgroundColor: day.sectorColor }} />

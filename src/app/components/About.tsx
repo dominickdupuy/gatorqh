@@ -1,6 +1,6 @@
 export function About() {
   return (
-    <section id="about" className="about-crt relative bg-[#0F0F1F] pt-16 pb-8 md:pt-24 md:pb-10 overflow-hidden">
+    <section id="about" className="about-crt relative overflow-hidden bg-[#0F0F1F] pb-8 pt-8 md:pb-10 md:pt-12">
       <style>{`
         .about-crt::before {
           content: '';
@@ -66,7 +66,7 @@ export function About() {
                 animation: 'typewriter 3s steps(24, end)',
               }}
             >
-              {"// INCOMING TRANSMISSION...\nThe market is open. Volatility is spiking.\n36 hours remain on the clock.\nYour models are the only thing standing between\norder and chaos.\nINSERT COIN TO CONTINUE..."}
+              {"INCOMING TRANSMISSION...\nThe market is open. Volatility is spiking.\n36 hours remain on the clock.\nYour models are the only thing standing between\norder and chaos.\nINSERT COIN TO CONTINUE..."}
             </div>
 
             {/* Heading */}

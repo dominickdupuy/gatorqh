@@ -1,6 +1,6 @@
 export function About() {
   return (
-    <section id="about" className="about-crt relative bg-[#0F0F1F] py-16 md:py-24 overflow-hidden">
+    <section id="about" className="about-crt relative bg-[#0F0F1F] pt-16 pb-8 md:pt-24 md:pb-10 overflow-hidden">
       <style>{`
         .about-crt::before {
           content: '';
@@ -49,7 +49,7 @@ export function About() {
         </div>
 
         {/* Two Column Layout */}
-        <div className="grid md:grid-cols-[60%_40%] gap-8 md:gap-12 mb-12 md:mb-16">
+        <div className="grid md:grid-cols-[60%_40%] gap-8 md:gap-12 mb-4 md:mb-6">
           {/* Left: Content 60% */}
           <div>
             <div

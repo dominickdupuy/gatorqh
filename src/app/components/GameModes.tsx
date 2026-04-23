@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 type Pixel = { x: number; y: number; color: string; size?: number };
 
 type Track = {
@@ -64,30 +66,29 @@ function PixelShip({ type, accentColor }: { type: Track['fighterType']; accentCo
       )}
       {type === 'risk' && (
         <>
-          <span className="shield shield--1" style={{ borderColor: `${accentColor}66` }} />
-          <span className="shield shield--2" style={{ borderColor: `${accentColor}33` }} />
-          <span className="asteroid asteroid--1" />
-          <span className="asteroid asteroid--2" />
-          <span className="spark spark--1" style={{ backgroundColor: '#d8ffe8' }} />
-          <span className="spark spark--2" style={{ backgroundColor: '#d8ffe8' }} />
+          <span className="risk-bullet risk-bullet--1" style={{ backgroundColor: '#7ff0b0' }} />
+          <span className="risk-bullet risk-bullet--2" style={{ backgroundColor: '#7ff0b0' }} />
+          <span className="risk-bullet risk-bullet--3" style={{ backgroundColor: '#d8ffe8' }} />
         </>
       )}
-      <div className={`pixel-ship pixel-ship--${type}`}>
-        {pixels.map((pixel, index) => (
-          <span
-            key={`${type}-${index}`}
-            className="pixel"
-            style={{
-              left: `${pixel.x}px`,
-              top: `${pixel.y}px`,
-              backgroundColor: pixel.color,
-              width: `${pixel.size ?? 4}px`,
-              height: `${pixel.size ?? 4}px`,
-            }}
-          />
-        ))}
-        <span className="flame flame--1" />
-        <span className="flame flame--2" />
+      <div className={`ship-flight ship-flight--${type}`}>
+        <div className={`pixel-ship pixel-ship--${type}`}>
+          {pixels.map((pixel, index) => (
+            <span
+              key={`${type}-${index}`}
+              className="pixel"
+              style={{
+                left: `${pixel.x}px`,
+                top: `${pixel.y}px`,
+                backgroundColor: pixel.color,
+                width: `${pixel.size ?? 4}px`,
+                height: `${pixel.size ?? 4}px`,
+              }}
+            />
+          ))}
+          <span className="flame flame--1" />
+          <span className="flame flame--2" />
+        </div>
       </div>
     </div>
   );
@@ -129,9 +130,46 @@ export function GameModes() {
       systemLabel: 'BACKTEST LOOP // EXECUTION STACK',
     },
   ];
+  const [focusedTrackIndex, setFocusedTrackIndex] = useState(0);
+  const [selectedTrackIndex, setSelectedTrackIndex] = useState(0);
+  const previewTrack = tracks[focusedTrackIndex];
+
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      const target = event.target as HTMLElement | null;
+      const targetTag = target?.tagName;
+      const isTypingTarget =
+        target?.isContentEditable ||
+        targetTag === 'INPUT' ||
+        targetTag === 'TEXTAREA' ||
+        targetTag === 'SELECT';
+
+      if (isTypingTarget) {
+        return;
+      }
+
+      if (event.key === 'ArrowRight' || event.key === '>') {
+        event.preventDefault();
+        setFocusedTrackIndex((current) => (current + 1) % tracks.length);
+      }
+
+      if (event.key === 'ArrowLeft' || event.key === '<') {
+        event.preventDefault();
+        setFocusedTrackIndex((current) => (current - 1 + tracks.length) % tracks.length);
+      }
+
+      if (event.key.toLowerCase() === 'a' || event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        setSelectedTrackIndex(focusedTrackIndex);
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [focusedTrackIndex, tracks.length]);
 
   return (
-    <section id="game-modes" className="relative overflow-hidden bg-[#0A0A0A] py-24">
+    <section id="game-modes" className="relative overflow-hidden bg-[#040814] pt-8 pb-20 md:pt-10">
       <style>{`
         .game-modes-scanline::after {
           content: '';
@@ -170,20 +208,21 @@ export function GameModes() {
         }
 
         @keyframes flameFlicker {
-          0%, 100% { transform: scaleY(1); opacity: 0.95; }
-          50% { transform: scaleY(0.55); opacity: 0.55; }
+          0%, 100% { transform: translateX(-50%) scaleY(1); opacity: 0.95; }
+          50% { transform: translateX(-50%) scaleY(0.55); opacity: 0.55; }
         }
 
         @keyframes shipWobble {
-          0%, 100% { transform: translateY(0) rotate(0deg); }
-          25% { transform: translateY(-2px) rotate(-2deg); }
-          75% { transform: translateY(2px) rotate(2deg); }
+          0%, 100% { transform: translate(-50%, -50%) translateY(0) rotate(0deg); }
+          25% { transform: translate(-50%, -50%) translate(-1px, -2px) rotate(-2deg); }
+          50% { transform: translate(-50%, -50%) translateY(0) rotate(0deg); }
+          75% { transform: translate(-50%, -50%) translate(1px, -2px) rotate(2deg); }
         }
 
         @keyframes bulletBurst {
-          0% { opacity: 0; transform: translateY(0); }
+          0% { opacity: 0; transform: translateX(-50%) translateY(0); }
           20% { opacity: 1; }
-          100% { opacity: 0; transform: translateY(-30px); }
+          100% { opacity: 0; transform: translateX(-50%) translateY(-30px); }
         }
 
         @keyframes signalPulse {
@@ -202,28 +241,10 @@ export function GameModes() {
           to { transform: translateX(-50%) rotate(360deg); }
         }
 
-        @keyframes shieldPulse {
-          0%, 100% { opacity: 0.28; transform: translate(-50%, -50%) scale(1); }
-          50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.08); }
-        }
-
-        @keyframes asteroidBounceLeft {
-          0% { transform: translate(0, 0); opacity: 0; }
-          25% { opacity: 1; }
-          60% { transform: translate(18px, 10px); opacity: 1; }
-          100% { transform: translate(-6px, -4px); opacity: 0; }
-        }
-
-        @keyframes asteroidBounceRight {
-          0% { transform: translate(0, 0); opacity: 0; }
-          25% { opacity: 1; }
-          60% { transform: translate(-18px, 8px); opacity: 1; }
-          100% { transform: translate(6px, -4px); opacity: 0; }
-        }
-
-        @keyframes sparkFlash {
-          0%, 100% { opacity: 0; transform: scale(0.5); }
-          35% { opacity: 1; transform: scale(1.2); }
+        @keyframes riskBulletBurst {
+          0% { opacity: 0; transform: translateX(-50%) translateY(0); }
+          18% { opacity: 1; }
+          100% { opacity: 0; transform: translateX(-50%) translateY(-24px); }
         }
 
         .ship-stage {
@@ -235,26 +256,40 @@ export function GameModes() {
           justify-content: center;
         }
 
-        .pixel-ship {
-          position: relative;
+        .ship-flight {
+          position: absolute;
+          left: 50%;
+          top: 50%;
           width: 48px;
           height: 48px;
-          image-rendering: pixelated;
-          transition: transform 220ms ease;
+          transform: translate(-50%, -50%);
+          transform-origin: center center;
+          margin-top: 6px;
         }
 
-        .pixel-ship--algorithm {
-          top: 10px;
+        .pixel-ship {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 48px;
+          height: 48px;
+          --sprite-center: 26px;
+          --engine-center: 26px;
+          --engine-gap: 3px;
+          image-rendering: pixelated;
+          transition: transform 220ms ease;
+          transform-origin: center center;
+          translate: calc(24px - var(--sprite-center)) 0;
         }
 
         .pixel-ship--analysis {
-          left: 4px;
-          top: 10px;
+          --sprite-center: 18px;
+          --engine-center: 18px;
         }
 
         .pixel-ship--risk {
-          left: 4px;
-          top: 10px;
+          --sprite-center: 22px;
+          --engine-center: 22px;
         }
 
         .pixel {
@@ -264,23 +299,22 @@ export function GameModes() {
 
         .flame {
           position: absolute;
-          bottom: -6px;
+          bottom: -2px;
           width: 4px;
-          height: 8px;
+          height: 7px;
           background: #ffd348;
           opacity: 0;
-          transform-origin: top center;
+          transform: translateX(-50%);
+          transform-origin: center top;
         }
 
-        .flame--1 { left: 16px; background: #ffd348; }
-        .flame--2 { left: 28px; background: #ff7f2e; }
+        .flame--1 { left: calc(var(--engine-center) - var(--engine-gap)); background: #ffd348; }
+        .flame--2 { left: calc(var(--engine-center) + var(--engine-gap)); background: #ff7f2e; }
 
         .bullet,
+        .risk-bullet,
         .signal-ring,
         .orbit,
-        .shield,
-        .asteroid,
-        .spark,
         .block-node {
           position: absolute;
           pointer-events: none;
@@ -289,13 +323,27 @@ export function GameModes() {
 
         .bullet {
           top: 16px;
+          left: 50%;
           width: 3px;
           height: 8px;
+          transform: translateX(-50%);
         }
 
-        .bullet--1 { left: 26px; }
-        .bullet--2 { left: 40px; }
-        .bullet--3 { left: 33px; top: 8px; }
+        .bullet--1 { margin-left: -8px; }
+        .bullet--2 { margin-left: 8px; }
+        .bullet--3 { margin-left: 0; top: 8px; }
+
+        .risk-bullet {
+          top: 18px;
+          left: 50%;
+          width: 3px;
+          height: 7px;
+          transform: translateX(-50%);
+        }
+
+        .risk-bullet--1 { margin-left: -7px; }
+        .risk-bullet--2 { margin-left: 7px; }
+        .risk-bullet--3 { margin-left: 0; top: 10px; }
 
         .signal-ring {
           top: 50%;
@@ -320,364 +368,555 @@ export function GameModes() {
           border-radius: 999px;
         }
 
-        .shield {
-          top: 50%;
-          left: 50%;
-          width: 66px;
-          height: 66px;
-          border: 2px solid;
-          clip-path: polygon(25% 6%, 75% 6%, 94% 50%, 75% 94%, 25% 94%, 6% 50%);
-          transform: translate(-50%, -50%);
+        .group:hover .ship-flight--algorithm,
+        .group:hover .ship-flight--risk,
+        .ship-active .ship-flight--algorithm,
+        .ship-active .ship-flight--risk {
+          animation: shipWobble 0.8s linear infinite;
         }
 
-        .shield--2 {
-          width: 78px;
-          height: 78px;
+        .group:hover .ship-flight--analysis,
+        .ship-active .ship-flight--analysis {
+          animation: shipWobble 1.1s linear infinite;
         }
 
-        .asteroid {
-          width: 8px;
-          height: 8px;
-          background: #8f98a6;
-          box-shadow: 4px 0 0 #6c7582, 0 4px 0 #6c7582;
-        }
-
-        .asteroid--1 { left: 4px; top: 10px; }
-        .asteroid--2 { right: 4px; top: 18px; }
-
-        .spark {
-          width: 4px;
-          height: 4px;
-        }
-
-        .spark--1 { left: 12px; top: 20px; }
-        .spark--2 { right: 12px; top: 24px; }
-
-        .group:hover .pixel-ship--algorithm,
-        .group:hover .pixel-ship--risk {
-          animation: shipWobble 0.8s ease-in-out infinite;
-        }
-
-        .group:hover .pixel-ship--analysis {
-          animation: shipWobble 1.1s ease-in-out infinite;
-        }
-
-        .group:hover .pixel-ship .flame {
+        .group:hover .pixel-ship .flame,
+        .ship-active .pixel-ship .flame {
           opacity: 1;
           animation: flameFlicker 0.22s steps(2, end) infinite;
         }
 
-        .group:hover .bullet {
+        .group:hover .bullet,
+        .ship-active .bullet {
           opacity: 1;
           animation: bulletBurst 0.45s linear infinite;
         }
 
-        .group:hover .bullet--2 { animation-delay: 0.08s; }
-        .group:hover .bullet--3 { animation-delay: 0.14s; }
+        .group:hover .bullet--2,
+        .ship-active .bullet--2 { animation-delay: 0.08s; }
+        .group:hover .bullet--3,
+        .ship-active .bullet--3 { animation-delay: 0.14s; }
 
-        .group:hover .signal-ring {
+        .group:hover .risk-bullet,
+        .ship-active .risk-bullet {
+          opacity: 1;
+          animation: riskBulletBurst 0.5s linear infinite;
+        }
+
+        .group:hover .risk-bullet--2,
+        .ship-active .risk-bullet--2 { animation-delay: 0.09s; }
+        .group:hover .risk-bullet--3,
+        .ship-active .risk-bullet--3 { animation-delay: 0.16s; }
+
+        .group:hover .signal-ring,
+        .ship-active .signal-ring {
           opacity: 1;
           animation: signalPulse 1.5s ease-out infinite;
         }
 
-        .group:hover .signal-ring--2 { animation-delay: 0.3s; }
+        .group:hover .signal-ring--2,
+        .ship-active .signal-ring--2 { animation-delay: 0.3s; }
         .group:hover .orbit--1,
-        .group:hover .orbit--2 {
+        .group:hover .orbit--2,
+        .ship-active .orbit--1,
+        .ship-active .orbit--2 {
           opacity: 1;
           animation: orbitData 2.4s linear infinite;
         }
 
-        .group:hover .orbit--2 { animation-duration: 3s; }
+        .group:hover .orbit--2,
+        .ship-active .orbit--2 { animation-duration: 3s; }
 
-        .group:hover .shield {
-          opacity: 1;
-          animation: shieldPulse 1.4s ease-in-out infinite;
+        .fighter-console {
+          position: relative;
+          border: 1px solid rgba(36, 92, 145, 0.9);
+          background:
+            linear-gradient(180deg, rgba(8, 14, 28, 0.96), rgba(4, 9, 20, 0.98)),
+            radial-gradient(circle at top, rgba(4, 74, 148, 0.08), transparent 45%);
+          box-shadow:
+            0 0 0 3px rgba(5, 11, 23, 0.98),
+            inset 0 0 0 1px rgba(129, 194, 255, 0.06),
+            0 0 30px rgba(4, 74, 148, 0.16);
         }
 
-        .group:hover .asteroid--1 {
-          opacity: 1;
-          animation: asteroidBounceLeft 0.9s ease-out infinite;
+        .fighter-console::before {
+          content: '';
+          position: absolute;
+          inset: 10px;
+          border: 1px solid rgba(43, 84, 133, 0.4);
+          pointer-events: none;
         }
 
-        .group:hover .asteroid--2 {
-          opacity: 1;
-          animation: asteroidBounceRight 0.9s ease-out infinite;
+        .fighter-title {
+          font-family: var(--font-heading);
+          font-size: clamp(34px, 5.6vw, 60px);
+          line-height: 0.95;
+          letter-spacing: 3px;
+          text-transform: uppercase;
+          text-align: center;
+          color: #f3f5ff;
+          text-shadow:
+            0 0 12px rgba(255, 255, 255, 0.12),
+            0 0 26px rgba(4, 74, 148, 0.24);
         }
 
-        .group:hover .spark {
-          opacity: 1;
-          animation: sparkFlash 0.55s steps(2, end) infinite;
+        .fighter-title span {
+          display: block;
+          font-size: clamp(20px, 3.3vw, 32px);
+          letter-spacing: 5px;
+          color: #88baff;
+          margin-top: 8px;
         }
 
-        .group:hover .spark--2 { animation-delay: 0.2s; }
+        .fighter-card {
+          position: relative;
+          min-height: 100%;
+          border: 1px solid rgba(40, 78, 126, 0.95);
+          background:
+            linear-gradient(180deg, rgba(9, 14, 28, 0.97), rgba(4, 8, 18, 0.98)),
+            radial-gradient(circle at top, var(--track-glow), transparent 58%);
+          box-shadow:
+            0 0 0 2px rgba(8, 13, 25, 0.98),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.02),
+            0 0 26px rgba(0, 0, 0, 0.22);
+          transition:
+            transform 240ms ease,
+            box-shadow 240ms ease,
+            border-color 240ms ease;
+        }
+
+        .fighter-card::before,
+        .fighter-card::after {
+          content: '';
+          position: absolute;
+          inset: 8px;
+          pointer-events: none;
+        }
+
+        .fighter-card::before {
+          border: 1px solid var(--track-outline);
+          opacity: 0.45;
+        }
+
+        .fighter-card::after {
+          background:
+            linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.03) 50%, transparent 100%),
+            repeating-linear-gradient(
+              180deg,
+              transparent 0px,
+              transparent 10px,
+              rgba(255, 255, 255, 0.04) 10px,
+              rgba(255, 255, 255, 0.04) 11px
+            );
+          opacity: 0.35;
+        }
+
+        .fighter-card:hover {
+          transform: translateY(-6px);
+          border-color: var(--track-accent);
+          box-shadow:
+            0 0 0 2px rgba(8, 13, 25, 0.98),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.03),
+            0 0 32px var(--track-shadow),
+            0 0 52px rgba(0, 0, 0, 0.24);
+        }
+
+        .fighter-card--selected {
+          border-color: var(--track-accent);
+          box-shadow:
+            0 0 0 2px rgba(8, 13, 25, 0.98),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.03),
+            0 0 36px var(--track-shadow),
+            0 0 56px rgba(0, 0, 0, 0.26);
+        }
+
+        .fighter-card--focused {
+          transform: translateY(-4px);
+          border-color: var(--track-accent);
+          box-shadow:
+            0 0 0 2px rgba(8, 13, 25, 0.98),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.03),
+            0 0 26px var(--track-shadow);
+        }
+
+        .fighter-card__ship {
+          position: relative;
+          display: flex;
+          justify-content: center;
+          margin-bottom: 1.75rem;
+        }
+
+        .fighter-card__ship::before {
+          content: '';
+          position: absolute;
+          inset: auto 15% -6px 15%;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, var(--track-outline), transparent);
+          opacity: 0.7;
+        }
+
+        .fighter-panel {
+          position: relative;
+          display: inline-flex;
+          min-height: 112px;
+          min-width: 112px;
+          align-items: center;
+          justify-content: center;
+          border: 2px solid var(--track-accent);
+          background:
+            radial-gradient(circle at 50% 24%, var(--track-panel-glow), transparent 60%),
+            linear-gradient(180deg, rgba(4, 8, 19, 0.98), rgba(8, 12, 23, 0.96));
+          box-shadow:
+            inset 0 0 0 1px rgba(255,255,255,0.03),
+            0 0 18px var(--track-shadow);
+        }
+
+        .fighter-panel::before {
+          content: '';
+          position: absolute;
+          inset: 6px;
+          border: 1px solid var(--track-outline);
+          opacity: 0.5;
+        }
+
+        .fighter-slot {
+          position: absolute;
+          bottom: -12px;
+          left: 50%;
+          transform: translateX(-50%);
+          padding: 2px 10px 3px;
+          border: 1px solid var(--track-accent);
+          background: #060b16;
+          font-family: var(--font-heading);
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 1.6px;
+          color: var(--track-accent);
+          box-shadow: 0 0 14px var(--track-shadow);
+        }
+
+        .fighter-badge {
+          display: inline-flex;
+          width: fit-content;
+          margin-bottom: 1.5rem;
+          padding: 0.28rem 0.58rem;
+          border: 1px solid var(--track-outline);
+          background: rgba(6, 10, 20, 0.88);
+          font-family: var(--font-body);
+          font-size: 10px;
+          letter-spacing: 1.6px;
+          color: #8fb7ef;
+        }
+
+        .fighter-metric {
+          border-top: 1px dashed var(--track-outline);
+          padding-top: 0.95rem;
+        }
+
+        .fighter-chip {
+          border: 1px solid var(--track-outline);
+          background: rgba(5, 10, 19, 0.82);
+          box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+        }
+
+        @media (max-width: 767px) {
+          .fighter-title span {
+            letter-spacing: 3px;
+          }
+        }
+
       `}</style>
       <div className="game-modes-scanline absolute inset-0" />
-      <div className="max-w-[1200px] mx-auto px-6">
-        <div className="mb-16">
-          <div className="flex items-center gap-3 mb-6">
+      <div className="absolute inset-0 opacity-40">
+        <div className="h-full w-full bg-[radial-gradient(circle_at_top,rgba(4,74,148,0.18),transparent_30%),linear-gradient(180deg,transparent,rgba(250,70,22,0.03)_58%,transparent)]" />
+      </div>
+      <div className="max-w-[1260px] mx-auto px-4 sm:px-6">
+        <div className="fighter-console px-4 py-5 sm:px-5 lg:px-6">
+          <div className="mb-4 flex items-center justify-center gap-4">
+            <div className="h-px w-10 bg-gradient-to-r from-transparent to-[#2c6dac]" />
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-[#044a94]" />
-              <div className="w-2 h-2 bg-[#FA4616]" />
-              <div className="w-2 h-2 bg-[#33d17a]" />
+              <div className="h-2 w-2 bg-[#FA4616]" />
+              <div className="h-2 w-2 bg-[#63f6ff]" />
+              <div className="h-2 w-2 bg-[#33d17a]" />
             </div>
-            <span
-              className="text-[#9A9A9A]"
+            <div className="h-px w-10 bg-gradient-to-l from-transparent to-[#2c6dac]" />
+          </div>
+
+          <div className="mb-5 text-center">
+            <div
+              className="mb-2 text-[#7e90ab]"
               style={{
-                fontFamily: "'Space Mono', monospace",
-                fontSize: '14px',
-                fontWeight: 600,
-                letterSpacing: '2px',
+                fontFamily: 'var(--font-body)',
+                fontSize: '11px',
+                fontWeight: 700,
+                letterSpacing: '2.4px',
               }}
             >
               04 / CHOOSE YOUR GAME MODE
-            </span>
+            </div>
+            <h2 className="fighter-title">Select Your Track</h2>
           </div>
 
-          <h2
-            className="text-[#F4F4F4]"
-            style={{
-              fontFamily: 'var(--font-heading)',
-              fontSize: 'clamp(24px, 4vw, 40px)',
-              lineHeight: 1.3,
-              textShadow: '0 0 30px rgba(4, 74, 148, 0.3)',
-            }}
-          >
-            SELECT YOUR TRACK
-          </h2>
-        </div>
+          <div className="relative mb-5 overflow-hidden border border-[#1d4f83] bg-[linear-gradient(180deg,#08101a_0%,#091523_55%,#07111d_100%)] px-3 py-2 shadow-[0_0_0_1px_rgba(4,74,148,0.22),0_0_24px_rgba(4,74,148,0.08)] md:px-4">
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#5db8ff]/60 to-transparent" />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#FA4616]/45 to-transparent" />
+            <div className="pointer-events-none absolute left-0 top-0 h-4 w-4 border-l-2 border-t-2 border-[#044a94]" />
+            <div className="pointer-events-none absolute right-0 top-0 h-4 w-4 border-r-2 border-t-2 border-[#044a94]" />
+            <div className="pointer-events-none absolute bottom-0 left-0 h-4 w-4 border-b-2 border-l-2 border-[#044a94]" />
+            <div className="pointer-events-none absolute bottom-0 right-0 h-4 w-4 border-b-2 border-r-2 border-[#044a94]" />
 
-        <div className="relative mb-8 overflow-hidden border border-[#1d4f83] bg-[linear-gradient(180deg,#08101a_0%,#091523_55%,#07111d_100%)] px-5 py-4 shadow-[0_0_0_1px_rgba(4,74,148,0.22),0_0_24px_rgba(4,74,148,0.08)] md:px-7">
-          <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#5db8ff]/60 to-transparent" />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#FA4616]/45 to-transparent" />
-          <div className="pointer-events-none absolute left-0 top-0 h-4 w-4 border-l-2 border-t-2 border-[#044a94]" />
-          <div className="pointer-events-none absolute right-0 top-0 h-4 w-4 border-r-2 border-t-2 border-[#044a94]" />
-          <div className="pointer-events-none absolute bottom-0 left-0 h-4 w-4 border-b-2 border-l-2 border-[#044a94]" />
-          <div className="pointer-events-none absolute bottom-0 right-0 h-4 w-4 border-b-2 border-r-2 border-[#044a94]" />
-
-          <div className="relative flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <div className="flex items-center gap-4">
-              <div>
+            <div className="relative flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+              <div className="flex items-center gap-2.5">
                 <div
+                  className="fighter-panel ship-active !min-h-[58px] !min-w-[58px] scale-[0.66]"
                   style={{
-                    fontFamily: "'Orbitron', sans-serif",
-                    fontSize: '13px',
-                    fontWeight: 700,
-                    color: '#FA4616',
-                    letterSpacing: '1.8px',
-                    textShadow: '0 0 10px rgba(250,70,22,0.2)',
+                    borderColor: previewTrack.accentColor,
+                    boxShadow: `0 0 16px ${previewTrack.accentColor}33`,
+                    ['--track-accent' as string]: previewTrack.accentColor,
+                    ['--track-outline' as string]: `${previewTrack.accentColor}66`,
+                    ['--track-shadow' as string]: `${previewTrack.accentColor}33`,
+                    ['--track-panel-glow' as string]: `${previewTrack.accentColor}20`,
                   }}
                 >
-                  SELECT YOUR FIGHTER
+                  <PixelShip type={previewTrack.fighterType} accentColor={previewTrack.accentColor} />
                 </div>
-                <div
-                  style={{
-                    fontFamily: "'Space Mono', monospace",
-                    fontSize: '11px',
-                    color: '#7e90ab',
-                    letterSpacing: '1.2px',
-                  }}
-                >
-                  ARCADE TRACK SELECTION
-                </div>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-start md:justify-end">
-              <div className="border border-[#203854] bg-[#0a1421]/90 px-4 py-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.03),0_0_18px_rgba(4,74,148,0.08)]">
-                <span
-                  style={{
-                    fontFamily: "'Space Mono', monospace",
-                    fontSize: '11px',
-                    color: '#a4acbb',
-                    letterSpacing: '1.1px',
-                  }}
-                >
-                  {'< > TO NAVIGATE  A TO SELECT'}
-                  <span style={{ animation: 'blink 1s step-end infinite' }}> _</span>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3 md:gap-8">
-          {tracks.map((track, index) => (
-            <div
-              key={index}
-              className="group relative bg-[#1A1A2E] overflow-hidden transition-all duration-300 hover:transform hover:scale-[1.02]"
-            >
-              <div
-                className="absolute top-0 left-0 right-0 h-1 transition-all duration-300 group-hover:h-2"
-                style={{ backgroundColor: track.accentColor }}
-              />
-
-              <div
-                className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 opacity-50 group-hover:opacity-100 transition-opacity"
-                style={{ borderColor: track.accentColor }}
-              />
-              <div
-                className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 opacity-50 group-hover:opacity-100 transition-opacity"
-                style={{ borderColor: track.accentColor }}
-              />
-              <div
-                className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 opacity-50 group-hover:opacity-100 transition-opacity"
-                style={{ borderColor: track.accentColor }}
-              />
-              <div
-                className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 opacity-50 group-hover:opacity-100 transition-opacity"
-                style={{ borderColor: track.accentColor }}
-              />
-
-              <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                style={{
-                  background: `radial-gradient(circle at top left, ${track.accentColor}15, transparent 60%)`,
-                }}
-              />
-
-              <div className="relative z-10 p-6 md:p-10">
-                <div className="mb-5 md:mb-6">
+                <div>
                   <div
-                    className="inline-flex h-[84px] w-[84px] items-center justify-center border-2 bg-[#0c1020] transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_30px]"
-                    style={{
-                      borderColor: track.accentColor,
-                      boxShadow: `0 0 20px ${track.accentColor}40`,
-                    }}
-                  >
-                    <PixelShip type={track.fighterType} accentColor={track.accentColor} />
-                  </div>
-                </div>
-
-                <h3
-                  className="text-[#F4F4F4] mb-2 md:mb-3"
-                  style={{
-                    fontFamily: "'Orbitron', sans-serif",
-                    fontSize: 'clamp(24px, 5vw, 32px)',
-                    fontWeight: 700,
-                    letterSpacing: '0.5px',
-                  }}
-                >
-                  {track.title}
-                </h3>
-
-                <p
-                  className="mb-4 md:mb-5"
-                  style={{
-                    fontFamily: "'Space Mono', monospace",
-                    fontSize: '13px',
-                    fontWeight: 600,
-                    color: track.accentColor,
-                    textShadow: `0 0 10px ${track.accentColor}70, 0 0 22px ${track.accentColor}35`,
-                  }}
-                >
-                  {track.tagline}
-                </p>
-
-                <div className="mb-4 border border-[#2A2A3E] bg-[#0B0D14]/85 px-3 py-3">
-                  <div
-                    className="mb-1"
                     style={{
                       fontFamily: "'Orbitron', sans-serif",
-                      fontSize: '10px',
-                      color: '#9A9AA8',
+                      fontSize: '11px',
+                      fontWeight: 700,
+                      color: previewTrack.accentColor,
                       letterSpacing: '1.2px',
+                      textShadow: `0 0 10px ${previewTrack.accentColor}33`,
                     }}
                   >
-                    CALL SIGN
+                    SELECT YOUR FIGHTER
                   </div>
                   <div
+                    style={{
+                      fontFamily: "'Space Mono', monospace",
+                      fontSize: '9px',
+                      color: '#7e90ab',
+                      letterSpacing: '0.8px',
+                    }}
+                  >
+                    ARCADE TRACK SELECTION
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-start md:justify-end">
+                <div className="border border-[#203854] bg-[#0a1421]/90 px-2.5 py-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.03),0_0_18px_rgba(4,74,148,0.08)]">
+                  <span
+                    style={{
+                      fontFamily: "'Space Mono', monospace",
+                      fontSize: '9px',
+                      color: '#a4acbb',
+                      letterSpacing: '0.7px',
+                    }}
+                  >
+                    {'< > TO NAVIGATE   A TO SELECT'}
+                    <span style={{ animation: 'blink 1s step-end infinite' }}> _</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid gap-6 xl:grid-cols-3 md:grid-cols-2 md:gap-6">
+            {tracks.map((track, index) => (
+              <article
+                key={index}
+                className={`group fighter-card overflow-hidden cursor-pointer ${
+                  selectedTrackIndex === index ? 'fighter-card--selected' : ''
+                } ${
+                  focusedTrackIndex === index ? 'fighter-card--focused' : ''
+                }`}
+                onClick={() => {
+                  setFocusedTrackIndex(index);
+                  setSelectedTrackIndex(index);
+                }}
+                onFocus={() => setFocusedTrackIndex(index)}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    setFocusedTrackIndex(index);
+                    setSelectedTrackIndex(index);
+                  }
+                }}
+                role="button"
+                tabIndex={0}
+                aria-pressed={selectedTrackIndex === index}
+                style={
+                  {
+                    '--track-accent': track.accentColor,
+                    '--track-glow': `${track.accentColor}14`,
+                    '--track-outline': `${track.accentColor}66`,
+                    '--track-shadow': `${track.accentColor}33`,
+                    '--track-panel-glow': `${track.accentColor}20`,
+                  } as React.CSSProperties
+                }
+              >
+                <div
+                  className="absolute left-0 right-0 top-0 h-[3px]"
+                  style={{ background: `linear-gradient(90deg, transparent, ${track.accentColor}, transparent)` }}
+                />
+                <div
+                  className="absolute bottom-0 left-0 right-0 h-[2px] opacity-60"
+                  style={{ background: `linear-gradient(90deg, transparent, ${track.accentColor}, transparent)` }}
+                />
+
+                <div className="relative z-10 flex h-full flex-col p-6 md:p-7">
+                  <div className="mb-5 flex items-start justify-between gap-3">
+                    <span className="fighter-badge">P{index + 1} / TRACK SELECT</span>
+                    <span
+                      className="border px-2 py-1 text-[10px]"
+                      style={{
+                        borderColor: `${track.accentColor}66`,
+                        color: track.accentColor,
+                        fontFamily: "'Space Mono', monospace",
+                        letterSpacing: '1.3px',
+                        background: '#050913',
+                      }}
+                    >
+                      {selectedTrackIndex === index ? 'SELECTED' : focusedTrackIndex === index ? 'READY' : 'ACTIVE SLOT'}
+                    </span>
+                  </div>
+                  <div className="fighter-card__ship">
+                    <div
+                      className={`fighter-panel transition-transform duration-300 group-hover:scale-105 ${
+                        selectedTrackIndex === index || focusedTrackIndex === index ? 'ship-active scale-105' : ''
+                      }`}
+                    >
+                      <PixelShip type={track.fighterType} accentColor={track.accentColor} />
+                      <span className="fighter-slot">{index + 1}P</span>
+                    </div>
+                  </div>
+
+                  <h3
+                    className="mb-3 text-center text-[#F4F4F4]"
+                    style={{
+                      fontFamily: "'Orbitron', sans-serif",
+                      fontSize: 'clamp(25px, 3vw, 34px)',
+                      fontWeight: 700,
+                      letterSpacing: '1px',
+                      lineHeight: 1.06,
+                      textTransform: 'uppercase',
+                    }}
+                  >
+                    {track.title}
+                  </h3>
+
+                  <p
+                    className="mb-5 text-center"
                     style={{
                       fontFamily: "'Space Mono', monospace",
                       fontSize: '13px',
                       fontWeight: 700,
                       color: track.accentColor,
-                      letterSpacing: '1px',
+                      textShadow: `0 0 12px ${track.accentColor}55`,
                     }}
                   >
-                    {track.callSign}
-                  </div>
-                  <div
-                    className="mt-2"
-                    style={{
-                      fontFamily: "'Space Mono', monospace",
-                      fontSize: '11px',
-                      color: '#9A9AA8',
-                      letterSpacing: '0.8px',
-                    }}
-                  >
-                    {track.systemLabel}
-                  </div>
-                </div>
+                    {track.tagline}
+                  </p>
 
-                <p
-                  className="text-[#9A9A9A] mb-5 md:mb-6 leading-relaxed"
-                  style={{
-                    fontFamily: "'Space Mono', monospace",
-                    fontSize: '14px',
-                    lineHeight: 1.7,
-                  }}
-                >
-                  {track.description}
-                </p>
-
-                <p
-                  className="text-[#9A9AA8] mb-5 md:mb-6"
-                  style={{
-                    fontFamily: "'Space Mono', monospace",
-                    fontSize: '12px',
-                    fontWeight: 600,
-                    letterSpacing: '0.8px',
-                  }}
-                >
-                  {track.comment}
-                </p>
-
-                <div className="flex flex-wrap gap-2">
-                  {track.badges.map((badge, badgeIndex) => (
-                    <span
-                      key={badgeIndex}
-                      className="px-3 py-1.5 bg-[#0A0A0A] border border-[#2A2A3E] transition-all duration-300"
+                  <div className="fighter-metric mb-4">
+                    <div
+                      className="mb-2 text-[#7f92ae]"
                       style={{
-                        borderColor: '#2A2A3E',
-                        fontFamily: "'Space Mono', monospace",
-                        fontSize: '11px',
-                        fontWeight: 500,
+                        fontFamily: "'Orbitron', sans-serif",
+                        fontSize: '10px',
+                        letterSpacing: '1.8px',
+                      }}
+                    >
+                      CALL SIGN
+                    </div>
+                    <div
+                      className="mb-1"
+                      style={{
+                        fontFamily: "'Orbitron', sans-serif",
+                        fontSize: '19px',
+                        fontWeight: 700,
+                        letterSpacing: '1px',
                         color: track.accentColor,
                       }}
                     >
-                      {badge}
-                    </span>
-                  ))}
+                      {track.callSign}
+                    </div>
+                    <div
+                      style={{
+                        fontFamily: "'Space Mono', monospace",
+                        fontSize: '11px',
+                        color: '#8ea3c4',
+                        letterSpacing: '0.9px',
+                      }}
+                    >
+                      {track.systemLabel}
+                    </div>
+                  </div>
+
+                  <p
+                    className="mb-5 flex-1 text-[#a7b4c9]"
+                    style={{
+                      fontFamily: "'Space Mono', monospace",
+                      fontSize: '13px',
+                      lineHeight: 1.75,
+                    }}
+                  >
+                    {track.description}
+                  </p>
+
+                  <p
+                    className="mb-5"
+                    style={{
+                      fontFamily: "'Space Mono', monospace",
+                      fontSize: '12px',
+                      fontWeight: 700,
+                      letterSpacing: '0.8px',
+                      color: track.accentColor,
+                    }}
+                  >
+                    {track.comment}
+                  </p>
+
+                  <div className="mt-auto flex flex-wrap gap-2">
+                    {track.badges.map((badge, badgeIndex) => (
+                      <span
+                        key={badgeIndex}
+                        className="fighter-chip px-3 py-1.5"
+                        style={{
+                          fontFamily: "'Space Mono', monospace",
+                          fontSize: '10px',
+                          fontWeight: 700,
+                          color: track.accentColor,
+                          letterSpacing: '0.7px',
+                        }}
+                      >
+                        {badge}
+                      </span>
+                    ))}
+                  </div>
                 </div>
+              </article>
+            ))}
+          </div>
 
-                <div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity pointer-events-none"
-                  style={{
-                    backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 255, 255, 0.1) 2px, rgba(255, 255, 255, 0.1) 4px)',
-                  }}
-                />
-              </div>
-
-              <div className="absolute bottom-0 left-0 right-0 h-px bg-[#2A2A3E]" />
+          <div className="mt-10">
+            <div className="mb-4 text-center">
+              <p
+                className="mb-2 text-[#9A9A9A]"
+                style={{ fontFamily: "'Space Mono', monospace", fontSize: '13px' }}
+              >
+                Not sure which track? Teams can pivot during the event.
+              </p>
+              <p
+                className="text-[#6d83a6]"
+                style={{ fontFamily: "'Space Mono', monospace", fontSize: '11px', letterSpacing: '1px' }}
+              >
+                ALL FIGHTERS ELIGIBLE FOR THE MAIN PRIZE POOL
+              </p>
             </div>
-          ))}
-        </div>
-
-        <div className="mt-10 md:mt-12 text-center">
-          <p
-            className="text-[#9A9A9A] mb-4"
-            style={{ fontFamily: "'Space Mono', monospace", fontSize: '13px' }}
-          >
-            Not sure which track? Teams can pivot during the event.
-          </p>
-          <div className="inline-flex items-center gap-2 px-4 py-2 border border-[#2A2A3E]">
-            <div className="w-2 h-2 bg-[#044a94] animate-pulse" />
-            <span
-              className="text-[#9A9A9A]"
-              style={{ fontFamily: "'Space Mono', monospace", fontSize: '12px' }}
-            >
-              All tracks eligible for main prize pool
-            </span>
           </div>
         </div>
       </div>

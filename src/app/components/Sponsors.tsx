@@ -23,9 +23,9 @@ export function Sponsors() {
   ];
 
   return (
-    <section id="sponsors" className="bg-[#0D0D1A] pb-16 pt-8 md:pb-24 md:pt-12">
+    <section id="sponsors" className="bg-[#0D0D1A] pb-16 pt-3 md:pb-24 md:pt-5">
       <div className="max-w-[1200px] mx-auto px-6">
-        <div className="text-center mb-12 md:mb-16">
+        <div className="mb-9 text-center md:mb-12">
           <div className="mb-4">
             <span
               className="pixel-pill"

@@ -389,27 +389,21 @@ export function GameModes() {
           animation: flameFlicker 0.22s steps(2, end) infinite;
         }
 
-        .group:hover .bullet,
-        .ship-active .bullet {
+        .group:hover .bullet {
           opacity: 1;
           animation: bulletBurst 0.45s linear infinite;
         }
 
-        .group:hover .bullet--2,
-        .ship-active .bullet--2 { animation-delay: 0.08s; }
-        .group:hover .bullet--3,
-        .ship-active .bullet--3 { animation-delay: 0.14s; }
+        .group:hover .bullet--2 { animation-delay: 0.08s; }
+        .group:hover .bullet--3 { animation-delay: 0.14s; }
 
-        .group:hover .risk-bullet,
-        .ship-active .risk-bullet {
+        .group:hover .risk-bullet {
           opacity: 1;
           animation: riskBulletBurst 0.5s linear infinite;
         }
 
-        .group:hover .risk-bullet--2,
-        .ship-active .risk-bullet--2 { animation-delay: 0.09s; }
-        .group:hover .risk-bullet--3,
-        .ship-active .risk-bullet--3 { animation-delay: 0.16s; }
+        .group:hover .risk-bullet--2 { animation-delay: 0.09s; }
+        .group:hover .risk-bullet--3 { animation-delay: 0.16s; }
 
         .group:hover .signal-ring,
         .ship-active .signal-ring {
@@ -849,7 +843,7 @@ export function GameModes() {
                       letterSpacing: '0.7px',
                     }}
                   >
-                    {'< > TO NAVIGATE   A TO SELECT'}
+                    {'< > TO NAVIGATE   •   A TO SELECT'}
                     <span style={{ animation: 'blink 1s step-end infinite' }}> _</span>
                   </span>
                 </div>

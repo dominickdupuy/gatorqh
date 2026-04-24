@@ -24,35 +24,8 @@ const stats: StatCard[] = [
 
 export function StatsBar() {
   return (
-    <section className="relative overflow-hidden border-y border-[#14345c] bg-[#060b12] py-4 md:py-5">
+    <section className="relative overflow-hidden border-y border-[#14345c] bg-[#050913] py-5 md:py-6">
       <style>{`
-        .status-board::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          pointer-events: none;
-          opacity: 0.18;
-          background-image:
-            linear-gradient(rgba(25, 74, 140, 0.12) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(25, 74, 140, 0.12) 1px, transparent 1px);
-          background-size: 22px 22px;
-        }
-
-        .status-board::after {
-          content: '';
-          position: absolute;
-          inset: 0;
-          pointer-events: none;
-          background: repeating-linear-gradient(
-            180deg,
-            rgba(255, 255, 255, 0.03) 0,
-            rgba(255, 255, 255, 0.03) 1px,
-            transparent 1px,
-            transparent 4px
-          );
-          opacity: 0.22;
-        }
-
         .status-title {
           clip-path: polygon(3% 0, 97% 0, 100% 18%, 100% 82%, 97% 100%, 3% 100%, 0 82%, 0 18%);
           overflow: hidden;
@@ -68,87 +41,233 @@ export function StatsBar() {
             linear-gradient(90deg, transparent, rgba(118, 194, 255, 0.08), transparent);
         }
 
-        .status-title-pixels-left,
-        .status-title-pixels-right {
-          position: absolute;
-          top: 50%;
-          display: grid;
-          grid-template-columns: repeat(3, 6px);
-          gap: 3px;
-          transform: translateY(-50%);
-        }
-
-        .status-title-pixels-left {
-          right: calc(100% + 8px);
-        }
-
-        .status-title-pixels-right {
-          left: calc(100% + 8px);
-        }
-
-        .status-title-pixels-left span,
-        .status-title-pixels-right span {
-          width: 6px;
-          height: 6px;
-          background: #257bff;
-          box-shadow: 0 0 10px rgba(37, 123, 255, 0.5);
-        }
-
-        .status-card {
-          position: relative;
-          height: 142px;
-          background:
-            linear-gradient(180deg, rgba(6, 11, 20, 0.98), rgba(4, 8, 15, 0.98)),
-            radial-gradient(circle at top, var(--card-glow), transparent 50%);
-          box-shadow:
-            inset 0 0 0 1px rgba(255,255,255,0.03),
-            0 0 22px var(--card-shadow);
-        }
-
-        .status-card::before {
-          content: '';
-          position: absolute;
-          inset: 12px;
-          border: 1px solid var(--card-outline);
-          pointer-events: none;
-        }
-
-        .status-card::after {
+        .stats-shell::before {
           content: '';
           position: absolute;
           inset: 0;
           pointer-events: none;
+          opacity: 0.18;
           background-image:
-            linear-gradient(rgba(18, 46, 88, 0.14) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(18, 46, 88, 0.14) 1px, transparent 1px);
-          background-size: 18px 18px;
+            linear-gradient(rgba(25, 74, 140, 0.12) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(25, 74, 140, 0.12) 1px, transparent 1px);
+          background-size: 22px 22px;
+        }
+
+        .stats-shell::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          background:
+            linear-gradient(180deg, rgba(18, 42, 78, 0.12), transparent 18%, transparent 82%, rgba(18, 42, 78, 0.14)),
+            repeating-linear-gradient(
+              180deg,
+              rgba(255, 255, 255, 0.03) 0,
+              rgba(255, 255, 255, 0.03) 1px,
+              transparent 1px,
+              transparent 4px
+            );
+          opacity: 0.2;
+        }
+
+        .stats-card {
+          position: relative;
+          min-height: 112px;
+          border: 2px solid var(--track-accent);
+          background:
+            linear-gradient(180deg, rgba(9, 14, 28, 0.97), rgba(4, 8, 18, 0.98)),
+            radial-gradient(circle at top, var(--track-glow), transparent 58%);
+          box-shadow:
+            0 0 0 2px rgba(8, 13, 25, 0.98),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.02),
+            inset 0 0 24px rgba(0, 0, 0, 0.22),
+            0 0 18px var(--track-shadow),
+            0 0 26px rgba(0, 0, 0, 0.22);
+        }
+
+        .stats-card::before,
+        .stats-card::after {
+          content: '';
+          position: absolute;
+          inset: 6px;
+          pointer-events: none;
+        }
+
+        .stats-card::before {
+          border: 2px solid var(--track-outline);
+          opacity: 0.85;
+        }
+
+        .stats-card::after {
+          background:
+            linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.03) 50%, transparent 100%),
+            repeating-linear-gradient(
+              180deg,
+              transparent 0px,
+              transparent 10px,
+              rgba(255, 255, 255, 0.04) 10px,
+              rgba(255, 255, 255, 0.04) 11px
+            );
           opacity: 0.35;
         }
 
-        .status-corner {
+        .stats-card__corners {
           position: absolute;
-          width: 18px;
-          height: 18px;
-          border-color: var(--card-accent);
-          filter: drop-shadow(0 0 8px var(--card-accent));
+          inset: 0;
+          pointer-events: none;
+          z-index: 1;
         }
 
-        .status-corner--tl { top: 6px; left: 6px; border-top: 4px solid; border-left: 4px solid; }
-        .status-corner--tr { top: 6px; right: 6px; border-top: 4px solid; border-right: 4px solid; }
-        .status-corner--bl { bottom: 6px; left: 6px; border-bottom: 4px solid; border-left: 4px solid; }
-        .status-corner--br { bottom: 6px; right: 6px; border-bottom: 4px solid; border-right: 4px solid; }
+        .stats-card__corner {
+          position: absolute;
+          width: 24px;
+          height: 24px;
+          opacity: 0.98;
+          filter: drop-shadow(0 0 8px var(--track-accent));
+        }
 
+        .stats-card__corner::before,
+        .stats-card__corner::after {
+          content: '';
+          position: absolute;
+          background: var(--track-accent);
+          box-shadow: 0 0 8px var(--track-accent);
+        }
+
+        .stats-card__corner--tl {
+          top: -2px;
+          left: -2px;
+        }
+
+        .stats-card__corner--tr {
+          top: -2px;
+          right: -2px;
+        }
+
+        .stats-card__corner--bl {
+          bottom: -2px;
+          left: -2px;
+        }
+
+        .stats-card__corner--br {
+          bottom: -2px;
+          right: -2px;
+        }
+
+        .stats-card__corner--tl::before,
+        .stats-card__corner--tr::before,
+        .stats-card__corner--bl::before,
+        .stats-card__corner--br::before {
+          top: 0;
+          width: 20px;
+          height: 3px;
+        }
+
+        .stats-card__corner--tl::after,
+        .stats-card__corner--tr::after,
+        .stats-card__corner--bl::after,
+        .stats-card__corner--br::after {
+          left: 0;
+          width: 3px;
+          height: 20px;
+        }
+
+        .stats-card__corner--tl::before {
+          left: 0;
+        }
+
+        .stats-card__corner--tl::after {
+          top: 0;
+        }
+
+        .stats-card__corner--tr::before {
+          right: 0;
+        }
+
+        .stats-card__corner--tr::after {
+          top: 0;
+          left: auto;
+          right: 0;
+        }
+
+        .stats-card__corner--bl::before {
+          bottom: 0;
+          top: auto;
+          left: 0;
+        }
+
+        .stats-card__corner--bl::after {
+          bottom: 0;
+          top: auto;
+        }
+
+        .stats-card__corner--br::before {
+          bottom: 0;
+          top: auto;
+          right: 0;
+        }
+
+        .stats-card__corner--br::after {
+          bottom: 0;
+          top: auto;
+          left: auto;
+          right: 0;
+        }
+
+        .stats-card__corner-step {
+          position: absolute;
+          width: 10px;
+          height: 10px;
+          border-color: var(--track-accent);
+          opacity: 0.98;
+          filter: drop-shadow(0 0 6px var(--track-accent));
+        }
+
+        .stats-card__corner-step--tl {
+          top: 3px;
+          left: 3px;
+          border-top: 3px solid var(--track-accent);
+          border-left: 3px solid var(--track-accent);
+        }
+
+        .stats-card__corner-step--tr {
+          top: 3px;
+          right: 3px;
+          border-top: 3px solid var(--track-accent);
+          border-right: 3px solid var(--track-accent);
+        }
+
+        .stats-card__corner-step--bl {
+          bottom: 3px;
+          left: 3px;
+          border-bottom: 3px solid var(--track-accent);
+          border-left: 3px solid var(--track-accent);
+        }
+
+        .stats-card__corner-step--br {
+          bottom: 3px;
+          right: 3px;
+          border-bottom: 3px solid var(--track-accent);
+          border-right: 3px solid var(--track-accent);
+        }
       `}</style>
 
-      <div className="status-board absolute inset-0 pointer-events-none" />
-      <div className="pointer-events-none absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-[#164883] to-transparent opacity-70" />
-      <div className="pointer-events-none absolute left-0 right-0 top-[32px] h-px bg-gradient-to-r from-transparent via-[#164883] to-transparent opacity-60" />
-      <div className="pointer-events-none absolute bottom-[12px] left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#164883] to-transparent opacity-60" />
+      <div className="stats-shell absolute inset-0 pointer-events-none" />
 
       <div className="relative z-10 mx-auto max-w-[1140px] px-4 md:px-6">
-        <div className="mb-2 flex justify-center md:mb-3">
+        <div className="mb-3 flex items-center justify-center gap-4 md:mb-4">
+          <div className="h-px w-12 bg-gradient-to-r from-transparent to-[#2c6dac]" />
+          <div className="flex items-center gap-2">
+            <div className="h-2 w-2 bg-[#FA4616]" />
+            <div className="h-2 w-2 bg-[#63f6ff]" />
+            <div className="h-2 w-2 bg-[#33d17a]" />
+          </div>
+          <div className="h-px w-12 bg-gradient-to-l from-transparent to-[#2c6dac]" />
+        </div>
+
+        <div className="mb-3 flex justify-center md:mb-4">
           <div
-            className="status-title status-title-shell relative border-[2px] border-[#2459a3] bg-[linear-gradient(180deg,#2c5cab_0%,#234b90_52%,#18386f_100%)] px-5 py-2 shadow-[0_0_0_2px_#07111f,0_8px_24px_rgba(7,17,31,0.45),0_0_26px_rgba(37,123,255,0.14)] md:px-9"
+            className="status-title status-title-shell relative border-[2px] border-[#2459a3] bg-[linear-gradient(180deg,#264f95_0%,#1d407b_52%,#15315f_100%)] px-5 py-2 shadow-[0_0_0_2px_#07111f,0_8px_24px_rgba(7,17,31,0.4),0_0_22px_rgba(37,123,255,0.12)] md:px-9"
           >
             <span
               className="block text-center text-[#eef4ff]"
@@ -169,25 +288,30 @@ export function StatsBar() {
           {stats.map((stat) => (
             <article
               key={stat.label}
-              className="status-card overflow-hidden border-[3px] px-3 py-2.5 md:px-4 md:py-3"
+              className="stats-card overflow-hidden px-2.5 py-2 md:px-3 md:py-2.5"
               style={
                 {
-                  borderColor: stat.color,
-                  '--card-accent': stat.color,
-                  '--card-outline': `${stat.color}66`,
-                  '--card-glow': `${stat.color}12`,
-                  '--card-shadow': `${stat.color}26`,
+                  '--track-accent': stat.color,
+                  '--track-glow': `${stat.color}14`,
+                  '--track-outline': `${stat.color}66`,
+                  '--track-shadow': `${stat.color}33`,
                 } as React.CSSProperties
               }
             >
-              <span className="status-corner status-corner--tl" />
-              <span className="status-corner status-corner--tr" />
-              <span className="status-corner status-corner--bl" />
-              <span className="status-corner status-corner--br" />
+              <div className="stats-card__corners">
+                <span className="stats-card__corner stats-card__corner--tl" />
+                <span className="stats-card__corner stats-card__corner--tr" />
+                <span className="stats-card__corner stats-card__corner--bl" />
+                <span className="stats-card__corner stats-card__corner--br" />
+                <span className="stats-card__corner-step stats-card__corner-step--tl" />
+                <span className="stats-card__corner-step stats-card__corner-step--tr" />
+                <span className="stats-card__corner-step stats-card__corner-step--bl" />
+                <span className="stats-card__corner-step stats-card__corner-step--br" />
+              </div>
 
               <div className="relative z-10 flex h-full flex-col items-center justify-center text-center">
                 <div
-                  className="mb-3"
+                  className="mb-2"
                   style={{
                     fontFamily: "'Press Start 2P', monospace",
                     fontSize: 'clamp(17px, 1.9vw, 28px)',
@@ -198,8 +322,6 @@ export function StatsBar() {
                 >
                   {stat.value}
                 </div>
-
-                <div className="mb-3 h-px w-full bg-[linear-gradient(90deg,transparent,var(--card-accent),transparent)] opacity-70" />
 
                 <div
                   className="text-[#b8c0cf]"
@@ -213,7 +335,6 @@ export function StatsBar() {
                 >
                   {stat.label}
                 </div>
-
               </div>
             </article>
           ))}

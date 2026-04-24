@@ -84,7 +84,7 @@ export function InterestForm() {
           <p className="text-gray-300 text-lg">
             Gauge your interest in the{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
-              Gator Quant Hackathon
+              Gator Quant Competition
             </span>
             . We'll share next steps, timelines, and prep resources.
           </p>
@@ -161,7 +161,7 @@ export function InterestForm() {
             {/* Interest */}
             <div className="space-y-3">
               <Label className="text-white font-mono">
-                Would you be interested in attending our Gator Quant Hackathon?{" "}
+                Would you be interested in attending our Gator Quant Competition?{" "}
                 <span className="text-cyan-400">*</span>
               </Label>
               <div className="flex gap-3">

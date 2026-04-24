@@ -16,7 +16,7 @@ export function RegisterPage() {
       <div className="bg-[#001f3f] py-20">
         <div className="max-w-3xl mx-auto px-6 text-center">
           <h1 className="text-4xl md:text-5xl text-white mb-4">
-            Register for <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Gator Quant Hackathon</span>
+            Register for <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Gator Quant Competition</span>
           </h1>
           <p className="text-gray-300 text-lg">
             Join 500+ students for 36 hours of quantitative innovation
@@ -179,7 +179,7 @@ export function RegisterPage() {
 
             <div className="space-y-2 mt-6">
               <Label htmlFor="motivation" className="text-white">
-                Why do you want to participate in Gator Quant Hackathon? *
+                Why do you want to participate in Gator Quant Competition? *
               </Label>
               <Textarea
                 id="motivation"
@@ -244,7 +244,7 @@ export function RegisterPage() {
                   className="mt-1 w-4 h-4 bg-black border-gray-700 rounded focus:ring-cyan-400"
                 />
                 <Label htmlFor="firstHackathon" className="text-white">
-                  This is my first hackathon
+                  This is my first competition
                 </Label>
               </div>
             </div>

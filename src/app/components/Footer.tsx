@@ -1,4 +1,4 @@
-import { Github, Twitter, Linkedin, Mail, MapPin } from 'lucide-react';
+import { Github, Linkedin, Instagram, Mail, MapPin } from 'lucide-react';
 import quantClubLogo from './GQHLogo.png';
 
 export function Footer() {
@@ -23,7 +23,7 @@ export function Footer() {
               className="mb-4 text-[#9A9A9A]"
               style={{ fontFamily: "'Space Mono', monospace", fontSize: '13px', lineHeight: 1.6 }}
             >
-              Building the future of quantitative finance, one hackathon at a time.
+              Building the future of quantitative finance, one competition at a time.
             </p>
           </div>
 
@@ -90,13 +90,15 @@ export function Footer() {
             </h3>
             <div className="flex gap-3">
               {[
-                { Icon: Twitter, href: '#' },
-                { Icon: Linkedin, href: '#' },
+                { Icon: Instagram, href: 'https://www.instagram.com/uf_quanted/' },
+                { Icon: Linkedin, href: 'https://www.linkedin.com/company/algogators-investment-fund/' },
                 { Icon: Github, href: '#' },
               ].map(({ Icon, href }, index) => (
                 <a
                   key={index}
                   href={href}
+                  target={href.startsWith('http') ? '_blank' : undefined}
+                  rel={href.startsWith('http') ? 'noreferrer' : undefined}
                   className="flex h-10 w-10 items-center justify-center border-2 border-[#2A2A3E] text-[#9A9A9A] transition-all hover:border-[#044a94] hover:text-[#044a94] hover:shadow-[0_0_20px_rgba(4,74,148,0.3)]"
                 >
                   <Icon size={18} />
@@ -112,7 +114,7 @@ export function Footer() {
               className="text-center text-[#9A9A9A] md:text-left"
               style={{ fontFamily: "'Space Mono', monospace", fontSize: '11px' }}
             >
-              © 2026 Gator Quant Hackathon. All rights reserved.
+              © 2026 Gator Quant Competition. All rights reserved.
             </p>
             <div className="flex flex-wrap justify-center gap-4 md:gap-6">
               <a

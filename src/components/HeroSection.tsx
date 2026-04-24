@@ -126,7 +126,7 @@ export function HeroSection({ onNavigate }: { onNavigate?: (page: "home" | "regi
         <h1 className="text-6xl md:text-8xl text-white mb-6 tracking-tight font-bold">
           GATOR QUANT
           <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-cyan-300 animate-pulse">
-            HACKATHON
+            COMPETITION
           </span>
         </h1>
         

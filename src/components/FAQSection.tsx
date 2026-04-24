@@ -34,11 +34,11 @@ export function FAQSection() {
   const faqs = [
     {
       question: "Who can participate?",
-      answer: "Gator Quant Hackathon is open to all university students, including both undergraduate and graduate students. No prior experience in finance is required, but basic programming skills are recommended."
+      answer: "Gator Quant Competition is open to all university students, including both undergraduate and graduate students. No prior experience in finance is required, but basic programming skills are recommended."
     },
     {
       question: "How much does it cost?",
-      answer: "Gator Quant Hackathon is completely free to attend! We provide meals, snacks, swag, and access to all workshops and mentorship sessions at no cost to participants."
+      answer: "Gator Quant Competition is completely free to attend! We provide meals, snacks, swag, and access to all workshops and mentorship sessions at no cost to participants."
     },
     {
       question: "Do I need a team?",
@@ -50,7 +50,7 @@ export function FAQSection() {
     },
     {
       question: "What kind of data and APIs will be available?",
-      answer: "We'll provide access to historical market data, real-time data feeds, and various financial APIs. Our sponsors will also share their proprietary datasets and tools for the hackathon."
+      answer: "We'll provide access to historical market data, real-time data feeds, and various financial APIs. Our sponsors will also share their proprietary datasets and tools for the competition."
     },
     {
       question: "Will there be travel reimbursement?",

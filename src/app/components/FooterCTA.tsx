@@ -160,7 +160,7 @@ export function FooterCTA() {
 
             <ShatterButton
               onClick={handlePressStart}
-              shatterColor="#FA4616"
+              shatterColor="#9cc9ff"
               className="group relative mb-10 w-full overflow-hidden rounded-none sm:mb-12 sm:w-full"
               style={{
                 background: 'linear-gradient(180deg, #151d2a 0%, #101722 45%, #0a1119 100%)',
@@ -268,18 +268,22 @@ export function FooterCTA() {
             <div className="relative w-full max-w-[320px]">
               <div className="aspect-[4/5] overflow-hidden border border-[#183046] bg-[#070A11]/95 shadow-[0_0_24px_rgba(4,74,148,0.14),inset_0_0_0_1px_rgba(255,255,255,0.02)]">
                 <div className="relative flex h-full flex-col justify-between p-6">
-                  <div
-                    className="inline-flex self-start border border-[#1d3353] bg-[#0a1220]/90 px-3 py-2 text-[#9cc9ff]"
-                    style={{
-                      fontFamily: "'Space Mono', monospace",
-                      fontSize: '11px',
-                      letterSpacing: '1.4px',
-                    }}
-                  >
-                    HIGH SCORE RELIC
+                  <div className="flex justify-center border-b border-[#173154] pb-4">
+                    <div
+                      className="inline-flex border border-[#1d3353] bg-[#0a1220]/90 px-3 py-2 text-[#9cc9ff]"
+                      style={{
+                        fontFamily: "'Space Mono', monospace",
+                        fontSize: '11px',
+                        letterSpacing: '1.4px',
+                      }}
+                    >
+                      HIGH SCORE RELIC
+                    </div>
                   </div>
 
-                  <div className="relative flex flex-1 items-center justify-center">
+                  <div className="relative my-5 flex flex-1 items-center justify-center border border-[#11233b] bg-[linear-gradient(180deg,rgba(8,14,24,0.92),rgba(7,11,18,0.98))] px-4 py-6 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.02)]">
+                    <div className="pointer-events-none absolute inset-x-4 top-4 h-px bg-gradient-to-r from-transparent via-[#1f67be]/60 to-transparent" />
+                    <div className="pointer-events-none absolute inset-x-6 bottom-5 h-px bg-gradient-to-r from-transparent via-[#1f67be]/35 to-transparent" />
                     <div className="absolute h-40 w-40 rounded-full bg-[#044a94]/14 blur-3xl" />
                     <div
                       className="absolute h-24 w-24 rounded-full border border-[#9cc9ff]/35"
@@ -303,19 +307,19 @@ export function FooterCTA() {
                         <div className="absolute left-1/2 top-[80px] h-[16px] w-[52px] -translate-x-1/2 bg-[#274aab] shadow-[0_0_0_4px_#183046]" />
                         <div className="absolute left-1/2 top-[100px] h-[14px] w-[84px] -translate-x-1/2 bg-[#0f1f38] shadow-[0_0_0_4px_#08111f]" />
                         <div className="absolute left-1/2 top-[18px] h-[8px] w-[34px] -translate-x-1/2 bg-white/28 blur-[1px]" />
-                        <div className="absolute left-[24px] top-[18px] h-[6px] w-[6px] bg-[#FA4616] shadow-[76px_0_0_#FA4616,16px_58px_0_#FA4616,52px_58px_0_#FA4616]" />
                       </div>
                     </div>
                   </div>
 
                   <div className="border-t border-[#1d3353] pt-4">
                     <div
-                      className="mb-2 text-[#eef4ff]"
+                      className="mb-1 text-[#eef4ff]"
                       style={{
                         fontFamily: "'Orbitron', sans-serif",
                         fontSize: '12px',
-                        letterSpacing: '1px',
-                        lineHeight: 1.5,
+                        fontWeight: 700,
+                        letterSpacing: '1.1px',
+                        lineHeight: 1.4,
                       }}
                     >
                       TREASURE VAULT ONLINE
@@ -324,12 +328,13 @@ export function FooterCTA() {
                       className="text-[rgba(255,255,255,0.55)]"
                       style={{
                         fontFamily: "'Space Mono', monospace",
-                        fontSize: '12px',
-                        letterSpacing: '1.2px',
-                        lineHeight: 1.6,
+                        fontSize: '11px',
+                        letterSpacing: '1.1px',
+                        lineHeight: 1.7,
                       }}
                     >
-                      CHAMPION CLASS REWARD | LOCK IN YOUR SHIP AND CHASE THE HIGH SCORE
+                      CHAMPION CLASS REWARD | LOCK IN YOUR SHIP AND CHASE THE HIGH
+                      SCORE
                     </div>
                   </div>
                 </div>

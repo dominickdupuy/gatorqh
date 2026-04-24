@@ -163,7 +163,7 @@ export function SponsorsSection() {
             <div className="absolute inset-0 animate-wave">
               <div className="h-full w-1/3 bg-gradient-to-r from-transparent via-cyan-400/10 to-transparent" />
             </div>
-            <p className="text-gray-400 mb-6 text-lg relative z-10">Interested in sponsoring Gator Quant Hackathon?</p>
+            <p className="text-gray-400 mb-6 text-lg relative z-10">Interested in sponsoring Gator Quant Competition?</p>
             <a 
               href="#" 
               className="inline-block px-8 py-3 bg-gradient-to-r from-cyan-400 to-blue-500 text-black font-bold hover:from-cyan-300 hover:to-blue-400 transition-all shadow-[0_0_20px_rgba(0,188,212,0.3)] hover:shadow-[0_0_30px_rgba(0,188,212,0.5)] hover:scale-105 relative z-10"

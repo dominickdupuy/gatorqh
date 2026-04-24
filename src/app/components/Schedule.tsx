@@ -27,7 +27,7 @@ const days: ScheduleDay[] = [
       { time: '05:00 PM', title: 'Insert Coin Portal', subtitle: 'Registration & Check-In', type: 'standard' },
       { time: '06:00 PM', title: 'Game Boot Sequence', subtitle: 'Opening Ceremony & Keynote', type: 'key' },
       { time: '07:00 PM', title: 'Guild Formation', subtitle: 'Team Formation & Networking', type: 'standard' },
-      { time: '08:00 PM', title: 'Hacking Begins - System Online', subtitle: 'Official Hackathon Start', type: 'key' },
+      { time: '08:00 PM', title: 'Competition Begins - System Online', subtitle: 'Official Competition Start', type: 'key' },
       { time: '09:00 PM', title: 'Power-Up: Market Data APIs', subtitle: 'Workshop on Financial Data Integration', type: 'powerup' },
       { time: '11:00 PM', title: 'Midnight Fuel Station', subtitle: 'Late Night Snacks & Drinks', type: 'standard' },
     ],
@@ -143,7 +143,7 @@ export function Schedule() {
                 letterSpacing: '2px',
               }}
             >
-              05 / 36-HOUR QUEST
+              36-HOUR QUEST
             </span>
           </div>
 

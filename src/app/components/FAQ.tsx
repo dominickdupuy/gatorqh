@@ -11,7 +11,7 @@ const faqItems: FaqItem[] = [
     command: 'WHO CAN PARTICIPATE?',
     prompt: 'Open to all university students.',
     answer:
-      'Gator Quant Hackathon is open to all university students, including both undergraduate and graduate students. No prior experience in finance is required, but basic programming skills are recommended.',
+      'Gator Quant Competition is open to all university students, including both undergraduate and graduate students. No prior experience in finance is required, but basic programming skills are recommended.',
   },
   {
     command: 'WHAT SHOULD I BRING?',

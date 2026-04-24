@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { ChevronDown } from 'lucide-react';
 import { ShatterButton } from '@/components/ui/shatter-button';
 
 const titleLines = ['GATOR', 'QUANT', 'HACKS'];
@@ -192,41 +191,190 @@ export function Hero({ onNavigate }: { onNavigate?: (page: AppPage) => void }) {
 
         @keyframes scanline {
           0% { background-position: 0 0; }
-          100% { background-position: 0 32px; }
+          100% { background-position: 0 16px; }
         }
 
         .mission-console {
           position: relative;
+          min-height: 100%;
           overflow: hidden;
-          border: 1px solid rgba(36, 92, 145, 0.85);
+          border: 2px solid #2e86ff;
           background:
-            linear-gradient(180deg, rgba(8, 14, 28, 0.95), rgba(4, 9, 20, 0.98)),
-            radial-gradient(circle at top, rgba(4, 74, 148, 0.08), transparent 45%);
+            linear-gradient(180deg, rgba(9, 14, 28, 0.97), rgba(4, 8, 18, 0.98)),
+            radial-gradient(circle at top, rgba(46, 134, 255, 0.14), transparent 58%);
           box-shadow:
-            0 0 0 3px rgba(5, 11, 23, 0.98),
-            inset 0 0 0 1px rgba(129, 194, 255, 0.05),
-            0 0 26px rgba(4, 74, 148, 0.12);
+            0 0 0 2px rgba(8, 13, 25, 0.98),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.02),
+            inset 0 0 24px rgba(0, 0, 0, 0.22),
+            0 0 18px rgba(46, 134, 255, 0.33),
+            0 0 26px rgba(0, 0, 0, 0.22);
         }
 
-        .mission-console::before {
-          content: '';
-          position: absolute;
-          inset: 10px;
-          border: 1px solid rgba(43, 84, 133, 0.35);
-          pointer-events: none;
-        }
-
+        .mission-console::before,
         .mission-console::after {
           content: '';
           position: absolute;
+          pointer-events: none;
+        }
+
+        .mission-console::before {
+          inset: 6px;
+          border: 2px solid rgba(46, 134, 255, 0.4);
+          opacity: 0.85;
+        }
+
+        .mission-console::after {
+          inset: 6px;
+          background:
+            linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.03) 50%, transparent 100%),
+            repeating-linear-gradient(
+              180deg,
+              transparent 0px,
+              transparent 10px,
+              rgba(255, 255, 255, 0.04) 10px,
+              rgba(255, 255, 255, 0.04) 11px
+            );
+          opacity: 0.35;
+        }
+
+        .mission-console__corners {
+          position: absolute;
           inset: 0;
           pointer-events: none;
-          background: repeating-linear-gradient(
-            180deg,
-            rgba(255,255,255,0.02) 0 1px,
-            transparent 1px 4px
-          );
-          opacity: 0.18;
+          z-index: 1;
+        }
+
+        .mission-console__corner {
+          position: absolute;
+          width: 24px;
+          height: 24px;
+          opacity: 0.98;
+          filter: drop-shadow(0 0 8px #2e86ff);
+        }
+
+        .mission-console__corner::before,
+        .mission-console__corner::after {
+          content: '';
+          position: absolute;
+          background: #2e86ff;
+          box-shadow: 0 0 8px #2e86ff;
+        }
+
+        .mission-console__corner--tl {
+          top: -2px;
+          left: -2px;
+        }
+
+        .mission-console__corner--tr {
+          top: -2px;
+          right: -2px;
+        }
+
+        .mission-console__corner--bl {
+          bottom: -2px;
+          left: -2px;
+        }
+
+        .mission-console__corner--br {
+          bottom: -2px;
+          right: -2px;
+        }
+
+        .mission-console__corner--tl::before,
+        .mission-console__corner--tr::before,
+        .mission-console__corner--bl::before,
+        .mission-console__corner--br::before {
+          top: 0;
+          width: 20px;
+          height: 3px;
+        }
+
+        .mission-console__corner--tl::after,
+        .mission-console__corner--tr::after,
+        .mission-console__corner--bl::after,
+        .mission-console__corner--br::after {
+          left: 0;
+          width: 3px;
+          height: 20px;
+        }
+
+        .mission-console__corner--tl::before {
+          left: 0;
+        }
+
+        .mission-console__corner--tl::after {
+          top: 0;
+        }
+
+        .mission-console__corner--tr::before {
+          right: 0;
+        }
+
+        .mission-console__corner--tr::after {
+          top: 0;
+          left: auto;
+          right: 0;
+        }
+
+        .mission-console__corner--bl::before {
+          bottom: 0;
+          top: auto;
+          left: 0;
+        }
+
+        .mission-console__corner--bl::after {
+          bottom: 0;
+          top: auto;
+        }
+
+        .mission-console__corner--br::before {
+          bottom: 0;
+          top: auto;
+          right: 0;
+        }
+
+        .mission-console__corner--br::after {
+          bottom: 0;
+          top: auto;
+          left: auto;
+          right: 0;
+        }
+
+        .mission-console__corner-step {
+          position: absolute;
+          width: 10px;
+          height: 10px;
+          border-color: #2e86ff;
+          opacity: 0.98;
+          filter: drop-shadow(0 0 6px #2e86ff);
+        }
+
+        .mission-console__corner-step--tl {
+          top: 3px;
+          left: 3px;
+          border-top: 3px solid #2e86ff;
+          border-left: 3px solid #2e86ff;
+        }
+
+        .mission-console__corner-step--tr {
+          top: 3px;
+          right: 3px;
+          border-top: 3px solid #2e86ff;
+          border-right: 3px solid #2e86ff;
+        }
+
+        .mission-console__corner-step--bl {
+          bottom: 3px;
+          left: 3px;
+          border-bottom: 3px solid #2e86ff;
+          border-left: 3px solid #2e86ff;
+        }
+
+        .mission-console__corner-step--br {
+          bottom: 3px;
+          right: 3px;
+          border-bottom: 3px solid #2e86ff;
+          border-right: 3px solid #2e86ff;
         }
 
       `}</style>
@@ -279,7 +427,7 @@ export function Hero({ onNavigate }: { onNavigate?: (page: AppPage) => void }) {
         />
       </div>
 
-      <div className="relative z-10 mx-auto flex min-h-screen max-w-[1400px] flex-col items-center justify-center px-6 py-24 text-center">
+      <div className="relative z-10 mx-auto flex min-h-screen max-w-[1400px] flex-col items-center justify-center px-6 pb-10 pt-24 md:pb-14 text-center">
         <div className="mb-1 flex w-full max-w-[980px] flex-wrap items-center justify-between gap-3 md:mb-2">
           <div
             className="inline-flex items-center gap-3 border border-[#294f7d] bg-[#09111d]/92 px-4 py-3 shadow-[0_0_20px_rgba(4,74,148,0.12)]"
@@ -455,6 +603,16 @@ export function Hero({ onNavigate }: { onNavigate?: (page: AppPage) => void }) {
             </p>
 
             <div className="mission-console mx-auto mb-6 w-full max-w-[780px] px-3 py-3 md:px-4 md:py-4">
+              <div className="mission-console__corners">
+                <span className="mission-console__corner mission-console__corner--tl" />
+                <span className="mission-console__corner mission-console__corner--tr" />
+                <span className="mission-console__corner mission-console__corner--bl" />
+                <span className="mission-console__corner mission-console__corner--br" />
+                <span className="mission-console__corner-step mission-console__corner-step--tl" />
+                <span className="mission-console__corner-step mission-console__corner-step--tr" />
+                <span className="mission-console__corner-step mission-console__corner-step--bl" />
+                <span className="mission-console__corner-step mission-console__corner-step--br" />
+              </div>
               <div className="relative z-10 p-1">
                 <div className="mb-3 border-b border-[#1f67be] pb-2 text-left">
                   <span
@@ -475,9 +633,10 @@ export function Hero({ onNavigate }: { onNavigate?: (page: AppPage) => void }) {
                       letterSpacing: '0.01em',
                     }}
                   >
-                    Enter a neon-lit trading arena where each team chooses a strategy track,
-                    collects signals, survives volatility, and races toward the leaderboard
-                    through collaborative building, rapid prototyping, and live demo battles.
+                    Choose a track, build your model, and compete for the leaderboard
+                    in a 36-hour trading arena. Teams develop and test quantitative
+                    strategies under pressure, working through real market dynamics
+                    before presenting their final results.
                   </p>
                 </div>
               </div>
@@ -511,7 +670,7 @@ export function Hero({ onNavigate }: { onNavigate?: (page: AppPage) => void }) {
               <button
                 type="button"
                 onClick={() => onNavigate('interest')}
-                className="mt-6 text-[#9cc9ff] underline decoration-[#044a94] underline-offset-4 transition-colors hover:text-[#cbd6e8]"
+                className="mt-5 text-[#9cc9ff] underline decoration-[#044a94] underline-offset-4 transition-colors hover:text-[#cbd6e8]"
                 style={{ fontFamily: "'Space Mono', monospace", fontSize: '15px', letterSpacing: '0.08em' }}
               >
                 Interest form (not registering yet)
@@ -520,25 +679,13 @@ export function Hero({ onNavigate }: { onNavigate?: (page: AppPage) => void }) {
           </div>
         </div>
 
-        <div className="hero-marquee mt-6 w-full max-w-[1100px] overflow-hidden border-y border-[#173154] py-3">
+        <div className="hero-marquee -mt-4 w-full max-w-[1100px] overflow-hidden border-y border-[#173154] py-3">
           <div
             className="hero-marquee__track whitespace-nowrap text-[#9cc9ff]"
             style={{ fontFamily: "'Space Mono', monospace", fontSize: '12px', letterSpacing: '1.4px' }}
           >
             {Array.from({ length: 10 }, () => 'ARCADE MARKET // BUILD MODELS // CLIMB THE LEADERBOARD // ').join('')}
           </div>
-        </div>
-      </div>
-
-      <div className="absolute bottom-6 left-1/2 z-20 -translate-x-1/2 animate-bounce">
-        <div className="flex flex-col items-center gap-2">
-          <ChevronDown className="text-[#044a94]" size={28} strokeWidth={3} />
-          <span
-            className="text-[#9A9AA8]"
-            style={{ fontFamily: "'Space Mono', monospace", fontSize: '11px', letterSpacing: '1px' }}
-          >
-            SCROLL
-          </span>
         </div>
       </div>
 
@@ -556,7 +703,8 @@ export function Hero({ onNavigate }: { onNavigate?: (page: AppPage) => void }) {
             rgba(0,0,0,0.15) 4px
           )`,
           backgroundSize: '100% 4px',
-          animation: 'scanline 0.5s linear infinite',
+          opacity: 0.4,
+          animation: 'scanline 1.6s linear infinite',
         }}
       />
     </section>

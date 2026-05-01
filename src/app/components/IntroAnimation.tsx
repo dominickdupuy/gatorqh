@@ -29,8 +29,20 @@ export function IntroAnimation({ onVisibilityChange }: { onVisibilityChange?: (i
       return;
     }
 
-    setHasStarted(true);
-    onVisibilityChange?.(true);
+    const startFrame = window.requestAnimationFrame(() => {
+      setHasStarted(true);
+      onVisibilityChange?.(true);
+    });
+
+    return () => {
+      window.cancelAnimationFrame(startFrame);
+    };
+  }, [hasStarted, isRocketReady, isVisible, onVisibilityChange]);
+
+  useEffect(() => {
+    if (!isVisible || !hasStarted) {
+      return;
+    }
 
     const timer = window.setTimeout(() => {
       setIsVisible(false);
@@ -40,7 +52,7 @@ export function IntroAnimation({ onVisibilityChange }: { onVisibilityChange?: (i
     return () => {
       window.clearTimeout(timer);
     };
-  }, [hasStarted, isRocketReady, isVisible, onVisibilityChange]);
+  }, [hasStarted, isVisible, onVisibilityChange]);
 
   if (!isVisible) {
     return null;
@@ -51,7 +63,11 @@ export function IntroAnimation({ onVisibilityChange }: { onVisibilityChange?: (i
       className={`intro-animation ${hasStarted ? 'intro-animation--playing' : ''}`}
       style={{ '--intro-duration': `${INTRO_DURATION_MS}ms` } as CSSProperties}
       aria-hidden="true"
-      onAnimationEnd={() => {
+      onAnimationEnd={(event) => {
+        if (event.currentTarget !== event.target) {
+          return;
+        }
+
         setIsVisible(false);
         onVisibilityChange?.(false);
       }}

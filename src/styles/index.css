@@ -626,13 +626,15 @@ body {
   position: absolute;
   left: 0;
   bottom: 0;
+  opacity: 0;
   transform: translate3d(-28vw, 22vh, 0);
   will-change: transform;
   backface-visibility: hidden;
 }
 
 .intro-animation--playing .rocket-flight-wrapper {
-  animation: intro-rocket-flight var(--intro-duration, 4200ms) linear forwards;
+  opacity: 1;
+  animation: intro-rocket-flight var(--intro-duration, 4200ms) linear both;
 }
 
 .rocket-visual {

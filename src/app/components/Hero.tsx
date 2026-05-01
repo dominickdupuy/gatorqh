@@ -219,6 +219,22 @@ export function Hero({
           transform-origin: center;
         }
 
+        .hero-title-seo {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+          white-space: nowrap;
+          border: 0;
+        }
+
+        .hero-title-layer::before {
+          content: attr(data-title);
+        }
+
         .mission-console {
           position: relative;
           min-height: 100%;
@@ -520,6 +536,7 @@ export function Hero({
               zIndex: 1,
             }}
           >
+            <h1 className="hero-title-seo">Gator Quant Hacks 2026</h1>
             <div className="hero-title-stack mb-10 w-full max-w-[1320px]">
               {titleLines.map((line, index) => {
                 const isBottomLine = index === titleLines.length - 1;
@@ -534,7 +551,8 @@ export function Hero({
                     <span
                       key={offset}
                       aria-hidden="true"
-                      className="absolute select-none uppercase"
+                      className="hero-title-layer absolute select-none uppercase"
+                      data-title={line}
                       style={{
                         fontFamily: "'Russo One', sans-serif",
                         fontSize: titleSize,
@@ -545,9 +563,7 @@ export function Hero({
                         transform: `translate(0px, ${offset}px)`,
                         color: layerIndex === 0 ? '#173a65' : layerIndex === 1 ? '#173a65' : '#2a6fa8',
                       }}
-                    >
-                      {line}
-                    </span>
+                    />
                   ))}
                   <span
                     className="hero-title-main relative uppercase"
@@ -577,7 +593,8 @@ export function Hero({
                   </span>
                   <span
                     aria-hidden="true"
-                    className="absolute select-none uppercase"
+                    className="hero-title-layer absolute select-none uppercase"
+                    data-title={line}
                     style={{
                       fontFamily: "'Russo One', sans-serif",
                       fontSize: titleSize,
@@ -593,9 +610,7 @@ export function Hero({
                       maskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.65), transparent 72%)',
                       WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.65), transparent 72%)',
                     }}
-                  >
-                    {line}
-                  </span>
+                  />
                 </div>
               )})}
             </div>

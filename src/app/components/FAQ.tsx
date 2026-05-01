@@ -145,7 +145,7 @@ export function FAQ() {
   return (
     <section
       id="faq"
-      className={`relative overflow-hidden bg-[#001100] pb-24 pt-8 md:min-h-screen md:pb-28 md:pt-12 ${
+      className={`relative overflow-hidden bg-[#001100] pb-12 pt-8 md:pb-14 md:pt-12 ${
         screenFlicker ? 'opacity-[0.997]' : ''
       }`}
       style={{ filter: 'url(#crt)' }}

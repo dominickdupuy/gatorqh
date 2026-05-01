@@ -10,12 +10,16 @@ import { Sponsors } from './components/Sponsors';
 import { FAQ } from './components/FAQ';
 import { FooterCTA } from './components/FooterCTA';
 import { Footer } from './components/Footer';
+import { IntroAnimation } from './components/IntroAnimation';
 
 export default function App() {
   const [page, setPage] = useState<'home' | 'interest'>('home');
+  const [introActive, setIntroActive] = useState(true);
 
   return (
     <div className="site-shell min-h-screen">
+      <IntroAnimation onVisibilityChange={setIntroActive} />
+
       <style>{`
         html, body {
           background: #000;
@@ -72,7 +76,7 @@ export default function App() {
         {page === 'home' ? (
           <>
             <div className="site-section">
-              <Hero onNavigate={setPage} />
+              <Hero onNavigate={setPage} isIntroActive={introActive} />
             </div>
             <div className="site-section">
               <StatsBar />

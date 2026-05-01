@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { ShatterButton } from '@/components/ui/shatter-button';
+import bluePlanet from './bluePlanet.png';
+import orangePlanet from './orangePlanet.png';
 
 const titleLines = ['GATOR', 'QUANT', 'HACKS'];
 type Star = {
@@ -13,7 +15,13 @@ type Star = {
 
 type AppPage = 'home' | 'interest';
 
-export function Hero({ onNavigate }: { onNavigate?: (page: AppPage) => void }) {
+export function Hero({
+  onNavigate,
+  isIntroActive = false,
+}: {
+  onNavigate?: (page: AppPage) => void;
+  isIntroActive?: boolean;
+}) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [scrollY, setScrollY] = useState(0);
 
@@ -26,6 +34,10 @@ export function Hero({ onNavigate }: { onNavigate?: (page: AppPage) => void }) {
   };
 
   useEffect(() => {
+    if (isIntroActive) {
+      return;
+    }
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -98,7 +110,7 @@ export function Hero({ onNavigate }: { onNavigate?: (page: AppPage) => void }) {
       window.cancelAnimationFrame(animationFrame);
       window.removeEventListener('resize', resizeCanvas);
     };
-  }, []);
+  }, [isIntroActive]);
 
   useEffect(() => {
     let animationFrame = 0;
@@ -192,6 +204,19 @@ export function Hero({ onNavigate }: { onNavigate?: (page: AppPage) => void }) {
         @keyframes scanline {
           0% { background-position: 0 0; }
           100% { background-position: 0 16px; }
+        }
+
+        @keyframes heroTitleGlow {
+          0%, 100% { filter: brightness(1) saturate(1); }
+          50% { filter: brightness(1.035) saturate(1.06); }
+        }
+
+        .hero-title-main {
+          animation: heroTitleGlow 7s ease-in-out infinite;
+        }
+
+        .hero-title-stack {
+          transform-origin: center;
         }
 
         .mission-console {
@@ -379,18 +404,18 @@ export function Hero({ onNavigate }: { onNavigate?: (page: AppPage) => void }) {
 
       `}</style>
 
-      <div
+      <img
+        src={bluePlanet}
+        alt=""
+        aria-hidden="true"
         style={{
           position: 'fixed',
-          top: '10%',
+          top: '14%',
           right: '5%',
-          width: '120px',
-          height: '120px',
-          borderRadius: '50%',
-          background:
-            'radial-gradient(circle at 35% 35%, #4da3ff 0 18%, #1a4a8a 18% 38%, #003087 38% 68%, #001a4a 68% 100%)',
-          boxShadow:
-            '4px 0 0 #001a4a, 0 4px 0 #001a4a, -4px 0 0 #1a4a8a, 0 -4px 0 #1a4a8a, 8px 8px 0 #000820',
+          width: '220px',
+          height: '220px',
+          objectFit: 'contain',
+          filter: 'drop-shadow(8px 8px 0 #000820) drop-shadow(0 0 18px rgba(99,246,255,0.22))',
           imageRendering: 'pixelated',
           zIndex: 0,
           pointerEvents: 'none',
@@ -399,17 +424,18 @@ export function Hero({ onNavigate }: { onNavigate?: (page: AppPage) => void }) {
         }}
       />
 
-      <div
+      <img
+        src={orangePlanet}
+        alt=""
+        aria-hidden="true"
         style={{
           position: 'fixed',
-          top: '24%',
+          top: '36%',
           left: '10%',
-          width: '46px',
-          height: '46px',
-          borderRadius: '50%',
-          background:
-            'radial-gradient(circle at 36% 36%, #ffd36e 0 18%, #d38b18 18% 58%, #6b3a08 58% 100%)',
-          boxShadow: '4px 4px 0 #6b3a08',
+          width: '130px',
+          height: '130px',
+          objectFit: 'contain',
+          filter: 'drop-shadow(4px 4px 0 #000820) drop-shadow(0 0 16px rgba(250,70,22,0.22))',
           zIndex: 0,
           pointerEvents: 'none',
           willChange: 'transform',
@@ -494,10 +520,10 @@ export function Hero({ onNavigate }: { onNavigate?: (page: AppPage) => void }) {
               zIndex: 1,
             }}
           >
-            <div className="mb-10 w-full max-w-[1320px]">
+            <div className="hero-title-stack mb-10 w-full max-w-[1320px]">
               {titleLines.map((line, index) => {
                 const isBottomLine = index === titleLines.length - 1;
-                const titleSize = isBottomLine ? 'clamp(56px, 9vw, 130px)' : 'clamp(54px, 8.6vw, 124px)';
+                const titleSize = isBottomLine ? 'clamp(57px, 9vw, 131px)' : 'clamp(55px, 8.6vw, 125px)';
 
                 return (
                 <div
@@ -517,15 +543,14 @@ export function Hero({ onNavigate }: { onNavigate?: (page: AppPage) => void }) {
                         lineHeight: 0.9,
                         whiteSpace: 'nowrap',
                         transform: `translate(0px, ${offset}px)`,
-                        color: layerIndex === 0 ? '#244a7a' : layerIndex === 1 ? '#1b3d68' : '#122d4d',
+                        color: layerIndex === 0 ? '#173a65' : layerIndex === 1 ? '#173a65' : '#2a6fa8',
                       }}
                     >
                       {line}
                     </span>
                   ))}
                   <span
-                    aria-hidden="true"
-                    className="absolute select-none uppercase"
+                    className="hero-title-main relative uppercase"
                     style={{
                       fontFamily: "'Russo One', sans-serif",
                       fontSize: titleSize,
@@ -533,29 +558,18 @@ export function Hero({ onNavigate }: { onNavigate?: (page: AppPage) => void }) {
                       letterSpacing: '0.02em',
                       lineHeight: 0.9,
                       whiteSpace: 'nowrap',
-                      transform: 'translate(0px, -4px)',
-                      color: '#dffcff',
-                      opacity: 0.95,
-                    }}
-                  >
-                    {line}
-                  </span>
-                  <span
-                    className="relative uppercase"
-                    style={{
-                      fontFamily: "'Russo One', sans-serif",
-                      fontSize: titleSize,
-                      fontWeight: 400,
-                      letterSpacing: '0.02em',
-                      lineHeight: 0.9,
-                      whiteSpace: 'nowrap',
-                      color: '#74edff',
+                      color: '#63f6ff',
                       textShadow: `
+                        -1px 0 0 rgba(199,251,255,0.45),
+                        1px 0 0 rgba(16,41,73,0.45),
+                        0 -1px 0 rgba(242,255,255,0.55),
+                        0 1px 0 rgba(18,49,93,0.55),
                         0 1px 0 #c7fbff,
-                        0 2px 0 #52c8e3,
-                        0 3px 0 #2f7caf,
-                        0 10px 20px rgba(20, 69, 126, 0.45),
-                        0 0 26px rgba(99,246,255,0.22)
+                        0 2px 0 #63f6ff,
+                        0 3px 0 #1aa9dc,
+                        0 8px 0 #173a65,
+                        0 12px 0 #12315d,
+                        0 0 18px rgba(99,246,255,0.2)
                       `,
                     }}
                   >

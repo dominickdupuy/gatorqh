@@ -29,7 +29,7 @@ export function About() {
 
       <div className="relative z-20 max-w-[1200px] mx-auto px-6">
         {/* Section Label - Top Left */}
-        <div className="mb-12 md:mb-16">
+        <div className="mb-7 md:mb-9">
           <span
             className="pixel-ribbon"
             style={{
@@ -39,9 +39,12 @@ export function About() {
               ['--ribbon-shadow' as string]: '#7a1a00',
               ['--ribbon-depth' as string]: 'rgba(250,70,22,0.18)',
               fontFamily: "'Space Mono', monospace",
-              fontSize: '13px',
+              fontSize: 'clamp(11px, 1.3vw, 13px)',
               fontWeight: 600,
-              letterSpacing: '1.5px',
+              letterSpacing: '1.35px',
+              lineHeight: 1.2,
+              padding: '0.72rem 1.55rem 0.76rem 2.55rem',
+              textAlign: 'center',
             }}
           >
             WHAT IS THE GQH ARCADE ARENA?
@@ -49,16 +52,15 @@ export function About() {
         </div>
 
         {/* Two Column Layout */}
-        <div className="grid md:grid-cols-[60%_40%] gap-8 md:gap-12 mb-4 md:mb-6">
-          {/* Left: Content 60% */}
-          <div>
+        <div className="mb-4 md:mb-6">
+          <div className="max-w-[960px]">
             <div
               style={{
                 fontFamily: "'Space Mono', monospace",
                 fontSize: '13px',
                 color: '#00FFB3',
                 fontStyle: 'italic',
-                marginBottom: '24px',
+                marginBottom: '18px',
                 letterSpacing: '1px',
                 overflow: 'hidden',
                 whiteSpace: 'pre-line',
@@ -101,27 +103,6 @@ export function About() {
             </p>
           </div>
 
-          {/* Right: Placeholder Box 40% - Hidden on mobile */}
-          <div className="hidden md:flex items-start justify-center">
-            <div className="relative w-full max-w-[320px] aspect-square">
-              {/* Dark placeholder box */}
-              <div className="absolute inset-0 bg-[#0A0A0A]/60 backdrop-blur-sm border-2 border-[#1A1A2E]" />
-              
-              {/* Cyan corner brackets */}
-              <div className="absolute -top-1 -left-1 w-8 h-8 border-t-4 border-l-4 border-[#044a94]" />
-              <div className="absolute -top-1 -right-1 w-8 h-8 border-t-4 border-r-4 border-[#044a94]" />
-              <div className="absolute -bottom-1 -left-1 w-8 h-8 border-b-4 border-l-4 border-[#044a94]" />
-              <div className="absolute -bottom-1 -right-1 w-8 h-8 border-b-4 border-r-4 border-[#044a94]" />
-              
-              {/* Optional subtle inner glow */}
-              <div 
-                className="absolute inset-0 opacity-20"
-                style={{
-                  background: 'radial-gradient(circle at center, #044a9420, transparent 70%)',
-                }}
-              />
-            </div>
-          </div>
         </div>
 
       </div>

@@ -99,6 +99,17 @@
   }
 }
 
+@keyframes intro-rocket-reveal {
+  0%,
+  45% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
 @keyframes intro-flame-sprite {
   0%,
   42% {
@@ -627,14 +638,19 @@ body {
   left: 0;
   bottom: 0;
   opacity: 0;
+  visibility: hidden;
   transform: translate3d(-28vw, 22vh, 0);
   will-change: transform;
   backface-visibility: hidden;
+  contain: layout paint style;
+  transform-style: preserve-3d;
 }
 
 .intro-animation--playing .rocket-flight-wrapper {
-  opacity: 1;
-  animation: intro-rocket-flight var(--intro-duration, 4200ms) linear both;
+  visibility: visible;
+  animation:
+    intro-rocket-flight var(--intro-duration, 4200ms) linear both,
+    intro-rocket-reveal 120ms ease-out both;
 }
 
 .rocket-visual {
@@ -644,6 +660,8 @@ body {
   transform: translateZ(0) rotate(61deg);
   transform-origin: 50% 50%;
   backface-visibility: hidden;
+  contain: layout paint style;
+  transform-style: preserve-3d;
 }
 
 .rocket-body {
@@ -657,6 +675,8 @@ body {
   image-rendering: auto;
   user-select: none;
   pointer-events: none;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .rocket-flame-sprite {
@@ -678,6 +698,11 @@ body {
   background-position: var(--flame-frame-1-position);
   image-rendering: pixelated;
   will-change: background-position, opacity, transform;
+  backface-visibility: hidden;
+  animation: none;
+}
+
+.intro-animation--playing .rocket-flame-sprite {
   animation:
     intro-flame-sprite 1200ms step-end infinite,
     intro-flame-breathe 480ms ease-in-out infinite;

@@ -6,9 +6,26 @@ import rocket from './rocket.png';
 
 const INTRO_DURATION_MS = 2900;
 
+function preloadImage(src: string) {
+  return new Promise<void>((resolve) => {
+    const image = new Image();
+
+    image.onload = () => {
+      if ('decode' in image) {
+        image.decode().then(() => resolve()).catch(() => resolve());
+        return;
+      }
+
+      resolve();
+    };
+    image.onerror = () => resolve();
+    image.src = src;
+  });
+}
+
 export function IntroAnimation({ onVisibilityChange }: { onVisibilityChange?: (isVisible: boolean) => void }) {
   const [isVisible, setIsVisible] = useState(true);
-  const [isRocketReady, setIsRocketReady] = useState(false);
+  const [areIntroAssetsReady, setAreIntroAssetsReady] = useState(false);
   const [hasStarted, setHasStarted] = useState(false);
 
   useEffect(() => {
@@ -25,19 +42,37 @@ export function IntroAnimation({ onVisibilityChange }: { onVisibilityChange?: (i
   }, [onVisibilityChange]);
 
   useEffect(() => {
-    if (!isVisible || !isRocketReady || hasStarted) {
-      return;
-    }
+    let isMounted = true;
 
-    const startFrame = window.requestAnimationFrame(() => {
-      setHasStarted(true);
-      onVisibilityChange?.(true);
+    Promise.all([preloadImage(rocket), preloadImage(pixelFires)]).then(() => {
+      if (isMounted) {
+        setAreIntroAssetsReady(true);
+      }
     });
 
     return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isVisible || !areIntroAssetsReady || hasStarted) {
+      return;
+    }
+
+    let startFrame = 0;
+    const settleFrame = window.requestAnimationFrame(() => {
+      startFrame = window.requestAnimationFrame(() => {
+        setHasStarted(true);
+        onVisibilityChange?.(true);
+      });
+    });
+
+    return () => {
+      window.cancelAnimationFrame(settleFrame);
       window.cancelAnimationFrame(startFrame);
     };
-  }, [hasStarted, isRocketReady, isVisible, onVisibilityChange]);
+  }, [areIntroAssetsReady, hasStarted, isVisible, onVisibilityChange]);
 
   useEffect(() => {
     if (!isVisible || !hasStarted) {
@@ -60,7 +95,9 @@ export function IntroAnimation({ onVisibilityChange }: { onVisibilityChange?: (i
 
   return (
     <div
-      className={`intro-animation ${hasStarted ? 'intro-animation--playing' : ''}`}
+      className={`intro-animation ${areIntroAssetsReady ? 'intro-animation--ready' : ''} ${
+        hasStarted ? 'intro-animation--playing' : ''
+      }`}
       style={{ '--intro-duration': `${INTRO_DURATION_MS}ms` } as CSSProperties}
       aria-hidden="true"
       onAnimationEnd={(event) => {
@@ -84,9 +121,8 @@ export function IntroAnimation({ onVisibilityChange }: { onVisibilityChange?: (i
             alt=""
             width={669}
             height={373}
-            decoding="sync"
+            decoding="async"
             draggable="false"
-            onLoad={() => setIsRocketReady(true)}
           />
         </div>
       </div>

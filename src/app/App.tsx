@@ -22,7 +22,7 @@ export default function App() {
 
       <style>{`
         html, body {
-          background: #000;
+          background: #02040c;
           overflow-x: hidden;
         }
 

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ShatterButton } from '@/components/ui/shatter-button';
+import trophyImage from './trophy.png';
 
 export function FooterCTA() {
   const [timeLeft, setTimeLeft] = useState({
@@ -265,12 +266,12 @@ export function FooterCTA() {
           </div>
 
           <div className="flex justify-center lg:justify-end lg:self-end">
-            <div className="relative w-full max-w-[320px]">
-              <div className="aspect-[4/5] overflow-hidden border border-[#183046] bg-[#070A11]/95 shadow-[0_0_24px_rgba(4,74,148,0.14),inset_0_0_0_1px_rgba(255,255,255,0.02)]">
-                <div className="relative flex h-full flex-col justify-between p-6">
+            <div className="relative w-full max-w-[360px]">
+              <div className="overflow-hidden border border-[#183046] bg-[#070A11]/95 shadow-[0_0_24px_rgba(4,74,148,0.14),inset_0_0_0_1px_rgba(255,255,255,0.02)]">
+                <div className="relative flex min-h-[462px] flex-col p-5">
                   <div className="flex justify-center border-b border-[#173154] pb-4">
                     <div
-                      className="inline-flex border border-[#1d3353] bg-[#0a1220]/90 px-3 py-2 text-[#9cc9ff]"
+                      className="inline-flex border border-[#1d3353] bg-[#0a1220]/90 px-4 py-2 text-[#9cc9ff]"
                       style={{
                         fontFamily: "'Space Mono', monospace",
                         fontSize: '11px',
@@ -281,42 +282,33 @@ export function FooterCTA() {
                     </div>
                   </div>
 
-                  <div className="relative my-5 flex flex-1 items-center justify-center border border-[#11233b] bg-[linear-gradient(180deg,rgba(8,14,24,0.92),rgba(7,11,18,0.98))] px-4 py-6 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.02)]">
+                  <div className="relative my-5 flex min-h-[240px] items-center justify-center overflow-hidden border border-[#11233b] bg-[linear-gradient(180deg,rgba(8,14,24,0.92),rgba(7,11,18,0.98))] px-4 py-5 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.02)]">
                     <div className="pointer-events-none absolute inset-x-4 top-4 h-px bg-gradient-to-r from-transparent via-[#1f67be]/60 to-transparent" />
                     <div className="pointer-events-none absolute inset-x-6 bottom-5 h-px bg-gradient-to-r from-transparent via-[#1f67be]/35 to-transparent" />
-                    <div className="absolute h-40 w-40 rounded-full bg-[#044a94]/14 blur-3xl" />
+                    <div className="absolute h-52 w-52 rounded-full bg-[#044a94]/14 blur-3xl" />
                     <div
-                      className="absolute h-24 w-24 rounded-full border border-[#9cc9ff]/35"
+                      className="absolute h-[150px] w-[150px] rounded-full border border-[#9cc9ff]/30"
                       style={{ animation: 'orbPulse 2.8s ease-in-out infinite' }}
                     />
                     <div
-                      className="relative"
+                      className="relative flex h-[220px] w-[220px] items-center justify-center"
                       style={{ animation: 'trophyFloat 3.4s ease-in-out infinite' }}
                     >
-                      <div className="relative h-[132px] w-[132px]">
-                        <div
-                          className="absolute left-1/2 top-0 h-[54px] w-[78px] -translate-x-1/2 bg-[#9cc9ff]"
-                          style={{
-                            clipPath: 'polygon(14% 0, 86% 0, 100% 22%, 84% 100%, 16% 100%, 0 22%)',
-                            boxShadow: '0 0 0 4px #365c8d, 0 0 18px rgba(156,201,255,0.12)',
-                          }}
-                        />
-                        <div className="absolute left-[16px] top-[14px] h-[18px] w-[14px] border-l-4 border-t-4 border-b-4 border-[#9cc9ff]" />
-                        <div className="absolute right-[16px] top-[14px] h-[18px] w-[14px] border-r-4 border-t-4 border-b-4 border-[#9cc9ff]" />
-                        <div className="absolute left-1/2 top-[58px] h-[18px] w-[16px] -translate-x-1/2 bg-[#5d79ea] shadow-[0_0_0_4px_#365c8d]" />
-                        <div className="absolute left-1/2 top-[80px] h-[16px] w-[52px] -translate-x-1/2 bg-[#274aab] shadow-[0_0_0_4px_#183046]" />
-                        <div className="absolute left-1/2 top-[100px] h-[14px] w-[84px] -translate-x-1/2 bg-[#0f1f38] shadow-[0_0_0_4px_#08111f]" />
-                        <div className="absolute left-1/2 top-[18px] h-[8px] w-[34px] -translate-x-1/2 bg-white/28 blur-[1px]" />
-                      </div>
+                      <img
+                        src={trophyImage}
+                        alt=""
+                        className="h-[218px] w-[218px] translate-x-[14px] object-contain"
+                        draggable="false"
+                      />
                     </div>
                   </div>
 
-                  <div className="border-t border-[#1d3353] pt-4">
+                  <div className="mt-auto border-t border-[#1d3353] pt-4">
                     <div
-                      className="mb-1 text-[#eef4ff]"
+                      className="mb-2 text-[#eef4ff]"
                       style={{
                         fontFamily: "'Orbitron', sans-serif",
-                        fontSize: '12px',
+                        fontSize: '13px',
                         fontWeight: 700,
                         letterSpacing: '1.1px',
                         lineHeight: 1.4,
@@ -328,9 +320,9 @@ export function FooterCTA() {
                       className="text-[rgba(255,255,255,0.55)]"
                       style={{
                         fontFamily: "'Space Mono', monospace",
-                        fontSize: '11px',
-                        letterSpacing: '1.1px',
-                        lineHeight: 1.7,
+                        fontSize: '10.5px',
+                        letterSpacing: '0.8px',
+                        lineHeight: 1.75,
                       }}
                     >
                       CHAMPION CLASS REWARD | LOCK IN YOUR SHIP AND CHASE THE HIGH

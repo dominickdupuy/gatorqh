@@ -1,10 +1,18 @@
 'use client';
 
 import { type CSSProperties, useEffect, useState } from 'react';
-import pixelFires from './pixelFires.png';
-import rocket from './rocket.png';
 
-const INTRO_DURATION_MS = 2900;
+const INTRO_DURATION_MS = 3300;
+const LAUNCH_DELAY_MS = 0;
+const FIRE_DELAY_MS = 0;
+const IGNITION_DURATION_MS = 1050;
+const LAUNCH_DURATION_MS = 1950;
+const OVERLAY_FADE_DURATION_MS = 520;
+const MOBILE_DISABLE_QUERY = '(max-width: 767px)';
+const ROCKET_SRC = '/rocket.png';
+const PIXEL_FIRES_SRC = '/pixelFires.png';
+
+const smokePuffs = Array.from({ length: 22 }, (_, index) => index);
 
 function preloadImage(src: string) {
   return new Promise<void>((resolve) => {
@@ -34,8 +42,9 @@ export function IntroAnimation({ onVisibilityChange }: { onVisibilityChange?: (i
     }
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isMobile = window.matchMedia(MOBILE_DISABLE_QUERY).matches;
 
-    if (prefersReducedMotion) {
+    if (prefersReducedMotion || isMobile) {
       setIsVisible(false);
       onVisibilityChange?.(false);
     }
@@ -44,7 +53,7 @@ export function IntroAnimation({ onVisibilityChange }: { onVisibilityChange?: (i
   useEffect(() => {
     let isMounted = true;
 
-    Promise.all([preloadImage(rocket), preloadImage(pixelFires)]).then(() => {
+    Promise.all([preloadImage(ROCKET_SRC), preloadImage(PIXEL_FIRES_SRC)]).then(() => {
       if (isMounted) {
         setAreIntroAssetsReady(true);
       }
@@ -98,7 +107,17 @@ export function IntroAnimation({ onVisibilityChange }: { onVisibilityChange?: (i
       className={`intro-animation ${areIntroAssetsReady ? 'intro-animation--ready' : ''} ${
         hasStarted ? 'intro-animation--playing' : ''
       }`}
-      style={{ '--intro-duration': `${INTRO_DURATION_MS}ms` } as CSSProperties}
+      style={
+        {
+          '--intro-duration': `${INTRO_DURATION_MS}ms`,
+          '--launch-delay': `${LAUNCH_DELAY_MS}ms`,
+          '--fire-delay': `${FIRE_DELAY_MS}ms`,
+          '--ignition-duration': `${IGNITION_DURATION_MS}ms`,
+          '--launch-duration': `${LAUNCH_DURATION_MS}ms`,
+          '--overlay-fade-duration': `${OVERLAY_FADE_DURATION_MS}ms`,
+          '--rocket-flame-sprite': `url(${PIXEL_FIRES_SRC})`,
+        } as CSSProperties
+      }
       aria-hidden="true"
       onAnimationEnd={(event) => {
         if (event.currentTarget !== event.target) {
@@ -109,21 +128,29 @@ export function IntroAnimation({ onVisibilityChange }: { onVisibilityChange?: (i
         onVisibilityChange?.(false);
       }}
     >
-      <div className="rocket-flight-wrapper">
-        <div className="rocket-visual">
-          <div
-            className="rocket-flame-sprite"
-            style={{ '--rocket-flame-sprite': `url(${pixelFires})` } as CSSProperties}
-          />
-          <img
-            className="rocket-body"
-            src={rocket}
-            alt=""
-            width={669}
-            height={373}
-            decoding="async"
-            draggable="false"
-          />
+      <div className="intro-launch-stage">
+        <div className="intro-smoke-layer">
+          {smokePuffs.map((puff) => (
+            <span key={puff} className="intro-smoke-puff" />
+          ))}
+        </div>
+
+        <div className="intro-rocket-wrapper">
+          <div className="intro-rocket">
+            <div className="intro-rocket__body-frame">
+              <img
+                className="intro-rocket__body"
+                src={ROCKET_SRC}
+                alt=""
+                width={669}
+                height={373}
+                decoding="async"
+                loading="eager"
+                draggable="false"
+              />
+            </div>
+            <div className="intro-rocket__fire" />
+          </div>
         </div>
       </div>
     </div>

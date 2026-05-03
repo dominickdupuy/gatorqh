@@ -874,7 +874,31 @@ body {
 
 @media (max-width: 767px) {
   .intro-animation {
-    display: none;
+    background-size: 28px 28px, 28px 28px, auto, auto, auto;
+  }
+
+  .intro-launch-stage {
+    bottom: 16px;
+    width: 100vw;
+    height: min(82vh, 680px);
+  }
+
+  .intro-rocket-wrapper {
+    bottom: 8px;
+    width: clamp(345px, 116vw, 490px);
+  }
+
+  .intro-smoke-layer {
+    bottom: 16px;
+    width: 150vw;
+    height: 190px;
+    transform: translateX(-50%) scale(0.58);
+    transform-origin: 50% 100%;
+  }
+
+  .intro-rocket__fire {
+    bottom: -10%;
+    transform: translateX(-50%) rotate(180deg) scaleX(0.92) scaleY(1);
   }
 }
 

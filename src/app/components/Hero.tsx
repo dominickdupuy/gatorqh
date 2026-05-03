@@ -24,6 +24,7 @@ export function Hero({
 }) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [scrollY, setScrollY] = useState(0);
+  const [isMobileViewport, setIsMobileViewport] = useState(false);
 
   const scrollToRegister = () => {
     document.getElementById('register')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -128,6 +129,18 @@ export function Hero({
     return () => {
       window.cancelAnimationFrame(animationFrame);
       window.removeEventListener('scroll', onScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    const mobileQuery = window.matchMedia('(max-width: 767px)');
+    const updateViewport = () => setIsMobileViewport(mobileQuery.matches);
+
+    updateViewport();
+    mobileQuery.addEventListener('change', updateViewport);
+
+    return () => {
+      mobileQuery.removeEventListener('change', updateViewport);
     };
   }, []);
 
@@ -427,7 +440,7 @@ export function Hero({
         style={{
           position: 'fixed',
           top: '14%',
-          right: '5%',
+          right: isMobileViewport ? '-30%' : '5%',
           width: '220px',
           height: '220px',
           objectFit: 'contain',
@@ -447,7 +460,7 @@ export function Hero({
         style={{
           position: 'fixed',
           top: '36%',
-          left: '10%',
+          left: isMobileViewport ? '-14%' : '10%',
           width: '130px',
           height: '130px',
           objectFit: 'contain',

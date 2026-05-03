@@ -8,7 +8,6 @@ const FIRE_DELAY_MS = 0;
 const IGNITION_DURATION_MS = 1050;
 const LAUNCH_DURATION_MS = 1950;
 const OVERLAY_FADE_DURATION_MS = 520;
-const MOBILE_DISABLE_QUERY = '(max-width: 767px)';
 const ROCKET_SRC = '/rocket.png';
 const PIXEL_FIRES_SRC = '/pixelFires.png';
 
@@ -42,9 +41,8 @@ export function IntroAnimation({ onVisibilityChange }: { onVisibilityChange?: (i
     }
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isMobile = window.matchMedia(MOBILE_DISABLE_QUERY).matches;
 
-    if (prefersReducedMotion || isMobile) {
+    if (prefersReducedMotion) {
       setIsVisible(false);
       onVisibilityChange?.(false);
     }

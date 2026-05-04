@@ -72,26 +72,62 @@ export function InterestForm() {
 
   return (
     <div className="min-h-screen bg-black">
-      {/* Header */}
-      <div className="bg-[#001f3f] py-20">
-        <div className="max-w-2xl mx-auto px-6 text-center">
-          <p className="text-cyan-400 font-mono text-sm tracking-widest uppercase mb-4">
+      <div className="relative overflow-hidden bg-[#001f3f] px-6 pb-8 pt-20 text-center md:pb-10 md:pt-24">
+        <div
+          className="absolute inset-0 opacity-45"
+          aria-hidden="true"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 24% 26%, rgba(156,201,255,0.5) 0 2px, transparent 2px), radial-gradient(circle at 72% 34%, rgba(250,70,22,0.28) 0 2px, transparent 2px), linear-gradient(rgba(99,246,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(99,246,255,0.05) 1px, transparent 1px)",
+            backgroundSize: "280px 280px, 360px 360px, 34px 34px, 34px 34px",
+          }}
+        />
+        <div className="relative mx-auto flex max-w-4xl flex-col items-center">
+          <p
+            className="mb-4 text-center uppercase text-cyan-300"
+            style={{
+              fontFamily: "var(--font-heading)",
+              fontSize: "clamp(12px, 1.3vw, 16px)",
+              fontWeight: 700,
+              letterSpacing: "0.18em",
+            }}
+          >
             QuantEd Presents
           </p>
-          <h1 className="text-4xl md:text-5xl text-white font-mono mb-4">
+          <div className="mb-5 h-px w-full max-w-[620px] bg-gradient-to-r from-transparent via-[#FA4616]/70 to-transparent" />
+          <h1
+            className="mb-4 text-center uppercase text-white"
+            style={{
+              fontFamily: "var(--font-title)",
+              fontSize: "clamp(36px, 5.8vw, 64px)",
+              fontWeight: 400,
+              letterSpacing: "0.04em",
+              wordSpacing: "-0.12em",
+              lineHeight: 0.95,
+              textShadow:
+                "0 3px 0 #173a65, 0 8px 0 rgba(0,0,0,0.28), 0 0 24px rgba(99,246,255,0.22)",
+            }}
+          >
             Interest Form
           </h1>
-          <p className="text-gray-300 text-lg">
+          <p
+            className="mx-auto max-w-[760px] text-center text-[#d7dee8]"
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "clamp(14px, 1.6vw, 18px)",
+              lineHeight: 1.55,
+            }}
+          >
             Gauge your interest in the{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
+            <span className="font-bold text-cyan-300">
               Gator Quant Competition
             </span>
             . We'll share next steps, timelines, and prep resources.
           </p>
+          <div className="mt-4 h-px w-full max-w-[620px] bg-gradient-to-r from-transparent via-[#FA4616]/70 to-transparent" />
         </div>
       </div>
 
-      {/* Form */}
       <div className="max-w-2xl mx-auto px-6 py-16">
         <form onSubmit={handleSubmit} className="space-y-8">
           <div className="bg-[#001f3f] p-8 rounded-lg border border-gray-800 space-y-6">
@@ -105,7 +141,7 @@ export function InterestForm() {
                 required
                 value={form.fullName}
                 onChange={(e) => setForm({ ...form, fullName: e.target.value })}
-                className="bg-black border-gray-700 text-white focus:border-cyan-400"
+                className="bg-black text-white shadow-none focus-visible:ring-cyan-400/40"
                 placeholder="Jane Smith"
               />
             </div>
@@ -121,7 +157,7 @@ export function InterestForm() {
                 required
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
-                className="bg-black border-gray-700 text-white focus:border-cyan-400"
+                className="bg-black text-white shadow-none focus-visible:ring-cyan-400/40"
                 placeholder="you@university.edu"
               />
             </div>
@@ -152,7 +188,7 @@ export function InterestForm() {
                   required
                   value={form.yearOther}
                   onChange={(e) => setForm({ ...form, yearOther: e.target.value })}
-                  className="bg-black border-gray-700 text-white focus:border-cyan-400 mt-2"
+                  className="mt-2 bg-black text-white shadow-none focus-visible:ring-cyan-400/40"
                   placeholder="Please specify..."
                 />
               )}
@@ -160,9 +196,11 @@ export function InterestForm() {
 
             {/* Interest */}
             <div className="space-y-3">
-              <Label className="text-white font-mono">
-                Would you be interested in attending our Gator Quant Competition?{" "}
-                <span className="text-cyan-400">*</span>
+              <Label className="block text-white font-mono leading-snug">
+                Would you be interested in attending our Gator Quant{" "}
+                <span className="whitespace-nowrap">
+                  Competition?<span className="ml-1 text-cyan-400">*</span>
+                </span>
               </Label>
               <div className="flex gap-3">
                 {(["Yes", "No"] as const).map((opt) => (

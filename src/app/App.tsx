@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { InterestForm } from '@/components/InterestForm';
 import { Navigation } from './components/Navigation';
 import { Hero } from './components/Hero';
@@ -12,9 +12,41 @@ import { FooterCTA } from './components/FooterCTA';
 import { Footer } from './components/Footer';
 import { IntroAnimation } from './components/IntroAnimation';
 
+type AppPage = 'home' | 'interest';
+
+const getPageFromPath = (): AppPage => {
+  const path = window.location.pathname.replace(/\/+$/, '');
+  return path === '/interest-form' || path === '/intrest-form' ? 'interest' : 'home';
+};
+
+const getPathForPage = (page: AppPage) => (page === 'interest' ? '/interest-form' : '/');
+
 export default function App() {
-  const [page, setPage] = useState<'home' | 'interest'>('home');
+  const [page, setPage] = useState<AppPage>(() => getPageFromPath());
   const [introActive, setIntroActive] = useState(true);
+
+  useEffect(() => {
+    const handlePopState = () => {
+      setPage(getPageFromPath());
+      window.scrollTo({ top: 0 });
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  const navigateToPage = useCallback((nextPage: AppPage) => {
+    setPage(nextPage);
+
+    const nextPath = getPathForPage(nextPage);
+    if (window.location.pathname !== nextPath) {
+      window.history.pushState({}, '', nextPath);
+    }
+
+    if (nextPage === 'interest') {
+      window.scrollTo({ top: 0 });
+    }
+  }, []);
 
   return (
     <div className="site-shell min-h-screen">
@@ -72,11 +104,11 @@ export default function App() {
           <div className="site-ambience__grid" />
           <div className="site-ambience__noise" />
         </div>
-        <Navigation page={page} onNavigate={setPage} />
+        <Navigation page={page} onNavigate={navigateToPage} />
         {page === 'home' ? (
           <>
             <div className="site-section">
-              <Hero onNavigate={setPage} isIntroActive={introActive} />
+              <Hero onNavigate={navigateToPage} isIntroActive={introActive} />
             </div>
             <div className="site-section">
               <StatsBar />

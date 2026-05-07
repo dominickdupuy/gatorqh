@@ -1,5 +1,4 @@
 import { Github, Linkedin, Instagram, Mail, MapPin } from 'lucide-react';
-import quantClubLogo from './GQHLogo.png';
 
 export function Footer() {
   return (
@@ -8,11 +7,11 @@ export function Footer() {
         <div className="mb-8 grid gap-8 md:grid-cols-4">
           <div>
             <div className="mb-4 flex items-center gap-3">
-              <div className="flex h-14 w-14 items-center justify-center overflow-hidden border-2 border-[#044a94] bg-[#0B0D14]">
+              <div className="flex h-16 w-16 items-center justify-center overflow-hidden border-2 border-[#044a94] bg-white">
                 <img
-                  src={quantClubLogo}
-                  alt="Gator Quant Club logo"
-                  className="h-full w-full object-cover"
+                  src="/QuantEDLogoTransparent.png"
+                  alt="QuantED logo"
+                  className="h-full w-full object-contain"
                 />
               </div>
               <span className="text-white" style={{ fontFamily: "'Space Mono', monospace", fontSize: '14px' }}>

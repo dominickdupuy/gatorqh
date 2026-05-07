@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
-import quantClubLogo from './GQHLogo.png';
+import quantClubLogo from './quantGatorTransparent.png';
 
 type AppPage = 'home' | 'interest';
 
@@ -143,13 +143,13 @@ export function Navigation({ page = 'home', onNavigate }: NavigationProps = {}) 
         <button
           type="button"
           onClick={() => onNavigate?.('home')}
-          className="flex items-center gap-3 border border-[#253047] bg-[#0B0D14]/95 px-3 py-2 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.03)] text-left"
+          className="flex items-center gap-4 border border-[#253047] bg-[#0B0D14]/95 px-3 py-2 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.03)] text-left"
         >
-          <div className="flex h-14 w-14 items-center justify-center overflow-hidden bg-[#0B0D14] border-2 border-[#044a94] shadow-[0_0_18px_rgba(4,74,148,0.18)]">
+          <div className="flex h-[4.25rem] w-[4.25rem] items-center justify-center overflow-hidden bg-white border-2 border-[#044a94] shadow-[0_0_18px_rgba(4,74,148,0.18)]">
             <img
               src={quantClubLogo}
               alt="Gator Quant Club logo"
-              className="h-full w-full object-cover"
+              className="h-full w-full scale-110 object-cover object-[40%_center]"
             />
           </div>
           <div className="hidden md:block">

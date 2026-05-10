@@ -1,17 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ShatterButton } from '@/components/ui/shatter-button';
+import { StarsBackground } from '@/components/ui/stars';
 import bluePlanet from './bluePlanet.png';
 import orangePlanet from './orangePlanet.png';
 
 const titleLines = ['GATOR', 'QUANT', 'HACKS'];
-type Star = {
-  x: number;
-  y: number;
-  size: number;
-  speed: number;
-  opacity: number;
-  color: string;
-};
 
 type AppPage = 'home' | 'interest';
 
@@ -22,7 +15,6 @@ export function Hero({
   onNavigate?: (page: AppPage) => void;
   isIntroActive?: boolean;
 }) {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [scrollY, setScrollY] = useState(0);
   const [isMobileViewport, setIsMobileViewport] = useState(false);
 
@@ -33,85 +25,6 @@ export function Hero({
   const openSponsorMail = () => {
     window.location.href = 'mailto:team@gatorquant.com?subject=Power%20Sponsor%20Inquiry';
   };
-
-  useEffect(() => {
-    if (isIntroActive) {
-      return;
-    }
-
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const context = canvas.getContext('2d');
-    if (!context) return;
-
-    let animationFrame = 0;
-    const stars: Star[] = [];
-
-    const createStar = (width: number, height: number): Star => {
-      const random = Math.random();
-      let color = '#FFFFFF';
-      if (random < 0.05) {
-        color = '#FA4616';
-      } else if (random < 0.15) {
-        color = '#044a94';
-      }
-
-      return {
-        x: Math.random() * width,
-        y: Math.random() * height,
-        size: 0.5 + Math.random() * 2,
-        speed: 0.05 + Math.random() * 0.25,
-        opacity: 0.3 + Math.random() * 0.7,
-        color,
-      };
-    };
-
-    const resizeCanvas = () => {
-      const { width, height } = canvas.getBoundingClientRect();
-      canvas.width = width;
-      canvas.height = height;
-      stars.length = 0;
-      for (let index = 0; index < 180; index += 1) {
-        stars.push(createStar(width, height));
-      }
-    };
-
-    const render = () => {
-      const width = canvas.width;
-      const height = canvas.height;
-
-      context.clearRect(0, 0, width, height);
-
-      stars.forEach((star) => {
-        star.y += star.speed;
-        if (star.y > height) {
-          star.y = 0;
-          star.x = Math.random() * width;
-        }
-
-        context.fillStyle =
-          star.color === '#FFFFFF'
-            ? `rgba(255,255,255,${star.opacity})`
-            : star.color === '#044a94'
-              ? `rgba(4,74,148,${star.opacity})`
-              : `rgba(250,70,22,${star.opacity})`;
-        const pixelSize = star.size < 1.2 ? 1 : star.size < 1.9 ? 2 : 3;
-        context.fillRect(star.x, star.y, pixelSize, pixelSize);
-      });
-
-      animationFrame = window.requestAnimationFrame(render);
-    };
-
-    resizeCanvas();
-    render();
-    window.addEventListener('resize', resizeCanvas);
-
-    return () => {
-      window.cancelAnimationFrame(animationFrame);
-      window.removeEventListener('resize', resizeCanvas);
-    };
-  }, [isIntroActive]);
 
   useEffect(() => {
     let animationFrame = 0;
@@ -149,17 +62,12 @@ export function Hero({
 
   return (
     <section id="hero" className="hero-space relative min-h-screen overflow-hidden">
-      <canvas
-        id="starfield"
-        ref={canvasRef}
-        style={{
-          position: 'absolute',
-          inset: 0,
-          width: '100%',
-          height: '100%',
-          zIndex: 0,
-          pointerEvents: 'none',
-        }}
+      <StarsBackground
+        aria-hidden="true"
+        starColor="#9cc9ff"
+        speed={90}
+        factor={0.025}
+        className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_bottom,_#101827_0%,_#070b11_52%,_#050508_100%)]"
       />
       <div
         style={{
@@ -439,10 +347,10 @@ export function Hero({
         aria-hidden="true"
         style={{
           position: 'fixed',
-          top: '14%',
+          top: '11%',
           right: isMobileViewport ? '-30%' : '5%',
-          width: '220px',
-          height: '220px',
+          width: '240px',
+          height: '240px',
           objectFit: 'contain',
           filter: 'drop-shadow(8px 8px 0 #000820) drop-shadow(0 0 18px rgba(99,246,255,0.22))',
           imageRendering: 'pixelated',
@@ -459,10 +367,10 @@ export function Hero({
         aria-hidden="true"
         style={{
           position: 'fixed',
-          top: '36%',
+          top: '33%',
           left: isMobileViewport ? '-14%' : '10%',
-          width: '130px',
-          height: '130px',
+          width: '145px',
+          height: '145px',
           objectFit: 'contain',
           filter: 'drop-shadow(4px 4px 0 #000820) drop-shadow(0 0 16px rgba(250,70,22,0.22))',
           zIndex: 0,
@@ -483,57 +391,7 @@ export function Hero({
       </div>
 
       <div className="relative z-10 mx-auto flex min-h-screen max-w-[1400px] flex-col items-center justify-center px-6 pb-10 pt-24 md:pb-14 md:pt-28 text-center">
-        <div className="mb-1 mt-4 flex w-full max-w-[980px] flex-wrap items-center justify-between gap-3 md:mb-2">
-          <div
-            className="inline-flex items-center gap-3 border border-[#294f7d] bg-[#09111d]/92 px-4 py-3 shadow-[0_0_20px_rgba(4,74,148,0.12)]"
-            style={{
-              clipPath: 'polygon(4% 0, 96% 0, 100% 24%, 100% 76%, 96% 100%, 4% 100%, 0 76%, 0 24%)',
-            }}
-          >
-            <span className="h-2.5 w-2.5 bg-[#FA4616] shadow-[0_0_10px_rgba(250,70,22,0.5)]" />
-            <span
-              className="text-[#ffb25e]"
-              style={{
-                fontFamily: "'Press Start 2P', monospace",
-                fontSize: '10px',
-                letterSpacing: '1px',
-              }}
-            >
-              PLAYER 1
-            </span>
-            <span
-              className="text-[#9cc9ff]"
-              style={{
-                fontFamily: "'Press Start 2P', monospace",
-                fontSize: '10px',
-                letterSpacing: '1px',
-              }}
-            >
-              SPACE MARKET
-            </span>
-          </div>
-
-          <div
-            className="inline-flex items-center gap-3 border border-[#294f7d] bg-[#09111d]/92 px-4 py-3 shadow-[0_0_20px_rgba(4,74,148,0.12)]"
-            style={{
-              clipPath: 'polygon(6% 0, 94% 0, 100% 24%, 100% 76%, 94% 100%, 6% 100%, 0 76%, 0 24%)',
-            }}
-          >
-            <span className="h-2.5 w-2.5 bg-[#63F6FF] shadow-[0_0_10px_rgba(99,246,255,0.5)]" />
-            <span
-              className="text-[#ffb25e]"
-              style={{
-                fontFamily: "'Press Start 2P', monospace",
-                fontSize: '10px',
-                letterSpacing: '1px',
-              }}
-            >
-              CREDITS: 00
-            </span>
-          </div>
-        </div>
-
-        <div className="relative">
+        <div className="relative mt-6">
           <div
             className="absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none"
             style={{
@@ -550,10 +408,10 @@ export function Hero({
             }}
           >
             <h1 className="hero-title-seo">Gator Quant Hacks 2026</h1>
-            <div className="hero-title-stack mb-10 w-full max-w-[1320px]">
+            <div className="hero-title-stack mb-8 w-full max-w-[1320px]">
               {titleLines.map((line, index) => {
                 const isBottomLine = index === titleLines.length - 1;
-                const titleSize = isBottomLine ? 'clamp(57px, 9vw, 131px)' : 'clamp(55px, 8.6vw, 125px)';
+                const titleSize = isBottomLine ? 'clamp(62px, 9.6vw, 140px)' : 'clamp(60px, 9.2vw, 134px)';
 
                 return (
                 <div
@@ -632,7 +490,7 @@ export function Hero({
               className="mb-5 text-[#9cc9ff]"
               style={{
                 fontFamily: "'Orbitron', sans-serif",
-                fontSize: 'clamp(24px, 3vw, 40px)',
+                fontSize: 'clamp(27px, 3.3vw, 44px)',
                 fontWeight: 700,
                 letterSpacing: '0.03em',
                 lineHeight: 1.1,
@@ -685,17 +543,19 @@ export function Hero({
             </div>
 
             <div className="mx-auto grid w-full max-w-[780px] gap-3 sm:grid-cols-2">
-              <ShatterButton
-                onClick={scrollToRegister}
-                shatterColor="#FA4616"
-                className="pixel-btn group relative w-full border-0 text-white"
-              >
-                <span style={{ display: 'block', width: '100%', textAlign: 'center', fontFamily: "'Orbitron', sans-serif", fontSize: '14px', letterSpacing: '1px' }}>
-                  REGISTER
-                  <br />
-                  NOW
-                </span>
-              </ShatterButton>
+              {onNavigate && (
+                <ShatterButton
+                  onClick={() => window.setTimeout(() => onNavigate('interest'), 800)}
+                  shatterColor="#FA4616"
+                  className="pixel-btn group relative w-full border-0 text-white"
+                >
+                  <span style={{ display: 'block', width: '100%', textAlign: 'center', fontFamily: "'Orbitron', sans-serif", fontSize: '14px', letterSpacing: '1px' }}>
+                    INTEREST FORM
+                    <br />
+                    (NOT REGISTERING YET)
+                  </span>
+                </ShatterButton>
+              )}
 
               <ShatterButton
                 onClick={openSponsorMail}
@@ -707,17 +567,6 @@ export function Hero({
                 </span>
               </ShatterButton>
             </div>
-
-            {onNavigate && (
-              <button
-                type="button"
-                onClick={() => onNavigate('interest')}
-                className="mt-5 text-[#9cc9ff] underline decoration-[#044a94] underline-offset-4 transition-colors hover:text-[#cbd6e8]"
-                style={{ fontFamily: "'Space Mono', monospace", fontSize: '15px', letterSpacing: '0.08em' }}
-              >
-                Interest form (not registering yet)
-              </button>
-            )}
           </div>
         </div>
 

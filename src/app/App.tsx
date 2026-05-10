@@ -129,7 +129,7 @@ export default function App() {
               <FAQ />
             </div>
             <div className="site-section">
-              <FooterCTA />
+              <FooterCTA onNavigate={navigateToPage} />
             </div>
             <div className="site-section">
               <Footer />

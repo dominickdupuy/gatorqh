@@ -2,16 +2,19 @@ import { useEffect, useState } from 'react';
 import { ShatterButton } from '@/components/ui/shatter-button';
 import trophyImage from './trophy.png';
 
-export function FooterCTA() {
+type AppPage = 'home' | 'interest';
+
+type FooterCTAProps = {
+  onNavigate?: (page: AppPage) => void;
+};
+
+export function FooterCTA({ onNavigate }: FooterCTAProps = {}) {
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
     minutes: 0,
     seconds: 0,
   });
-  const [isLockingIn, setIsLockingIn] = useState(false);
-  const [flashScreen, setFlashScreen] = useState(false);
-  const [fuelLevel, setFuelLevel] = useState(0);
 
   useEffect(() => {
     const targetDate = new Date('2026-09-18T17:00:00').getTime();
@@ -33,23 +36,6 @@ export function FooterCTA() {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    if (!isLockingIn) return;
-
-    setFuelLevel(0);
-
-    const start = window.setTimeout(() => setFuelLevel(100), 60);
-    const finish = window.setTimeout(() => {
-      const section = document.getElementById('register');
-      section?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 1800);
-
-    return () => {
-      window.clearTimeout(start);
-      window.clearTimeout(finish);
-    };
-  }, [isLockingIn]);
-
   const countdownUnits = [
     { label: 'DAYS', value: timeLeft.days },
     { label: 'HOURS', value: timeLeft.hours },
@@ -58,7 +44,7 @@ export function FooterCTA() {
   ];
 
   const handlePressStart = () => {
-    return;
+    window.setTimeout(() => onNavigate?.('interest'), 800);
   };
 
   return (
@@ -116,13 +102,6 @@ export function FooterCTA() {
         <div className="absolute left-1/2 top-16 h-56 w-[42rem] -translate-x-1/2 bg-[#044a94]/12 blur-3xl" />
         <div className="absolute -bottom-12 right-[-4rem] h-72 w-72 rounded-full bg-[#003087]/20 blur-3xl" />
       </div>
-      {flashScreen && (
-        <div
-          aria-hidden="true"
-          className="pointer-events-none fixed inset-0 z-[10000] bg-[rgba(255,240,180,0.22)]"
-        />
-      )}
-
       <div className="relative z-10 mx-auto flex w-full max-w-[1440px] justify-center px-6">
         <div className="grid w-full max-w-[1200px] items-center gap-14 lg:grid-cols-[minmax(0,760px)_1fr]">
           <div className="text-center lg:text-left">
@@ -196,7 +175,7 @@ export function FooterCTA() {
                     `,
                   }}
                 >
-                  {isLockingIn ? 'COIN ACCEPTED -' : 'PRESS START'}
+                  PRESS START
                 </span>
                 <span
                   style={{
@@ -204,26 +183,12 @@ export function FooterCTA() {
                     fontSize: 'clamp(10px, 1vw, 12px)',
                     fontWeight: 700,
                     letterSpacing: '1.4px',
-                    color: isLockingIn ? '#ffb08a' : '#9cc9ff',
+                    color: '#9cc9ff',
                     textTransform: 'uppercase',
                   }}
                 >
-                  {isLockingIn ? 'LOCKING IN YOUR SHIP...' : 'INSERT COIN TO ENTER THE ARENA'}
+                  INSERT COIN TO ENTER THE ARENA
                 </span>
-                {isLockingIn && (
-                  <div className="mt-1 w-full max-w-[520px] border-[3px] border-[#8fb6ff] bg-[#0d1b44] p-1 shadow-[inset_0_0_12px_rgba(0,0,0,0.8)]">
-                    <div
-                      style={{
-                        width: `${fuelLevel}%`,
-                        height: '18px',
-                        background:
-                          'linear-gradient(90deg, #FA4616 0%, #9cc9ff 38%, #4f7dff 100%)',
-                        boxShadow: '0 0 16px rgba(79, 125, 255, 0.38)',
-                        transition: 'width 1.5s ease-out',
-                      }}
-                    />
-                  </div>
-                )}
               </div>
             </ShatterButton>
 
@@ -297,7 +262,7 @@ export function FooterCTA() {
                       <img
                         src={trophyImage}
                         alt=""
-                        className="h-[218px] w-[218px] translate-x-[14px] object-contain"
+                        className="h-[218px] w-[218px] translate-x-[16px] object-contain"
                         draggable="false"
                       />
                     </div>

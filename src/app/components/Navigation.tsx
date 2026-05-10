@@ -46,6 +46,13 @@ export function Navigation({ page = 'home', onNavigate }: NavigationProps = {}) 
     run();
   };
 
+  const goHome = () => {
+    onNavigate?.('home');
+    window.setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 80);
+  };
+
   const launchFaqTerminal = () => {
     window.dispatchEvent(new CustomEvent('faq-terminal-launch'));
     window.setTimeout(() => {
@@ -139,10 +146,10 @@ export function Navigation({ page = 'home', onNavigate }: NavigationProps = {}) 
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#044a94]/60 to-transparent" />
       <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#FA4616]/50 to-transparent" />
 
-      <div className="max-w-[1200px] mx-auto px-6 py-4 flex items-center justify-between">
+      <div className="mx-auto flex max-w-[1260px] items-center justify-between px-6 py-4">
         <button
           type="button"
-          onClick={() => onNavigate?.('home')}
+          onClick={goHome}
           className="flex items-center gap-4 border border-[#253047] bg-[#0B0D14]/95 px-3 py-2 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.03)] text-left"
         >
           <div className="flex h-[4.25rem] w-[4.25rem] items-center justify-center overflow-hidden bg-white border-2 border-[#044a94] shadow-[0_0_18px_rgba(4,74,148,0.18)]">
@@ -155,13 +162,13 @@ export function Navigation({ page = 'home', onNavigate }: NavigationProps = {}) 
           <div className="hidden md:block">
             <div
               className="text-white"
-              style={{ fontFamily: "'Space Mono', monospace", fontSize: '18px', fontWeight: 700, lineHeight: 1.1 }}
+              style={{ fontFamily: "'Space Mono', monospace", fontSize: '22px', fontWeight: 700, lineHeight: 1.1 }}
             >
               GQH
             </div>
             <div
               className="text-[#9A9AA8]"
-              style={{ fontFamily: "'Space Mono', monospace", fontSize: '13px', letterSpacing: '1px', lineHeight: 1.1 }}
+              style={{ fontFamily: "'Space Mono', monospace", fontSize: '15px', letterSpacing: '1px', lineHeight: 1.1 }}
             >
               PLAYER 1 READY
             </div>
@@ -172,35 +179,35 @@ export function Navigation({ page = 'home', onNavigate }: NavigationProps = {}) 
           <button
             onClick={() => scrollToSection('about')}
             className="nav-link text-[#F4F4F4] hover:text-[#044a94] transition-colors"
-            style={{ fontFamily: "'Space Mono', monospace", fontSize: '13px', fontWeight: 700, letterSpacing: '1px' }}
+            style={{ fontFamily: "'Space Mono', monospace", fontSize: '15px', fontWeight: 700, letterSpacing: '1px' }}
           >
             About
           </button>
           <button
             onClick={() => scrollToSection('game-modes')}
             className="nav-link text-[#F4F4F4] hover:text-[#044a94] transition-colors"
-            style={{ fontFamily: "'Space Mono', monospace", fontSize: '13px', fontWeight: 700, letterSpacing: '1px' }}
+            style={{ fontFamily: "'Space Mono', monospace", fontSize: '15px', fontWeight: 700, letterSpacing: '1px' }}
           >
             Game Modes
           </button>
           <button
             onClick={() => scrollToSection('schedule')}
             className="nav-link text-[#F4F4F4] hover:text-[#044a94] transition-colors"
-            style={{ fontFamily: "'Space Mono', monospace", fontSize: '13px', fontWeight: 700, letterSpacing: '1px' }}
+            style={{ fontFamily: "'Space Mono', monospace", fontSize: '15px', fontWeight: 700, letterSpacing: '1px' }}
           >
             Schedule
           </button>
           <button
             onClick={() => scrollToSection('sponsors')}
             className="nav-link text-[#F4F4F4] hover:text-[#044a94] transition-colors"
-            style={{ fontFamily: "'Space Mono', monospace", fontSize: '13px', fontWeight: 700, letterSpacing: '1px' }}
+            style={{ fontFamily: "'Space Mono', monospace", fontSize: '15px', fontWeight: 700, letterSpacing: '1px' }}
           >
             Sponsors
           </button>
           <button
             onClick={launchFaqTerminal}
             className="nav-link text-[#F4F4F4] hover:text-[#044a94] transition-colors"
-            style={{ fontFamily: "'Space Mono', monospace", fontSize: '13px', fontWeight: 700, letterSpacing: '1px' }}
+            style={{ fontFamily: "'Space Mono', monospace", fontSize: '15px', fontWeight: 700, letterSpacing: '1px' }}
           >
             FAQ
           </button>
@@ -211,7 +218,7 @@ export function Navigation({ page = 'home', onNavigate }: NavigationProps = {}) 
               className={`nav-link transition-colors ${
                 page === 'interest' ? 'text-[#FA4616]' : 'text-[#F4F4F4] hover:text-[#044a94]'
               }`}
-              style={{ fontFamily: "'Space Mono', monospace", fontSize: '13px', fontWeight: 700, letterSpacing: '1px' }}
+              style={{ fontFamily: "'Space Mono', monospace", fontSize: '15px', fontWeight: 700, letterSpacing: '1px' }}
             >
               Interest Form
             </button>
@@ -337,35 +344,35 @@ export function Navigation({ page = 'home', onNavigate }: NavigationProps = {}) 
             <button
               onClick={() => scrollToSection('about')}
               className="nav-link text-[#F4F4F4] hover:text-[#044a94] text-left transition-colors"
-              style={{ fontFamily: "'Space Mono', monospace", fontSize: '13px', fontWeight: 700, letterSpacing: '1px' }}
+              style={{ fontFamily: "'Space Mono', monospace", fontSize: '15px', fontWeight: 700, letterSpacing: '1px' }}
             >
               About
             </button>
             <button
               onClick={() => scrollToSection('game-modes')}
               className="nav-link text-[#F4F4F4] hover:text-[#044a94] text-left transition-colors"
-              style={{ fontFamily: "'Space Mono', monospace", fontSize: '13px', fontWeight: 700, letterSpacing: '1px' }}
+              style={{ fontFamily: "'Space Mono', monospace", fontSize: '15px', fontWeight: 700, letterSpacing: '1px' }}
             >
               Game Modes
             </button>
             <button
               onClick={() => scrollToSection('schedule')}
               className="nav-link text-[#F4F4F4] hover:text-[#044a94] text-left transition-colors"
-              style={{ fontFamily: "'Space Mono', monospace", fontSize: '13px', fontWeight: 700, letterSpacing: '1px' }}
+              style={{ fontFamily: "'Space Mono', monospace", fontSize: '15px', fontWeight: 700, letterSpacing: '1px' }}
             >
               Schedule
             </button>
             <button
               onClick={() => scrollToSection('sponsors')}
               className="nav-link text-[#F4F4F4] hover:text-[#044a94] text-left transition-colors"
-              style={{ fontFamily: "'Space Mono', monospace", fontSize: '13px', fontWeight: 700, letterSpacing: '1px' }}
+              style={{ fontFamily: "'Space Mono', monospace", fontSize: '15px', fontWeight: 700, letterSpacing: '1px' }}
             >
               Sponsors
             </button>
             <button
               onClick={launchFaqTerminal}
               className="nav-link text-[#F4F4F4] hover:text-[#044a94] text-left transition-colors"
-              style={{ fontFamily: "'Space Mono', monospace", fontSize: '13px', fontWeight: 700, letterSpacing: '1px' }}
+              style={{ fontFamily: "'Space Mono', monospace", fontSize: '15px', fontWeight: 700, letterSpacing: '1px' }}
             >
               FAQ
             </button>
@@ -379,13 +386,13 @@ export function Navigation({ page = 'home', onNavigate }: NavigationProps = {}) 
                 className={`nav-link text-left transition-colors ${
                   page === 'interest' ? 'text-[#FA4616]' : 'text-[#F4F4F4] hover:text-[#044a94]'
                 }`}
-                style={{ fontFamily: "'Space Mono', monospace", fontSize: '13px', fontWeight: 700, letterSpacing: '1px' }}
+                style={{ fontFamily: "'Space Mono', monospace", fontSize: '15px', fontWeight: 700, letterSpacing: '1px' }}
               >
                 Interest Form
               </button>
             )}
             <button className="bg-[#FA4616] hover:bg-[#FA4616]/90 text-white px-6 py-3 border-2 border-[#044a94] shadow-[0_0_20px_rgba(4,74,148,0.3)] transition-all">
-              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: '14px', fontWeight: 600 }}>
+              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: '15px', fontWeight: 600 }}>
                 INSERT COIN -&gt;
               </span>
             </button>

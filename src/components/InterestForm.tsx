@@ -72,7 +72,7 @@ export function InterestForm() {
 
   return (
     <div className="min-h-screen bg-black">
-      <div className="relative overflow-hidden bg-[#001f3f] px-6 pb-8 pt-20 text-center md:pb-10 md:pt-24">
+      <div className="relative overflow-hidden bg-[#001f3f] px-6 pb-8 pt-28 text-center md:pb-10 md:pt-32">
         <div
           className="absolute inset-0 opacity-45"
           aria-hidden="true"

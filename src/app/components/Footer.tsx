@@ -9,13 +9,13 @@ export function Footer() {
             <div className="mb-4 flex items-center gap-3">
               <div className="flex h-16 w-16 items-center justify-center overflow-hidden border-2 border-[#044a94] bg-white">
                 <img
-                  src="/QuantEDLogoTransparent.png"
-                  alt="QuantED logo"
-                  className="h-full w-full object-contain"
+                  src="/quantGatorTransparent.png"
+                  alt="GQH logo"
+                  className="h-full w-full scale-110 object-cover object-[40%_center]"
                 />
               </div>
               <span className="text-white" style={{ fontFamily: "'Space Mono', monospace", fontSize: '14px' }}>
-                QuantED
+                GQH
               </span>
             </div>
             <p

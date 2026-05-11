@@ -8,8 +8,9 @@ const footerLinks = [
 ];
 
 const socialLinks = [
+  { Icon: FaDiscord, href: 'https://discord.gg/d9YTGA7DR', label: 'Discord', brand: true },
   { Icon: Instagram, href: 'https://www.instagram.com/uf_quanted/', label: 'Instagram' },
-  { Icon: Linkedin, href: 'https://www.linkedin.com/company/algogators-investment-fund/', label: 'LinkedIn' },
+  { Icon: Linkedin, href: 'https://www.linkedin.com/company/gator-quant-hacks', label: 'LinkedIn' },
 ];
 
 export function Footer() {
@@ -40,14 +41,7 @@ export function Footer() {
             GQH 2026
           </h2>
           <div className="flex justify-center gap-5 md:justify-start">
-            <button
-              type="button"
-              aria-label="Discord"
-              className="text-[#9cc9ff] transition-colors hover:text-[#FA4616]"
-            >
-              <FaDiscord size={34} />
-            </button>
-            {socialLinks.map(({ Icon, href, label }) => (
+            {socialLinks.map(({ Icon, href, label, brand }) => (
               <a
                 key={label}
                 href={href}
@@ -56,7 +50,7 @@ export function Footer() {
                 aria-label={label}
                 className="text-[#9cc9ff] transition-colors hover:text-[#FA4616]"
               >
-                <Icon size={34} strokeWidth={2.4} />
+                <Icon size={34} strokeWidth={brand ? undefined : 2.4} />
               </a>
             ))}
           </div>

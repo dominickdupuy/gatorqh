@@ -23,7 +23,7 @@ export function Hero({
   };
 
   const openSponsorMail = () => {
-    window.location.href = 'mailto:team@gatorquant.com?subject=Power%20Sponsor%20Inquiry';
+    window.location.href = 'mailto:dominickdupuy@ufl.edu?subject=Power%20Sponsor%20Inquiry';
   };
 
   useEffect(() => {

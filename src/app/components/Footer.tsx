@@ -1,144 +1,94 @@
-import { Github, Linkedin, Instagram, Mail, MapPin } from 'lucide-react';
+import { Linkedin, Instagram } from 'lucide-react';
+import { FaDiscord } from 'react-icons/fa';
+
+const footerLinks = [
+  { label: 'Contact Us', href: 'mailto:dominickdupuy@ufl.edu' },
+  { label: 'Sponsor Us', href: 'mailto:dominickdupuy@ufl.edu?subject=Power%20Sponsor%20Inquiry' },
+  { label: 'Interest Form', href: '/interest-form' },
+];
+
+const socialLinks = [
+  { Icon: Instagram, href: 'https://www.instagram.com/uf_quanted/', label: 'Instagram' },
+  { Icon: Linkedin, href: 'https://www.linkedin.com/company/algogators-investment-fund/', label: 'LinkedIn' },
+];
 
 export function Footer() {
   return (
-    <footer className="bg-[#1A1A2E] border-t-2 border-[#2A2A3E]">
-      <div className="mx-auto max-w-[1200px] px-6 pb-10 pt-6 md:pb-12 md:pt-8">
-        <div className="mb-8 grid gap-8 md:grid-cols-4">
-          <div>
-            <div className="mb-4 flex items-center gap-3">
-              <div className="flex h-16 w-16 items-center justify-center overflow-hidden border-2 border-[#044a94] bg-white">
-                <img
-                  src="/quantGatorTransparent.png"
-                  alt="GQH logo"
-                  className="h-full w-full scale-110 object-cover object-[40%_center]"
-                />
-              </div>
-              <span className="text-white" style={{ fontFamily: "'Space Mono', monospace", fontSize: '14px' }}>
-                GQH
-              </span>
-            </div>
-            <p
-              className="mb-4 text-[#9A9A9A]"
-              style={{ fontFamily: "'Space Mono', monospace", fontSize: '13px', lineHeight: 1.6 }}
-            >
-              Building the future of quantitative finance, one competition at a time.
-            </p>
-          </div>
+    <footer className="relative overflow-hidden border-t-2 border-[#173154] bg-[#080d16]">
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 opacity-25"
+        style={{
+          backgroundImage:
+            'linear-gradient(120deg, rgba(156,201,255,0.08) 0 1px, transparent 1px), radial-gradient(circle at 50% 0%, rgba(4,74,148,0.2), transparent 34%), radial-gradient(circle at 86% 70%, rgba(250,70,22,0.08), transparent 22%)',
+          backgroundSize: '18px 18px, auto, auto',
+        }}
+      />
 
-          <div>
-            <h3
-              className="mb-4 text-white"
-              style={{ fontFamily: "'Orbitron', sans-serif", fontSize: '16px', fontWeight: 700 }}
+      <div className="relative mx-auto grid max-w-[1440px] items-center gap-8 px-8 pb-8 pt-6 text-white md:grid-cols-[1fr_1.15fr_1fr] md:px-10 md:pb-9 md:pt-8">
+        <div className="flex min-h-40 flex-col items-center justify-center gap-5 text-center md:items-start md:text-left">
+          <h2
+            className="uppercase"
+            style={{
+              fontFamily: 'var(--font-title)',
+              fontSize: 'clamp(42px, 4.8vw, 72px)',
+              lineHeight: 0.9,
+              letterSpacing: '0.01em',
+              textShadow: '0 4px 0 rgba(0,0,0,0.3)',
+            }}
+          >
+            GQH 2026
+          </h2>
+          <div className="flex justify-center gap-5 md:justify-start">
+            <button
+              type="button"
+              aria-label="Discord"
+              className="text-[#9cc9ff] transition-colors hover:text-[#FA4616]"
             >
-              Quick Links
-            </h3>
-            <ul className="space-y-2">
-              {['About', 'Game Modes', 'Schedule', 'Sponsors', 'FAQ'].map((link) => (
-                <li key={link}>
-                  <a
-                    href={`#${link.toLowerCase().replace(' ', '-')}`}
-                    className="text-[#9A9A9A] transition-colors hover:text-[#044a94]"
-                    style={{ fontFamily: "'Space Mono', monospace", fontSize: '13px' }}
-                  >
-                    {link}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h3
-              className="mb-4 text-white"
-              style={{ fontFamily: "'Orbitron', sans-serif", fontSize: '16px', fontWeight: 700 }}
-            >
-              Contact
-            </h3>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-2">
-                <Mail className="mt-0.5 shrink-0 text-[#044a94]" size={16} />
-                <a
-                  href="mailto:team@gatorquant.com"
-                  className="text-[#9A9A9A] transition-colors hover:text-[#044a94]"
-                  style={{ fontFamily: "'Space Mono', monospace", fontSize: '13px' }}
-                >
-                  team@gatorquant.com
-                </a>
-              </li>
-              <li className="flex items-start gap-2">
-                <MapPin className="mt-0.5 shrink-0 text-[#044a94]" size={16} />
-                <span
-                  className="text-[#9A9A9A]"
-                  style={{ fontFamily: "'Space Mono', monospace", fontSize: '13px' }}
-                >
-                  Reitz Union
-                  <br />
-                  Gainesville, FL
-                </span>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h3
-              className="mb-4 text-white"
-              style={{ fontFamily: "'Orbitron', sans-serif", fontSize: '16px', fontWeight: 700 }}
-            >
-              Follow Us
-            </h3>
-            <div className="flex gap-3">
-              {[
-                { Icon: Instagram, href: 'https://www.instagram.com/uf_quanted/' },
-                { Icon: Linkedin, href: 'https://www.linkedin.com/company/algogators-investment-fund/' },
-                { Icon: Github, href: '#' },
-              ].map(({ Icon, href }, index) => (
-                <a
-                  key={index}
-                  href={href}
-                  target={href.startsWith('http') ? '_blank' : undefined}
-                  rel={href.startsWith('http') ? 'noreferrer' : undefined}
-                  className="flex h-10 w-10 items-center justify-center border-2 border-[#2A2A3E] text-[#9A9A9A] transition-all hover:border-[#044a94] hover:text-[#044a94] hover:shadow-[0_0_20px_rgba(4,74,148,0.3)]"
-                >
-                  <Icon size={18} />
-                </a>
-              ))}
-            </div>
+              <FaDiscord size={34} />
+            </button>
+            {socialLinks.map(({ Icon, href, label }) => (
+              <a
+                key={label}
+                href={href}
+                target={href.startsWith('http') ? '_blank' : undefined}
+                rel={href.startsWith('http') ? 'noreferrer' : undefined}
+                aria-label={label}
+                className="text-[#9cc9ff] transition-colors hover:text-[#FA4616]"
+              >
+                <Icon size={34} strokeWidth={2.4} />
+              </a>
+            ))}
           </div>
         </div>
 
-        <div className="border-t-2 border-[#2A2A3E] pt-6 md:pt-8">
-          <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-            <p
-              className="text-center text-[#9A9A9A] md:text-left"
-              style={{ fontFamily: "'Space Mono', monospace", fontSize: '11px' }}
-            >
-              © 2026 Gator Quant Competition. All rights reserved.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4 md:gap-6">
-              <a
-                href="#"
-                className="text-[#9A9A9A] transition-colors hover:text-[#044a94]"
-                style={{ fontFamily: "'Space Mono', monospace", fontSize: '11px' }}
-              >
-                Privacy Policy
-              </a>
-              <a
-                href="#"
-                className="text-[#9A9A9A] transition-colors hover:text-[#044a94]"
-                style={{ fontFamily: "'Space Mono', monospace", fontSize: '11px' }}
-              >
-                Terms of Service
-              </a>
-              <a
-                href="#"
-                className="text-[#9A9A9A] transition-colors hover:text-[#044a94]"
-                style={{ fontFamily: "'Space Mono', monospace", fontSize: '11px' }}
-              >
-                Code of Conduct
-              </a>
-            </div>
+        <div className="flex min-h-40 flex-col items-center justify-center text-center">
+          <div className="mb-5 flex h-28 w-28 items-center justify-center overflow-hidden border-2 border-[#0b1f3a] bg-white shadow-[0_0_0_2px_rgba(8,13,25,0.95),0_0_18px_rgba(99,246,255,0.18),0_0_34px_rgba(4,74,148,0.24)]">
+            <img
+              src="/quantGatorTransparent.png"
+              alt="GQH logo"
+              className="h-full w-full scale-110 object-cover object-[40%_center] drop-shadow-[0_0_8px_rgba(4,74,148,0.28)]"
+            />
           </div>
+          <p
+            className="uppercase text-[#9A9AA8] md:whitespace-nowrap"
+            style={{ fontFamily: 'var(--font-heading)', fontSize: '13px', fontWeight: 700, letterSpacing: '0.04em' }}
+          >
+            &copy; 2026 Gator Quant Hacks. All rights reserved.
+          </p>
+        </div>
+
+        <div className="flex min-h-40 flex-col items-center justify-center gap-4 text-center md:items-end md:text-right">
+          {footerLinks.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              className="text-[#9cc9ff] underline decoration-[#044a94] decoration-2 underline-offset-4 transition-colors hover:text-[#FA4616] hover:decoration-[#FA4616]"
+              style={{ fontFamily: 'var(--font-heading)', fontSize: '18px', fontWeight: 700 }}
+            >
+              {link.label}
+            </a>
+          ))}
         </div>
       </div>
     </footer>

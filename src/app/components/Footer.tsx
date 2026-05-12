@@ -1,5 +1,4 @@
 import { Linkedin, Instagram } from 'lucide-react';
-import { FaDiscord } from 'react-icons/fa';
 
 const footerLinks = [
   { label: 'Contact Us', href: 'mailto:dominickdupuy@ufl.edu' },
@@ -8,7 +7,6 @@ const footerLinks = [
 ];
 
 const socialLinks = [
-  { Icon: FaDiscord, href: 'https://discord.gg/d9YTGA7DR', label: 'Discord', brand: true },
   { Icon: Instagram, href: 'https://www.instagram.com/uf_quanted/', label: 'Instagram' },
   { Icon: Linkedin, href: 'https://www.linkedin.com/company/gator-quant-hacks', label: 'LinkedIn' },
 ];

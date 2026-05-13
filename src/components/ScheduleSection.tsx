@@ -28,7 +28,7 @@ export function ScheduleSection() {
 
   const schedule = [
     {
-      day: "Day 1 - Friday, September 18",
+      day: "Day 1 - Thursday, October 2",
       events: [
         { time: "5:00 PM", title: "Registration & Check-in", description: "Pick up your swag and meet fellow participants" },
         { time: "6:00 PM", title: "Opening Ceremony", description: "Keynote speakers and event kickoff" },
@@ -38,7 +38,7 @@ export function ScheduleSection() {
       ]
     },
     {
-      day: "Day 2 - Saturday, September 19",
+      day: "Day 2 - Friday, October 3",
       events: [
         { time: "9:00 AM", title: "Breakfast", description: "Fuel up for the day ahead" },
         { time: "11:00 AM", title: "Workshop: ML for Trading", description: "Applied machine learning techniques" },
@@ -49,7 +49,7 @@ export function ScheduleSection() {
       ]
     },
     {
-      day: "Day 3 - Sunday, September 20",
+      day: "Day 3 - Saturday, October 4",
       events: [
         { time: "9:00 AM", title: "Breakfast", description: "Fuel up for the day ahead" },
         { time: "11:00 AM", title: "Workshop: Demo Engineering", description: "Sharpen your pitch and product story" },

@@ -76,7 +76,7 @@ export function Footer() {
         
         <div className="pt-8 border-t border-cyan-400/20 text-center">
           <p className="text-sm text-gray-400 font-mono">
-            &copy; 2026 Gator Quant Competition. All rights reserved.
+            &copy; 2026 Gator Quant Hacks. All rights reserved.
           </p>
         </div>
       </div>

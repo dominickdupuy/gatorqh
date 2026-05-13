@@ -65,8 +65,8 @@ export function AboutSection() {
             The <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400 animate-gradient">Quantitative</span> Challenge
           </h2>
           <p className="text-gray-400 text-lg max-w-3xl mx-auto leading-relaxed">
-            Gator Quant Competition brings together the brightest minds in mathematics, computer science, and finance 
-            for an intensive 36-hour competition. Build algorithms, analyze markets, and create the next 
+            Gator Quant Hacks brings together the brightest minds in mathematics, computer science, and finance
+            for an intensive 36-hour competition. Build algorithms, analyze markets, and create the next
             generation of financial technology.
           </p>
         </div>
@@ -122,8 +122,8 @@ export function AboutSection() {
           <div className="relative z-10 text-center">
             <h3 className="text-2xl text-white mb-4 font-bold">Open to All Skill Levels</h3>
             <p className="text-gray-400 text-lg max-w-3xl mx-auto">
-              Whether you're a seasoned quant developer or exploring quantitative finance for the first time, 
-              Gator Quant Competition provides workshops, mentorship, and resources to help you succeed. Join us for an 
+              Whether you're a seasoned quant developer or exploring quantitative finance for the first time,
+              Gator Quant Hacks provides workshops, mentorship, and resources to help you succeed. Join us for an
               unforgettable weekend of learning and innovation.
             </p>
           </div>

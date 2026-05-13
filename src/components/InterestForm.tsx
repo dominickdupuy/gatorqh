@@ -120,7 +120,7 @@ export function InterestForm() {
           >
             Gauge your interest in the{" "}
             <span className="font-bold text-cyan-300">
-              Gator Quant Competition
+              Gator Quant Hacks
             </span>
             . We'll share next steps, timelines, and prep resources.
           </p>
@@ -199,7 +199,7 @@ export function InterestForm() {
               <Label className="block text-white font-mono leading-snug">
                 Would you be interested in attending our Gator Quant{" "}
                 <span className="whitespace-nowrap">
-                  Competition?<span className="ml-1 text-cyan-400">*</span>
+                  Hacks?<span className="ml-1 text-cyan-400">*</span>
                 </span>
               </Label>
               <div className="flex gap-3">

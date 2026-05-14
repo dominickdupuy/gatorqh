@@ -28,35 +28,44 @@ export function ScheduleSection() {
 
   const schedule = [
     {
-      day: "Day 1 - Thursday, October 2",
+      day: "Day 1 - Friday, October 2",
       events: [
-        { time: "5:00 PM", title: "Registration & Check-in", description: "Pick up your swag and meet fellow participants" },
-        { time: "6:00 PM", title: "Opening Ceremony", description: "Keynote speakers and event kickoff" },
-        { time: "7:00 PM", title: "Team Formation", description: "Find your team or join an existing one" },
-        { time: "8:00 PM", title: "Hacking Begins", description: "Let the building begin!" },
-        { time: "9:00 PM", title: "Workshop: Market Data APIs", description: "Learn to work with financial data feeds" }
+        { time: "5:00 PM", title: "Check-in Opens", description: "Pick up your swag and meet fellow participants" },
+        { time: "6:00 PM", title: "Commencement Ceremony", description: "Welcome to Gator Quant Hacks" },
+        { time: "6:05 PM", title: "Opening Remarks", description: "Event overview and logistics" },
+        { time: "6:15 PM", title: "Sponsor Introductions", description: "Meet our amazing partners" },
+        { time: "6:30 PM", title: "MLH Segment", description: "Major League Hacking presentation" },
+        { time: "6:45 PM", title: "Hacking Begins", description: "Let the building begin!" },
+        { time: "7:30 PM", title: "Dinner Served", description: "Fuel up for the competition" },
+        { time: "9:00 PM", title: "MLH Mini-Event", description: "Interactive challenge from Major League Hacking" }
       ]
     },
     {
-      day: "Day 2 - Friday, October 3",
+      day: "Day 2 - Saturday, October 3",
       events: [
-        { time: "9:00 AM", title: "Breakfast", description: "Fuel up for the day ahead" },
-        { time: "11:00 AM", title: "Workshop: ML for Trading", description: "Applied machine learning techniques" },
-        { time: "1:00 PM", title: "Lunch & Sponsor Fair", description: "Network with sponsors and learn about opportunities" },
-        { time: "3:00 PM", title: "Workshop: Risk Management", description: "Building robust trading systems" },
-        { time: "6:00 PM", title: "Dinner", description: "Evening meal service" },
-        { time: "10:00 PM", title: "Midnight Snacks", description: "Late night fuel" }
+        { time: "8:00 AM", title: "Breakfast Served", description: "Start your day with fuel" },
+        { time: "9:00 AM", title: "Workshop & Mini-Events", description: "Hands-on sessions and activities" },
+        { time: "12:00 PM", title: "Lunch Served", description: "Midday meal break" },
+        { time: "2:00 PM", title: "Afternoon Workshop", description: "Advanced technical sessions" },
+        { time: "7:45 PM", title: "Dinner Served", description: "Evening meal service" },
+        { time: "8:30 PM", title: "MLH Mini-Event", description: "Interactive challenge from Major League Hacking" },
+        { time: "12:00 AM", title: "Midnight Snack", description: "Keep the energy going" }
       ]
     },
     {
-      day: "Day 3 - Saturday, October 4",
+      day: "Day 3 - Sunday, October 4",
       events: [
-        { time: "9:00 AM", title: "Breakfast", description: "Fuel up for the day ahead" },
-        { time: "11:00 AM", title: "Workshop: Demo Engineering", description: "Sharpen your pitch and product story" },
-        { time: "1:00 PM", title: "Final Build Sprint", description: "Polish, testing, and feature lock" },
-        { time: "3:00 PM", title: "Mentor Reviews", description: "Last feedback before submissions" },
-        { time: "6:00 PM", title: "Dinner", description: "Evening meal service" },
-        { time: "10:00 PM", title: "Late Night Fuel", description: "Final debugging and prep" }
+        { time: "8:30 AM", title: "Breakfast Served", description: "Final day fuel-up" },
+        { time: "12:00 PM", title: "Lunch Served", description: "Meal service" },
+        { time: "12:00 PM", title: "Submission Soft Deadline", description: "Get your work ready for judging" },
+        { time: "1:00 PM", title: "Hacking Ends", description: "Final submissions deadline" },
+        { time: "1:30 PM", title: "Expo & Judging Begins", description: "Showcase your projects to judges" },
+        { time: "3:00 PM", title: "Judging Closes", description: "Expo concludes" },
+        { time: "3:20 PM", title: "Sponsor Challenge Winners", description: "Special prizes announced" },
+        { time: "3:35 PM", title: "Overall Winners Announced", description: "Grand prizes and recognition" },
+        { time: "3:45 PM", title: "MLH Closing Segment", description: "Final words from Major League Hacking" },
+        { time: "3:50 PM", title: "Closing Remarks", description: "Thank you and wrap-up" },
+        { time: "4:00 PM", title: "Event Ends", description: "Thanks for competing at Gator Quant Hacks!" }
       ]
     },
   ];

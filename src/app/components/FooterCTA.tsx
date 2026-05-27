@@ -17,7 +17,7 @@ export function FooterCTA({ onNavigate }: FooterCTAProps = {}) {
   });
 
   useEffect(() => {
-    const targetDate = new Date('2026-09-18T17:00:00').getTime();
+    const targetDate = new Date('2026-10-02T17:00:00').getTime();
 
     const interval = setInterval(() => {
       const now = new Date().getTime();
@@ -128,7 +128,7 @@ export function FooterCTA({ onNavigate }: FooterCTAProps = {}) {
                 textShadow: '0 0 28px rgba(4, 74, 148, 0.2)',
               }}
             >
-              THE ARENA OPENS SEPTEMBER 18TH
+              THE ARENA OPENS OCTOBER 2ND
             </h2>
 
             <p

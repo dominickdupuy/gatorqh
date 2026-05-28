@@ -1,17 +1,43 @@
 import { ShatterButton } from '@/components/ui/shatter-button';
+import citadelLogo from '../../assets/Citadel.png';
+import databentoLogo from '../../assets/Databento.png';
 import janeStreetLogo from '../../assets/jane-street.png';
+import oldMissionLogo from '../../assets/OldMission.png';
 
 type Sponsor = {
   name: string;
   logo?: string;
+  href?: string;
+  invertLogo?: boolean;
+  logoClassName?: string;
 };
 
 export function Sponsors() {
   const sponsors: Sponsor[] = [
-    { name: 'Jane Street', logo: janeStreetLogo },
-    { name: 'Placeholder B' },
-    { name: 'Placeholder C' },
-    { name: 'Placeholder D' },
+    {
+      name: 'Jane Street',
+      logo: janeStreetLogo,
+      href: 'https://www.janestreet.com/',
+      invertLogo: true,
+      logoClassName: 'max-w-[94%] max-h-[84%] md:max-w-[88%] md:max-h-[78%]',
+    },
+    {
+      name: 'Citadel',
+      logo: citadelLogo,
+      href: 'https://www.citadel.com/',
+      logoClassName: 'max-w-[94%] max-h-[84%] md:max-w-[88%] md:max-h-[78%]',
+    },
+    {
+      name: 'Old Mission',
+      logo: oldMissionLogo,
+      href: 'https://www.oldmissioncapital.com/',
+    },
+    {
+      name: 'Databento',
+      logo: databentoLogo,
+      href: 'https://databento.com/',
+      logoClassName: 'max-w-[94%] max-h-[84%] md:max-w-[88%] md:max-h-[78%]',
+    },
     { name: 'Placeholder E' },
     { name: 'Placeholder F' },
     { name: 'Placeholder G' },
@@ -71,50 +97,72 @@ export function Sponsors() {
         />
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-[2px] w-full">
-          {sponsors.map((sponsor) => (
-            <div
-              key={sponsor.name}
-              className="group relative flex flex-col items-center justify-center gap-2 border border-[#1a1a2e] bg-[#0D0D1A] transition-all duration-200 cursor-pointer hover:bg-[#111128] hover:border-[#FA4616] hover:z-[2] hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(250,70,22,0.2)] p-6"
-              style={{ aspectRatio: '16 / 9' }}
-            >
-              {sponsor.logo ? (
-                <img
-                  src={sponsor.logo}
-                  alt={`${sponsor.name} logo`}
-                  className="max-w-[80%] max-h-[70%] object-contain invert"
-                />
-              ) : (
-                <>
-                  <div
-                    className="flex items-center justify-center border border-[#2a2a3e] bg-[#1a1a2e]"
-                    style={{ width: '80px', height: '40px' }}
-                  >
-                    <span
+          {sponsors.map((sponsor) => {
+            const content = (
+              <>
+                {sponsor.logo ? (
+                  <img
+                    src={sponsor.logo}
+                    alt={`${sponsor.name} logo`}
+                    className={`${
+                      sponsor.logoClassName ?? 'max-w-[90%] max-h-[80%] md:max-w-[80%] md:max-h-[70%]'
+                    } object-contain ${
+                      sponsor.invertLogo ? 'invert' : ''
+                    }`}
+                  />
+                ) : (
+                  <>
+                    <div
+                      className="flex items-center justify-center border border-[#2a2a3e] bg-[#1a1a2e]"
+                      style={{ width: '80px', height: '40px' }}
+                    >
+                      <span
+                        style={{
+                          fontFamily: "'Space Mono', monospace",
+                          fontSize: '10px',
+                          color: '#444',
+                        }}
+                      >
+                        LOGO
+                      </span>
+                    </div>
+                    <div
+                      className="text-center"
                       style={{
                         fontFamily: "'Space Mono', monospace",
-                        fontSize: '10px',
-                        color: '#444',
+                        fontSize: '12px',
+                        color: '#9A9AA8',
+                        letterSpacing: '2px',
+                        textTransform: 'uppercase',
                       }}
                     >
-                      LOGO
-                    </span>
-                  </div>
-                  <div
-                    className="text-center"
-                    style={{
-                      fontFamily: "'Space Mono', monospace",
-                      fontSize: '12px',
-                      color: '#9A9AA8',
-                      letterSpacing: '2px',
-                      textTransform: 'uppercase',
-                    }}
-                  >
-                    {sponsor.name}
-                  </div>
-                </>
-              )}
-            </div>
-          ))}
+                      {sponsor.name}
+                    </div>
+                  </>
+                )}
+              </>
+            );
+              const className =
+              'group relative flex flex-col items-center justify-center gap-2 border border-[#1a1a2e] bg-[#0D0D1A] transition-all duration-200 cursor-pointer hover:bg-[#111128] hover:border-[#FA4616] hover:z-[2] hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(250,70,22,0.2)] p-3 md:p-6';
+
+            return sponsor.href ? (
+              <a
+                key={sponsor.name}
+                href={sponsor.href}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Visit ${sponsor.name}`}
+                className={className}
+                style={{ aspectRatio: '16 / 9' }}
+              >
+                {content}
+              </a>
+            ) : (
+              <div key={sponsor.name} className={className} style={{ aspectRatio: '16 / 9' }}>
+                {content}
+              </div>
+            );
+          })}
         </div>
 
         <div className="text-center mt-8">

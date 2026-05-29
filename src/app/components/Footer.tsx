@@ -7,7 +7,7 @@ const footerLinks = [
 ];
 
 const socialLinks = [
-  { Icon: Instagram, href: 'https://www.instagram.com/uf_quanted/', label: 'Instagram' },
+  { Icon: Instagram, href: 'https://www.instagram.com/gqh_2026/', label: 'Instagram' },
   { Icon: Linkedin, href: 'https://www.linkedin.com/company/gator-quant-hacks', label: 'LinkedIn' },
 ];
 

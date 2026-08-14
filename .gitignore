@@ -6,3 +6,6 @@ dist/
 # SSH keys - never commit private keys
 *.pem
 *.key
+
+# Local deploy notes (contains SSH key path)
+DEPLOY.local.md

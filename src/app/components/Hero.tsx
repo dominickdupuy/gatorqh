@@ -6,7 +6,7 @@ import orangePlanet from './orangePlanet.png';
 
 const titleLines = ['GATOR', 'QUANT', 'HACKS'];
 
-type AppPage = 'home' | 'interest';
+type AppPage = 'home' | 'apply';
 
 export function Hero({
   onNavigate,
@@ -545,7 +545,7 @@ export function Hero({
             <div className="mx-auto grid w-full max-w-[780px] gap-3 sm:grid-cols-2">
               {onNavigate && (
                 <ShatterButton
-                  onClick={() => window.setTimeout(() => onNavigate('interest'), 800)}
+                  onClick={() => window.setTimeout(() => onNavigate('apply'), 800)}
                   shatterColor="#FA4616"
                   className="pixel-btn group relative w-full border-0 text-white"
                 >

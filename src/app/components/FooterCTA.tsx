@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { ShatterButton } from '@/components/ui/shatter-button';
 import trophyImage from './trophy.png';
 
-type AppPage = 'home' | 'interest';
+type AppPage = 'home' | 'apply';
 
 type FooterCTAProps = {
   onNavigate?: (page: AppPage) => void;
@@ -44,7 +44,7 @@ export function FooterCTA({ onNavigate }: FooterCTAProps = {}) {
   ];
 
   const handlePressStart = () => {
-    window.setTimeout(() => onNavigate?.('interest'), 800);
+    window.setTimeout(() => onNavigate?.('apply'), 800);
   };
 
   return (

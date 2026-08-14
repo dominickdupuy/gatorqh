@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import quantClubLogo from './quantGatorTransparent.png';
 
-type AppPage = 'home' | 'interest';
+type AppPage = 'home' | 'apply';
 
 type NavigationProps = {
   page?: AppPage;
@@ -38,7 +38,7 @@ export function Navigation({ page = 'home', onNavigate }: NavigationProps = {}) 
       }
     };
 
-    if (page === 'interest' && onNavigate) {
+    if (page === 'apply' && onNavigate) {
       onNavigate('home');
       window.setTimeout(run, 80);
       return;
@@ -66,7 +66,7 @@ export function Navigation({ page = 'home', onNavigate }: NavigationProps = {}) 
     setCoinFlash(true);
 
     if (nextCount >= 3) {
-      if (page === 'interest' && onNavigate) {
+      if (page === 'apply' && onNavigate) {
         onNavigate('home');
         window.setTimeout(() => {
           document.getElementById('register')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -214,13 +214,13 @@ export function Navigation({ page = 'home', onNavigate }: NavigationProps = {}) 
           {onNavigate && (
             <button
               type="button"
-              onClick={() => onNavigate('interest')}
+              onClick={() => onNavigate('apply')}
               className={`nav-link transition-colors ${
-                page === 'interest' ? 'text-[#FA4616]' : 'text-[#F4F4F4] hover:text-[#044a94]'
+                page === 'apply' ? 'text-[#FA4616]' : 'text-[#F4F4F4] hover:text-[#044a94]'
               }`}
               style={{ fontFamily: "'Space Mono', monospace", fontSize: '15px', fontWeight: 700, letterSpacing: '1px' }}
             >
-              Interest Form
+              Apply
             </button>
           )}
         </div>
@@ -380,15 +380,15 @@ export function Navigation({ page = 'home', onNavigate }: NavigationProps = {}) 
               <button
                 type="button"
                 onClick={() => {
-                  onNavigate('interest');
+                  onNavigate('apply');
                   setMobileMenuOpen(false);
                 }}
                 className={`nav-link text-left transition-colors ${
-                  page === 'interest' ? 'text-[#FA4616]' : 'text-[#F4F4F4] hover:text-[#044a94]'
+                  page === 'apply' ? 'text-[#FA4616]' : 'text-[#F4F4F4] hover:text-[#044a94]'
                 }`}
                 style={{ fontFamily: "'Space Mono', monospace", fontSize: '15px', fontWeight: 700, letterSpacing: '1px' }}
               >
-                Interest Form
+                Apply
               </button>
             )}
             <button className="bg-[#FA4616] hover:bg-[#FA4616]/90 text-white px-6 py-3 border-2 border-[#044a94] shadow-[0_0_20px_rgba(4,74,148,0.3)] transition-all">

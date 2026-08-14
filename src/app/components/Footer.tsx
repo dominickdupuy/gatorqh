@@ -3,7 +3,7 @@ import { Linkedin, Instagram } from 'lucide-react';
 const footerLinks = [
   { label: 'Contact Us', href: 'mailto:dominickdupuy@ufl.edu' },
   { label: 'Sponsor Us', href: 'mailto:dominickdupuy@ufl.edu?subject=Power%20Sponsor%20Inquiry' },
-  { label: 'Interest Form', href: '/interest-form' },
+  { label: 'Apply', href: '/apply' },
 ];
 
 const socialLinks = [

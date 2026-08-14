@@ -2,3 +2,7 @@
 node_modules/
 dist/
 .claude/
+
+# SSH keys - never commit private keys
+*.pem
+*.key

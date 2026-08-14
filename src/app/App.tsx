@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { InterestForm } from '@/components/InterestForm';
+import { ApplicationForm } from './components/ApplicationForm';
 import { Navigation } from './components/Navigation';
 import { Hero } from './components/Hero';
 import { StatsBar } from './components/StatsBar';
@@ -12,14 +12,18 @@ import { FooterCTA } from './components/FooterCTA';
 import { Footer } from './components/Footer';
 import { IntroAnimation } from './components/IntroAnimation';
 
-type AppPage = 'home' | 'interest';
+type AppPage = 'home' | 'apply';
+
+// The older /interest-form links (and the misspelled alias that shipped with
+// them) are already in circulation, so they keep resolving to the portal.
+const APPLY_PATHS = ['/apply', '/interest-form', '/intrest-form'];
 
 const getPageFromPath = (): AppPage => {
   const path = window.location.pathname.replace(/\/+$/, '');
-  return path === '/interest-form' || path === '/intrest-form' ? 'interest' : 'home';
+  return APPLY_PATHS.includes(path) ? 'apply' : 'home';
 };
 
-const getPathForPage = (page: AppPage) => (page === 'interest' ? '/interest-form' : '/');
+const getPathForPage = (page: AppPage) => (page === 'apply' ? '/apply' : '/');
 
 export default function App() {
   const [page, setPage] = useState<AppPage>(() => getPageFromPath());
@@ -43,7 +47,7 @@ export default function App() {
       window.history.pushState({}, '', nextPath);
     }
 
-    if (nextPage === 'interest') {
+    if (nextPage === 'apply') {
       window.scrollTo({ top: 0 });
     }
   }, []);
@@ -136,7 +140,7 @@ export default function App() {
             </div>
           </>
         ) : (
-          <InterestForm />
+          <ApplicationForm />
         )}
       </div>
 

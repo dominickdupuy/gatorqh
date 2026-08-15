@@ -16,3 +16,25 @@ When updating dates anywhere in the codebase, check ALL of these files:
 
 ## Deployment
 Vercel — deploys automatically on push to `main`.
+
+Env vars live in the Vercel project settings, not in the repo. Vite inlines
+them at build time, so changing one requires a redeploy **without** the build
+cache; saving the variable alone changes nothing.
+
+## Application form (`/apply`)
+
+`src/app/components/ApplicationForm.tsx` posts to a Google Apps Script web app,
+which appends a row to the responses sheet and saves the resume to Drive.
+
+- Webhook URL: `VITE_INTEREST_FORM_WEBHOOK_URL` (name kept from the older
+  interest form)
+- Script source: `apps-script/Code.gs` — version-controlled here, but **must be
+  pasted into the Apps Script editor and redeployed by hand**. Pushing to git
+  does not deploy it.
+- `/interest-form` and the `/intrest-form` typo alias still resolve to `/apply`;
+  those links are already in circulation, so don't drop them.
+
+If submissions stop arriving, create a **new** Apps Script deployment rather
+than editing the existing one's access settings — see `apps-script/README.md`.
+An unauthenticated `curl` of the `/exec` URL should return JSON; Google's "You
+need access" page means the deployment is not public.

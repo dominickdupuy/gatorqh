@@ -48,9 +48,19 @@ var DISCORD_INVITE_URL = 'https://discord.gg/PhEnUQXCp';
 function doPost(e) {
   try {
     var payload = JSON.parse(e.postData.contents);
+    var sheet = getSheet_();
+
+    // The site retries with an opaque no-cors POST when the browser refuses to
+    // expose the first response, so the same submission can arrive twice with
+    // an identical (email, submittedAt) pair. Drop the second copy before it
+    // writes a duplicate row and resume.
+    if (isDuplicate_(sheet, payload)) {
+      return jsonResponse_({ ok: true, deduped: true });
+    }
+
     var resume = saveResume_(payload);
 
-    getSheet_().appendRow([
+    sheet.appendRow([
       payload.submittedAt || new Date().toISOString(),
       payload.fullName || '',
       payload.email || '',
@@ -78,6 +88,34 @@ function doPost(e) {
 
 function doGet() {
   return jsonResponse_({ ok: true, message: 'GQH application endpoint is live.' });
+}
+
+/**
+ * True when a row with the same email (column C) and submittedAt (column A)
+ * already exists among the most recent rows. Sheets may parse the ISO
+ * timestamp into a Date, so both representations are compared.
+ */
+function isDuplicate_(sheet, payload) {
+  var email = (payload.email || '').trim();
+  var submittedAt = payload.submittedAt || '';
+  if (!email || !submittedAt) return false;
+
+  var lastRow = sheet.getLastRow();
+  if (lastRow < 1) return false;
+
+  var start = Math.max(1, lastRow - 19);
+  var rows = sheet.getRange(start, 1, lastRow - start + 1, 3).getValues();
+  var submittedMs = new Date(submittedAt).getTime();
+
+  for (var i = 0; i < rows.length; i++) {
+    if (String(rows[i][2]).trim() !== email) continue;
+    var cell = rows[i][0];
+    var cellMs = cell instanceof Date ? cell.getTime() : new Date(String(cell)).getTime();
+    if (String(cell) === submittedAt || (!isNaN(cellMs) && cellMs === submittedMs)) {
+      return true;
+    }
+  }
+  return false;
 }
 
 /**

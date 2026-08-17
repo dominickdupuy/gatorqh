@@ -94,8 +94,18 @@ const readFileAsBase64 = (file: File) =>
 const postApplication = async (payload: unknown) => {
   const body = JSON.stringify(payload);
 
+  // Both attempts are bounded so the UI can never sit on "TRANSMITTING..."
+  // forever; 90s allows a multi-MB base64 resume on a slow uplink.
+  const fetchWithTimeout = (init: RequestInit) => {
+    const controller = new AbortController();
+    const timer = window.setTimeout(() => controller.abort(), 90_000);
+    return fetch(WEBHOOK_URL, { ...init, signal: controller.signal }).finally(() =>
+      window.clearTimeout(timer),
+    );
+  };
+
   try {
-    const response = await fetch(WEBHOOK_URL, {
+    const response = await fetchWithTimeout({
       method: 'POST',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body,
@@ -103,7 +113,10 @@ const postApplication = async (payload: unknown) => {
     if (!response.ok) throw new Error(`Webhook responded ${response.status}`);
     return 'confirmed' as const;
   } catch {
-    await fetch(WEBHOOK_URL, {
+    // The first request may have already reached the server before the browser
+    // refused to expose the response — the retry can land a second copy.
+    // Code.gs dedupes on (email, submittedAt), which is identical across both.
+    await fetchWithTimeout({
       method: 'POST',
       mode: 'no-cors',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },

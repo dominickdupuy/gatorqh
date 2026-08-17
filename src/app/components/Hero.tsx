@@ -550,7 +550,7 @@ export function Hero({
                   className="pixel-btn group relative w-full border-0 text-white"
                 >
                   <span style={{ display: 'block', width: '100%', textAlign: 'center', fontFamily: "'Orbitron', sans-serif", fontSize: '14px', letterSpacing: '1px' }}>
-                    INTEREST FORM
+                    APPLY
                     <br />
                     (NOT REGISTERING YET)
                   </span>

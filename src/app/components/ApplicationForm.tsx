@@ -2,6 +2,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 const WEBHOOK_URL = import.meta.env.VITE_INTEREST_FORM_WEBHOOK_URL as string;
 
+const DISCORD_INVITE_URL = 'https://discord.gg/PhEnUQXCp';
+
 const MAX_RESUME_BYTES = 4 * 1024 * 1024;
 const ACCEPTED_RESUME_TYPES = '.pdf,.doc,.docx';
 
@@ -805,9 +807,26 @@ function SuccessScreen({ email, confirmed }: { email: string; confirmed: boolean
           <span className="text-[#9cc9ff]">{email}</span> with your decision, plus prep resources
           before October 2.
         </p>
-        <a href="/" className="gqh-btn-primary inline-block no-underline">
-          BACK TO HOME
-        </a>
+        <p
+          className="mb-6 text-[rgba(255,255,255,0.7)]"
+          style={{ fontFamily: "'Space Mono', monospace", fontSize: '14px', lineHeight: 1.75 }}
+        >
+          While you wait, join the Discord — announcements, team-matching, and
+          updates all happen there.
+        </p>
+        <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <a
+            href={DISCORD_INVITE_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="gqh-btn-primary inline-block no-underline"
+          >
+            JOIN THE DISCORD
+          </a>
+          <a href="/" className="gqh-btn-ghost inline-block no-underline">
+            BACK TO HOME
+          </a>
+        </div>
       </div>
     </div>
   );

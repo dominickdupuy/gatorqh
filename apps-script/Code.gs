@@ -41,6 +41,10 @@ var SPREADSHEET_ID = '1PugyxDLcyLrUeDoUhoVlTXN8z5HlkZsuOeqJfLx3uPk';
 // Resumes are written to this Drive folder, created on the first submission.
 var RESUME_FOLDER_NAME = 'GQH 2026 Resumes';
 
+// Included in the confirmation email sent to every applicant. Keep this in
+// sync with DISCORD_INVITE_URL in src/app/components/ApplicationForm.tsx.
+var DISCORD_INVITE_URL = 'https://discord.gg/PhEnUQXCp';
+
 function doPost(e) {
   try {
     var payload = JSON.parse(e.postData.contents);
@@ -60,6 +64,8 @@ function doPost(e) {
       resume.url,
       resume.filename,
     ]);
+
+    sendConfirmationEmail_(payload);
 
     return jsonResponse_({ ok: true });
   } catch (error) {
@@ -107,6 +113,43 @@ function saveResume_(payload) {
   var file = getResumeFolder_().createFile(blob);
 
   return { url: file.getUrl(), filename: filename };
+}
+
+/**
+ * Confirmation email with the Discord invite, sent to every applicant right
+ * after their row is written. Failures are logged but never fail the
+ * submission — the row and resume are already saved at this point.
+ *
+ * Sent from the Google account that owns this script's deployment. MailApp on
+ * a consumer Gmail account is capped at ~100 recipients/day; check remaining
+ * quota with MailApp.getRemainingDailyQuota() if volume gets close.
+ */
+function sendConfirmationEmail_(payload) {
+  var email = (payload.email || '').trim();
+  if (!email || email.indexOf('@') === -1) return;
+
+  var firstName = (payload.fullName || '').trim().split(/\s+/)[0] || 'there';
+
+  try {
+    MailApp.sendEmail({
+      to: email,
+      subject: 'Gator Quant Hacks — application received',
+      name: 'Gator Quant Hacks',
+      body:
+        'Hi ' + firstName + ',\n\n' +
+        'Your application to Gator Quant Hacks (October 2–4, 2026) has been received.\n' +
+        'We review on a rolling basis and will follow up with your decision and prep\n' +
+        'resources before the event.\n\n' +
+        'In the meantime, join our Discord — announcements, team-matching, and updates\n' +
+        'all happen there:\n\n' +
+        DISCORD_INVITE_URL + '\n\n' +
+        'See you in the arena,\n' +
+        'The Gator Quant Hacks Team\n' +
+        'https://gqhacks.com',
+    });
+  } catch (error) {
+    console.error('Confirmation email failed for ' + email + ': ' + error);
+  }
 }
 
 function getResumeFolder_() {

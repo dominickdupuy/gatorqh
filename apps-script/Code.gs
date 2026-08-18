@@ -31,7 +31,12 @@
  *   2. Replace the contents of Code.gs with this file and save.
  *   3. Deploy → Manage deployments → the active deployment → pencil icon →
  *      Version: "New version" → Deploy.
- *   4. Re-authorize when prompted; Drive access is new and requires consent.
+ *   4. Re-authorize when prompted; Drive and Mail access require consent.
+ *
+ * Note that anonymous web app executions do not appear in the editor's
+ * Executions list, so a failing doPost cannot be diagnosed there. The GET
+ * probes documented on doGet() below report mail quota and send outcomes
+ * directly in the HTTP response instead.
  */
 
 // The script is standalone (not bound to the spreadsheet), so the target sheet
@@ -75,9 +80,12 @@ function doPost(e) {
       resume.filename,
     ]);
 
-    sendConfirmationEmail_(payload);
+    var mail = sendConfirmationEmail_(payload);
 
-    return jsonResponse_({ ok: true });
+    // The mail result rides along in the response body. The site ignores it,
+    // but it makes a failed send visible to a direct curl of /exec without
+    // needing the execution log, which does not record anonymous web app runs.
+    return jsonResponse_({ ok: true, mail: mail });
   } catch (error) {
     // Log so failures are visible in the Apps Script execution history rather
     // than disappearing into an opaque no-cors response on the client.
@@ -86,7 +94,34 @@ function doPost(e) {
   }
 }
 
-function doGet() {
+/**
+ * GET /exec            -> liveness probe
+ * GET /exec?diag=1     -> mail quota and effective user, for debugging a
+ *                         confirmation email that never arrives
+ * GET /exec?testmail=you@example.com
+ *                      -> sends one real confirmation email and reports the
+ *                         outcome, exercising the exact same code path a
+ *                         submission uses
+ */
+function doGet(e) {
+  var params = (e && e.parameter) || {};
+
+  if (params.diag) {
+    return jsonResponse_({
+      ok: true,
+      remainingDailyEmailQuota: MailApp.getRemainingDailyQuota(),
+      effectiveUser: Session.getEffectiveUser().getEmail(),
+    });
+  }
+
+  if (params.testmail) {
+    var result = sendConfirmationEmail_({
+      email: params.testmail,
+      fullName: 'Mail Probe',
+    });
+    return jsonResponse_({ ok: true, mail: result });
+  }
+
   return jsonResponse_({ ok: true, message: 'GQH application endpoint is live.' });
 }
 
@@ -164,7 +199,9 @@ function saveResume_(payload) {
  */
 function sendConfirmationEmail_(payload) {
   var email = (payload.email || '').trim();
-  if (!email || email.indexOf('@') === -1) return;
+  if (!email || email.indexOf('@') === -1) {
+    return { sent: false, reason: 'no valid email on payload' };
+  }
 
   var firstName = (payload.fullName || '').trim().split(/\s+/)[0] || 'there';
 
@@ -185,8 +222,10 @@ function sendConfirmationEmail_(payload) {
         'The Gator Quant Hacks Team\n' +
         'https://gqhacks.com',
     });
+    return { sent: true, to: email };
   } catch (error) {
     console.error('Confirmation email failed for ' + email + ': ' + error);
+    return { sent: false, to: email, reason: String(error) };
   }
 }
 

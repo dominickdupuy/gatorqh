@@ -208,25 +208,82 @@ function sendConfirmationEmail_(payload) {
   try {
     MailApp.sendEmail({
       to: email,
-      subject: 'Gator Quant Hacks — application received',
+      subject: 'Thanks for applying to Gator Quant Hacks',
       name: 'Gator Quant Hacks',
-      body:
-        'Hi ' + firstName + ',\n\n' +
-        'Your application to Gator Quant Hacks (October 2–4, 2026) has been received.\n' +
-        'We review on a rolling basis and will follow up with your decision and prep\n' +
-        'resources before the event.\n\n' +
-        'In the meantime, join our Discord — announcements, team-matching, and updates\n' +
-        'all happen there:\n\n' +
-        DISCORD_INVITE_URL + '\n\n' +
-        'See you in the arena,\n' +
-        'The Gator Quant Hacks Team\n' +
-        'https://gqhacks.com',
+      body: plainTextEmail_(firstName),
+      htmlBody: htmlEmail_(firstName),
     });
     return { sent: true, to: email };
   } catch (error) {
     console.error('Confirmation email failed for ' + email + ': ' + error);
     return { sent: false, to: email, reason: String(error) };
   }
+}
+
+/**
+ * Plain text alternative. Sent alongside the HTML part, and the only version
+ * seen by clients with images or rich text disabled, so it has to carry the
+ * Discord link in full rather than hiding it behind a button.
+ */
+function plainTextEmail_(firstName) {
+  return (
+    'Hi ' + firstName + ',\n\n' +
+    'Thanks for applying to Gator Quant Hacks — we have your application, and\n' +
+    'we are glad you want in.\n\n' +
+    'GQH runs October 2-4, 2026 at the University of Florida. We review on a\n' +
+    'rolling basis and will email you a decision, along with prep resources, well\n' +
+    'before the event.\n\n' +
+    'ONE THING TO DO NOW: join the Discord.\n' +
+    DISCORD_INVITE_URL + '\n\n' +
+    'That is where announcements, team-matching, sponsor workshops, and every\n' +
+    'schedule update happen. Applicants who are not in the server miss them.\n\n' +
+    'See you in the arena,\n' +
+    'The Gator Quant Hacks Team\n' +
+    'https://gqhacks.com'
+  );
+}
+
+/**
+ * HTML alternative, built to survive Gmail and Outlook: table layout, inline
+ * styles, no external assets. The arcade palette matches the site without
+ * relying on a dark background, which many clients recolor unpredictably.
+ */
+function htmlEmail_(firstName) {
+  return (
+    '<div style="margin:0;padding:24px 12px;background:#f4f6fa;">' +
+      '<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width:560px;margin:0 auto;background:#ffffff;border:1px solid #d9e0ec;">' +
+        '<tr><td style="background:#0b1524;padding:22px 28px;">' +
+          '<div style="font-family:Georgia,serif;font-size:20px;font-weight:bold;color:#ffffff;letter-spacing:1px;">GATOR QUANT HACKS</div>' +
+          '<div style="font-family:Arial,sans-serif;font-size:12px;color:#9cc9ff;letter-spacing:2px;padding-top:6px;">OCTOBER 2-4, 2026 &middot; UNIVERSITY OF FLORIDA</div>' +
+        '</td></tr>' +
+        '<tr><td style="padding:28px;font-family:Arial,sans-serif;font-size:15px;line-height:1.6;color:#1d2532;">' +
+          '<p style="margin:0 0 16px;">Hi ' + escapeHtml_(firstName) + ',</p>' +
+          '<p style="margin:0 0 16px;"><strong>Thanks for applying to Gator Quant Hacks.</strong> Your application is in, and we are glad you want a seat.</p>' +
+          '<p style="margin:0 0 24px;">We review on a rolling basis and will email you a decision, along with prep resources, well before the event.</p>' +
+          '<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#f0f4fb;border-left:4px solid #FA4616;">' +
+            '<tr><td style="padding:18px 20px;">' +
+              '<p style="margin:0 0 6px;font-size:13px;font-weight:bold;color:#FA4616;letter-spacing:1px;">ONE THING TO DO NOW</p>' +
+              '<p style="margin:0 0 16px;font-size:14px;color:#1d2532;">Join the Discord. Announcements, team-matching, sponsor workshops, and every schedule update happen there.</p>' +
+              '<a href="' + DISCORD_INVITE_URL + '" style="display:inline-block;background:#FA4616;color:#ffffff;font-size:14px;font-weight:bold;text-decoration:none;padding:12px 26px;">Join the Discord</a>' +
+              '<p style="margin:14px 0 0;font-size:12px;color:#5b6577;">Or paste this link: ' + DISCORD_INVITE_URL + '</p>' +
+            '</td></tr>' +
+          '</table>' +
+          '<p style="margin:24px 0 0;">See you in the arena,<br>The Gator Quant Hacks Team</p>' +
+        '</td></tr>' +
+        '<tr><td style="background:#f0f4fb;padding:16px 28px;font-family:Arial,sans-serif;font-size:12px;color:#5b6577;border-top:1px solid #d9e0ec;">' +
+          '<a href="https://gqhacks.com" style="color:#044a94;text-decoration:none;">gqhacks.com</a>' +
+        '</td></tr>' +
+      '</table>' +
+    '</div>'
+  );
+}
+
+function escapeHtml_(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
 }
 
 function getResumeFolder_() {

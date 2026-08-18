@@ -98,10 +98,12 @@ function doPost(e) {
  * GET /exec            -> liveness probe
  * GET /exec?diag=1     -> mail quota and effective user, for debugging a
  *                         confirmation email that never arrives
- * GET /exec?testmail=you@example.com
+ * GET /exec?testmail=you@example.com&name=Ada
  *                      -> sends one real confirmation email and reports the
  *                         outcome, exercising the exact same code path a
- *                         submission uses
+ *                         submission uses. Also the way to resend a
+ *                         confirmation to someone whose original send failed,
+ *                         since it writes no row. `name` is optional.
  */
 function doGet(e) {
   var params = (e && e.parameter) || {};
@@ -117,7 +119,7 @@ function doGet(e) {
   if (params.testmail) {
     var result = sendConfirmationEmail_({
       email: params.testmail,
-      fullName: 'Mail Probe',
+      fullName: params.name || 'Mail Probe',
     });
     return jsonResponse_({ ok: true, mail: result });
   }

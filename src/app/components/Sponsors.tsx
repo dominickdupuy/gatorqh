@@ -1,8 +1,11 @@
 import { ShatterButton } from '@/components/ui/shatter-button';
+import algoGatorsLogo from '../../assets/AlgoGators.png';
 import citadelLogo from '../../assets/Citadel.png';
 import databentoLogo from '../../assets/Databento.png';
 import janeStreetLogo from '../../assets/jane-street.png';
+import massiveLogo from '../../assets/Massive.png';
 import oldMissionLogo from '../../assets/OldMission.png';
+import webullLogo from '../../assets/Webull.png';
 
 type Sponsor = {
   name: string;
@@ -38,9 +41,22 @@ export function Sponsors() {
       href: 'https://databento.com/',
       logoClassName: 'max-w-[94%] max-h-[84%] md:max-w-[88%] md:max-h-[78%]',
     },
-    { name: 'Placeholder E' },
-    { name: 'Placeholder F' },
-    { name: 'Placeholder G' },
+    {
+      name: 'Webull',
+      logo: webullLogo,
+      href: 'https://www.webull.com/',
+    },
+    {
+      name: 'Massive',
+      logo: massiveLogo,
+      href: 'https://massive.com/',
+    },
+    {
+      name: 'Algo Gators',
+      logo: algoGatorsLogo,
+      href: 'https://algogators.com/',
+      logoClassName: 'max-w-[80%] max-h-[70%] md:max-w-[70%] md:max-h-[62%]',
+    },
     { name: 'Placeholder H' },
     { name: 'Placeholder I' },
     { name: 'Placeholder J' },
@@ -83,7 +99,7 @@ export function Sponsors() {
             className="text-[#9A9AA8] text-center"
             style={{ fontFamily: "'Space Mono', monospace", fontSize: '12px' }}
           >
-            12 PLACEHOLDERS CONFIRMED
+            7 SPONSORS CONFIRMED
           </p>
         </div>
 

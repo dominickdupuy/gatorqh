@@ -22,12 +22,8 @@ export function Hero({
     document.getElementById('register')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  const openMentorMail = () => {
-    window.location.href = 'mailto:dominickdupuy@ufl.edu?subject=Mentor%20Inquiry';
-  };
-
-  const openVolunteerMail = () => {
-    window.location.href = 'mailto:dominickdupuy@ufl.edu?subject=Volunteer%20Inquiry';
+  const openMentorVolunteerForm = () => {
+    window.open('https://forms.gle/qC2C5sS3WHrVZX8j6', '_blank', 'noopener,noreferrer');
   };
 
   useEffect(() => {
@@ -560,7 +556,7 @@ export function Hero({
               )}
 
               <ShatterButton
-                onClick={openMentorMail}
+                onClick={openMentorVolunteerForm}
                 shatterColor="#9cc9ff"
                 className="pixel-btn group relative w-full border-0"
               >
@@ -570,7 +566,7 @@ export function Hero({
               </ShatterButton>
 
               <ShatterButton
-                onClick={openVolunteerMail}
+                onClick={openMentorVolunteerForm}
                 shatterColor="#3AE36C"
                 className="pixel-btn group relative w-full border-0"
               >

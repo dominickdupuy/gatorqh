@@ -5,6 +5,7 @@ import databentoLogo from '../../assets/Databento.png';
 import janeStreetLogo from '../../assets/jane-street.png';
 import massiveLogo from '../../assets/Massive.png';
 import oldMissionLogo from '../../assets/OldMission.png';
+import ufMathLogo from '../../assets/UFMath.png';
 import webullLogo from '../../assets/Webull.png';
 
 type Sponsor = {
@@ -57,7 +58,12 @@ export function Sponsors() {
       href: 'https://algogators.com/',
       logoClassName: 'max-w-[80%] max-h-[70%] md:max-w-[70%] md:max-h-[62%]',
     },
-    { name: 'Placeholder H' },
+    {
+      name: 'UF Mathematics',
+      logo: ufMathLogo,
+      href: 'https://math.ufl.edu/',
+      logoClassName: 'max-w-[96%] max-h-[96%] md:max-w-[85%] md:max-h-[85%]',
+    },
     { name: 'Placeholder I' },
     { name: 'Placeholder J' },
     { name: 'Placeholder K' },
@@ -99,7 +105,7 @@ export function Sponsors() {
             className="text-[#9A9AA8] text-center"
             style={{ fontFamily: "'Space Mono', monospace", fontSize: '12px' }}
           >
-            7 SPONSORS CONFIRMED
+            8 SPONSORS CONFIRMED
           </p>
         </div>
 
@@ -125,6 +131,7 @@ export function Sponsors() {
                     } object-contain ${
                       sponsor.invertLogo ? 'invert' : ''
                     }`}
+                    style={{ imageRendering: 'auto' }}
                   />
                 ) : (
                   <>

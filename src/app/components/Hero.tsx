@@ -22,8 +22,12 @@ export function Hero({
     document.getElementById('register')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  const openSponsorMail = () => {
-    window.location.href = 'mailto:dominickdupuy@ufl.edu?subject=Power%20Sponsor%20Inquiry';
+  const openMentorMail = () => {
+    window.location.href = 'mailto:dominickdupuy@ufl.edu?subject=Mentor%20Inquiry';
+  };
+
+  const openVolunteerMail = () => {
+    window.location.href = 'mailto:dominickdupuy@ufl.edu?subject=Volunteer%20Inquiry';
   };
 
   useEffect(() => {
@@ -542,7 +546,7 @@ export function Hero({
               </div>
             </div>
 
-            <div className="mx-auto grid w-full max-w-[780px] gap-3 sm:grid-cols-2">
+            <div className="mx-auto grid w-full max-w-[780px] gap-3 sm:grid-cols-3">
               {onNavigate && (
                 <ShatterButton
                   onClick={() => window.setTimeout(() => onNavigate('apply'), 800)}
@@ -550,20 +554,28 @@ export function Hero({
                   className="pixel-btn group relative w-full border-0 text-white"
                 >
                   <span style={{ display: 'block', width: '100%', textAlign: 'center', fontFamily: "'Orbitron', sans-serif", fontSize: '14px', letterSpacing: '1px' }}>
-                    APPLY
-                    <br />
-                    (NOT REGISTERING YET)
+                    HACK
                   </span>
                 </ShatterButton>
               )}
 
               <ShatterButton
-                onClick={openSponsorMail}
+                onClick={openMentorMail}
                 shatterColor="#9cc9ff"
                 className="pixel-btn group relative w-full border-0"
               >
                 <span style={{ display: 'block', width: '100%', textAlign: 'center', fontFamily: "'Orbitron', sans-serif", fontSize: '14px', letterSpacing: '1px' }}>
-                  BECOME A POWER SPONSOR
+                  MENTOR
+                </span>
+              </ShatterButton>
+
+              <ShatterButton
+                onClick={openVolunteerMail}
+                shatterColor="#3AE36C"
+                className="pixel-btn group relative w-full border-0"
+              >
+                <span style={{ display: 'block', width: '100%', textAlign: 'center', fontFamily: "'Orbitron', sans-serif", fontSize: '14px', letterSpacing: '1px' }}>
+                  VOLUNTEER
                 </span>
               </ShatterButton>
             </div>

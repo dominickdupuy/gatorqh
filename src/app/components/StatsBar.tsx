@@ -7,8 +7,13 @@ type StatCard = {
 const stats: StatCard[] = [
   {
     label: 'TREASURE VAULT',
-    value: '$10,000',
+    value: '$5,000',
     color: '#FA5A2A',
+  },
+  {
+    label: 'PLAYERS',
+    value: '250',
+    color: '#63F6FF',
   },
   {
     label: 'DURATION',
@@ -284,7 +289,7 @@ export function StatsBar() {
           </div>
         </div>
 
-        <div className="grid gap-3 lg:grid-cols-3">
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {stats.map((stat) => (
             <article
               key={stat.label}

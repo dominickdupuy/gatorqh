@@ -135,7 +135,7 @@ export function FooterCTA({ onNavigate }: FooterCTAProps = {}) {
               className="mx-auto mb-10 max-w-2xl text-[rgba(255,255,255,0.74)] lg:mx-0"
               style={{ fontFamily: "'Space Mono', monospace", fontSize: '19px', lineHeight: 1.6 }}
             >
-              36 hours. $10,000. One High Score Board.
+              36 hours. $5,000. One High Score Board.
             </p>
 
             <ShatterButton

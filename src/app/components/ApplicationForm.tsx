@@ -7,15 +7,251 @@ const DISCORD_INVITE_URL = 'https://discord.gg/PhEnUQXCp';
 const MAX_RESUME_BYTES = 4 * 1024 * 1024;
 const ACCEPTED_RESUME_TYPES = '.pdf,.doc,.docx';
 
-const YEARS = ['Freshman', 'Sophomore', 'Junior', 'Senior', 'Grad', 'Other'] as const;
 const EXPERIENCE_LEVELS = [
   { value: 'None', hint: 'Never traded or modeled. Here to learn.' },
   { value: 'Some', hint: 'Coursework, personal projects, or a club.' },
   { value: 'Strong', hint: 'Internships, research, or competition wins.' },
 ] as const;
 
-type Year = (typeof YEARS)[number];
 type Experience = (typeof EXPERIENCE_LEVELS)[number]['value'];
+
+// MLH's recommended age options — specific ages rather than a date of birth,
+// which keeps eligibility checks (some tracks are 18+) possible without
+// collecting a full DOB.
+const AGES = [
+  'Under 18',
+  '18',
+  '19',
+  '20',
+  '21',
+  '22',
+  '23',
+  '24',
+  '25',
+  'Over 25',
+  'Prefer not to answer',
+] as const;
+
+// MLH's standardized Level of Study taxonomy, used in place of a school-year
+// dropdown so demographic data lines up across MLH member events.
+const LEVELS_OF_STUDY = [
+  'Less than Secondary / High School',
+  'Secondary / High School',
+  'Undergraduate University (2 year - community college or similar)',
+  'Undergraduate University (3+ year)',
+  'Graduate University (Masters, Professional, Doctoral, etc)',
+  'Code School / Bootcamp',
+  'Other Vocational / Trade Program or Apprenticeship',
+  'Post Doctorate',
+  'Other',
+  'I’m not currently a student',
+  'Prefer not to answer',
+] as const;
+
+// ISO 3166-1 short English names, with the US pinned first since that is
+// where the event is held.
+const COUNTRIES = [
+  'United States',
+  'Afghanistan',
+  'Albania',
+  'Algeria',
+  'Andorra',
+  'Angola',
+  'Antigua and Barbuda',
+  'Argentina',
+  'Armenia',
+  'Australia',
+  'Austria',
+  'Azerbaijan',
+  'Bahamas',
+  'Bahrain',
+  'Bangladesh',
+  'Barbados',
+  'Belarus',
+  'Belgium',
+  'Belize',
+  'Benin',
+  'Bhutan',
+  'Bolivia',
+  'Bosnia and Herzegovina',
+  'Botswana',
+  'Brazil',
+  'Brunei',
+  'Bulgaria',
+  'Burkina Faso',
+  'Burundi',
+  'Cabo Verde',
+  'Cambodia',
+  'Cameroon',
+  'Canada',
+  'Central African Republic',
+  'Chad',
+  'Chile',
+  'China',
+  'Colombia',
+  'Comoros',
+  'Congo (Congo-Brazzaville)',
+  'Costa Rica',
+  'Croatia',
+  'Cuba',
+  'Cyprus',
+  'Czechia',
+  'Democratic Republic of the Congo',
+  'Denmark',
+  'Djibouti',
+  'Dominica',
+  'Dominican Republic',
+  'Ecuador',
+  'Egypt',
+  'El Salvador',
+  'Equatorial Guinea',
+  'Eritrea',
+  'Estonia',
+  'Eswatini',
+  'Ethiopia',
+  'Fiji',
+  'Finland',
+  'France',
+  'Gabon',
+  'Gambia',
+  'Georgia',
+  'Germany',
+  'Ghana',
+  'Greece',
+  'Grenada',
+  'Guatemala',
+  'Guinea',
+  'Guinea-Bissau',
+  'Guyana',
+  'Haiti',
+  'Honduras',
+  'Hungary',
+  'Iceland',
+  'India',
+  'Indonesia',
+  'Iran',
+  'Iraq',
+  'Ireland',
+  'Israel',
+  'Italy',
+  'Jamaica',
+  'Japan',
+  'Jordan',
+  'Kazakhstan',
+  'Kenya',
+  'Kiribati',
+  'Kuwait',
+  'Kyrgyzstan',
+  'Laos',
+  'Latvia',
+  'Lebanon',
+  'Lesotho',
+  'Liberia',
+  'Libya',
+  'Liechtenstein',
+  'Lithuania',
+  'Luxembourg',
+  'Madagascar',
+  'Malawi',
+  'Malaysia',
+  'Maldives',
+  'Mali',
+  'Malta',
+  'Marshall Islands',
+  'Mauritania',
+  'Mauritius',
+  'Mexico',
+  'Micronesia',
+  'Moldova',
+  'Monaco',
+  'Mongolia',
+  'Montenegro',
+  'Morocco',
+  'Mozambique',
+  'Myanmar',
+  'Namibia',
+  'Nauru',
+  'Nepal',
+  'Netherlands',
+  'New Zealand',
+  'Nicaragua',
+  'Niger',
+  'Nigeria',
+  'North Korea',
+  'North Macedonia',
+  'Norway',
+  'Oman',
+  'Pakistan',
+  'Palau',
+  'Palestine',
+  'Panama',
+  'Papua New Guinea',
+  'Paraguay',
+  'Peru',
+  'Philippines',
+  'Poland',
+  'Portugal',
+  'Qatar',
+  'Romania',
+  'Russia',
+  'Rwanda',
+  'Saint Kitts and Nevis',
+  'Saint Lucia',
+  'Saint Vincent and the Grenadines',
+  'Samoa',
+  'San Marino',
+  'Sao Tome and Principe',
+  'Saudi Arabia',
+  'Senegal',
+  'Serbia',
+  'Seychelles',
+  'Sierra Leone',
+  'Singapore',
+  'Slovakia',
+  'Slovenia',
+  'Solomon Islands',
+  'Somalia',
+  'South Africa',
+  'South Korea',
+  'South Sudan',
+  'Spain',
+  'Sri Lanka',
+  'Sudan',
+  'Suriname',
+  'Sweden',
+  'Switzerland',
+  'Syria',
+  'Taiwan',
+  'Tajikistan',
+  'Tanzania',
+  'Thailand',
+  'Timor-Leste',
+  'Togo',
+  'Tonga',
+  'Trinidad and Tobago',
+  'Tunisia',
+  'Turkey',
+  'Turkmenistan',
+  'Tuvalu',
+  'Uganda',
+  'Ukraine',
+  'United Arab Emirates',
+  'United Kingdom',
+  'Uruguay',
+  'Uzbekistan',
+  'Vanuatu',
+  'Vatican City',
+  'Venezuela',
+  'Vietnam',
+  'Yemen',
+  'Zambia',
+  'Zimbabwe',
+  'Other / Prefer not to answer',
+] as const;
+
+const MLH_CODE_OF_CONDUCT_URL = 'https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md';
+const MLH_CONTEST_TERMS_URL = 'https://github.com/MLH/mlh-policies/blob/main/contest-terms.md';
+const MLH_PRIVACY_POLICY_URL = 'https://mlh.io/privacy';
 
 type ResumeFile = {
   filename: string;
@@ -25,27 +261,41 @@ type ResumeFile = {
 };
 
 interface FormState {
-  fullName: string;
+  firstName: string;
+  lastName: string;
   email: string;
+  phoneNumber: string;
+  age: (typeof AGES)[number] | '';
   school: string;
-  year: Year | '';
-  yearOther: string;
+  levelOfStudy: (typeof LEVELS_OF_STUDY)[number] | '';
+  countryOfResidence: (typeof COUNTRIES)[number] | '';
+  linkedinUrl: string;
   experience: Experience | '';
   whyInterested: string;
   themedAnswer: string;
   resume: ResumeFile | null;
+  mlhCodeOfConduct: boolean;
+  mlhDataShare: boolean;
+  mlhEmailOptIn: boolean;
 }
 
 const EMPTY_FORM: FormState = {
-  fullName: '',
+  firstName: '',
+  lastName: '',
   email: '',
+  phoneNumber: '',
+  age: '',
   school: 'University of Florida',
-  year: '',
-  yearOther: '',
+  levelOfStudy: '',
+  countryOfResidence: 'United States',
+  linkedinUrl: '',
   experience: '',
   whyInterested: '',
   themedAnswer: '',
   resume: null,
+  mlhCodeOfConduct: false,
+  mlhDataShare: false,
+  mlhEmailOptIn: false,
 };
 
 const THEMED_QUESTION =
@@ -132,14 +382,15 @@ const validateStep = (stepId: (typeof STEPS)[number]['id'], form: FormState): Fi
   const errors: FieldErrors = {};
 
   if (stepId === 'identity') {
-    if (!form.fullName.trim()) errors.fullName = 'Enter your name so we know who is playing.';
+    if (!form.firstName.trim()) errors.firstName = 'Enter your first name.';
+    if (!form.lastName.trim()) errors.lastName = 'Enter your last name.';
     if (!form.email.trim()) errors.email = 'We need an email to send your entry pass.';
     else if (!isValidEmail(form.email)) errors.email = 'That email address looks incomplete.';
+    if (!form.phoneNumber.trim()) errors.phoneNumber = 'We need a number in case we have to reach you.';
+    if (!form.age) errors.age = 'Pick your age.';
     if (!form.school.trim()) errors.school = 'Tell us where you study.';
-    if (!form.year) errors.year = 'Pick your year.';
-    else if (form.year === 'Other' && !form.yearOther.trim()) {
-      errors.yearOther = 'Describe your year.';
-    }
+    if (!form.levelOfStudy) errors.levelOfStudy = 'Pick your level of study.';
+    if (!form.countryOfResidence) errors.countryOfResidence = 'Pick your country of residence.';
   }
 
   if (stepId === 'loadout') {
@@ -156,6 +407,15 @@ const validateStep = (stepId: (typeof STEPS)[number]['id'], form: FormState): Fi
   if (stepId === 'bonus') {
     if (countWords(form.themedAnswer) < 10) {
       errors.themedAnswer = 'At least 10 words. Have fun with it.';
+    }
+  }
+
+  if (stepId === 'review') {
+    if (!form.mlhCodeOfConduct) {
+      errors.mlhCodeOfConduct = 'You must agree to the MLH Code of Conduct to continue.';
+    }
+    if (!form.mlhDataShare) {
+      errors.mlhDataShare = 'You must authorize sharing your info with MLH to continue.';
     }
   }
 
@@ -231,12 +491,23 @@ export function ApplicationForm() {
     setStatus('submitting');
     setSubmitError('');
 
+    const firstName = form.firstName.trim();
+    const lastName = form.lastName.trim();
+
     const payload = {
       formType: 'application',
-      fullName: form.fullName.trim(),
+      // Kept so rows written by the older interest form / older applications
+      // (a single combined name column) stay comparable.
+      fullName: `${firstName} ${lastName}`.trim(),
+      firstName,
+      lastName,
       email: form.email.trim(),
+      phoneNumber: form.phoneNumber.trim(),
+      age: form.age,
       school: form.school.trim(),
-      year: form.year === 'Other' ? `Other: ${form.yearOther.trim()}` : form.year,
+      levelOfStudy: form.levelOfStudy,
+      countryOfResidence: form.countryOfResidence,
+      linkedinUrl: form.linkedinUrl.trim(),
       experience: form.experience,
       whyInterested: form.whyInterested.trim(),
       themedQuestion: THEMED_QUESTION,
@@ -244,6 +515,9 @@ export function ApplicationForm() {
       resumeFilename: form.resume?.filename ?? '',
       resumeMimeType: form.resume?.mimeType ?? '',
       resumeBase64: form.resume?.dataBase64 ?? '',
+      mlhCodeOfConduct: form.mlhCodeOfConduct ? 'Yes' : 'No',
+      mlhDataShare: form.mlhDataShare ? 'Yes' : 'No',
+      mlhEmailOptIn: form.mlhEmailOptIn ? 'Yes' : 'No',
       // Kept so rows written by the older interest form stay comparable.
       interested: 'Yes',
       submittedAt: new Date().toISOString(),
@@ -400,7 +674,13 @@ export function ApplicationForm() {
           )}
 
           {step.id === 'review' && (
-            <ReviewStep form={form} onEdit={goToStep} themedQuestion={THEMED_QUESTION} />
+            <ReviewStep
+              form={form}
+              errors={errors}
+              update={update}
+              onEdit={goToStep}
+              themedQuestion={THEMED_QUESTION}
+            />
           )}
 
           {status === 'error' && (
@@ -465,52 +745,90 @@ type StepProps = {
 function IdentityStep({ form, errors, update }: StepProps) {
   return (
     <div className="space-y-6">
-      <TextField
-        id="fullName"
-        label="Full name"
-        autoComplete="name"
-        placeholder="Alex Rivera"
-        value={form.fullName}
-        error={errors.fullName}
-        onChange={(value) => update('fullName', value)}
-      />
-      <TextField
-        id="email"
-        label="Email"
-        type="email"
-        autoComplete="email"
-        placeholder="you@ufl.edu"
-        value={form.email}
-        error={errors.email}
-        onChange={(value) => update('email', value)}
-      />
-      <TextField
+      <div className="grid gap-6 sm:grid-cols-2">
+        <TextField
+          id="firstName"
+          label="First name"
+          autoComplete="given-name"
+          placeholder="Alex"
+          value={form.firstName}
+          error={errors.firstName}
+          onChange={(value) => update('firstName', value)}
+        />
+        <TextField
+          id="lastName"
+          label="Last name"
+          autoComplete="family-name"
+          placeholder="Rivera"
+          value={form.lastName}
+          error={errors.lastName}
+          onChange={(value) => update('lastName', value)}
+        />
+      </div>
+      <div className="grid gap-6 sm:grid-cols-2">
+        <TextField
+          id="email"
+          label="Email"
+          type="email"
+          autoComplete="email"
+          placeholder="you@ufl.edu"
+          value={form.email}
+          error={errors.email}
+          onChange={(value) => update('email', value)}
+        />
+        <TextField
+          id="phoneNumber"
+          label="Phone number"
+          type="tel"
+          autoComplete="tel"
+          placeholder="(555) 123-4567"
+          value={form.phoneNumber}
+          error={errors.phoneNumber}
+          onChange={(value) => update('phoneNumber', value)}
+        />
+      </div>
+      <div className="grid gap-6 sm:grid-cols-2">
+        <SelectField
+          id="age"
+          label="Age"
+          value={form.age}
+          error={errors.age}
+          options={AGES}
+          onChange={(value) => update('age', value as FormState['age'])}
+        />
+        <SelectField
+          id="countryOfResidence"
+          label="Country of residence"
+          value={form.countryOfResidence}
+          error={errors.countryOfResidence}
+          options={COUNTRIES}
+          onChange={(value) => update('countryOfResidence', value as FormState['countryOfResidence'])}
+        />
+      </div>
+      <SchoolField
         id="school"
-        label="School"
-        autoComplete="organization"
-        placeholder="University of Florida"
         value={form.school}
         error={errors.school}
         onChange={(value) => update('school', value)}
       />
-      <RadioGroup
-        label="Year"
-        name="year"
-        options={YEARS.map((year) => ({ value: year }))}
-        value={form.year}
-        error={errors.year}
-        onChange={(value) => update('year', value as Year)}
+      <SelectField
+        id="levelOfStudy"
+        label="Level of study"
+        value={form.levelOfStudy}
+        error={errors.levelOfStudy}
+        options={LEVELS_OF_STUDY}
+        onChange={(value) => update('levelOfStudy', value as FormState['levelOfStudy'])}
       />
-      {form.year === 'Other' && (
-        <TextField
-          id="yearOther"
-          label="Tell us your year"
-          placeholder="Fifth year, post-bacc, PhD candidate..."
-          value={form.yearOther}
-          error={errors.yearOther}
-          onChange={(value) => update('yearOther', value)}
-        />
-      )}
+      <TextField
+        id="linkedinUrl"
+        label="LinkedIn URL"
+        optional
+        autoComplete="url"
+        placeholder="https://www.linkedin.com/in/alexrivera"
+        value={form.linkedinUrl}
+        error={errors.linkedinUrl}
+        onChange={(value) => update('linkedinUrl', value)}
+      />
     </div>
   );
 }
@@ -704,22 +1022,26 @@ function TextareaStep({
 
 function ReviewStep({
   form,
+  errors,
+  update,
   onEdit,
   themedQuestion,
 }: {
   form: FormState;
+  errors: FieldErrors;
+  update: <K extends keyof FormState>(key: K, value: FormState[K]) => void;
   onEdit: (index: number) => void;
   themedQuestion: string;
 }) {
   const rows = [
-    { label: 'Name', value: form.fullName, step: 0 },
+    { label: 'Name', value: `${form.firstName} ${form.lastName}`.trim(), step: 0 },
     { label: 'Email', value: form.email, step: 0 },
+    { label: 'Phone number', value: form.phoneNumber, step: 0 },
+    { label: 'Age', value: form.age, step: 0 },
+    { label: 'Country of residence', value: form.countryOfResidence, step: 0 },
     { label: 'School', value: form.school, step: 0 },
-    {
-      label: 'Year',
-      value: form.year === 'Other' ? `Other: ${form.yearOther}` : form.year,
-      step: 0,
-    },
+    { label: 'Level of study', value: form.levelOfStudy, step: 0 },
+    { label: 'LinkedIn', value: form.linkedinUrl, step: 0 },
     { label: 'Experience', value: form.experience, step: 1 },
     { label: 'Resume', value: form.resume?.filename ?? '', step: 1 },
     { label: 'Why this hackathon', value: form.whyInterested, step: 2 },
@@ -727,7 +1049,7 @@ function ReviewStep({
   ];
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       <p className="gqh-help">
         Give it one last look. Anything can still be changed &mdash; nothing is sent until you
         press submit.
@@ -769,6 +1091,99 @@ function ReviewStep({
           </div>
         ))}
       </dl>
+
+      <MlhConsentSection form={form} errors={errors} update={update} />
+    </div>
+  );
+}
+
+function MlhConsentSection({
+  form,
+  errors,
+  update,
+}: {
+  form: FormState;
+  errors: FieldErrors;
+  update: <K extends keyof FormState>(key: K, value: FormState[K]) => void;
+}) {
+  return (
+    <div className="space-y-4 border border-[#173154] bg-[#05070d] p-4">
+      <p className="gqh-help">
+        We are currently in the process of partnering with MLH. The following 3 checkboxes are
+        for this partnership. If we do not end up partnering with MLH, your information will not
+        be shared.
+      </p>
+
+      <Checkbox
+        id="mlhCodeOfConduct"
+        checked={form.mlhCodeOfConduct}
+        error={errors.mlhCodeOfConduct}
+        onChange={(checked) => update('mlhCodeOfConduct', checked)}
+        required
+        label={
+          <>
+            I have read and agree to the{' '}
+            <a
+              href={MLH_CODE_OF_CONDUCT_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="text-[#9cc9ff] underline hover:text-[#FA4616]"
+            >
+              MLH Code of Conduct
+            </a>
+            .
+          </>
+        }
+      />
+
+      <Checkbox
+        id="mlhDataShare"
+        checked={form.mlhDataShare}
+        error={errors.mlhDataShare}
+        onChange={(checked) => update('mlhDataShare', checked)}
+        required
+        label={
+          <>
+            I authorize you to share my application/registration information with Major League
+            Hacking for event administration, ranking, and administration (including the creation
+            of linked accounts on MLH and DEV (dev.to)) in line with the{' '}
+            <a
+              href={MLH_PRIVACY_POLICY_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="text-[#9cc9ff] underline hover:text-[#FA4616]"
+            >
+              MLH Privacy Policy
+            </a>
+            . I further agree to the terms of both the{' '}
+            <a
+              href={MLH_CONTEST_TERMS_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="text-[#9cc9ff] underline hover:text-[#FA4616]"
+            >
+              MLH Contest Terms and Conditions
+            </a>{' '}
+            and the{' '}
+            <a
+              href={MLH_PRIVACY_POLICY_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="text-[#9cc9ff] underline hover:text-[#FA4616]"
+            >
+              MLH Privacy Policy
+            </a>
+            .
+          </>
+        }
+      />
+
+      <Checkbox
+        id="mlhEmailOptIn"
+        checked={form.mlhEmailOptIn}
+        onChange={(checked) => update('mlhEmailOptIn', checked)}
+        label="I authorize MLH + DEV to send me occasional emails about relevant events, career opportunities, and community announcements."
+      />
     </div>
   );
 }
@@ -856,6 +1271,7 @@ function TextField({
   type = 'text',
   placeholder,
   autoComplete,
+  optional = false,
 }: {
   id: string;
   label: string;
@@ -865,11 +1281,12 @@ function TextField({
   type?: string;
   placeholder?: string;
   autoComplete?: string;
+  optional?: boolean;
 }) {
   return (
     <div className="space-y-2">
       <label htmlFor={id} className="gqh-label">
-        {label} <span className="text-[#FA4616]">*</span>
+        {label} {optional ? '(optional)' : <span className="text-[#FA4616]">*</span>}
       </label>
       <input
         id={id}
@@ -883,6 +1300,255 @@ function TextField({
         aria-describedby={error ? `${id}-error` : undefined}
         className={`gqh-input ${error ? 'gqh-input--error' : ''}`}
       />
+      {error && (
+        <p id={`${id}-error`} role="alert" className="gqh-error">
+          {error}
+        </p>
+      )}
+    </div>
+  );
+}
+
+function SelectField({
+  id,
+  label,
+  value,
+  onChange,
+  error,
+  options,
+  optional = false,
+}: {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  error?: string;
+  options: readonly string[];
+  optional?: boolean;
+}) {
+  return (
+    <div className="space-y-2">
+      <label htmlFor={id} className="gqh-label">
+        {label} {optional ? '(optional)' : <span className="text-[#FA4616]">*</span>}
+      </label>
+      <select
+        id={id}
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+        data-invalid={error ? 'true' : undefined}
+        aria-invalid={error ? true : undefined}
+        aria-describedby={error ? `${id}-error` : undefined}
+        className={`gqh-input ${error ? 'gqh-input--error' : ''}`}
+      >
+        <option value="" disabled>
+          Select...
+        </option>
+        {options.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+      {error && (
+        <p id={`${id}-error`} role="alert" className="gqh-error">
+          {error}
+        </p>
+      )}
+    </div>
+  );
+}
+
+// MLH's verified school list (~12.8k names, ~450KB) lives in /public/schools.json
+// rather than in this bundle, and is fetched once — lazily, since most visitors
+// never reach the identity step — and shared across every mount of SchoolField.
+let schoolsPromise: Promise<string[]> | null = null;
+const loadSchools = () => {
+  if (!schoolsPromise) {
+    schoolsPromise = fetch('/schools.json')
+      .then((response) => (response.ok ? response.json() : []))
+      .catch(() => []);
+  }
+  return schoolsPromise;
+};
+
+const MAX_SCHOOL_SUGGESTIONS = 8;
+
+/**
+ * Free-text input backed by an autocomplete dropdown of MLH's verified
+ * schools. Filtering assists data quality (fewer "UF" / "U of F" / "Univ of
+ * Florida" variants) without blocking a school that is not on the list —
+ * MLH's own process for adding a missing school is a my.mlh.io request, which
+ * cannot happen synchronously inside this form.
+ */
+function SchoolField({
+  id,
+  value,
+  error,
+  onChange,
+}: {
+  id: string;
+  value: string;
+  error?: string;
+  onChange: (value: string) => void;
+}) {
+  const [schools, setSchools] = useState<string[]>([]);
+  const [open, setOpen] = useState(false);
+  const [highlighted, setHighlighted] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    loadSchools().then((list) => {
+      if (!cancelled) setSchools(list);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (!containerRef.current?.contains(event.target as Node)) setOpen(false);
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const query = value.trim().toLowerCase();
+  const matches = useMemo(() => {
+    if (!query) return [];
+    const starts: string[] = [];
+    const contains: string[] = [];
+    for (const school of schools) {
+      const lower = school.toLowerCase();
+      if (lower.startsWith(query)) starts.push(school);
+      else if (lower.includes(query)) contains.push(school);
+      if (starts.length >= MAX_SCHOOL_SUGGESTIONS) break;
+    }
+    return [...starts, ...contains].slice(0, MAX_SCHOOL_SUGGESTIONS);
+  }, [schools, query]);
+
+  const pick = (school: string) => {
+    onChange(school);
+    setOpen(false);
+  };
+
+  return (
+    <div className="relative space-y-2" ref={containerRef}>
+      <label htmlFor={id} className="gqh-label">
+        School <span className="text-[#FA4616]">*</span>
+      </label>
+      <p className="gqh-help">
+        Start typing to search MLH's verified school list. Don't see yours? Keep typing your
+        school's full name &mdash; you're not blocked from submitting.
+      </p>
+      <input
+        id={id}
+        type="text"
+        role="combobox"
+        aria-expanded={open && matches.length > 0}
+        aria-controls={`${id}-listbox`}
+        aria-autocomplete="list"
+        autoComplete="organization"
+        placeholder="University of Florida"
+        value={value}
+        data-invalid={error ? 'true' : undefined}
+        aria-invalid={error ? true : undefined}
+        aria-describedby={error ? `${id}-error` : undefined}
+        className={`gqh-input ${error ? 'gqh-input--error' : ''}`}
+        onChange={(event) => {
+          onChange(event.target.value);
+          setOpen(true);
+          setHighlighted(0);
+        }}
+        onFocus={() => setOpen(true)}
+        onKeyDown={(event) => {
+          if (!open || matches.length === 0) return;
+          if (event.key === 'ArrowDown') {
+            event.preventDefault();
+            setHighlighted((index) => (index + 1) % matches.length);
+          } else if (event.key === 'ArrowUp') {
+            event.preventDefault();
+            setHighlighted((index) => (index - 1 + matches.length) % matches.length);
+          } else if (event.key === 'Enter') {
+            event.preventDefault();
+            pick(matches[highlighted]);
+          } else if (event.key === 'Escape') {
+            setOpen(false);
+          }
+        }}
+      />
+      {open && matches.length > 0 && (
+        <ul
+          id={`${id}-listbox`}
+          role="listbox"
+          className="absolute z-10 mt-1 max-h-64 w-full overflow-auto border border-[#294f7d] bg-[#05070d] shadow-[0_18px_40px_rgba(0,0,0,0.55)]"
+        >
+          {matches.map((school, index) => (
+            <li key={school} role="option" aria-selected={index === highlighted}>
+              <button
+                type="button"
+                onMouseDown={(event) => event.preventDefault()}
+                onClick={() => pick(school)}
+                onMouseEnter={() => setHighlighted(index)}
+                className="block w-full px-3 py-2 text-left"
+                style={{
+                  fontFamily: "'Space Mono', monospace",
+                  fontSize: '13px',
+                  color: index === highlighted ? '#ff7d4f' : 'rgba(255,255,255,0.82)',
+                  background: index === highlighted ? 'rgba(250,70,22,0.1)' : 'transparent',
+                }}
+              >
+                {school}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+      {error && (
+        <p id={`${id}-error`} role="alert" className="gqh-error">
+          {error}
+        </p>
+      )}
+    </div>
+  );
+}
+
+function Checkbox({
+  id,
+  label,
+  checked,
+  onChange,
+  error,
+  required = false,
+}: {
+  id: string;
+  label: React.ReactNode;
+  checked: boolean;
+  onChange: (checked: boolean) => void;
+  error?: string;
+  required?: boolean;
+}) {
+  return (
+    <div className="space-y-1.5">
+      <label htmlFor={id} className="flex cursor-pointer items-start gap-3">
+        <input
+          id={id}
+          type="checkbox"
+          checked={checked}
+          onChange={(event) => onChange(event.target.checked)}
+          data-invalid={error ? 'true' : undefined}
+          aria-invalid={error ? true : undefined}
+          aria-describedby={error ? `${id}-error` : undefined}
+          className="gqh-checkbox-input mt-1 shrink-0"
+        />
+        <span
+          className="text-[rgba(255,255,255,0.82)]"
+          style={{ fontFamily: "'Space Mono', monospace", fontSize: '13px', lineHeight: 1.65 }}
+        >
+          {label} {required ? <span className="text-[#FA4616]">*</span> : null}
+        </span>
+      </label>
       {error && (
         <p id={`${id}-error`} role="alert" className="gqh-error">
           {error}
@@ -1073,6 +1739,26 @@ function FormStyles() {
       .gqh-textarea {
         resize: vertical;
         min-height: 170px;
+      }
+
+      select.gqh-input {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%239cc9ff'%3E%3Cpath d='M5.5 7.5l4.5 4.5 4.5-4.5' stroke='%239cc9ff' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 14px center;
+        padding-right: 38px;
+      }
+
+      select.gqh-input option {
+        background: #05070d;
+        color: #f4f4f4;
+      }
+
+      .gqh-checkbox-input {
+        width: 18px;
+        height: 18px;
+        accent-color: #FA4616;
+        cursor: pointer;
       }
 
       /* Real file input, visually hidden but still focusable and clickable. */

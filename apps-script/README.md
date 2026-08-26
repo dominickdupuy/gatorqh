@@ -19,15 +19,15 @@ request and are silently discarded, and no resume is ever saved.
 ## Column layout
 
 The existing sheet has no header row, and its five interest-form rows use the
-order below. Columns A–E keep that exact order and meaning so those rows stay
-aligned; everything new is appended in F–L.
+order below. Columns A–L keep that exact order and meaning so those rows stay
+aligned; the MLH-required fields are appended in M–V.
 
 | Col | Field | Source |
 | --- | --- | --- |
 | A | Submitted At | `submittedAt` |
-| B | Full Name | `fullName` |
+| B | Full Name | `fullName` (computed as `firstName + ' ' + lastName`) |
 | C | Email | `email` |
-| D | Year | `year` |
+| D | Year | `year` — no longer collected; blank on every new row |
 | E | Interested | `interested` (always `Yes` for an application) |
 | F | School | `school` |
 | G | Experience | `experience` |
@@ -36,9 +36,26 @@ aligned; everything new is appended in F–L.
 | J | Themed Answer | `themedAnswer` |
 | K | Resume Link | Drive URL of the uploaded file |
 | L | Resume Filename | Original filename as uploaded |
+| M | First Name | `firstName` |
+| N | Last Name | `lastName` |
+| O | Phone Number | `phoneNumber` |
+| P | Age | `age` |
+| Q | Level of Study | `levelOfStudy` (MLH's standardized taxonomy; replaces Year) |
+| R | Country of Residence | `countryOfResidence` |
+| S | LinkedIn URL | `linkedinUrl` (optional) |
+| T | MLH Code of Conduct | `mlhCodeOfConduct` — `Yes`/`No`, required checkbox |
+| U | MLH Data Sharing | `mlhDataShare` — `Yes`/`No`, required checkbox |
+| V | MLH Emails Opt-in | `mlhEmailOptIn` — `Yes`/`No`, optional checkbox |
 
-The five pre-existing rows keep empty cells in F–L. No header row is inserted,
-since adding one would shift every existing row down.
+Older rows keep empty cells in whatever columns postdate them (the five
+interest-form rows have empty F–V; applications submitted before this update
+have empty M–V). No header row is inserted, since adding one would shift
+every existing row down.
+
+The MLH checkboxes (T–V) are required by MLH for member events. The consent
+text and both required checkboxes live in `ApplicationForm.tsx`'s review
+step — see `MLH_CODE_OF_CONDUCT_URL`, `MLH_CONTEST_TERMS_URL`, and
+`MLH_PRIVACY_POLICY_URL` there if MLH's policy URLs ever change.
 
 Resumes are stored in a Drive folder named **GQH 2026 Resumes**, created on the
 first submission. The file is never written into a cell — a base64-encoded PDF

@@ -7,23 +7,33 @@
  *
  * Column layout is dictated by the rows the older interest form already wrote:
  *
- *   A  Submitted At      (existing)
- *   B  Full Name         (existing)
- *   C  Email             (existing)
- *   D  Year              (existing)
- *   E  Interested        (existing — always "Yes" for an application)
- *   F  School            (new)
- *   G  Experience        (new)
- *   H  Why Interested    (new)
- *   I  Themed Question   (new)
- *   J  Themed Answer     (new)
- *   K  Resume Link       (new)
- *   L  Resume Filename   (new)
+ *   A  Submitted At          (existing)
+ *   B  Full Name             (existing)
+ *   C  Email                 (existing)
+ *   D  Year                  (existing — no longer collected; blank on new rows)
+ *   E  Interested            (existing — always "Yes" for an application)
+ *   F  School                (existing)
+ *   G  Experience            (existing)
+ *   H  Why Interested        (existing)
+ *   I  Themed Question       (existing)
+ *   J  Themed Answer         (existing)
+ *   K  Resume Link           (existing)
+ *   L  Resume Filename       (existing)
+ *   M  First Name            (new — MLH required field)
+ *   N  Last Name             (new — MLH required field)
+ *   O  Phone Number          (new — MLH required field)
+ *   P  Age                   (new — MLH required field)
+ *   Q  Level of Study        (new — MLH required field, replaces Year)
+ *   R  Country of Residence  (new — MLH required field)
+ *   S  LinkedIn URL          (new — optional)
+ *   T  MLH Code of Conduct   (new — MLH required checkbox, "Yes"/"No")
+ *   U  MLH Data Sharing      (new — MLH required checkbox, "Yes"/"No")
+ *   V  MLH Emails Opt-in     (new — MLH optional checkbox, "Yes"/"No")
  *
- * Columns A–E keep their original order and meaning so the five interest-form
- * rows already in the sheet stay correctly aligned. Those older rows simply
- * have empty cells in F–L. No header row is inserted, because the existing
- * sheet does not have one and adding it would shift every existing row down.
+ * Columns A–L keep their original order and meaning so every row already in
+ * the sheet stays correctly aligned. Older rows simply have empty cells in
+ * M–V. No header row is inserted, because the existing sheet does not have
+ * one and adding it would shift every existing row down.
  *
  * Deploying an update (the /exec URL stays the same, so nothing in the site's
  * .env or the Vercel environment needs to change):
@@ -78,6 +88,16 @@ function doPost(e) {
       payload.themedAnswer || '',
       resume.url,
       resume.filename,
+      payload.firstName || '',
+      payload.lastName || '',
+      payload.phoneNumber || '',
+      payload.age || '',
+      payload.levelOfStudy || '',
+      payload.countryOfResidence || '',
+      payload.linkedinUrl || '',
+      payload.mlhCodeOfConduct || '',
+      payload.mlhDataShare || '',
+      payload.mlhEmailOptIn || '',
     ]);
 
     var mail = sendConfirmationEmail_(payload);
@@ -205,7 +225,9 @@ function sendConfirmationEmail_(payload) {
     return { sent: false, reason: 'no valid email on payload' };
   }
 
-  var firstName = (payload.fullName || '').trim().split(/\s+/)[0] || 'there';
+  var firstName = (payload.firstName || '').trim() ||
+    (payload.fullName || '').trim().split(/\s+/)[0] ||
+    'there';
 
   try {
     MailApp.sendEmail({

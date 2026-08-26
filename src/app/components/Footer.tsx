@@ -14,9 +14,9 @@ function DiscordIcon({ size = 24 }: { size?: number }) {
 
 const footerLinks = [
   { label: 'Contact Us', href: 'mailto:dominickdupuy@ufl.edu' },
-  { label: 'Sponsor Us', href: 'mailto:dominickdupuy@ufl.edu?subject=Power%20Sponsor%20Inquiry' },
   { label: 'Join the Discord', href: DISCORD_INVITE_URL },
   { label: 'Apply', href: '/apply' },
+  { label: 'Code of Conduct', href: 'https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md' },
 ];
 
 const socialLinks = [

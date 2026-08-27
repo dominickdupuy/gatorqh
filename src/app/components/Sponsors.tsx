@@ -16,6 +16,12 @@ type Sponsor = {
   logoClassName?: string;
 };
 
+const leadSponsor: Sponsor = {
+  name: 'Webull',
+  logo: webullLogo,
+  href: 'https://www.webull.com/',
+};
+
 export function Sponsors() {
   const sponsors: Sponsor[] = [
     {
@@ -41,11 +47,6 @@ export function Sponsors() {
       logo: databentoLogo,
       href: 'https://databento.com/',
       logoClassName: 'max-w-[94%] max-h-[84%] md:max-w-[88%] md:max-h-[78%]',
-    },
-    {
-      name: 'Webull',
-      logo: webullLogo,
-      href: 'https://www.webull.com/',
     },
     {
       name: 'Massive',
@@ -107,6 +108,41 @@ export function Sponsors() {
           >
             8 SPONSORS CONFIRMED
           </p>
+        </div>
+
+        <div className="mb-6 md:mb-8">
+          <div className="mb-3 text-center">
+            <span
+              className="pixel-pill"
+              style={{
+                ['--pill-bg' as string]: '#ffe66e',
+                ['--pill-text' as string]: '#5c3a00',
+                ['--pill-border' as string]: '#171717',
+                ['--pill-shadow' as string]: '#7a5200',
+                ['--pill-depth' as string]: 'rgba(122,82,0,0.18)',
+                fontFamily: "'Space Mono', monospace",
+                fontSize: '12px',
+                fontWeight: 600,
+              }}
+            >
+              LEAD SPONSOR
+            </span>
+          </div>
+          <a
+            href={leadSponsor.href}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={`Visit ${leadSponsor.name}`}
+            className="group relative mx-auto flex max-w-[560px] flex-col items-center justify-center gap-2 border-2 border-[#ffe66e] bg-[#0D0D1A] p-6 transition-all duration-200 hover:bg-[#111128] hover:scale-[1.02] hover:shadow-[0_0_40px_rgba(255,230,110,0.25)] md:p-10"
+            style={{ aspectRatio: '16 / 7' }}
+          >
+            <img
+              src={leadSponsor.logo}
+              alt={`${leadSponsor.name} logo`}
+              className="max-h-[70%] max-w-[80%] object-contain md:max-h-[75%] md:max-w-[85%]"
+              style={{ imageRendering: 'auto' }}
+            />
+          </a>
         </div>
 
         <div

@@ -7,6 +7,7 @@ import { About } from './components/About';
 import { GameModes } from './components/GameModes';
 import { Schedule } from './components/Schedule';
 import { Sponsors } from './components/Sponsors';
+import { Team } from './components/Team';
 import { FAQ } from './components/FAQ';
 import { FooterCTA } from './components/FooterCTA';
 import { Footer } from './components/Footer';
@@ -151,6 +152,9 @@ export default function App() {
             </div>
             <div className="site-section">
               <Sponsors />
+            </div>
+            <div className="site-section">
+              <Team />
             </div>
             <div className="site-section">
               <FAQ />

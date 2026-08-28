@@ -7,6 +7,7 @@ import { About } from './components/About';
 import { GameModes } from './components/GameModes';
 import { Schedule } from './components/Schedule';
 import { Sponsors } from './components/Sponsors';
+import TradingCompetitionMap from './components/TradingCompetitionMap';
 import { Team } from './components/Team';
 import { FAQ } from './components/FAQ';
 import { FooterCTA } from './components/FooterCTA';
@@ -152,6 +153,9 @@ export default function App() {
             </div>
             <div className="site-section">
               <Sponsors />
+            </div>
+            <div className="site-section">
+              <TradingCompetitionMap />
             </div>
             <div className="site-section">
               <Team />

@@ -1,4 +1,5 @@
 import { Linkedin, Instagram } from 'lucide-react';
+import wallieImage from './WALLIE.jpg';
 
 // Keep in sync with DISCORD_INVITE_URL in ApplicationForm.tsx and Code.gs.
 const DISCORD_INVITE_URL = 'https://discord.gg/PhEnUQXCp';
@@ -71,8 +72,8 @@ export function Footer() {
         <div className="flex min-h-40 flex-col items-center justify-center text-center">
           <div className="mb-5 flex h-28 w-28 items-center justify-center overflow-hidden border-2 border-[#0b1f3a] bg-white shadow-[0_0_0_2px_rgba(8,13,25,0.95),0_0_18px_rgba(99,246,255,0.18),0_0_34px_rgba(4,74,148,0.24)]">
             <img
-              src="/quantGatorTransparent.png"
-              alt="GQH logo"
+              src={wallieImage}
+              alt="Wallie"
               className="h-full w-full scale-110 object-cover object-[40%_center] drop-shadow-[0_0_8px_rgba(4,74,148,0.28)]"
             />
           </div>

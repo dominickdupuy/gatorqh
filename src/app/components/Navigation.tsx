@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
-import quantClubLogo from './quantGatorTransparent.png';
+import wallieImage from './WALLIE.jpg';
 
 type AppPage = 'home' | 'apply';
 
@@ -154,8 +154,8 @@ export function Navigation({ page = 'home', onNavigate }: NavigationProps = {}) 
         >
           <div className="flex h-[4.25rem] w-[4.25rem] items-center justify-center overflow-hidden bg-white border-2 border-[#044a94] shadow-[0_0_18px_rgba(4,74,148,0.18)]">
             <img
-              src={quantClubLogo}
-              alt="Gator Quant Club logo"
+              src={wallieImage}
+              alt="Wallie"
               className="h-full w-full scale-110 object-cover object-[40%_center]"
             />
           </div>

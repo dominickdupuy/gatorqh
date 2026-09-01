@@ -45,6 +45,7 @@ const days: ScheduleDay[] = [
       { time: '09:00 AM', title: 'Workshop & Mini-Events', subtitle: 'Hands-on sessions and activities', type: 'powerup' },
       { time: '12:00 PM', title: 'Lunch Served', subtitle: 'Midday meal break', type: 'standard' },
       { time: '02:00 PM', title: 'Afternoon Workshop', subtitle: 'Advanced technical sessions', type: 'powerup' },
+      { time: '03:00 PM', title: 'Student Mixer', subtitle: 'Meet and network with fellow hackers', type: 'standard' },
       { time: '07:45 PM', title: 'Dinner Served', subtitle: 'Evening meal service', type: 'standard' },
       { time: '08:30 PM', title: 'MLH Mini-Event', subtitle: 'Interactive challenge from Major League Hacking', type: 'powerup' },
       { time: '12:00 AM', title: 'Midnight Snack', subtitle: 'Keep the energy going', type: 'standard' },

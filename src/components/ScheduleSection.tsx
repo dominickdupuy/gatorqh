@@ -47,6 +47,7 @@ export function ScheduleSection() {
         { time: "9:00 AM", title: "Workshop & Mini-Events", description: "Hands-on sessions and activities" },
         { time: "12:00 PM", title: "Lunch Served", description: "Midday meal break" },
         { time: "2:00 PM", title: "Afternoon Workshop", description: "Advanced technical sessions" },
+        { time: "3:00 PM", title: "Student Mixer", description: "Meet and network with fellow hackers" },
         { time: "7:45 PM", title: "Dinner Served", description: "Evening meal service" },
         { time: "8:30 PM", title: "MLH Mini-Event", description: "Interactive challenge from Major League Hacking" },
         { time: "12:00 AM", title: "Midnight Snack", description: "Keep the energy going" }

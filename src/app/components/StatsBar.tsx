@@ -7,7 +7,7 @@ type StatCard = {
 const stats: StatCard[] = [
   {
     label: 'TREASURE VAULT',
-    value: '$15,000',
+    value: '$16,000',
     color: '#FA5A2A',
   },
   {
@@ -22,7 +22,7 @@ const stats: StatCard[] = [
   },
   {
     label: 'SPONSORS',
-    value: '9',
+    value: '10',
     color: '#2E86FF',
   },
 ];

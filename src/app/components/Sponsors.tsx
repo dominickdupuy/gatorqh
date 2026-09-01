@@ -2,6 +2,7 @@ import { ShatterButton } from '@/components/ui/shatter-button';
 import algoGatorsLogo from '../../assets/AlgoGators.png';
 import citadelLogo from '../../assets/Citadel.png';
 import databentoLogo from '../../assets/Databento.png';
+import elevenLabsLogo from '../../assets/ElevenLabs.jpg';
 import janeStreetLogo from '../../assets/jane-street.png';
 import massiveLogo from '../../assets/Massive.png';
 import oldMissionLogo from '../../assets/OldMission.png';
@@ -65,10 +66,13 @@ export function Sponsors() {
       href: 'https://math.ufl.edu/',
       logoClassName: 'max-w-[96%] max-h-[96%] md:max-w-[85%] md:max-h-[85%]',
     },
-    { name: 'Placeholder I' },
-    { name: 'Placeholder J' },
-    { name: 'Placeholder K' },
-    { name: 'Placeholder L' },
+    {
+      name: 'ElevenLabs',
+      logo: elevenLabsLogo,
+      href: 'https://elevenlabs.io/',
+      logoClassName:
+        'max-w-[94%] max-h-[84%] md:max-w-[88%] md:max-h-[78%] mix-blend-screen',
+    },
   ];
 
   return (
@@ -106,7 +110,7 @@ export function Sponsors() {
             className="text-[#9A9AA8] text-center"
             style={{ fontFamily: "'Space Mono', monospace", fontSize: '12px' }}
           >
-            8 SPONSORS CONFIRMED
+            9 SPONSORS CONFIRMED
           </p>
         </div>
 

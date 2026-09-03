@@ -2,7 +2,8 @@ import { ShatterButton } from '@/components/ui/shatter-button';
 import algoGatorsLogo from '../../assets/AlgoGators.png';
 import citadelLogo from '../../assets/Citadel.png';
 import databentoLogo from '../../assets/Databento.png';
-import elevenLabsLogo from '../../assets/ElevenLabs.jpg';
+import elevenLabsLogo from '../../assets/ElevenLabs.png';
+import mlhLogo from '../../assets/MLH.png';
 import ufEceLogo from '../../assets/UFECE.png';
 import janeStreetLogo from '../../assets/jane-street.png';
 import massiveLogo from '../../assets/Massive.png';
@@ -27,19 +28,6 @@ const leadSponsor: Sponsor = {
 export function Sponsors() {
   const sponsors: Sponsor[] = [
     {
-      name: 'Jane Street',
-      logo: janeStreetLogo,
-      href: 'https://www.janestreet.com/',
-      invertLogo: true,
-      logoClassName: 'max-w-[94%] max-h-[84%] md:max-w-[88%] md:max-h-[78%]',
-    },
-    {
-      name: 'Citadel',
-      logo: citadelLogo,
-      href: 'https://www.citadel.com/',
-      logoClassName: 'max-w-[94%] max-h-[84%] md:max-w-[88%] md:max-h-[78%]',
-    },
-    {
       name: 'Old Mission',
       logo: oldMissionLogo,
       href: 'https://www.oldmissioncapital.com/',
@@ -56,6 +44,18 @@ export function Sponsors() {
       href: 'https://massive.com/',
     },
     {
+      name: 'ElevenLabs',
+      logo: elevenLabsLogo,
+      href: 'https://elevenlabs.io/',
+      logoClassName: 'max-w-[94%] max-h-[84%] md:max-w-[88%] md:max-h-[78%]',
+    },
+    {
+      name: 'UF ECE',
+      logo: ufEceLogo,
+      href: 'https://www.ece.ufl.edu/',
+      logoClassName: 'max-w-[96%] max-h-[96%] md:max-w-[85%] md:max-h-[85%]',
+    },
+    {
       name: 'Algo Gators',
       logo: algoGatorsLogo,
       href: 'https://algogators.com/',
@@ -68,25 +68,32 @@ export function Sponsors() {
       logoClassName: 'max-w-[96%] max-h-[96%] md:max-w-[85%] md:max-h-[85%]',
     },
     {
-      name: 'UF ECE',
-      logo: ufEceLogo,
-      href: 'https://www.ece.ufl.edu/',
-      logoClassName: 'max-w-[96%] max-h-[96%] md:max-w-[85%] md:max-h-[85%]',
+      name: 'Jane Street',
+      logo: janeStreetLogo,
+      href: 'https://www.janestreet.com/',
+      invertLogo: true,
+      logoClassName: 'max-w-[94%] max-h-[84%] md:max-w-[88%] md:max-h-[78%]',
     },
     {
-      name: 'ElevenLabs',
-      logo: elevenLabsLogo,
-      href: 'https://elevenlabs.io/',
-      logoClassName:
-        'max-w-[94%] max-h-[84%] md:max-w-[88%] md:max-h-[78%] mix-blend-screen',
+      name: 'Citadel',
+      logo: citadelLogo,
+      href: 'https://www.citadel.com/',
+      logoClassName: 'max-w-[94%] max-h-[84%] md:max-w-[88%] md:max-h-[78%]',
+    },
+    {
+      name: 'Major League Hacking',
+      logo: mlhLogo,
+      href: 'https://mlh.io/',
+      logoClassName: 'max-w-[85%] max-h-[76%] md:max-w-[79%] md:max-h-[70%]',
     },
   ];
 
-  // Pyramid layout: 4 on top, then 3, then 2
+  // Pyramid layout: 4 on top, then 3, then 2, then 1
   const sponsorRows: Sponsor[][] = [
     sponsors.slice(0, 4),
     sponsors.slice(4, 7),
     sponsors.slice(7, 9),
+    sponsors.slice(9, 10),
   ];
 
   return (
@@ -124,7 +131,7 @@ export function Sponsors() {
             className="text-[#9A9AA8] text-center"
             style={{ fontFamily: "'Space Mono', monospace", fontSize: '12px' }}
           >
-            10 SPONSORS CONFIRMED
+            11 SPONSORS CONFIRMED
           </p>
         </div>
 

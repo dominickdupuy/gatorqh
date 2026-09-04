@@ -7,7 +7,9 @@ import mlhLogo from '../../assets/MLH.png';
 import ufEceLogo from '../../assets/UFECE.png';
 import janeStreetLogo from '../../assets/jane-street.png';
 import massiveLogo from '../../assets/Massive.png';
+import monsterLogo from '../../assets/Monster.png';
 import oldMissionLogo from '../../assets/OldMission.png';
+import polymarketLogo from '../../assets/Polymarket.png';
 import ufMathLogo from '../../assets/UFMath.png';
 import webullLogo from '../../assets/Webull.png';
 
@@ -62,6 +64,12 @@ export function Sponsors() {
       logoClassName: 'max-w-[80%] max-h-[70%] md:max-w-[70%] md:max-h-[62%]',
     },
     {
+      name: 'Polymarket',
+      logo: polymarketLogo,
+      href: 'https://polymarket.com/',
+      logoClassName: 'max-w-[90%] max-h-[72%] md:max-w-[84%] md:max-h-[64%]',
+    },
+    {
       name: 'UF Mathematics',
       logo: ufMathLogo,
       href: 'https://math.ufl.edu/',
@@ -81,6 +89,12 @@ export function Sponsors() {
       logoClassName: 'max-w-[94%] max-h-[84%] md:max-w-[88%] md:max-h-[78%]',
     },
     {
+      name: 'Monster Energy',
+      logo: monsterLogo,
+      href: 'https://www.monsterenergy.com/',
+      logoClassName: 'max-w-[88%] max-h-[82%] md:max-w-[82%] md:max-h-[76%]',
+    },
+    {
       name: 'Major League Hacking',
       logo: mlhLogo,
       href: 'https://mlh.io/',
@@ -88,12 +102,11 @@ export function Sponsors() {
     },
   ];
 
-  // Pyramid layout: 4 on top, then 3, then 2, then 1
+  // Grid layout: three rows of 4
   const sponsorRows: Sponsor[][] = [
     sponsors.slice(0, 4),
-    sponsors.slice(4, 7),
-    sponsors.slice(7, 9),
-    sponsors.slice(9, 10),
+    sponsors.slice(4, 8),
+    sponsors.slice(8, 12),
   ];
 
   return (
@@ -131,7 +144,7 @@ export function Sponsors() {
             className="text-[#9A9AA8] text-center"
             style={{ fontFamily: "'Space Mono', monospace", fontSize: '12px' }}
           >
-            11 SPONSORS CONFIRMED
+            13 SPONSORS CONFIRMED
           </p>
         </div>
 

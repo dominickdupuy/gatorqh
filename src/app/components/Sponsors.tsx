@@ -1,5 +1,6 @@
 import { ShatterButton } from '@/components/ui/shatter-button';
 import algoGatorsLogo from '../../assets/AlgoGators.png';
+import celsiusLogo from '../../assets/Celsius.png';
 import citadelLogo from '../../assets/Citadel.png';
 import databentoLogo from '../../assets/Databento.png';
 import elevenLabsLogo from '../../assets/ElevenLabs.png';
@@ -7,8 +8,6 @@ import mlhLogo from '../../assets/MLH.png';
 import ufEceLogo from '../../assets/UFECE.png';
 import janeStreetLogo from '../../assets/jane-street.png';
 import massiveLogo from '../../assets/Massive.png';
-import monsterLogo from '../../assets/Monster.png';
-import oldMissionLogo from '../../assets/OldMission.png';
 import polymarketLogo from '../../assets/Polymarket.png';
 import ufMathLogo from '../../assets/UFMath.png';
 import webullLogo from '../../assets/Webull.png';
@@ -29,11 +28,6 @@ const leadSponsor: Sponsor = {
 
 export function Sponsors() {
   const sponsors: Sponsor[] = [
-    {
-      name: 'Old Mission',
-      logo: oldMissionLogo,
-      href: 'https://www.oldmissioncapital.com/',
-    },
     {
       name: 'Databento',
       logo: databentoLogo,
@@ -89,10 +83,10 @@ export function Sponsors() {
       logoClassName: 'max-w-[94%] max-h-[84%] md:max-w-[88%] md:max-h-[78%]',
     },
     {
-      name: 'Monster Energy',
-      logo: monsterLogo,
-      href: 'https://www.monsterenergy.com/',
-      logoClassName: 'max-w-[88%] max-h-[82%] md:max-w-[82%] md:max-h-[76%]',
+      name: 'Celsius',
+      logo: celsiusLogo,
+      href: 'https://www.celsius.com/',
+      logoClassName: 'max-w-[84%] max-h-[70%] md:max-w-[78%] md:max-h-[62%]',
     },
     {
       name: 'Major League Hacking',
@@ -102,11 +96,11 @@ export function Sponsors() {
     },
   ];
 
-  // Grid layout: three rows of 4
+  // Grid layout: rows of 4, 4, 3
   const sponsorRows: Sponsor[][] = [
     sponsors.slice(0, 4),
     sponsors.slice(4, 8),
-    sponsors.slice(8, 12),
+    sponsors.slice(8, 11),
   ];
 
   return (
@@ -144,7 +138,7 @@ export function Sponsors() {
             className="text-[#9A9AA8] text-center"
             style={{ fontFamily: "'Space Mono', monospace", fontSize: '12px' }}
           >
-            13 SPONSORS CONFIRMED
+            12 SPONSORS CONFIRMED
           </p>
         </div>
 

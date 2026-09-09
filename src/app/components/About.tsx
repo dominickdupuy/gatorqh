@@ -89,8 +89,9 @@ export function About() {
               className="text-white mb-5 leading-relaxed"
               style={{ fontFamily: "'Space Mono', monospace", fontSize: '18px', lineHeight: 1.7 }}
             >
-              Gator Quant Hacks is a 36-hour competitive event where students and professionals
-              build algorithmic trading systems, risk analytics platforms, and predictive market models.
+              Gator Quant Hacks is a 36-hour, in-person competitive event held at the University of
+              Florida in Gainesville, where students and professionals build algorithmic trading
+              systems, risk analytics platforms, and predictive market models.
             </p>
 
             {/* Paragraph 2 */}

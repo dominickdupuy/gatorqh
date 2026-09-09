@@ -14,6 +14,12 @@ const faqItems: FaqItem[] = [
       'Gator Quant Hacks is open to all university students, including both undergraduate and graduate students. No prior experience in finance is required, but basic programming skills are recommended.',
   },
   {
+    command: 'IS THE EVENT IN PERSON OR VIRTUAL?',
+    prompt: 'In person only. No remote play.',
+    answer:
+      'Gator Quant Hacks is a fully in-person event held on the University of Florida campus in Gainesville, FL. There is no virtual or hybrid option, so plan to be on site for the full weekend, October 2-4, 2026.',
+  },
+  {
     command: 'WHAT SHOULD I BRING?',
     prompt: 'Laptop, chargers, and your build energy.',
     answer:
@@ -40,7 +46,8 @@ const faqItems: FaqItem[] = [
   {
     command: 'IS THERE FINANCIAL AID FOR TRAVEL?',
     prompt: 'Travel reimbursement offline.',
-    answer: 'No, we will not be offering travel reimbursement for participants.',
+    answer:
+      'No, we will not be offering travel reimbursement for participants. Since the event is in person in Gainesville, please plan your own travel and lodging.',
   },
   {
     command: 'WHAT TECHNOLOGIES CAN I USE?',

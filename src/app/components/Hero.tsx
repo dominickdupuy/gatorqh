@@ -534,9 +534,10 @@ export function Hero({
                     }}
                   >
                     Choose a track, build your model, and compete for the leaderboard
-                    in a 36-hour trading arena. Teams develop and test quantitative
-                    strategies under pressure, working through real market dynamics
-                    before presenting their final results.
+                    in a 36-hour trading arena. This is a fully in-person event held
+                    on the University of Florida campus in Gainesville. Teams develop
+                    and test quantitative strategies under pressure, working through
+                    real market dynamics before presenting their final results.
                   </p>
                 </div>
               </div>

@@ -1,6 +1,7 @@
 import dominickPhoto from '../../assets/team/dominick-dupuy.jpg';
 import annaClairePhoto from '../../assets/team/anna-claire-skipper.jpg';
 import alicePhoto from '../../assets/team/alice-krupitsky.jpg';
+import kenziePhoto from '../../assets/team/kenzie-kemerson.jpg';
 
 type TeamMember = {
   name: string;
@@ -15,7 +16,7 @@ const team: TeamMember[] = [
     name: 'Dominick Dupuy',
     role: 'Co-Founder',
     photo: dominickPhoto,
-    linkedin: 'https://linkedin.com/in/dominick-dupuy/',
+    linkedin: 'https://www.linkedin.com/in/dominick-dupuy/',
   },
   {
     name: 'Anna Claire Skipper',
@@ -28,6 +29,13 @@ const team: TeamMember[] = [
     role: 'Head of Marketing',
     photo: alicePhoto,
     linkedin: 'https://www.linkedin.com/in/alicekrupitsky/',
+  },
+  {
+    name: 'Kenzie Kemerson',
+    role: 'Digital Designer & Photographer',
+    photo: kenziePhoto,
+    linkedin: 'https://www.linkedin.com/in/kenzie-kemerson-b2529731b/',
+    objectPosition: 'center 15%',
   },
 ];
 
@@ -74,7 +82,7 @@ export function Team() {
           }}
         />
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
           {team.map((member) => (
             <div
               key={member.name}

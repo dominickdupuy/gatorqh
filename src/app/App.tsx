@@ -27,9 +27,49 @@ const getPageFromPath = (): AppPage => {
 
 const getPathForPage = (page: AppPage) => (page === 'apply' ? '/apply' : '/');
 
+// The MLH badge stays solid until the visitor has scrolled 5% of the page,
+// then decays to invisible by 15% so it never competes with the content.
+const MLH_BADGE_FADE_START = 0.05;
+const MLH_BADGE_FADE_END = 0.15;
+
+const useMlhBadgeOpacity = () => {
+  const [opacity, setOpacity] = useState(1);
+
+  useEffect(() => {
+    let frame = 0;
+
+    const update = () => {
+      frame = 0;
+      const doc = document.documentElement;
+      const scrollable = doc.scrollHeight - window.innerHeight;
+      const progress = scrollable > 0 ? window.scrollY / scrollable : 0;
+      const t = (progress - MLH_BADGE_FADE_START) / (MLH_BADGE_FADE_END - MLH_BADGE_FADE_START);
+      const clamped = Math.min(1, Math.max(0, t));
+      // Ease-out curve so the badge lingers, then drops away.
+      setOpacity(1 - clamped * clamped);
+    };
+
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, []);
+
+  return opacity;
+};
+
 export default function App() {
   const [page, setPage] = useState<AppPage>(() => getPageFromPath());
   const [introActive, setIntroActive] = useState(true);
+  const mlhBadgeOpacity = useMlhBadgeOpacity();
 
   useEffect(() => {
     const handlePopState = () => {
@@ -70,6 +110,10 @@ export default function App() {
           top: 0,
           width: '10%',
           zIndex: 10000,
+          opacity: mlhBadgeOpacity,
+          transform: `translateY(${(1 - mlhBadgeOpacity) * -24}px)`,
+          transition: 'opacity 120ms linear, transform 120ms linear',
+          pointerEvents: mlhBadgeOpacity < 0.05 ? 'none' : 'auto',
         }}
       >
         <img

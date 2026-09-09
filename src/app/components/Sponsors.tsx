@@ -1,11 +1,11 @@
 import { ShatterButton } from '@/components/ui/shatter-button';
-import algoGatorsLogo from '../../assets/AlgoGators.png';
 import celsiusLogo from '../../assets/Celsius.png';
 import citadelLogo from '../../assets/Citadel.png';
 import databentoLogo from '../../assets/Databento.png';
 import elevenLabsLogo from '../../assets/ElevenLabs.png';
+import iotStudentsClubLogo from '../../assets/IoTStudentsClub.png';
+import kariaaLogo from '../../assets/Kariaa.svg';
 import mlhLogo from '../../assets/MLH.png';
-import ufEceLogo from '../../assets/UFECE.png';
 import janeStreetLogo from '../../assets/jane-street.png';
 import massiveLogo from '../../assets/Massive.png';
 import polymarketLogo from '../../assets/Polymarket.png';
@@ -46,22 +46,20 @@ export function Sponsors() {
       logoClassName: 'max-w-[94%] max-h-[84%] md:max-w-[88%] md:max-h-[78%]',
     },
     {
-      name: 'UF ECE',
-      logo: ufEceLogo,
-      href: 'https://www.ece.ufl.edu/',
-      logoClassName: 'max-w-[96%] max-h-[96%] md:max-w-[85%] md:max-h-[85%]',
+      name: 'IoT Students Club',
+      logo: iotStudentsClubLogo,
+      logoClassName: 'max-w-[62%] max-h-[88%] md:max-w-[56%] md:max-h-[82%]',
     },
     {
-      name: 'Algo Gators',
-      logo: algoGatorsLogo,
-      href: 'https://algogators.com/',
-      logoClassName: 'max-w-[80%] max-h-[70%] md:max-w-[70%] md:max-h-[62%]',
+      name: 'Kariaa',
+      logo: kariaaLogo,
+      logoClassName: 'max-w-[80%] max-h-[60%] md:max-w-[74%] md:max-h-[54%]',
     },
     {
       name: 'Polymarket',
       logo: polymarketLogo,
       href: 'https://polymarket.com/',
-      logoClassName: 'max-w-[90%] max-h-[72%] md:max-w-[84%] md:max-h-[64%]',
+      logoClassName: 'max-w-[82%] max-h-[64%] md:max-w-[76%] md:max-h-[58%]',
     },
     {
       name: 'UF Mathematics',

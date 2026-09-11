@@ -14,6 +14,11 @@ When updating dates anywhere in the codebase, check ALL of these files:
 - `src/components/HeroSection.tsx` — legacy hero component
 - `src/components/ScheduleSection.tsx` — legacy schedule component
 
+## Sponsor count
+The confirmed-sponsor number is hardcoded in two places; update both:
+- `src/app/components/StatsBar.tsx` — the `SPONSORS` stat card
+- `src/app/components/Sponsors.tsx` — the `N SPONSORS CONFIRMED` line
+
 ## Deployment
 Vercel — deploys automatically on push to `main`.
 

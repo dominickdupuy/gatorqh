@@ -3,6 +3,7 @@ import celsiusLogo from '../../assets/Celsius.png';
 import citadelLogo from '../../assets/Citadel.png';
 import databentoLogo from '../../assets/Databento.png';
 import elevenLabsLogo from '../../assets/ElevenLabs.png';
+import githubLogo from '../../assets/GitHub.png';
 import iotStudentsClubLogo from '../../assets/IoTStudentsClub.png';
 import kariaaLogo from '../../assets/Kariaa.svg';
 import mlhLogo from '../../assets/MLH.png';
@@ -10,6 +11,7 @@ import janeStreetLogo from '../../assets/jane-street.png';
 import massiveLogo from '../../assets/Massive.png';
 import polymarketLogo from '../../assets/Polymarket.png';
 import pureButtonsLogo from '../../assets/PureButtons.svg';
+import snowflakeLogo from '../../assets/Snowflake.svg';
 import ufMathLogo from '../../assets/UFMath.png';
 import webullLogo from '../../assets/Webull.png';
 
@@ -90,6 +92,19 @@ export function Sponsors() {
       logoClassName: 'max-w-[84%] max-h-[70%] md:max-w-[78%] md:max-h-[62%]',
     },
     {
+      name: 'GitHub',
+      logo: githubLogo,
+      href: 'https://github.com/',
+      invertLogo: true,
+      logoClassName: 'max-w-[74%] max-h-[56%] md:max-w-[68%] md:max-h-[50%]',
+    },
+    {
+      name: 'Snowflake',
+      logo: snowflakeLogo,
+      href: 'https://www.snowflake.com/',
+      logoClassName: 'max-w-[84%] max-h-[64%] md:max-w-[78%] md:max-h-[58%]',
+    },
+    {
       name: 'Pure Buttons',
       logo: pureButtonsLogo,
       href: 'https://mlh.link/MLH-PureButtons-hackathons',
@@ -103,11 +118,12 @@ export function Sponsors() {
     },
   ];
 
-  // Grid layout: rows of 4, 4, 4
+  // Grid layout: rows of 4, 4, 4, 2
   const sponsorRows: Sponsor[][] = [
     sponsors.slice(0, 4),
     sponsors.slice(4, 8),
     sponsors.slice(8, 12),
+    sponsors.slice(12, 14),
   ];
 
   return (
@@ -145,7 +161,7 @@ export function Sponsors() {
             className="text-[#9A9AA8] text-center"
             style={{ fontFamily: "'Space Mono', monospace", fontSize: '12px' }}
           >
-            13 SPONSORS CONFIRMED
+            15 SPONSORS CONFIRMED
           </p>
         </div>
 

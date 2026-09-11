@@ -9,6 +9,7 @@ import mlhLogo from '../../assets/MLH.png';
 import janeStreetLogo from '../../assets/jane-street.png';
 import massiveLogo from '../../assets/Massive.png';
 import polymarketLogo from '../../assets/Polymarket.png';
+import pureButtonsLogo from '../../assets/PureButtons.svg';
 import ufMathLogo from '../../assets/UFMath.png';
 import webullLogo from '../../assets/Webull.png';
 
@@ -89,6 +90,12 @@ export function Sponsors() {
       logoClassName: 'max-w-[84%] max-h-[70%] md:max-w-[78%] md:max-h-[62%]',
     },
     {
+      name: 'Pure Buttons',
+      logo: pureButtonsLogo,
+      href: 'https://mlh.link/MLH-PureButtons-hackathons',
+      logoClassName: 'max-w-[80%] max-h-[64%] md:max-w-[74%] md:max-h-[58%]',
+    },
+    {
       name: 'Major League Hacking',
       logo: mlhLogo,
       href: 'https://mlh.io/',
@@ -96,11 +103,11 @@ export function Sponsors() {
     },
   ];
 
-  // Grid layout: rows of 4, 4, 3
+  // Grid layout: rows of 4, 4, 4
   const sponsorRows: Sponsor[][] = [
     sponsors.slice(0, 4),
     sponsors.slice(4, 8),
-    sponsors.slice(8, 11),
+    sponsors.slice(8, 12),
   ];
 
   return (
@@ -138,7 +145,7 @@ export function Sponsors() {
             className="text-[#9A9AA8] text-center"
             style={{ fontFamily: "'Space Mono', monospace", fontSize: '12px' }}
           >
-            12 SPONSORS CONFIRMED
+            13 SPONSORS CONFIRMED
           </p>
         </div>
 

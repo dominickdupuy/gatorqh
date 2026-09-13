@@ -13,11 +13,16 @@ function DiscordIcon({ size = 24 }: { size?: number }) {
   );
 }
 
+// The participant terms live in TERMS.md at the repo root; GitHub renders the
+// markdown, so the footer links there rather than serving a raw file.
+const TERMS_URL = 'https://github.com/dominickdupuy/gatorqh/blob/main/TERMS.md';
+
 const footerLinks = [
   { label: 'Contact Us', href: 'mailto:dominickdupuy@ufl.edu' },
   { label: 'Join the Discord', href: DISCORD_INVITE_URL },
   { label: 'Apply', href: '/apply' },
   { label: 'Code of Conduct', href: 'https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md' },
+  { label: 'Terms & Conditions', href: TERMS_URL },
 ];
 
 const socialLinks = [

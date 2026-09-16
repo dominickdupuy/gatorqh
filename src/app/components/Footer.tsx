@@ -2,7 +2,7 @@ import { Linkedin, Instagram } from 'lucide-react';
 import wallieImage from './WALLIE.jpg';
 
 // Keep in sync with DISCORD_INVITE_URL in ApplicationForm.tsx and Code.gs.
-const DISCORD_INVITE_URL = 'https://discord.gg/PhEnUQXCp';
+const DISCORD_INVITE_URL = 'https://discord.gg/kQX9ZtWFHG';
 
 // lucide-react dropped brand icons, so the Discord mark is inlined.
 function DiscordIcon({ size = 24 }: { size?: number }) {

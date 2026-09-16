@@ -58,7 +58,7 @@ var RESUME_FOLDER_NAME = 'GQH 2026 Resumes';
 
 // Included in the confirmation email sent to every applicant. Keep this in
 // sync with DISCORD_INVITE_URL in src/app/components/ApplicationForm.tsx.
-var DISCORD_INVITE_URL = 'https://discord.gg/PhEnUQXCp';
+var DISCORD_INVITE_URL = 'https://discord.gg/kQX9ZtWFHG';
 
 function doPost(e) {
   try {

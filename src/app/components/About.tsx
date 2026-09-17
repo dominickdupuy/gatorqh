@@ -1,3 +1,5 @@
+import { Reveal } from './Reveal';
+
 export function About() {
   return (
     <section id="about" className="about-crt relative overflow-hidden bg-[#0F0F1F] pb-8 pt-8 md:pb-10 md:pt-12">
@@ -29,7 +31,7 @@ export function About() {
 
       <div className="relative z-20 max-w-[1200px] mx-auto px-6">
         {/* Section Label - Top Left */}
-        <div className="mb-7 md:mb-9">
+        <Reveal className="mb-7 md:mb-9">
           <span
             className="pixel-ribbon"
             style={{
@@ -47,12 +49,12 @@ export function About() {
               textAlign: 'center',
             }}
           >
-            WHAT IS THE GQH ARCADE ARENA?
+            MISSION DOSSIER: WHAT IS GQH?
           </span>
-        </div>
+        </Reveal>
 
         {/* Two Column Layout */}
-        <div className="mb-4 md:mb-6">
+        <Reveal className="mb-4 md:mb-6" delay={120}>
           <div className="max-w-[960px]">
             <div
               style={{
@@ -68,7 +70,7 @@ export function About() {
                 animation: 'typewriter 3s steps(24, end)',
               }}
             >
-              {"INCOMING TRANSMISSION...\nThe market is open. Volatility is spiking.\n36 hours remain on the clock.\nYour models are the only thing standing between\norder and chaos.\nINSERT COIN TO CONTINUE..."}
+              {"SPACE MARKET OPEN // SECTOR GQH\n36 hours on the clock.\nYour model is the only instrument you've got."}
             </div>
 
             {/* Heading */}
@@ -99,13 +101,10 @@ export function About() {
               className="text-[#B0B0C0] mb-0 leading-relaxed"
               style={{ fontFamily: "'Space Mono', monospace", fontSize: '18px', lineHeight: 1.7 }}
             >
-              Compete across three challenging tracks, collaborate with brilliant minds, and showcase 
-              your skills to top quantitative firms and fintech companies.
+              Compete across three tracks and showcase your work to quantitative firms and fintech recruiters.
             </p>
           </div>
-
-        </div>
-
+        </Reveal>
       </div>
     </section>
   );

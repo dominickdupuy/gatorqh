@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
-
-type Pixel = { x: number; y: number; color: string; size?: number };
+import { Reveal } from './Reveal';
+import { CygnusSparks, EmberOrbit, GaiaRings, GaiaSphere } from './PlanetField';
+import bluePlanet from './bluePlanet.png';
+import orangePlanet from './orangePlanet.png';
 
 type Track = {
   title: string;
@@ -9,90 +11,47 @@ type Track = {
   comment: string;
   badges: string[];
   accentColor: string;
-  fighterType: 'algorithm' | 'analysis' | 'risk';
+  planetType: 'algorithm' | 'analysis' | 'risk';
   callSign: string;
   systemLabel: string;
 };
 
-const fighterPixels: Record<Track['fighterType'], Pixel[]> = {
-  algorithm: [
-    { x: 24, y: 0, color: '#fff4bf' }, { x: 20, y: 4, color: '#ff8a5b' }, { x: 24, y: 4, color: '#ffdf8c' }, { x: 28, y: 4, color: '#ff8a5b' },
-    { x: 16, y: 8, color: '#fa4616' }, { x: 20, y: 8, color: '#ffd26b' }, { x: 24, y: 8, color: '#fff4bf' }, { x: 28, y: 8, color: '#ffd26b' }, { x: 32, y: 8, color: '#fa4616' },
-    { x: 12, y: 12, color: '#fa4616' }, { x: 16, y: 12, color: '#ff8a5b' }, { x: 20, y: 12, color: '#ffd26b' }, { x: 24, y: 12, color: '#fff4bf' }, { x: 28, y: 12, color: '#ffd26b' }, { x: 32, y: 12, color: '#ff8a5b' }, { x: 36, y: 12, color: '#fa4616' },
-    { x: 8, y: 16, color: '#8f1d00' }, { x: 12, y: 16, color: '#fa4616' }, { x: 16, y: 16, color: '#ff8a5b' }, { x: 20, y: 16, color: '#ffd26b' }, { x: 24, y: 16, color: '#fff4bf' }, { x: 28, y: 16, color: '#ffd26b' }, { x: 32, y: 16, color: '#ff8a5b' }, { x: 36, y: 16, color: '#fa4616' }, { x: 40, y: 16, color: '#8f1d00' },
-    { x: 16, y: 20, color: '#fa4616' }, { x: 20, y: 20, color: '#ff8a5b' }, { x: 24, y: 20, color: '#fff4bf' }, { x: 28, y: 20, color: '#ff8a5b' }, { x: 32, y: 20, color: '#fa4616' },
-    { x: 12, y: 24, color: '#fa4616' }, { x: 20, y: 24, color: '#ffd26b' }, { x: 24, y: 24, color: '#fff4bf' }, { x: 28, y: 24, color: '#ffd26b' }, { x: 36, y: 24, color: '#fa4616' },
-    { x: 20, y: 28, color: '#ff8a5b' }, { x: 28, y: 28, color: '#ff8a5b' },
-  ],
-  analysis: [
-    { x: 16, y: 0, color: '#7cf1ff' }, { x: 12, y: 4, color: '#1a8cff' }, { x: 16, y: 4, color: '#d6fbff' }, { x: 20, y: 4, color: '#1a8cff' },
-    { x: 8, y: 8, color: '#044a94' }, { x: 12, y: 8, color: '#5ddcff' }, { x: 16, y: 8, color: '#d6fbff' }, { x: 20, y: 8, color: '#5ddcff' }, { x: 24, y: 8, color: '#044a94' },
-    { x: 4, y: 12, color: '#044a94' }, { x: 8, y: 12, color: '#1a8cff' }, { x: 12, y: 12, color: '#5ddcff' }, { x: 16, y: 12, color: '#d6fbff' }, { x: 20, y: 12, color: '#5ddcff' }, { x: 24, y: 12, color: '#1a8cff' }, { x: 28, y: 12, color: '#044a94' },
-    { x: 0, y: 16, color: '#022b5a' }, { x: 4, y: 16, color: '#044a94' }, { x: 8, y: 16, color: '#1a8cff' }, { x: 12, y: 16, color: '#5ddcff' }, { x: 16, y: 16, color: '#d6fbff' }, { x: 20, y: 16, color: '#5ddcff' }, { x: 24, y: 16, color: '#1a8cff' }, { x: 28, y: 16, color: '#044a94' }, { x: 32, y: 16, color: '#022b5a' },
-    { x: 8, y: 20, color: '#044a94' }, { x: 12, y: 20, color: '#5ddcff' }, { x: 16, y: 20, color: '#d6fbff' }, { x: 20, y: 20, color: '#5ddcff' }, { x: 24, y: 20, color: '#044a94' },
-    { x: 4, y: 24, color: '#044a94' }, { x: 12, y: 24, color: '#1a8cff' }, { x: 16, y: 24, color: '#5ddcff' }, { x: 20, y: 24, color: '#1a8cff' }, { x: 28, y: 24, color: '#044a94' },
-    { x: 12, y: 28, color: '#1a8cff' }, { x: 20, y: 28, color: '#1a8cff' },
-  ],
-  risk: [
-    { x: 20, y: 0, color: '#d8ffe8' }, { x: 16, y: 4, color: '#33d17a' }, { x: 20, y: 4, color: '#d8ffe8' }, { x: 24, y: 4, color: '#33d17a' },
-    { x: 12, y: 8, color: '#157a47' }, { x: 16, y: 8, color: '#7ff0b0' }, { x: 20, y: 8, color: '#d8ffe8' }, { x: 24, y: 8, color: '#7ff0b0' }, { x: 28, y: 8, color: '#157a47' },
-    { x: 8, y: 12, color: '#0c4d2f' }, { x: 12, y: 12, color: '#33d17a' }, { x: 16, y: 12, color: '#7ff0b0' }, { x: 20, y: 12, color: '#d8ffe8' }, { x: 24, y: 12, color: '#7ff0b0' }, { x: 28, y: 12, color: '#33d17a' }, { x: 32, y: 12, color: '#0c4d2f' },
-    { x: 4, y: 16, color: '#7d95b1' }, { x: 8, y: 16, color: '#157a47' }, { x: 12, y: 16, color: '#33d17a' }, { x: 16, y: 16, color: '#7ff0b0' }, { x: 20, y: 16, color: '#d8ffe8' }, { x: 24, y: 16, color: '#7ff0b0' }, { x: 28, y: 16, color: '#33d17a' }, { x: 32, y: 16, color: '#157a47' }, { x: 36, y: 16, color: '#7d95b1' },
-    { x: 8, y: 20, color: '#157a47' }, { x: 12, y: 20, color: '#33d17a' }, { x: 16, y: 20, color: '#7ff0b0' }, { x: 20, y: 20, color: '#d8ffe8' }, { x: 24, y: 20, color: '#7ff0b0' }, { x: 28, y: 20, color: '#33d17a' }, { x: 32, y: 20, color: '#157a47' },
-    { x: 12, y: 24, color: '#33d17a' }, { x: 16, y: 24, color: '#7ff0b0' }, { x: 20, y: 24, color: '#d8ffe8' }, { x: 24, y: 24, color: '#7ff0b0' }, { x: 28, y: 24, color: '#33d17a' },
-    { x: 16, y: 28, color: '#157a47' }, { x: 24, y: 28, color: '#157a47' },
-  ],
+// Each track flies the same planet that appears in the hero field, so a
+// visitor recognizes Ember/Cygnus/Gaia as the same "world" throughout the site.
+const trackPlanetImage: Record<Track['planetType'], string | undefined> = {
+  algorithm: orangePlanet,
+  analysis: bluePlanet,
+  risk: undefined,
 };
 
-function PixelShip({ type, accentColor }: { type: Track['fighterType']; accentColor: string }) {
-  const pixels = fighterPixels[type];
+function TrackPlanet({ type }: { type: Track['planetType'] }) {
+  const image = trackPlanetImage[type];
 
   return (
-    <div className={`ship-stage ship-stage--${type}`}>
-      {type === 'analysis' && (
-        <>
-          <span className="signal-ring signal-ring--1" style={{ borderColor: `${accentColor}55` }} />
-          <span className="signal-ring signal-ring--2" style={{ borderColor: `${accentColor}35` }} />
-          <span className="orbit orbit--1" style={{ backgroundColor: '#d6fbff' }} />
-          <span className="orbit orbit--2" style={{ backgroundColor: '#7cf1ff' }} />
-          <span className="bullet bullet--1" style={{ backgroundColor: '#2457a6' }} />
-          <span className="bullet bullet--2" style={{ backgroundColor: '#2457a6' }} />
-          <span className="bullet bullet--3" style={{ backgroundColor: '#12376f' }} />
-        </>
-      )}
+    <div className={`track-planet track-planet--${type}`}>
+      <span className="track-planet__halo" />
+
       {type === 'algorithm' && (
-        <>
-          <span className="bullet bullet--1" style={{ backgroundColor: '#ffd26b' }} />
-          <span className="bullet bullet--2" style={{ backgroundColor: '#ffd26b' }} />
-          <span className="bullet bullet--3" style={{ backgroundColor: '#ff8a5b' }} />
-        </>
-      )}
-      {type === 'risk' && (
-        <>
-          <span className="risk-bullet risk-bullet--1" style={{ backgroundColor: '#7ff0b0' }} />
-          <span className="risk-bullet risk-bullet--2" style={{ backgroundColor: '#7ff0b0' }} />
-          <span className="risk-bullet risk-bullet--3" style={{ backgroundColor: '#d8ffe8' }} />
-        </>
-      )}
-      <div className={`ship-flight ship-flight--${type}`}>
-        <div className={`pixel-ship pixel-ship--${type}`}>
-          {pixels.map((pixel, index) => (
-            <span
-              key={`${type}-${index}`}
-              className="pixel"
-              style={{
-                left: `${pixel.x}px`,
-                top: `${pixel.y}px`,
-                backgroundColor: pixel.color,
-                width: `${pixel.size ?? 4}px`,
-                height: `${pixel.size ?? 4}px`,
-              }}
-            />
-          ))}
-          <span className="flame flame--1" />
-          <span className="flame flame--2" />
+        <div className="track-planet__ember-orbit track-planet__ember-orbit--far">
+          <EmberOrbit half="far" />
         </div>
-      </div>
+      )}
+      {type === 'risk' && <GaiaRings half="far" />}
+
+      {image ? (
+        <img src={image} alt="" className="track-planet__img" />
+      ) : (
+        <GaiaSphere className="track-planet__sphere" />
+      )}
+
+      {type === 'analysis' && <CygnusSparks />}
+
+      {type === 'algorithm' && (
+        <div className="track-planet__ember-orbit track-planet__ember-orbit--near">
+          <EmberOrbit half="near" />
+        </div>
+      )}
+      {type === 'risk' && <GaiaRings half="near" />}
     </div>
   );
 }
@@ -102,22 +61,22 @@ export function GameModes() {
     {
       title: 'Research & Alpha Discovery',
       tagline: 'Pitch a testable edge.',
-      description: 'Participants develop and present a testable market hypothesis supported by clear, structured analysis. The focus is on identifying signal, building a strong argument, and communicating it effectively. This track is best suited for students interested in finance, economics, or strategy who want to explore how ideas translate into potential alpha.',
+      description: 'Participants develop and present a testable market hypothesis supported by clear, structured analysis. Best suited for students interested in finance, economics, or strategy who want to explore how ideas translate into potential alpha.',
       comment: 'FIGHTER PROFILE: THESIS LAB | PRESENTATION READY',
       badges: ['Finance', 'Economics', 'Hypothesis', 'Analysis'],
       accentColor: '#FA4616',
-      fighterType: 'algorithm',
+      planetType: 'algorithm',
       callSign: 'THESIS',
       systemLabel: 'RESEARCH DECK | ALPHA SIGNAL',
     },
     {
       title: 'Quantitative Puzzles & Brainteasers',
       tagline: 'Low barrier, high upside.',
-      description: 'A problem-driven track centered on probability, combinatorics, and game theory. No prior finance experience or datasets required. Designed as the most accessible entry point, it challenges participants to think critically, solve efficiently, and apply mathematical reasoning in a competitive environment.',
+      description: 'A problem-driven track centered on probability, combinatorics, and game theory. No prior finance experience or datasets required — the most accessible entry point in the event.',
       comment: 'FIGHTER PROFILE: PUZZLE ENGINE | FAST THINKING',
       badges: ['Probability', 'Combinatorics', 'Game Theory', 'No Dataset'],
       accentColor: '#044a94',
-      fighterType: 'analysis',
+      planetType: 'analysis',
       callSign: 'RIDDLE',
       systemLabel: 'LOGIC LOOPS | OPEN ENTRY',
     },
@@ -128,7 +87,7 @@ export function GameModes() {
       comment: 'FIGHTER PROFILE: STRATEGY CORE | RISK-ADJUSTED RUN',
       badges: ['Sharpe Ratio', 'Drawdown', 'Turnover', 'Historical Data'],
       accentColor: '#33d17a',
-      fighterType: 'risk',
+      planetType: 'risk',
       callSign: 'VECTOR',
       systemLabel: 'BACKTEST LOOP | EXECUTION STACK',
     },
@@ -210,221 +169,100 @@ export function GameModes() {
           }
         }
 
-        @keyframes flameFlicker {
-          0%, 100% { transform: translateX(-50%) scaleY(1); opacity: 0.95; }
-          50% { transform: translateX(-50%) scaleY(0.55); opacity: 0.55; }
+        @keyframes trackPlanetBob {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-4px); }
         }
 
-        @keyframes shipWobble {
-          0%, 100% { transform: translate(-50%, -50%) translateY(0) rotate(0deg); }
-          25% { transform: translate(-50%, -50%) translate(-1px, -2px) rotate(-2deg); }
-          50% { transform: translate(-50%, -50%) translateY(0) rotate(0deg); }
-          75% { transform: translate(-50%, -50%) translate(1px, -2px) rotate(2deg); }
-        }
-
-        @keyframes bulletBurst {
-          0% { opacity: 0; transform: translateX(-50%) translateY(0); }
-          20% { opacity: 1; }
-          100% { opacity: 0; transform: translateX(-50%) translateY(-30px); }
-        }
-
-        @keyframes signalPulse {
-          0% { opacity: 0; transform: translate(-50%, -50%) scale(0.55); }
-          35% { opacity: 0.55; }
-          100% { opacity: 0; transform: translate(-50%, -50%) scale(1.3); }
-        }
-
-        @keyframes orbitData {
-          from { transform: rotate(0deg) translateX(22px) rotate(0deg); }
-          to { transform: rotate(360deg) translateX(22px) rotate(-360deg); }
-        }
-
-        @keyframes dishSpin {
-          from { transform: translateX(-50%) rotate(0deg); }
-          to { transform: translateX(-50%) rotate(360deg); }
-        }
-
-        @keyframes riskBulletBurst {
-          0% { opacity: 0; transform: translateX(-50%) translateY(0); }
-          18% { opacity: 1; }
-          100% { opacity: 0; transform: translateX(-50%) translateY(-24px); }
-        }
-
-        .ship-stage {
+        .track-planet {
           position: relative;
-          width: 84px;
-          height: 84px;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .ship-flight {
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          width: 48px;
-          height: 48px;
-          transform: translate(-50%, -50%);
-          transform-origin: center center;
-          margin-top: 6px;
-        }
-
-        .pixel-ship {
-          position: absolute;
-          left: 0;
-          top: 0;
-          width: 48px;
-          height: 48px;
-          --sprite-center: 26px;
-          --engine-center: 26px;
-          --engine-gap: 3px;
-          image-rendering: pixelated;
-          transition: transform 220ms ease;
-          transform-origin: center center;
-          translate: calc(24px - var(--sprite-center)) 0;
-        }
-
-        .pixel-ship--analysis {
-          --sprite-center: 18px;
-          --engine-center: 18px;
-        }
-
-        .pixel-ship--risk {
-          --sprite-center: 22px;
-          --engine-center: 22px;
-        }
-
-        .pixel {
-          position: absolute;
-          image-rendering: pixelated;
-        }
-
-        .flame {
-          position: absolute;
-          bottom: -2px;
-          width: 4px;
-          height: 7px;
-          background: #ffd348;
-          opacity: 0;
-          transform: translateX(-50%);
-          transform-origin: center top;
-        }
-
-        .flame--1 { left: calc(var(--engine-center) - var(--engine-gap)); background: #ffd348; }
-        .flame--2 { left: calc(var(--engine-center) + var(--engine-gap)); background: #ff7f2e; }
-
-        .bullet,
-        .risk-bullet,
-        .signal-ring,
-        .orbit,
-        .block-node {
-          position: absolute;
-          pointer-events: none;
-          opacity: 0;
-        }
-
-        .bullet {
-          top: 16px;
-          left: 50%;
-          width: 3px;
-          height: 8px;
-          transform: translateX(-50%);
-        }
-
-        .bullet--1 { margin-left: -8px; }
-        .bullet--2 { margin-left: 8px; }
-        .bullet--3 { margin-left: 0; top: 8px; }
-
-        .risk-bullet {
-          top: 18px;
-          left: 50%;
-          width: 3px;
-          height: 7px;
-          transform: translateX(-50%);
-        }
-
-        .risk-bullet--1 { margin-left: -7px; }
-        .risk-bullet--2 { margin-left: 7px; }
-        .risk-bullet--3 { margin-left: 0; top: 10px; }
-
-        .signal-ring {
-          top: 50%;
-          left: 50%;
-          width: 46px;
-          height: 46px;
-          border: 1px solid;
-          border-radius: 999px;
-          transform: translate(-50%, -50%);
-        }
-
-        .signal-ring--2 {
           width: 64px;
           height: 64px;
+          animation: trackPlanetBob 4.5s ease-in-out infinite;
+          transition: transform 260ms ease;
         }
 
-        .orbit {
-          top: 50%;
-          left: 50%;
-          width: 4px;
-          height: 4px;
-          border-radius: 999px;
+        .track-planet--analysis { animation-delay: -1.2s; }
+        .track-planet--risk { animation-delay: -2.6s; }
+
+        .track-planet__halo {
+          position: absolute;
+          inset: -34%;
+          border-radius: 50%;
+          background: radial-gradient(circle, var(--track-accent) 0%, transparent 68%);
+          opacity: 0;
+          filter: blur(2px);
+          transition: opacity 260ms ease;
         }
 
-        .group:hover .ship-flight--algorithm,
-        .group:hover .ship-flight--risk,
-        .ship-active .ship-flight--algorithm,
-        .ship-active .ship-flight--risk {
-          animation: shipWobble 0.8s linear infinite;
+        .track-planet__img {
+          position: relative;
+          z-index: 2;
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          image-rendering: pixelated;
+          filter: drop-shadow(3px 3px 0 #000820);
         }
 
-        .group:hover .ship-flight--analysis,
-        .ship-active .ship-flight--analysis {
-          animation: shipWobble 1.1s linear infinite;
+        .track-planet__sphere {
+          position: relative;
+          z-index: 2;
+          display: block;
+          width: 100%;
+          height: 100%;
+          filter: drop-shadow(3px 3px 0 #000820);
         }
 
-        .group:hover .pixel-ship .flame,
-        .ship-active .pixel-ship .flame {
-          opacity: 1;
-          animation: flameFlicker 0.22s steps(2, end) infinite;
+        /* Ember's ring+moon are sized in px for its 145px hero sprite, so a
+           scaled wrapper shrinks the whole orbit to fit this 64px icon. The
+           scale creates its own stacking context, which is why the wrapper
+           carries the far/near z-index instead of the ring/moon inside it. */
+        .track-planet__ember-orbit {
+          position: absolute;
+          inset: 0;
+          transform: scale(0.44);
+          transform-origin: 50% 50%;
+          pointer-events: none;
         }
 
-        .group:hover .bullet {
-          opacity: 1;
-          animation: bulletBurst 0.45s linear infinite;
+        .track-planet__ember-orbit--far { z-index: 1; }
+        .track-planet__ember-orbit--near { z-index: 3; }
+
+        .group:hover .track-planet,
+        .ship-active .track-planet {
+          transform: scale(1.1) translateY(-3px);
         }
 
-        .group:hover .bullet--2 { animation-delay: 0.08s; }
-        .group:hover .bullet--3 { animation-delay: 0.14s; }
-
-        .group:hover .risk-bullet {
-          opacity: 1;
-          animation: riskBulletBurst 0.5s linear infinite;
+        .group:hover .track-planet__halo,
+        .ship-active .track-planet__halo {
+          opacity: 0.4;
         }
 
-        .group:hover .risk-bullet--2 { animation-delay: 0.09s; }
-        .group:hover .risk-bullet--3 { animation-delay: 0.16s; }
-
-        .group:hover .signal-ring,
-        .ship-active .signal-ring {
-          opacity: 1;
-          animation: signalPulse 1.5s ease-out infinite;
+        /* Hovering/selecting a card kicks every planet effect into a faster,
+           more energetic gear — same animations, higher tempo. */
+        .group:hover .planet__spark,
+        .ship-active .planet__spark {
+          animation-duration: 1s !important;
         }
 
-        .group:hover .signal-ring--2,
-        .ship-active .signal-ring--2 { animation-delay: 0.3s; }
-        .group:hover .orbit--1,
-        .group:hover .orbit--2,
-        .ship-active .orbit--1,
-        .ship-active .orbit--2 {
-          opacity: 1;
-          animation: orbitData 2.4s linear infinite;
+        .group:hover .planet__saturn-ring,
+        .ship-active .planet__saturn-ring {
+          animation-duration: 1.6s !important;
         }
 
-        .group:hover .orbit--2,
-        .ship-active .orbit--2 { animation-duration: 3s; }
+        .group:hover .planet__asteroid,
+        .ship-active .planet__asteroid {
+          animation-duration: 9s !important;
+        }
 
-        .fighter-console {
+        .group:hover .planet__moon,
+        .ship-active .planet__moon {
+          animation-duration: 2.6s !important;
+        }
+
+        .craft-console {
           position: relative;
           border: 1px solid rgba(36, 92, 145, 0.9);
           background:
@@ -436,7 +274,7 @@ export function GameModes() {
             0 0 30px rgba(4, 74, 148, 0.16);
         }
 
-        .fighter-console::before {
+        .craft-console::before {
           content: '';
           position: absolute;
           inset: 10px;
@@ -444,7 +282,7 @@ export function GameModes() {
           pointer-events: none;
         }
 
-        .fighter-title {
+        .craft-title {
           font-family: var(--font-heading);
           font-size: clamp(34px, 5.6vw, 60px);
           line-height: 0.95;
@@ -457,7 +295,7 @@ export function GameModes() {
             0 0 26px rgba(4, 74, 148, 0.24);
         }
 
-        .fighter-title span {
+        .craft-title span {
           display: block;
           font-size: clamp(20px, 3.3vw, 32px);
           letter-spacing: 5px;
@@ -465,7 +303,7 @@ export function GameModes() {
           margin-top: 8px;
         }
 
-        .fighter-card {
+        .craft-card {
           position: relative;
           min-height: 100%;
           border: 2px solid var(--track-accent);
@@ -484,20 +322,20 @@ export function GameModes() {
             border-color 240ms ease;
         }
 
-        .fighter-card::before,
-        .fighter-card::after {
+        .craft-card::before,
+        .craft-card::after {
           content: '';
           position: absolute;
           inset: 6px;
           pointer-events: none;
         }
 
-        .fighter-card::before {
+        .craft-card::before {
           border: 2px solid var(--track-outline);
           opacity: 0.85;
         }
 
-        .fighter-card::after {
+        .craft-card::after {
           background:
             linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.03) 50%, transparent 100%),
             repeating-linear-gradient(
@@ -510,14 +348,14 @@ export function GameModes() {
           opacity: 0.35;
         }
 
-        .fighter-card__corners {
+        .craft-card__corners {
           position: absolute;
           inset: 0;
           pointer-events: none;
           z-index: 1;
         }
 
-        .fighter-card__corner {
+        .craft-card__corner {
           position: absolute;
           width: 24px;
           height: 24px;
@@ -525,95 +363,95 @@ export function GameModes() {
           filter: drop-shadow(0 0 8px var(--track-accent));
         }
 
-        .fighter-card__corner::before,
-        .fighter-card__corner::after {
+        .craft-card__corner::before,
+        .craft-card__corner::after {
           content: '';
           position: absolute;
           background: var(--track-accent);
           box-shadow: 0 0 8px var(--track-accent);
         }
 
-        .fighter-card__corner--tl {
+        .craft-card__corner--tl {
           top: -2px;
           left: -2px;
         }
 
-        .fighter-card__corner--tr {
+        .craft-card__corner--tr {
           top: -2px;
           right: -2px;
         }
 
-        .fighter-card__corner--bl {
+        .craft-card__corner--bl {
           bottom: -2px;
           left: -2px;
         }
 
-        .fighter-card__corner--br {
+        .craft-card__corner--br {
           bottom: -2px;
           right: -2px;
         }
 
-        .fighter-card__corner--tl::before,
-        .fighter-card__corner--tr::before,
-        .fighter-card__corner--bl::before,
-        .fighter-card__corner--br::before {
+        .craft-card__corner--tl::before,
+        .craft-card__corner--tr::before,
+        .craft-card__corner--bl::before,
+        .craft-card__corner--br::before {
           top: 0;
           width: 20px;
           height: 3px;
         }
 
-        .fighter-card__corner--tl::after,
-        .fighter-card__corner--tr::after,
-        .fighter-card__corner--bl::after,
-        .fighter-card__corner--br::after {
+        .craft-card__corner--tl::after,
+        .craft-card__corner--tr::after,
+        .craft-card__corner--bl::after,
+        .craft-card__corner--br::after {
           left: 0;
           width: 3px;
           height: 20px;
         }
 
-        .fighter-card__corner--tl::before {
+        .craft-card__corner--tl::before {
           left: 0;
         }
 
-        .fighter-card__corner--tl::after {
+        .craft-card__corner--tl::after {
           top: 0;
         }
 
-        .fighter-card__corner--tr::before {
+        .craft-card__corner--tr::before {
           right: 0;
         }
 
-        .fighter-card__corner--tr::after {
+        .craft-card__corner--tr::after {
           top: 0;
           left: auto;
           right: 0;
         }
 
-        .fighter-card__corner--bl::before {
+        .craft-card__corner--bl::before {
           bottom: 0;
           top: auto;
           left: 0;
         }
 
-        .fighter-card__corner--bl::after {
+        .craft-card__corner--bl::after {
           bottom: 0;
           top: auto;
         }
 
-        .fighter-card__corner--br::before {
+        .craft-card__corner--br::before {
           bottom: 0;
           top: auto;
           right: 0;
         }
 
-        .fighter-card__corner--br::after {
+        .craft-card__corner--br::after {
           bottom: 0;
           top: auto;
           left: auto;
           right: 0;
         }
 
-        .fighter-card__corner-step {
+        .craft-card__corner-step {
           position: absolute;
           width: 10px;
           height: 10px;
@@ -622,35 +460,35 @@ export function GameModes() {
           filter: drop-shadow(0 0 6px var(--track-accent));
         }
 
-        .fighter-card__corner-step--tl {
+        .craft-card__corner-step--tl {
           top: 3px;
           left: 3px;
           border-top: 3px solid var(--track-accent);
           border-left: 3px solid var(--track-accent);
         }
 
-        .fighter-card__corner-step--tr {
+        .craft-card__corner-step--tr {
           top: 3px;
           right: 3px;
           border-top: 3px solid var(--track-accent);
           border-right: 3px solid var(--track-accent);
         }
 
-        .fighter-card__corner-step--bl {
+        .craft-card__corner-step--bl {
           bottom: 3px;
           left: 3px;
           border-bottom: 3px solid var(--track-accent);
           border-left: 3px solid var(--track-accent);
         }
 
-        .fighter-card__corner-step--br {
+        .craft-card__corner-step--br {
           bottom: 3px;
           right: 3px;
           border-bottom: 3px solid var(--track-accent);
           border-right: 3px solid var(--track-accent);
         }
 
-        .fighter-card:hover {
+        .craft-card:hover {
           transform: translateY(-6px);
           border-color: var(--track-accent);
           box-shadow:
@@ -662,7 +500,7 @@ export function GameModes() {
             0 0 52px rgba(0, 0, 0, 0.24);
         }
 
-        .fighter-card--selected {
+        .craft-card--selected {
           border-color: var(--track-accent);
           box-shadow:
             0 0 0 2px rgba(8, 13, 25, 0.98),
@@ -673,7 +511,7 @@ export function GameModes() {
             0 0 56px rgba(0, 0, 0, 0.26);
         }
 
-        .fighter-card--focused {
+        .craft-card--focused {
           transform: translateY(-4px);
           border-color: var(--track-accent);
           box-shadow:
@@ -682,14 +520,14 @@ export function GameModes() {
             0 0 26px var(--track-shadow);
         }
 
-        .fighter-card__ship {
+        .craft-card__ship {
           position: relative;
           display: flex;
           justify-content: center;
           margin-bottom: 1.75rem;
         }
 
-        .fighter-card__ship::before {
+        .craft-card__ship::before {
           content: '';
           position: absolute;
           inset: auto 15% -6px 15%;
@@ -698,7 +536,7 @@ export function GameModes() {
           opacity: 0.7;
         }
 
-        .fighter-panel {
+        .craft-panel {
           position: relative;
           display: inline-flex;
           min-height: 112px;
@@ -714,7 +552,7 @@ export function GameModes() {
             0 0 18px var(--track-shadow);
         }
 
-        .fighter-panel::before {
+        .craft-panel::before {
           content: '';
           position: absolute;
           inset: 6px;
@@ -722,7 +560,7 @@ export function GameModes() {
           opacity: 0.5;
         }
 
-        .fighter-badge {
+        .craft-badge {
           display: inline-flex;
           width: fit-content;
           margin-bottom: 1.5rem;
@@ -735,19 +573,19 @@ export function GameModes() {
           color: #8fb7ef;
         }
 
-        .fighter-metric {
+        .craft-metric {
           border-top: 1px dashed var(--track-outline);
           padding-top: 0.95rem;
         }
 
-        .fighter-chip {
+        .craft-chip {
           border: 1px solid var(--track-outline);
           background: rgba(5, 10, 19, 0.82);
           box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
         }
 
         @media (max-width: 767px) {
-          .fighter-title span {
+          .craft-title span {
             letter-spacing: 3px;
           }
         }
@@ -758,7 +596,7 @@ export function GameModes() {
         <div className="h-full w-full bg-[radial-gradient(circle_at_top,rgba(4,74,148,0.18),transparent_30%),linear-gradient(180deg,transparent,rgba(250,70,22,0.03)_58%,transparent)]" />
       </div>
       <div className="max-w-[1260px] mx-auto px-4 sm:px-6">
-        <div className="fighter-console px-4 py-5 sm:px-5 lg:px-6">
+        <div className="craft-console px-4 py-5 sm:px-5 lg:px-6">
           <div className="mb-4 flex items-center justify-center gap-4">
             <div className="h-px w-10 bg-gradient-to-r from-transparent to-[#2c6dac]" />
             <div className="flex items-center gap-2">
@@ -769,7 +607,7 @@ export function GameModes() {
             <div className="h-px w-10 bg-gradient-to-l from-transparent to-[#2c6dac]" />
           </div>
 
-          <div className="mb-5 text-center">
+          <Reveal className="mb-5 text-center">
             <div
               className="mb-2 text-[#7e90ab]"
               style={{
@@ -779,12 +617,15 @@ export function GameModes() {
                 letterSpacing: '2.4px',
               }}
             >
-              04 / CHOOSE YOUR GAME MODE
+              04 / MISSION TRACKS
             </div>
-            <h2 className="fighter-title">Select Your Track</h2>
-          </div>
+            <h2 className="craft-title">Select Your Track</h2>
+          </Reveal>
 
-          <div className="relative mb-5 overflow-hidden border border-[#1d4f83] bg-[linear-gradient(180deg,#08101a_0%,#091523_55%,#07111d_100%)] px-3 py-2 shadow-[0_0_0_1px_rgba(4,74,148,0.22),0_0_24px_rgba(4,74,148,0.08)] md:px-4">
+          <Reveal
+            delay={100}
+            className="relative mb-5 overflow-hidden border border-[#1d4f83] bg-[linear-gradient(180deg,#08101a_0%,#091523_55%,#07111d_100%)] px-3 py-2 shadow-[0_0_0_1px_rgba(4,74,148,0.22),0_0_24px_rgba(4,74,148,0.08)] md:px-4"
+          >
             <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#5db8ff]/60 to-transparent" />
             <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#FA4616]/45 to-transparent" />
             <div className="pointer-events-none absolute left-0 top-0 h-4 w-4 border-l-2 border-t-2 border-[#044a94]" />
@@ -795,7 +636,7 @@ export function GameModes() {
             <div className="relative flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
               <div className="flex items-center gap-2.5">
                 <div
-                  className="fighter-panel ship-active !min-h-[58px] !min-w-[58px] scale-[0.66]"
+                  className="craft-panel ship-active !min-h-[58px] !min-w-[58px] scale-[0.66]"
                   style={{
                     borderColor: previewTrack.accentColor,
                     boxShadow: `0 0 16px ${previewTrack.accentColor}33`,
@@ -805,7 +646,7 @@ export function GameModes() {
                     ['--track-panel-glow' as string]: `${previewTrack.accentColor}20`,
                   }}
                 >
-                  <PixelShip type={previewTrack.fighterType} accentColor={previewTrack.accentColor} />
+                  <TrackPlanet type={previewTrack.planetType} />
                 </div>
                 <div>
                   <div
@@ -828,7 +669,7 @@ export function GameModes() {
                       letterSpacing: '0.8px',
                     }}
                   >
-                    ARCADE TRACK SELECTION
+                    NAV COMPUTER · TRACK SELECT
                   </div>
                 </div>
               </div>
@@ -843,22 +684,22 @@ export function GameModes() {
                       letterSpacing: '0.7px',
                     }}
                   >
-                    {'< > TO NAVIGATE   •   A TO SELECT'}
+                    {'< > TO SCAN   •   ENTER TO LOCK'}
                     <span style={{ animation: 'blink 1s step-end infinite' }}> _</span>
                   </span>
                 </div>
               </div>
             </div>
-          </div>
+          </Reveal>
 
           <div className="grid gap-6 xl:grid-cols-3 md:grid-cols-2 md:gap-6">
             {tracks.map((track, index) => (
+              <Reveal key={index} delay={index * 110}>
               <article
-                key={index}
-                className={`group fighter-card overflow-hidden cursor-pointer outline-none focus:outline-none focus-visible:outline-none ${
-                  selectedTrackIndex === index ? 'fighter-card--selected' : ''
+                className={`group craft-card overflow-hidden cursor-pointer outline-none focus:outline-none focus-visible:outline-none ${
+                  selectedTrackIndex === index ? 'craft-card--selected' : ''
                 } ${
-                  focusedTrackIndex === index ? 'fighter-card--focused' : ''
+                  focusedTrackIndex === index ? 'craft-card--focused' : ''
                 }`}
                 onClick={() => {
                   setFocusedTrackIndex(index);
@@ -893,20 +734,20 @@ export function GameModes() {
                   className="absolute bottom-0 left-0 right-0 h-[2px] opacity-60"
                   style={{ background: `linear-gradient(90deg, transparent, ${track.accentColor}, transparent)` }}
                 />
-                <div className="fighter-card__corners">
-                  <span className="fighter-card__corner fighter-card__corner--tl" />
-                  <span className="fighter-card__corner fighter-card__corner--tr" />
-                  <span className="fighter-card__corner fighter-card__corner--bl" />
-                  <span className="fighter-card__corner fighter-card__corner--br" />
-                  <span className="fighter-card__corner-step fighter-card__corner-step--tl" />
-                  <span className="fighter-card__corner-step fighter-card__corner-step--tr" />
-                  <span className="fighter-card__corner-step fighter-card__corner-step--bl" />
-                  <span className="fighter-card__corner-step fighter-card__corner-step--br" />
+                <div className="craft-card__corners">
+                  <span className="craft-card__corner craft-card__corner--tl" />
+                  <span className="craft-card__corner craft-card__corner--tr" />
+                  <span className="craft-card__corner craft-card__corner--bl" />
+                  <span className="craft-card__corner craft-card__corner--br" />
+                  <span className="craft-card__corner-step craft-card__corner-step--tl" />
+                  <span className="craft-card__corner-step craft-card__corner-step--tr" />
+                  <span className="craft-card__corner-step craft-card__corner-step--bl" />
+                  <span className="craft-card__corner-step craft-card__corner-step--br" />
                 </div>
 
                 <div className="relative z-10 flex h-full flex-col p-6 md:p-7">
                   <div className="mb-5 flex items-start justify-between gap-3">
-                    <span className="fighter-badge">P{index + 1} / TRACK SELECT</span>
+                    <span className="craft-badge">SECTOR 0{index + 1} / TRACK</span>
                     <span
                       className="border px-2 py-1 text-[10px]"
                       style={{
@@ -920,13 +761,13 @@ export function GameModes() {
                       {selectedTrackIndex === index ? 'SELECTED' : 'ACTIVE SLOT'}
                     </span>
                   </div>
-                  <div className="fighter-card__ship">
+                  <div className="craft-card__ship">
                     <div
-                      className={`fighter-panel transition-transform duration-300 group-hover:scale-105 ${
+                      className={`craft-panel transition-transform duration-300 group-hover:scale-105 ${
                         selectedTrackIndex === index || focusedTrackIndex === index ? 'ship-active scale-105' : ''
                       }`}
                     >
-                      <PixelShip type={track.fighterType} accentColor={track.accentColor} />
+                      <TrackPlanet type={track.planetType} />
                     </div>
                   </div>
 
@@ -957,7 +798,7 @@ export function GameModes() {
                     {track.tagline}
                   </p>
 
-                  <div className="fighter-metric mb-4">
+                  <div className="craft-metric mb-4">
                     <div
                       className="mb-2 text-[#7f92ae]"
                       style={{
@@ -1020,7 +861,7 @@ export function GameModes() {
                     {track.badges.map((badge, badgeIndex) => (
                       <span
                         key={badgeIndex}
-                        className="fighter-chip px-3 py-1.5"
+                        className="craft-chip px-3 py-1.5"
                         style={{
                           fontFamily: "'Space Mono', monospace",
                           fontSize: '10px',
@@ -1035,10 +876,11 @@ export function GameModes() {
                   </div>
                 </div>
               </article>
+              </Reveal>
             ))}
           </div>
 
-          <div className="mt-10">
+          <Reveal className="mt-10">
             <div className="mb-4 text-center">
               <p
                 className="mb-2 text-[#9A9A9A]"
@@ -1053,7 +895,7 @@ export function GameModes() {
                 ALL FIGHTERS ELIGIBLE FOR THE MAIN PRIZE POOL
               </p>
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

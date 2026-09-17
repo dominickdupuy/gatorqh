@@ -1,10 +1,11 @@
 import { useState } from 'react';
+import { Reveal } from './Reveal';
 
 type ScheduleEvent = {
   time: string;
   title: string;
   subtitle: string;
-  type: 'key' | 'powerup' | 'standard';
+  type: 'key' | 'support' | 'standard';
 };
 
 type ScheduleDay = {
@@ -24,14 +25,14 @@ const days: ScheduleDay[] = [
     sectorColor: '#FA4616',
     sectorGlow: 'rgba(250,70,22,0.16)',
     events: [
-      { time: '05:00 PM', title: 'Check-in Opens', subtitle: 'Pick up your swag and meet fellow participants', type: 'standard' },
+      { time: '05:00 PM', title: 'Check-in Opens', subtitle: 'Badge and swag pickup', type: 'standard' },
       { time: '06:00 PM', title: 'Commencement Ceremony', subtitle: 'Welcome to Gator Quant Hacks', type: 'key' },
       { time: '06:05 PM', title: 'Opening Remarks', subtitle: 'Event overview and logistics', type: 'standard' },
-      { time: '06:15 PM', title: 'Sponsor Introductions', subtitle: 'Meet our amazing partners', type: 'standard' },
-      { time: '06:30 PM', title: 'MLH Segment', subtitle: 'Major League Hacking presentation', type: 'powerup' },
-      { time: '06:45 PM', title: 'Hacking Begins', subtitle: 'Let the building begin!', type: 'key' },
-      { time: '07:30 PM', title: 'Dinner Served', subtitle: 'Fuel up for the competition', type: 'standard' },
-      { time: '09:00 PM', title: 'MLH Mini-Event', subtitle: 'Interactive challenge from Major League Hacking', type: 'powerup' },
+      { time: '06:15 PM', title: 'Sponsor Introductions', subtitle: 'Meet our partners', type: 'standard' },
+      { time: '06:30 PM', title: 'MLH Segment', subtitle: 'Major League Hacking presentation', type: 'support' },
+      { time: '06:45 PM', title: 'Hacking Begins', subtitle: 'Coding starts', type: 'key' },
+      { time: '07:30 PM', title: 'Dinner Served', subtitle: 'Provided for all participants', type: 'standard' },
+      { time: '09:00 PM', title: 'MLH Mini-Event', subtitle: 'Interactive challenge from Major League Hacking', type: 'support' },
     ],
   },
   {
@@ -41,14 +42,14 @@ const days: ScheduleDay[] = [
     sectorColor: '#044a94',
     sectorGlow: 'rgba(4,74,148,0.18)',
     events: [
-      { time: '08:00 AM', title: 'Breakfast Served', subtitle: 'Start your day with fuel', type: 'standard' },
-      { time: '09:00 AM', title: 'Workshop & Mini-Events', subtitle: 'Hands-on sessions and activities', type: 'powerup' },
-      { time: '12:00 PM', title: 'Lunch Served', subtitle: 'Midday meal break', type: 'standard' },
-      { time: '02:00 PM', title: 'Afternoon Workshop', subtitle: 'Advanced technical sessions', type: 'powerup' },
-      { time: '03:00 PM', title: 'Student Mixer', subtitle: 'Meet and network with fellow hackers', type: 'standard' },
-      { time: '07:45 PM', title: 'Dinner Served', subtitle: 'Evening meal service', type: 'standard' },
-      { time: '08:30 PM', title: 'MLH Mini-Event', subtitle: 'Interactive challenge from Major League Hacking', type: 'powerup' },
-      { time: '12:00 AM', title: 'Midnight Snack', subtitle: 'Keep the energy going', type: 'standard' },
+      { time: '08:00 AM', title: 'Breakfast Served', subtitle: 'Provided for all participants', type: 'standard' },
+      { time: '09:00 AM', title: 'Workshop & Mini-Events', subtitle: 'Hands-on sessions and activities', type: 'support' },
+      { time: '12:00 PM', title: 'Lunch Served', subtitle: 'Provided for all participants', type: 'standard' },
+      { time: '02:00 PM', title: 'Afternoon Workshop', subtitle: 'Advanced technical sessions', type: 'support' },
+      { time: '03:00 PM', title: 'Student Mixer', subtitle: 'Network with fellow hackers', type: 'standard' },
+      { time: '07:45 PM', title: 'Dinner Served', subtitle: 'Provided for all participants', type: 'standard' },
+      { time: '08:30 PM', title: 'MLH Mini-Event', subtitle: 'Interactive challenge from Major League Hacking', type: 'support' },
+      { time: '12:00 AM', title: 'Midnight Snack', subtitle: 'Provided for all participants', type: 'standard' },
     ],
   },
   {
@@ -58,14 +59,14 @@ const days: ScheduleDay[] = [
     sectorColor: '#33d17a',
     sectorGlow: 'rgba(51,209,122,0.18)',
     events: [
-      { time: '08:30 AM', title: 'Breakfast Served', subtitle: 'Final day fuel-up', type: 'standard' },
-      { time: '12:00 PM', title: 'Lunch Served', subtitle: 'Meal service', type: 'standard' },
+      { time: '08:30 AM', title: 'Breakfast Served', subtitle: 'Provided for all participants', type: 'standard' },
+      { time: '12:00 PM', title: 'Lunch Served', subtitle: 'Provided for all participants', type: 'standard' },
       { time: '12:00 PM', title: 'Submission Soft Deadline', subtitle: 'Get your work ready for judging', type: 'key' },
       { time: '01:00 PM', title: 'Hacking Ends', subtitle: 'Final submissions deadline', type: 'key' },
       { time: '01:30 PM', title: 'Expo & Judging Begins', subtitle: 'Showcase your projects to judges', type: 'standard' },
       { time: '03:00 PM', title: 'Judging Closes', subtitle: 'Expo concludes', type: 'standard' },
       { time: '03:35 PM', title: 'Winners Announced', subtitle: 'Grand prizes and recognition', type: 'key' },
-      { time: '04:00 PM', title: 'Event Ends', subtitle: 'Thanks for competing at Gator Quant Hacks!', type: 'standard' },
+      { time: '04:00 PM', title: 'Event Ends', subtitle: 'See you next year', type: 'standard' },
     ],
   },
 ];
@@ -75,8 +76,8 @@ export function Schedule() {
 
   const getBadge = (type: ScheduleEvent['type']) => {
     if (type === 'key') return { label: 'KEY EVENT', color: '#FA4616' };
-    if (type === 'powerup') return { label: 'POWER-UP', color: '#044a94' };
-    return { label: 'STAGE NODE', color: '#044a94' };
+    if (type === 'support') return { label: 'REFUEL', color: '#044a94' };
+    return { label: 'WAYPOINT', color: '#044a94' };
   };
 
   const day = days[activeDay];
@@ -129,7 +130,7 @@ export function Schedule() {
         }
       `}</style>
       <div className="mx-auto max-w-[1320px] px-6">
-        <div className="mb-12 md:mb-16">
+        <Reveal className="mb-12 md:mb-16">
           <div className="mb-6 flex items-center gap-3">
             <div className="flex items-center gap-2">
               <div className="h-2 w-2 bg-[#FA4616]" />
@@ -150,7 +151,7 @@ export function Schedule() {
                 letterSpacing: '2px',
               }}
             >
-              36-HOUR QUEST
+              36-HOUR MISSION
             </span>
           </div>
 
@@ -162,7 +163,7 @@ export function Schedule() {
               lineHeight: 1.3,
             }}
           >
-            LEVEL PROGRESSION
+            MISSION TIMELINE
           </h2>
           <p
             className="max-w-3xl text-[#9A9AA8]"
@@ -170,9 +171,9 @@ export function Schedule() {
           >
             Three days. One clear schedule through launch, building, and final presentations.
           </p>
-        </div>
+        </Reveal>
 
-        <div className="mb-10 flex flex-wrap justify-center gap-3 md:gap-4">
+        <Reveal delay={100} className="mb-10 flex flex-wrap justify-center gap-3 md:gap-4">
           {days.map((item, index) => (
             <button
               key={item.label}
@@ -219,9 +220,10 @@ export function Schedule() {
               </div>
             </button>
           ))}
-        </div>
+        </Reveal>
 
-        <div
+        <Reveal
+          delay={180}
           className="schedule-shell mx-auto max-w-[980px] overflow-hidden"
           style={{
             boxShadow: `
@@ -363,7 +365,7 @@ export function Schedule() {
               );
             })}
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

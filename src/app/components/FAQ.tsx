@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { Reveal } from './Reveal';
 
 type FaqItem = {
   command: string;
@@ -312,7 +313,7 @@ export function FAQ() {
       </div>
 
       <div className="relative z-10 mx-auto max-w-[1320px] px-4 md:px-6">
-        <div className="faq-terminal-shell faq-help-screen relative overflow-hidden rounded-[36px] border-[18px] border-[#050505] bg-[#06101a] px-5 pb-6 pt-14 md:px-8 md:pb-8 md:pt-16 shadow-[0_0_0_2px_#151515,0_40px_90px_rgba(0,0,0,0.7),0_0_40px_rgba(4,74,148,0.16),inset_0_0_40px_rgba(4,74,148,0.08)]">
+        <Reveal className="faq-terminal-shell faq-help-screen relative overflow-hidden rounded-[36px] border-[18px] border-[#050505] bg-[#06101a] px-5 pb-6 pt-14 md:px-8 md:pb-8 md:pt-16 shadow-[0_0_0_2px_#151515,0_40px_90px_rgba(0,0,0,0.7),0_0_40px_rgba(4,74,148,0.16),inset_0_0_40px_rgba(4,74,148,0.08)]">
           <div className="faq-terminal-lines" />
           <div className="faq-terminal-glow" />
           <div className={`faq-static-burst ${staticBurst ? 'active' : ''}`} />
@@ -515,7 +516,7 @@ export function FAQ() {
               </div>
             </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

@@ -1,3 +1,5 @@
+import { Reveal } from './Reveal';
+
 type StatCard = {
   label: string;
   value: string;
@@ -6,12 +8,12 @@ type StatCard = {
 
 const stats: StatCard[] = [
   {
-    label: 'TREASURE VAULT',
+    label: 'PRIZE PAYLOAD',
     value: '$16,000',
     color: '#FA5A2A',
   },
   {
-    label: 'PLAYERS',
+    label: 'CREW',
     value: '250',
     color: '#63F6FF',
   },
@@ -284,64 +286,68 @@ export function StatsBar() {
                 textShadow: '0 0 14px rgba(255,255,255,0.1)',
               }}
             >
-              ARCADE STATUS BOARD
+              MISSION TELEMETRY
             </span>
           </div>
         </div>
 
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {stats.map((stat) => (
-            <article
-              key={stat.label}
-              className="stats-card overflow-hidden px-2.5 py-2 md:px-3 md:py-2.5"
-              style={
-                {
-                  '--track-accent': stat.color,
-                  '--track-glow': `${stat.color}14`,
-                  '--track-outline': `${stat.color}66`,
-                  '--track-shadow': `${stat.color}33`,
-                } as React.CSSProperties
-              }
-            >
-              <div className="stats-card__corners">
-                <span className="stats-card__corner stats-card__corner--tl" />
-                <span className="stats-card__corner stats-card__corner--tr" />
-                <span className="stats-card__corner stats-card__corner--bl" />
-                <span className="stats-card__corner stats-card__corner--br" />
-                <span className="stats-card__corner-step stats-card__corner-step--tl" />
-                <span className="stats-card__corner-step stats-card__corner-step--tr" />
-                <span className="stats-card__corner-step stats-card__corner-step--bl" />
-                <span className="stats-card__corner-step stats-card__corner-step--br" />
-              </div>
-
-              <div className="relative z-10 flex h-full flex-col items-center justify-center text-center">
-                <div
-                  className="mb-2"
-                  style={{
-                    fontFamily: "'Press Start 2P', monospace",
-                    fontSize: 'clamp(17px, 1.9vw, 28px)',
-                    lineHeight: 1,
-                    color: stat.color,
-                    textShadow: `0 0 18px ${stat.color}35`,
-                  }}
-                >
-                  {stat.value}
+          {stats.map((stat, index) => (
+            <Reveal key={stat.label} delay={index * 90}>
+              <article
+                className="stats-card overflow-hidden px-2.5 py-2 md:px-3 md:py-2.5"
+                style={
+                  {
+                    '--track-accent': stat.color,
+                    '--track-glow': `${stat.color}14`,
+                    '--track-outline': `${stat.color}66`,
+                    '--track-shadow': `${stat.color}33`,
+                  } as React.CSSProperties
+                }
+              >
+                <div className="stats-card__corners">
+                  <span className="stats-card__corner stats-card__corner--tl" />
+                  <span className="stats-card__corner stats-card__corner--tr" />
+                  <span className="stats-card__corner stats-card__corner--bl" />
+                  <span className="stats-card__corner stats-card__corner--br" />
+                  <span className="stats-card__corner-step stats-card__corner-step--tl" />
+                  <span className="stats-card__corner-step stats-card__corner-step--tr" />
+                  <span className="stats-card__corner-step stats-card__corner-step--bl" />
+                  <span className="stats-card__corner-step stats-card__corner-step--br" />
                 </div>
 
                 <div
-                  className="text-[#b8c0cf]"
-                  style={{
-                    fontFamily: "'Space Mono', monospace",
-                    fontSize: 'clamp(10px, 0.8vw, 13px)',
-                    fontWeight: 700,
-                    letterSpacing: '1.3px',
-                    lineHeight: 1.1,
-                  }}
+                  className="relative z-10 flex h-full flex-col items-center justify-center text-center"
+                  style={{ transform: 'translateY(16px)' }}
                 >
-                  {stat.label}
+                  <div
+                    className="mb-2"
+                    style={{
+                      fontFamily: "'Press Start 2P', monospace",
+                      fontSize: 'clamp(17px, 1.9vw, 28px)',
+                      lineHeight: 1,
+                      color: stat.color,
+                      textShadow: `0 0 18px ${stat.color}35`,
+                    }}
+                  >
+                    {stat.value}
+                  </div>
+
+                  <div
+                    className="text-[#b8c0cf]"
+                    style={{
+                      fontFamily: "'Space Mono', monospace",
+                      fontSize: 'clamp(10px, 0.8vw, 13px)',
+                      fontWeight: 700,
+                      letterSpacing: '1.3px',
+                      lineHeight: 1.1,
+                    }}
+                  >
+                    {stat.label}
+                  </div>
                 </div>
-              </div>
-            </article>
+              </article>
+            </Reveal>
           ))}
         </div>
       </div>

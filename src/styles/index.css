@@ -91,12 +91,8 @@
 
 @keyframes intro-rocket-launch {
   0%,
-  38% {
+  8% {
     transform: translate3d(-50%, 0, 0) scale(1);
-  }
-
-  58% {
-    transform: translate3d(-50%, -14vh, 0) scale(0.98);
   }
 
   100% {
@@ -124,15 +120,6 @@
 
   48% {
     transform: translate3d(1px, 0, 0);
-  }
-}
-
-@keyframes intro-rocket-steady {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  100% {
-    transform: translate3d(0, -4px, 0);
   }
 }
 
@@ -168,18 +155,76 @@
   }
 }
 
+@keyframes intro-pad-light-blink {
+  0%,
+  46% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0.16;
+  }
+}
+
+@keyframes intro-pad-beacon {
+  0%,
+  40% {
+    opacity: 1;
+  }
+  46%,
+  100% {
+    opacity: 0.14;
+  }
+}
+
+@keyframes intro-pad-ignite {
+  0% {
+    opacity: 0;
+    transform: scaleY(0.6);
+  }
+  14% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scaleY(1.3);
+  }
+}
+
+@keyframes intro-launch-prompt-bob {
+  0%,
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  50% {
+    transform: translate3d(-50%, -10px, 0);
+  }
+}
+
+@keyframes intro-launch-prompt-in {
+  from {
+    opacity: 0;
+    transform: translate3d(-50%, 10px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
 @keyframes intro-smoke-expand {
   0% {
     opacity: 0.26;
     transform: translate3d(-50%, 0, 0) scale(0.42);
   }
 
-  24% {
-    opacity: 0.54;
+  10% {
+    opacity: 0.58;
     transform: translate3d(calc(-50% + (var(--smoke-x, 0px) * 0.36)), calc(var(--smoke-y, 28px) * 0.32), 0) scale(0.86);
   }
 
-  66% {
+  46% {
     opacity: 0.46;
     transform: translate3d(calc(-50% + var(--smoke-x, 0px)), var(--smoke-y, 28px), 0) scale(var(--smoke-scale, 1.6));
   }
@@ -223,15 +268,15 @@ body {
   overflow: hidden;
 }
 
-.cabinet-frame {
+.hull-frame {
   position: fixed;
   inset: 0;
   z-index: 2;
   pointer-events: none;
 }
 
-.cabinet-frame__top,
-.cabinet-frame__bottom {
+.hull-frame__top,
+.hull-frame__bottom {
   position: absolute;
   left: 22px;
   right: 22px;
@@ -241,15 +286,15 @@ body {
   justify-content: center;
 }
 
-.cabinet-frame__top {
+.hull-frame__top {
   top: 14px;
 }
 
-.cabinet-frame__bottom {
+.hull-frame__bottom {
   bottom: 14px;
 }
 
-.cabinet-frame__marquee {
+.hull-frame__readout {
   display: inline-flex;
   align-items: center;
   gap: 1.25rem;
@@ -268,7 +313,7 @@ body {
   clip-path: polygon(3% 0, 97% 0, 100% 28%, 100% 72%, 97% 100%, 3% 100%, 0 72%, 0 28%);
 }
 
-.cabinet-frame__marquee span {
+.hull-frame__readout span {
   font-family: var(--font-heading);
   font-size: clamp(8px, 0.9vw, 11px);
   letter-spacing: 2px;
@@ -277,7 +322,7 @@ body {
   white-space: nowrap;
 }
 
-.cabinet-frame__vent {
+.hull-frame__vent {
   width: 130px;
   height: 52px;
   border: 1px solid rgba(47, 70, 104, 0.85);
@@ -295,15 +340,15 @@ body {
     inset 0 0 0 1px rgba(156, 201, 255, 0.05);
 }
 
-.cabinet-frame__vent--left {
+.hull-frame__vent--left {
   margin-right: 18px;
 }
 
-.cabinet-frame__vent--right {
+.hull-frame__vent--right {
   margin-left: 18px;
 }
 
-.cabinet-frame__side {
+.hull-frame__side {
   position: absolute;
   top: 94px;
   bottom: 94px;
@@ -324,15 +369,15 @@ body {
     0 0 24px rgba(0, 0, 0, 0.38);
 }
 
-.cabinet-frame__side--left {
+.hull-frame__side--left {
   left: 14px;
 }
 
-.cabinet-frame__side--right {
+.hull-frame__side--right {
   right: 14px;
 }
 
-.cabinet-frame__light {
+.hull-frame__light {
   position: absolute;
   left: 50%;
   width: 26px;
@@ -341,19 +386,19 @@ body {
   border-radius: 999px;
 }
 
-.cabinet-frame__light--orange {
+.hull-frame__light--orange {
   top: 18%;
   background: #fa4616;
   box-shadow: 0 0 16px rgba(250, 70, 22, 0.5);
 }
 
-.cabinet-frame__light--blue {
+.hull-frame__light--blue {
   bottom: 18%;
   background: #63f6ff;
   box-shadow: 0 0 16px rgba(99, 246, 255, 0.5);
 }
 
-.cabinet-frame__panel-line {
+.hull-frame__panel-line {
   position: absolute;
   top: 80px;
   bottom: 80px;
@@ -363,7 +408,7 @@ body {
   background: linear-gradient(180deg, transparent, rgba(156, 201, 255, 0.18), transparent);
 }
 
-.cabinet-frame__dock {
+.hull-frame__dock {
   width: min(460px, calc(100vw - 280px));
   height: 26px;
   display: flex;
@@ -377,23 +422,23 @@ body {
     inset 0 0 0 1px rgba(156, 201, 255, 0.05);
 }
 
-.cabinet-frame__dock-light {
+.hull-frame__dock-light {
   width: 70px;
   height: 6px;
   border-radius: 999px;
 }
 
-.cabinet-frame__dock-light--blue {
+.hull-frame__dock-light--blue {
   background: #63f6ff;
   box-shadow: 0 0 14px rgba(99, 246, 255, 0.4);
 }
 
-.cabinet-frame__dock-light--orange {
+.hull-frame__dock-light--orange {
   background: #fa4616;
   box-shadow: 0 0 14px rgba(250, 70, 22, 0.4);
 }
 
-.cabinet-frame__corner {
+.hull-frame__corner {
   position: absolute;
   width: 116px;
   height: 116px;
@@ -407,7 +452,7 @@ body {
   clip-path: polygon(0 0, 78% 0, 100% 22%, 100% 100%, 0 100%);
 }
 
-.cabinet-frame__corner::after {
+.hull-frame__corner::after {
   content: '';
   position: absolute;
   width: 34px;
@@ -416,45 +461,45 @@ body {
   box-shadow: 0 0 12px rgba(250, 70, 22, 0.36);
 }
 
-.cabinet-frame__corner--tl {
+.hull-frame__corner--tl {
   top: 10px;
   left: 10px;
 }
 
-.cabinet-frame__corner--tl::after {
+.hull-frame__corner--tl::after {
   right: 16px;
   top: 16px;
 }
 
-.cabinet-frame__corner--tr {
+.hull-frame__corner--tr {
   top: 10px;
   right: 10px;
   transform: scaleX(-1);
 }
 
-.cabinet-frame__corner--tr::after {
+.hull-frame__corner--tr::after {
   right: 16px;
   top: 16px;
 }
 
-.cabinet-frame__corner--bl {
+.hull-frame__corner--bl {
   bottom: 10px;
   left: 10px;
   transform: scaleY(-1);
 }
 
-.cabinet-frame__corner--bl::after {
+.hull-frame__corner--bl::after {
   right: 16px;
   top: 16px;
 }
 
-.cabinet-frame__corner--br {
+.hull-frame__corner--br {
   bottom: 10px;
   right: 10px;
   transform: scale(-1);
 }
 
-.cabinet-frame__corner--br::after {
+.hull-frame__corner--br::after {
   right: 16px;
   top: 16px;
 }
@@ -691,7 +736,7 @@ body {
 .intro-launch-stage {
   position: absolute;
   left: 50%;
-  bottom: 24px;
+  bottom: 92px;
   z-index: 2;
   width: min(92vw, 880px);
   height: min(88vh, 820px);
@@ -740,9 +785,7 @@ body {
 }
 
 .intro-animation--playing .intro-rocket {
-  animation:
-    intro-rocket-ignition-shake 120ms linear var(--launch-delay, 300ms) 9,
-    intro-rocket-steady 640ms ease-in-out calc(var(--launch-delay, 300ms) + var(--ignition-duration, 1050ms)) 2 alternate;
+  animation: intro-rocket-ignition-shake 100ms linear var(--launch-delay, 0ms) 6;
 }
 
 .intro-rocket__body-frame {
@@ -785,7 +828,8 @@ body {
   image-rendering: pixelated;
   will-change: background-position, opacity, transform;
   backface-visibility: hidden;
-  opacity: 0.78;
+  /* No flame until launch is triggered — the pad sits cold until then. */
+  opacity: 0;
   filter: drop-shadow(0 0 10px rgba(250, 70, 22, 0.35));
 }
 
@@ -813,7 +857,8 @@ body {
   width: var(--smoke-w, 108px);
   height: var(--smoke-h, 58px);
   border-radius: 0;
-  opacity: 0.26;
+  /* No exhaust cloud until launch is triggered — same cold-pad rule as the flame. */
+  opacity: 0;
   transform: translate3d(-50%, 0, 0) scale(0.42);
   background:
     linear-gradient(90deg, transparent 0 12%, rgba(238, 231, 213, 0.42) 12% 42%, rgba(178, 178, 170, 0.34) 42% 78%, transparent 78% 100%),
@@ -846,7 +891,7 @@ body {
 }
 
 .intro-animation--playing .intro-smoke-puff {
-  animation: intro-smoke-expand 2400ms cubic-bezier(0.22, 0.72, 0.24, 1) var(--smoke-delay, 0ms) both;
+  animation: intro-smoke-expand 1350ms cubic-bezier(0.22, 0.72, 0.24, 1) var(--smoke-delay, 0ms) both;
 }
 
 .intro-smoke-puff:nth-child(1) { --smoke-x: -310px; --smoke-y: 28px; --smoke-w: 112px; --smoke-h: 54px; --smoke-scale: 1.55; --smoke-delay: 0ms; }
@@ -872,13 +917,264 @@ body {
 .intro-smoke-puff:nth-child(21) { --smoke-x: -62px; --smoke-y: 108px; --smoke-w: 94px; --smoke-h: 38px; --smoke-scale: 1.14; --smoke-delay: 0ms; }
 .intro-smoke-puff:nth-child(22) { --smoke-x: 66px; --smoke-y: 108px; --smoke-w: 96px; --smoke-h: 40px; --smoke-scale: 1.14; --smoke-delay: 0ms; }
 
+/* The rocket sits on a launch complex rather than floating: a deck slab the
+   nozzle is buried in, a hazard apron and plinth below it, and two gantry
+   masts either side for scale. Everything is sized off the stage, so the pad
+   tracks the rocket when the viewport changes. */
+.intro-pad {
+  position: absolute;
+  left: 50%;
+  bottom: -84px;
+  z-index: 2;
+  width: min(100%, 780px);
+  /* Taller than it looks: the rocket sprite carries transparent padding below
+     the fins, so the deck has to sit ~46px higher than the wrapper's box. */
+  height: 138px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  image-rendering: pixelated;
+}
+
+.intro-pad__deck {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 24px;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 46px, rgba(3, 6, 14, 0.55) 46px 50px),
+    linear-gradient(
+      180deg,
+      #9db3d0 0 3px,
+      #55688a 3px 7px,
+      #33425e 7px 15px,
+      #1d2739 15px 21px,
+      #0d1420 21px 100%
+    );
+  box-shadow: 0 6px 0 rgba(3, 6, 14, 0.55);
+}
+
+/* Exhaust trench directly under the nozzle. */
+.intro-pad__deck::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: clamp(96px, 15vw, 150px);
+  height: 12px;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, #05080f 0 8px, #1c0b05 8px 100%);
+  box-shadow: inset 0 3px 0 rgba(250, 70, 22, 0.22);
+}
+
+.intro-pad__lights {
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  top: -6px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.intro-pad__light {
+  width: 6px;
+  height: 6px;
+  background: #63f6ff;
+  box-shadow: 0 0 8px rgba(99, 246, 255, 0.75);
+  animation: intro-pad-light-blink 2.2s steps(1, end) infinite;
+}
+
+.intro-pad__light:nth-child(even) {
+  background: #fa4616;
+  box-shadow: 0 0 8px rgba(250, 70, 22, 0.75);
+  animation-delay: 1.1s;
+}
+
+.intro-pad__apron {
+  position: absolute;
+  top: 24px;
+  left: 7%;
+  right: 7%;
+  height: 20px;
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(250, 70, 22, 0.5) 0 10px,
+    rgba(12, 16, 26, 0.92) 10px 20px
+  );
+  border-top: 2px solid rgba(147, 169, 198, 0.32);
+  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.45);
+}
+
+.intro-pad__base {
+  position: absolute;
+  top: 44px;
+  left: 18%;
+  right: 18%;
+  bottom: 0;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 38px, rgba(3, 6, 14, 0.5) 38px 41px),
+    linear-gradient(180deg, #232e42 0%, #131b28 55%, #080d16 100%);
+  clip-path: polygon(6% 0, 94% 0, 100% 100%, 0 100%);
+}
+
+.intro-pad__stencil {
+  position: absolute;
+  left: 50%;
+  top: 52px;
+  transform: translateX(-50%);
+  font-family: 'Press Start 2P', var(--font-body);
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: rgba(156, 201, 255, 0.42);
+}
+
+.intro-pad__mast {
+  position: absolute;
+  bottom: 114px;
+  width: 16px;
+  height: clamp(150px, 24vh, 260px);
+  background:
+    repeating-linear-gradient(180deg, rgba(154, 178, 209, 0.65) 0 2px, transparent 2px 12px),
+    linear-gradient(90deg, #8497b3 0 3px, #1b2536 3px calc(100% - 3px), #8497b3 calc(100% - 3px) 100%);
+}
+
+.intro-pad__mast--left {
+  left: 10%;
+}
+
+.intro-pad__mast--right {
+  right: 10%;
+}
+
+/* Umbilical arm reaching toward the rocket. */
+.intro-pad__mast::before {
+  content: '';
+  position: absolute;
+  top: 26%;
+  width: clamp(28px, 5vw, 64px);
+  height: 6px;
+  background: linear-gradient(180deg, #7d90ab 0 2px, #202b3e 2px 100%);
+}
+
+.intro-pad__mast--left::before {
+  left: 100%;
+}
+
+.intro-pad__mast--right::before {
+  right: 100%;
+}
+
+.intro-pad__mast::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -8px;
+  width: 8px;
+  height: 8px;
+  transform: translateX(-50%);
+  background: #fa4616;
+  box-shadow: 0 0 10px rgba(250, 70, 22, 0.9);
+  animation: intro-pad-beacon 1.8s steps(1, end) infinite;
+}
+
+.intro-pad__glow {
+  position: absolute;
+  left: 50%;
+  top: -26px;
+  width: min(90%, 560px);
+  height: 92px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at 50% 72%, rgba(99, 246, 255, 0.16), transparent 68%);
+}
+
+/* Ignition wash across the deck the moment the rocket lifts. */
+.intro-pad__glow::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform-origin: 50% 100%;
+  background: radial-gradient(
+    ellipse at 50% 74%,
+    rgba(255, 196, 120, 0.75),
+    rgba(250, 70, 22, 0.35) 42%,
+    transparent 72%
+  );
+}
+
+.intro-animation--playing .intro-pad__glow::after {
+  animation: intro-pad-ignite 900ms ease-out both;
+}
+
+.intro-launch-prompt {
+  position: absolute;
+  left: 50%;
+  top: 24%;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  pointer-events: none;
+  animation:
+    intro-launch-prompt-in 420ms ease both,
+    intro-launch-prompt-bob 1.6s ease-in-out 420ms infinite;
+}
+
+.intro-launch-prompt__label {
+  font-family: var(--font-body);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 5px;
+  color: #cfe4ff;
+  text-shadow: 0 0 14px rgba(99, 246, 255, 0.65);
+}
+
+.intro-launch-prompt__chevrons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.intro-launch-prompt__chevron {
+  width: 38px;
+  height: 38px;
+  border-right: 5px solid #63f6ff;
+  border-bottom: 5px solid #63f6ff;
+  transform: rotate(225deg);
+  filter: drop-shadow(0 0 8px rgba(99, 246, 255, 0.6));
+}
+
+.intro-launch-prompt__chevron:last-child {
+  opacity: 0.5;
+}
+
+@media (max-width: 767px) {
+  .intro-launch-prompt {
+    top: 18%;
+  }
+
+  .intro-launch-prompt__label {
+    font-size: 15px;
+    letter-spacing: 3px;
+  }
+
+  .intro-launch-prompt__chevron {
+    width: 28px;
+    height: 28px;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+  }
+}
+
 @media (max-width: 767px) {
   .intro-animation {
     background-size: 28px 28px, 28px 28px, auto, auto, auto;
   }
 
   .intro-launch-stage {
-    bottom: 16px;
+    bottom: 56px;
     width: 100vw;
     height: min(82vh, 680px);
   }
@@ -886,6 +1182,35 @@ body {
   .intro-rocket-wrapper {
     bottom: 8px;
     width: clamp(345px, 116vw, 490px);
+  }
+
+  .intro-pad {
+    bottom: -46px;
+    width: min(100%, 460px);
+    height: 96px;
+  }
+
+  .intro-pad__deck {
+    height: 18px;
+  }
+
+  .intro-pad__apron {
+    top: 18px;
+    height: 14px;
+  }
+
+  .intro-pad__base {
+    top: 32px;
+  }
+
+  .intro-pad__stencil {
+    top: 38px;
+    font-size: 8px;
+  }
+
+  /* Masts would collide with the rocket at this width. */
+  .intro-pad__mast {
+    display: none;
   }
 
   .intro-smoke-layer {
@@ -927,7 +1252,7 @@ button,
 a,
 [role='button'],
 .pixel-btn,
-.arcade-card {
+.console-card {
   transition:
     transform 180ms ease,
     box-shadow 220ms ease,
@@ -939,7 +1264,7 @@ button:hover,
 a:hover,
 [role='button']:hover,
 .pixel-btn:hover,
-.arcade-card:hover {
+.console-card:hover {
   transform: translateY(-2px);
   filter: brightness(1.04);
 }
@@ -951,14 +1276,14 @@ h2,
   animation: glow-breathe 5s ease-in-out infinite;
 }
 
-.arcade-card {
+.console-card {
   transition:
     transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1),
     box-shadow 300ms ease;
   cursor: pointer;
 }
 
-.arcade-card:hover {
+.console-card:hover {
   transform: translateY(-8px) scale(1.02);
   box-shadow:
     0 20px 60px rgba(0,0,0,0.5),
@@ -966,7 +1291,7 @@ h2,
     inset 0 1px 0 rgba(4,74,148,0.1);
 }
 
-.arcade-card:hover .card-accent-border {
+.console-card:hover .card-accent-border {
   opacity: 1;
   box-shadow: 0 0 20px currentColor;
 }
@@ -1067,6 +1392,41 @@ h2,
 }
 
 
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 640ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 640ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .site-section,
+  .site-ambience__stars,
+  .site-ambience__grid,
+  .site-ambience__noise,
+  .site-shell::before,
+  .site-shell::after,
+  h1,
+  h2,
+  [class*='text-[#044a94]'],
+  [class*='text-[#FA4616]'] {
+    animation: none !important;
+  }
+}
+
 /* Custom scrollbar for modern browsers */
 ::-webkit-scrollbar {
   width: 12px;
@@ -1094,32 +1454,32 @@ h2,
     max-width: calc(100vw - 36px);
   }
 
-  .cabinet-frame__vent,
-  .cabinet-frame__corner {
+  .hull-frame__vent,
+  .hull-frame__corner {
     display: none;
   }
 
-  .cabinet-frame__top,
-  .cabinet-frame__bottom {
+  .hull-frame__top,
+  .hull-frame__bottom {
     left: 16px;
     right: 16px;
   }
 
-  .cabinet-frame__side {
+  .hull-frame__side {
     width: 54px;
   }
 
-  .cabinet-frame__marquee {
+  .hull-frame__readout {
     min-width: calc(100vw - 160px);
     gap: 0.65rem;
     padding: 0.8rem 1rem;
   }
 
-  .cabinet-frame__marquee span {
+  .hull-frame__readout span {
     letter-spacing: 1px;
   }
 
-  .cabinet-frame__dock {
+  .hull-frame__dock {
     width: calc(100vw - 180px);
   }
 }
@@ -1133,39 +1493,39 @@ h2,
     max-width: calc(100vw - 24px);
   }
 
-  .cabinet-frame__top,
-  .cabinet-frame__bottom {
+  .hull-frame__top,
+  .hull-frame__bottom {
     left: 10px;
     right: 10px;
     height: 58px;
   }
 
-  .cabinet-frame__side {
+  .hull-frame__side {
     top: 70px;
     bottom: 70px;
     width: 22px;
   }
 
-  .cabinet-frame__light,
-  .cabinet-frame__panel-line {
+  .hull-frame__light,
+  .hull-frame__panel-line {
     display: none;
   }
 
-  .cabinet-frame__marquee {
+  .hull-frame__readout {
     min-width: calc(100vw - 64px);
     justify-content: center;
     gap: 0.6rem;
   }
 
-  .cabinet-frame__marquee span:nth-child(2) {
+  .hull-frame__readout span:nth-child(2) {
     display: none;
   }
 
-  .cabinet-frame__dock {
+  .hull-frame__dock {
     width: calc(100vw - 88px);
   }
 
-  .cabinet-frame__dock-light {
+  .hull-frame__dock-light {
     width: 46px;
   }
 

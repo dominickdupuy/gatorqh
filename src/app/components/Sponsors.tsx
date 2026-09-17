@@ -1,4 +1,5 @@
 import { ShatterButton } from '@/components/ui/shatter-button';
+import { Reveal } from './Reveal';
 import celsiusLogo from '../../assets/Celsius.png';
 import citadelLogo from '../../assets/Citadel.png';
 import databentoLogo from '../../assets/Databento.png';
@@ -129,7 +130,7 @@ export function Sponsors() {
   return (
     <section id="sponsors" className="bg-[#0D0D1A] pb-16 pt-3 md:pb-24 md:pt-5">
       <div className="max-w-[1200px] mx-auto px-6">
-        <div className="mb-9 text-center md:mb-12">
+        <Reveal className="mb-9 text-center md:mb-12">
           <div className="mb-4">
             <span
               className="pixel-pill"
@@ -163,9 +164,9 @@ export function Sponsors() {
           >
             15 SPONSORS CONFIRMED
           </p>
-        </div>
+        </Reveal>
 
-        <div className="mb-6 md:mb-8">
+        <Reveal delay={100} className="mb-6 md:mb-8">
           <div className="mb-3 text-center">
             <span
               className="pixel-pill"
@@ -198,7 +199,7 @@ export function Sponsors() {
               style={{ imageRendering: 'auto' }}
             />
           </a>
-        </div>
+        </Reveal>
 
         <div
           className="w-full mb-[2px]"
@@ -209,7 +210,7 @@ export function Sponsors() {
           }}
         />
 
-        <div className="flex flex-col gap-[2px] w-full">
+        <Reveal delay={140} className="flex flex-col gap-[2px] w-full">
           {sponsorRows.map((row) => (
             <div
               key={row.map((s) => s.name).join('-')}
@@ -284,9 +285,9 @@ export function Sponsors() {
               })}
             </div>
           ))}
-        </div>
+        </Reveal>
 
-        <div className="text-center mt-8">
+        <Reveal className="text-center mt-8">
           <p
             className="mb-2"
             style={{
@@ -325,7 +326,7 @@ export function Sponsors() {
               </span>
             </ShatterButton>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

@@ -1,7 +1,9 @@
+import { Reveal } from './Reveal';
 import dominickPhoto from '../../assets/team/dominick-dupuy.jpg';
 import annaClairePhoto from '../../assets/team/anna-claire-skipper.jpg';
 import alicePhoto from '../../assets/team/alice-krupitsky.jpg';
 import kenziePhoto from '../../assets/team/kenzie-kemerson.jpg';
+import xanderPhoto from '../../assets/team/xander-robbins.jpg';
 
 type TeamMember = {
   name: string;
@@ -25,6 +27,12 @@ const team: TeamMember[] = [
     linkedin: 'https://www.linkedin.com/in/anna-claire-skipper/',
   },
   {
+    name: 'Xander Robbins',
+    role: 'Vice President',
+    photo: xanderPhoto,
+    linkedin: 'https://www.linkedin.com/in/xander-robbins/',
+  },
+  {
     name: 'Alice Krupitsky',
     role: 'Head of Marketing',
     photo: alicePhoto,
@@ -43,7 +51,7 @@ export function Team() {
   return (
     <section id="team" className="bg-[#0D0D1A] pb-16 pt-3 md:pb-24 md:pt-5">
       <div className="max-w-[1200px] mx-auto px-6">
-        <div className="mb-9 text-center md:mb-12">
+        <Reveal className="mb-9 text-center md:mb-12">
           <div className="mb-4">
             <span
               className="pixel-pill"
@@ -71,7 +79,7 @@ export function Team() {
           >
             MEET THE TEAM BEHIND GATOR QUANT HACKS
           </h2>
-        </div>
+        </Reveal>
 
         <div
           className="w-full mb-8"
@@ -83,9 +91,9 @@ export function Team() {
         />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
-          {team.map((member) => (
+          {team.map((member, index) => (
+            <Reveal key={member.name} delay={index * 110}>
             <div
-              key={member.name}
               className="group flex flex-col items-center gap-4 border border-[#1a1a2e] bg-[#0D0D1A] p-6 transition-all duration-200 hover:bg-[#111128] hover:border-[#00FFB3] hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(0,255,179,0.15)]"
             >
               <img
@@ -122,6 +130,7 @@ export function Team() {
                 </p>
               </div>
             </div>
+            </Reveal>
           ))}
         </div>
       </div>

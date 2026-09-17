@@ -12,14 +12,6 @@ type NavigationProps = {
 export function Navigation({ page = 'home', onNavigate }: NavigationProps = {}) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [coinCount, setCoinCount] = useState(0);
-  const [coinFlash, setCoinFlash] = useState(false);
-
-  useEffect(() => {
-    if (!coinFlash) return;
-    const timeout = window.setTimeout(() => setCoinFlash(false), 150);
-    return () => window.clearTimeout(timeout);
-  }, [coinFlash]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -60,23 +52,6 @@ export function Navigation({ page = 'home', onNavigate }: NavigationProps = {}) 
     }, 300);
   };
 
-  const insertCoin = () => {
-    const nextCount = Math.min(coinCount + 1, 3);
-    setCoinCount(nextCount);
-    setCoinFlash(true);
-
-    if (nextCount >= 3) {
-      if (page === 'apply' && onNavigate) {
-        onNavigate('home');
-        window.setTimeout(() => {
-          document.getElementById('register')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 80);
-      } else {
-        scrollToSection('register');
-      }
-    }
-  };
-
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -105,48 +80,11 @@ export function Navigation({ page = 'home', onNavigate }: NavigationProps = {}) 
           width: 100%;
         }
 
-        .coin-btn::after {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background: #FA4616;
-          opacity: 0;
-          transition: opacity 150ms ease;
-        }
-
-        .coin-btn:hover::after {
-          opacity: 0.1;
-        }
-
-        .coin-btn:hover {
-          box-shadow:
-            6px 6px 0px #7a1a00,
-            0 0 20px rgba(250,70,22,0.3),
-            inset 0 0 30px rgba(250,70,22,0.08);
-          transform: translate(-1px, -1px);
-        }
-
-        .coin-btn:active {
-          transform: translate(4px, 4px);
-          box-shadow: 0px 0px 0px #7a1a00;
-        }
-
-        @keyframes coinflash {
-          0% { transform: scale(1); opacity: 1; }
-          50% { transform: scale(1.4); opacity: 1; }
-          100% { transform: scale(1); opacity: 0; }
-        }
-
-        @keyframes creditblink {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0; }
-        }
-
       `}</style>
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#044a94]/60 to-transparent" />
       <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#FA4616]/50 to-transparent" />
 
-      <div className="mx-auto flex max-w-[1260px] items-center justify-between px-6 py-4">
+      <div className="mx-auto flex max-w-[1260px] items-center justify-between px-6 py-4 md:pr-[130px]">
         <button
           type="button"
           onClick={goHome}
@@ -170,7 +108,7 @@ export function Navigation({ page = 'home', onNavigate }: NavigationProps = {}) 
               className="text-[#9A9AA8]"
               style={{ fontFamily: "'Space Mono', monospace", fontSize: '15px', letterSpacing: '1px', lineHeight: 1.1 }}
             >
-              PLAYER 1 READY
+              SYSTEMS NOMINAL
             </div>
           </div>
         </button>
@@ -188,7 +126,7 @@ export function Navigation({ page = 'home', onNavigate }: NavigationProps = {}) 
             className="nav-link text-[#F4F4F4] hover:text-[#044a94] transition-colors"
             style={{ fontFamily: "'Space Mono', monospace", fontSize: '15px', fontWeight: 700, letterSpacing: '1px' }}
           >
-            Game Modes
+            Tracks
           </button>
           <button
             onClick={() => scrollToSection('schedule')}
@@ -226,111 +164,12 @@ export function Navigation({ page = 'home', onNavigate }: NavigationProps = {}) 
         </div>
 
         <button
-          onClick={insertCoin}
-          className="coin-btn hidden md:block"
-          style={{
-            background: 'transparent',
-            border: '1px solid rgba(250,70,22,0.4)',
-            color: '#FA4616',
-            padding: '10px 20px',
-            fontFamily: "'Orbitron', sans-serif",
-            fontSize: '11px',
-            letterSpacing: '2px',
-            position: 'relative',
-            cursor: 'pointer',
-            boxShadow: '4px 4px 0px #7a1a00, -1px -1px 0px rgba(250,70,22,0.2)',
-          }}
+          type="button"
+          onClick={() => scrollToSection('register')}
+          className="hidden md:inline-block bg-[#FA4616] hover:bg-[#FA4616]/90 text-white px-6 py-3 border-2 border-[#044a94] shadow-[0_0_20px_rgba(4,74,148,0.3)] transition-all"
+          style={{ fontFamily: "'Space Mono', monospace", fontSize: '14px', fontWeight: 700, letterSpacing: '1px' }}
         >
-          <div
-            style={{
-              position: 'absolute',
-              top: '-2px',
-              left: '-2px',
-              width: '10px',
-              height: '10px',
-              borderTop: '3px solid #FA4616',
-              borderLeft: '3px solid #FA4616',
-            }}
-          />
-          <div
-            style={{
-              position: 'absolute',
-              top: '-2px',
-              right: '-2px',
-              width: '10px',
-              height: '10px',
-              borderTop: '3px solid #FA4616',
-              borderRight: '3px solid #FA4616',
-            }}
-          />
-          <div
-            style={{
-              position: 'absolute',
-              bottom: '-2px',
-              left: '-2px',
-              width: '10px',
-              height: '10px',
-              borderBottom: '3px solid #FA4616',
-              borderLeft: '3px solid #FA4616',
-            }}
-          />
-          <div
-            style={{
-              position: 'absolute',
-              bottom: '-2px',
-              right: '-2px',
-              width: '10px',
-              height: '10px',
-              borderBottom: '3px solid #FA4616',
-              borderRight: '3px solid #FA4616',
-            }}
-          />
-          <div
-            style={{
-              position: 'relative',
-              zIndex: 1,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'flex-start',
-              gap: '6px',
-              minWidth: '180px',
-            }}
-          >
-            <span
-              style={{
-                fontFamily: "'Orbitron', sans-serif",
-                fontSize: '11px',
-                color: '#FA4616',
-              }}
-            >
-              {`CREDITS: ${coinCount}`}
-            </span>
-            <span
-              style={{
-                fontFamily: "'Orbitron', sans-serif",
-                fontSize: '11px',
-                color: coinCount >= 3 ? '#4cff87' : '#FA4616',
-                animation: coinCount === 0 ? 'creditblink 1s infinite' : 'none',
-              }}
-            >
-              {coinCount >= 3 ? 'PLAYER 1 READY' : 'INSERT COIN_'}
-            </span>
-            {coinFlash && (
-              <span
-                style={{
-                  position: 'absolute',
-                  right: '-4px',
-                  top: '0',
-                  fontFamily: "'Orbitron', sans-serif",
-                  fontSize: '11px',
-                  color: '#FA4616',
-                  animation: 'coinflash 150ms ease-out',
-                }}
-              >
-                +1
-              </span>
-            )}
-          </div>
+          BOARD NOW -&gt;
         </button>
 
         <button className="md:hidden text-white" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
@@ -353,7 +192,7 @@ export function Navigation({ page = 'home', onNavigate }: NavigationProps = {}) 
               className="nav-link text-[#F4F4F4] hover:text-[#044a94] text-left transition-colors"
               style={{ fontFamily: "'Space Mono', monospace", fontSize: '15px', fontWeight: 700, letterSpacing: '1px' }}
             >
-              Game Modes
+              Tracks
             </button>
             <button
               onClick={() => scrollToSection('schedule')}
@@ -391,9 +230,13 @@ export function Navigation({ page = 'home', onNavigate }: NavigationProps = {}) 
                 Apply
               </button>
             )}
-            <button className="bg-[#FA4616] hover:bg-[#FA4616]/90 text-white px-6 py-3 border-2 border-[#044a94] shadow-[0_0_20px_rgba(4,74,148,0.3)] transition-all">
+            <button
+              type="button"
+              onClick={() => scrollToSection('register')}
+              className="bg-[#FA4616] hover:bg-[#FA4616]/90 text-white px-6 py-3 border-2 border-[#044a94] shadow-[0_0_20px_rgba(4,74,148,0.3)] transition-all"
+            >
               <span style={{ fontFamily: "'Space Mono', monospace", fontSize: '15px', fontWeight: 600 }}>
-                INSERT COIN -&gt;
+                BOARD NOW -&gt;
               </span>
             </button>
           </div>

@@ -302,10 +302,10 @@ const THEMED_QUESTION =
   'You are stranded on a space station with one trading terminal, 400 credits, and a vending machine that only accepts alligator teeth. What is your play?';
 
 const STEPS = [
-  { id: 'identity', level: 'LEVEL 1', title: 'IDENTIFY YOUR PLAYER' },
-  { id: 'loadout', level: 'LEVEL 2', title: 'CHOOSE YOUR LOADOUT' },
-  { id: 'motivation', level: 'LEVEL 3', title: 'STATE YOUR MISSION' },
-  { id: 'bonus', level: 'BONUS ROUND', title: 'THE ABSURD SCENARIO' },
+  { id: 'identity', level: 'STAGE 1', title: 'CREW MANIFEST' },
+  { id: 'loadout', level: 'STAGE 2', title: 'CHOOSE YOUR LOADOUT' },
+  { id: 'motivation', level: 'STAGE 3', title: 'STATE YOUR MISSION' },
+  { id: 'bonus', level: 'STAGE 4', title: 'THE ABSURD SCENARIO' },
   { id: 'review', level: 'FINAL STAGE', title: 'CONFIRM AND LAUNCH' },
 ] as const;
 
@@ -578,7 +578,7 @@ export function ApplicationForm() {
               textShadow: '0 0 24px rgba(4,74,148,0.35)',
             }}
           >
-            Enter The Arena
+            Board The Mission
           </h1>
           <p
             className="mx-auto max-w-[620px] text-[rgba(255,255,255,0.66)]"
@@ -1559,7 +1559,7 @@ function Checkbox({
 }
 
 /**
- * Native radios styled as arcade pills. Using real inputs means arrow-key
+ * Native radios styled as pixel pills. Using real inputs means arrow-key
  * navigation, a single tab stop, and screen reader semantics come for free.
  */
 function RadioGroup({

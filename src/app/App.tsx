@@ -136,37 +136,37 @@ export default function App() {
         }
       `}</style>
 
-      <div className="cabinet-frame" aria-hidden="true">
-        <div className="cabinet-frame__top">
-          <div className="cabinet-frame__vent cabinet-frame__vent--left" />
-          <div className="cabinet-frame__marquee">
-            <span>PLAYER 1</span>
+      <div className="hull-frame" aria-hidden="true">
+        <div className="hull-frame__top">
+          <div className="hull-frame__vent hull-frame__vent--left" />
+          <div className="hull-frame__readout">
+            <span>GQH-01</span>
             <span>SPACE MARKET</span>
-            <span>CREDITS: 00</span>
+            <span>ORBIT STABLE</span>
           </div>
-          <div className="cabinet-frame__vent cabinet-frame__vent--right" />
+          <div className="hull-frame__vent hull-frame__vent--right" />
         </div>
-        <div className="cabinet-frame__side cabinet-frame__side--left">
-          <span className="cabinet-frame__light cabinet-frame__light--orange" />
-          <span className="cabinet-frame__light cabinet-frame__light--blue" />
-          <span className="cabinet-frame__panel-line" />
+        <div className="hull-frame__side hull-frame__side--left">
+          <span className="hull-frame__light hull-frame__light--orange" />
+          <span className="hull-frame__light hull-frame__light--blue" />
+          <span className="hull-frame__panel-line" />
         </div>
-        <div className="cabinet-frame__side cabinet-frame__side--right">
-          <span className="cabinet-frame__light cabinet-frame__light--orange" />
-          <span className="cabinet-frame__light cabinet-frame__light--blue" />
-          <span className="cabinet-frame__panel-line" />
+        <div className="hull-frame__side hull-frame__side--right">
+          <span className="hull-frame__light hull-frame__light--orange" />
+          <span className="hull-frame__light hull-frame__light--blue" />
+          <span className="hull-frame__panel-line" />
         </div>
-        <div className="cabinet-frame__bottom">
-          <div className="cabinet-frame__dock">
-            <span className="cabinet-frame__dock-light cabinet-frame__dock-light--blue" />
-            <span className="cabinet-frame__dock-light cabinet-frame__dock-light--orange" />
-            <span className="cabinet-frame__dock-light cabinet-frame__dock-light--blue" />
+        <div className="hull-frame__bottom">
+          <div className="hull-frame__dock">
+            <span className="hull-frame__dock-light hull-frame__dock-light--blue" />
+            <span className="hull-frame__dock-light hull-frame__dock-light--orange" />
+            <span className="hull-frame__dock-light hull-frame__dock-light--blue" />
           </div>
         </div>
-        <div className="cabinet-frame__corner cabinet-frame__corner--tl" />
-        <div className="cabinet-frame__corner cabinet-frame__corner--tr" />
-        <div className="cabinet-frame__corner cabinet-frame__corner--bl" />
-        <div className="cabinet-frame__corner cabinet-frame__corner--br" />
+        <div className="hull-frame__corner hull-frame__corner--tl" />
+        <div className="hull-frame__corner hull-frame__corner--tr" />
+        <div className="hull-frame__corner hull-frame__corner--bl" />
+        <div className="hull-frame__corner hull-frame__corner--br" />
       </div>
 
       <div className="site-shell__inner">

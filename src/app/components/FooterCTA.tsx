@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ShatterButton } from '@/components/ui/shatter-button';
+import { Reveal } from './Reveal';
 import trophyImage from './trophy.png';
 
 type AppPage = 'home' | 'apply';
@@ -43,7 +44,7 @@ export function FooterCTA({ onNavigate }: FooterCTAProps = {}) {
     { label: 'SECONDS', value: timeLeft.seconds },
   ];
 
-  const handlePressStart = () => {
+  const handleLaunch = () => {
     window.setTimeout(() => onNavigate?.('apply'), 800);
   };
 
@@ -104,7 +105,7 @@ export function FooterCTA({ onNavigate }: FooterCTAProps = {}) {
       </div>
       <div className="relative z-10 mx-auto flex w-full max-w-[1440px] justify-center px-6">
         <div className="grid w-full max-w-[1200px] items-center gap-14 lg:grid-cols-[minmax(0,760px)_1fr]">
-          <div className="text-center lg:text-left">
+          <Reveal className="text-center lg:text-left">
             <div className="mb-5 inline-flex items-center gap-2 border border-[#294f7d] bg-[#0b1524]/92 px-4 py-2 shadow-[0_0_18px_rgba(4,74,148,0.12)]">
               <span
                 className="text-[#9cc9ff]"
@@ -115,7 +116,7 @@ export function FooterCTA({ onNavigate }: FooterCTAProps = {}) {
                   letterSpacing: '1.5px',
                 }}
               >
-                FINAL STAGE
+                FINAL APPROACH
               </span>
             </div>
 
@@ -128,18 +129,18 @@ export function FooterCTA({ onNavigate }: FooterCTAProps = {}) {
                 textShadow: '0 0 28px rgba(4, 74, 148, 0.2)',
               }}
             >
-              THE ARENA OPENS OCTOBER 2ND
+              LAUNCH WINDOW OPENS OCTOBER 2ND
             </h2>
 
             <p
               className="mx-auto mb-10 max-w-2xl text-[rgba(255,255,255,0.74)] lg:mx-0"
               style={{ fontFamily: "'Space Mono', monospace", fontSize: '19px', lineHeight: 1.6 }}
             >
-              36 hours. $16,000. One High Score Board. In person at the University of Florida.
+              36 hours. $16,000. One leaderboard. In person at the University of Florida.
             </p>
 
             <ShatterButton
-              onClick={handlePressStart}
+              onClick={handleLaunch}
               shatterColor="#9cc9ff"
               className="group relative mb-10 w-full overflow-hidden rounded-none sm:mb-12 sm:w-full"
               style={{
@@ -175,7 +176,7 @@ export function FooterCTA({ onNavigate }: FooterCTAProps = {}) {
                     `,
                   }}
                 >
-                  PRESS START
+                  LAUNCH SEQUENCE
                 </span>
                 <span
                   style={{
@@ -187,7 +188,7 @@ export function FooterCTA({ onNavigate }: FooterCTAProps = {}) {
                     textTransform: 'uppercase',
                   }}
                 >
-                  INSERT COIN TO ENTER THE ARENA
+                  APPLY TO CLAIM YOUR SEAT
                 </span>
               </div>
             </ShatterButton>
@@ -228,9 +229,9 @@ export function FooterCTA({ onNavigate }: FooterCTAProps = {}) {
                 </div>
               ))}
             </div>
-          </div>
+          </Reveal>
 
-          <div className="flex justify-center lg:justify-end lg:self-end">
+          <Reveal delay={150} className="flex justify-center lg:justify-end lg:self-end">
             <div className="relative w-full max-w-[360px]">
               <div className="overflow-hidden border border-[#183046] bg-[#070A11]/95 shadow-[0_0_24px_rgba(4,74,148,0.14),inset_0_0_0_1px_rgba(255,255,255,0.02)]">
                 <div className="relative flex min-h-[462px] flex-col p-5">
@@ -243,7 +244,7 @@ export function FooterCTA({ onNavigate }: FooterCTAProps = {}) {
                         letterSpacing: '1.4px',
                       }}
                     >
-                      HIGH SCORE RELIC
+                      PRIZE PAYLOAD
                     </div>
                   </div>
 
@@ -279,7 +280,7 @@ export function FooterCTA({ onNavigate }: FooterCTAProps = {}) {
                         lineHeight: 1.4,
                       }}
                     >
-                      TREASURE VAULT ONLINE
+                      PAYLOAD BAY ONLINE
                     </div>
                     <div
                       className="text-[rgba(255,255,255,0.55)]"
@@ -290,8 +291,7 @@ export function FooterCTA({ onNavigate }: FooterCTAProps = {}) {
                         lineHeight: 1.75,
                       }}
                     >
-                      CHAMPION CLASS REWARD | LOCK IN YOUR SHIP AND CHASE THE HIGH
-                      SCORE
+                      GRAND PRIZE TROPHY
                     </div>
                   </div>
                 </div>
@@ -302,7 +302,7 @@ export function FooterCTA({ onNavigate }: FooterCTAProps = {}) {
               <div className="absolute -bottom-1 -left-1 h-10 w-10 border-b-4 border-l-4 border-[#044a94]" />
               <div className="absolute -bottom-1 -right-1 h-10 w-10 border-b-4 border-r-4 border-[#044a94]" />
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

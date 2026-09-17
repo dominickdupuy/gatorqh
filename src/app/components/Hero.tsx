@@ -1,8 +1,6 @@
-import { useEffect, useState } from 'react';
 import { ShatterButton } from '@/components/ui/shatter-button';
 import { StarsBackground } from '@/components/ui/stars';
-import bluePlanet from './bluePlanet.png';
-import orangePlanet from './orangePlanet.png';
+import { PlanetField } from './PlanetField';
 
 const titleLines = ['GATOR', 'QUANT', 'HACKS'];
 
@@ -15,50 +13,9 @@ export function Hero({
   onNavigate?: (page: AppPage) => void;
   isIntroActive?: boolean;
 }) {
-  const [scrollY, setScrollY] = useState(0);
-  const [isMobileViewport, setIsMobileViewport] = useState(false);
-
-  const scrollToRegister = () => {
-    document.getElementById('register')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
-
   const openMentorVolunteerForm = () => {
     window.open('https://forms.gle/qC2C5sS3WHrVZX8j6', '_blank', 'noopener,noreferrer');
   };
-
-  useEffect(() => {
-    let animationFrame = 0;
-
-    const onScroll = () => {
-      window.cancelAnimationFrame(animationFrame);
-      animationFrame = window.requestAnimationFrame(() => {
-        setScrollY(window.scrollY);
-      });
-    };
-
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-
-    return () => {
-      window.cancelAnimationFrame(animationFrame);
-      window.removeEventListener('scroll', onScroll);
-    };
-  }, []);
-
-  useEffect(() => {
-    const mobileQuery = window.matchMedia('(max-width: 767px)');
-    const updateViewport = () => setIsMobileViewport(mobileQuery.matches);
-
-    updateViewport();
-    mobileQuery.addEventListener('change', updateViewport);
-
-    return () => {
-      mobileQuery.removeEventListener('change', updateViewport);
-    };
-  }, []);
-
-  const bluePlanetOffset = Math.min(scrollY * 0.42, 180);
-  const altPlanetOffset = Math.min(scrollY * 0.34, 140);
 
   return (
     <section id="hero" className="hero-space relative min-h-screen overflow-hidden">
@@ -341,45 +298,7 @@ export function Hero({
 
       `}</style>
 
-      <img
-        src={bluePlanet}
-        alt=""
-        aria-hidden="true"
-        style={{
-          position: 'fixed',
-          top: '11%',
-          right: isMobileViewport ? '-30%' : '5%',
-          width: '240px',
-          height: '240px',
-          objectFit: 'contain',
-          filter: 'drop-shadow(8px 8px 0 #000820) drop-shadow(0 0 18px rgba(99,246,255,0.22))',
-          imageRendering: 'pixelated',
-          zIndex: 0,
-          pointerEvents: 'none',
-          willChange: 'transform',
-          transform: `translate3d(0, ${bluePlanetOffset}px, 0)`,
-        }}
-      />
-
-      <img
-        src={orangePlanet}
-        alt=""
-        aria-hidden="true"
-        style={{
-          position: 'fixed',
-          top: '33%',
-          left: isMobileViewport ? '-14%' : '10%',
-          width: '145px',
-          height: '145px',
-          objectFit: 'contain',
-          filter: 'drop-shadow(4px 4px 0 #000820) drop-shadow(0 0 16px rgba(250,70,22,0.22))',
-          zIndex: 0,
-          pointerEvents: 'none',
-          willChange: 'transform',
-          imageRendering: 'pixelated',
-          transform: `translate3d(${altPlanetOffset * 0.08}px, ${-altPlanetOffset}px, 0)`,
-        }}
-      />
+      <PlanetField isIntroActive={isIntroActive} />
 
       <div className="absolute inset-0 pointer-events-none">
         <div
@@ -499,7 +418,7 @@ export function Hero({
             >
               Build the Model.
               <br />
-              Beat the Market.
+              Chart the Market.
             </p>
 
             <div className="mission-console mx-auto mb-6 w-full max-w-[780px] px-3 py-3 md:px-4 md:py-4">
@@ -533,11 +452,9 @@ export function Hero({
                       letterSpacing: '0.01em',
                     }}
                   >
-                    Choose a track, build your model, and compete for the leaderboard
-                    in a 36-hour trading arena. This is a fully in-person event held
-                    on the University of Florida campus in Gainesville. Teams develop
-                    and test quantitative strategies under pressure, working through
-                    real market dynamics before presenting their final results.
+                    Choose a track, build your model, and climb the board through
+                    36 hours of open market. A fully in-person event held on the
+                    University of Florida campus in Gainesville.
                   </p>
                 </div>
               </div>
@@ -584,7 +501,7 @@ export function Hero({
             className="hero-marquee__track whitespace-nowrap text-[#9cc9ff]"
             style={{ fontFamily: "'Space Mono', monospace", fontSize: '12px', letterSpacing: '1.4px' }}
           >
-            {Array.from({ length: 10 }, () => 'ARCADE MARKET // BUILD MODELS // CLIMB THE LEADERBOARD // ').join('')}
+            {Array.from({ length: 10 }, () => 'SPACE MARKET OPEN // BUILD MODELS // PLOT YOUR COURSE // ').join('')}
           </div>
         </div>
       </div>

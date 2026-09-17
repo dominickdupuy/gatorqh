@@ -13,6 +13,7 @@ import polymarketLogo from '../../assets/Polymarket.png';
 import pureButtonsLogo from '../../assets/PureButtons.svg';
 import snowflakeLogo from '../../assets/Snowflake.svg';
 import ufMathLogo from '../../assets/UFMath.png';
+import ufStatsLogo from '../../assets/UFStats.png';
 import webullLogo from '../../assets/Webull.png';
 
 type Sponsor = {
@@ -73,6 +74,12 @@ export function Sponsors() {
       logoClassName: 'max-w-[96%] max-h-[96%] md:max-w-[85%] md:max-h-[85%]',
     },
     {
+      name: 'UF Statistics',
+      logo: ufStatsLogo,
+      href: 'https://stat.ufl.edu/',
+      logoClassName: 'max-w-[96%] max-h-[96%] md:max-w-[85%] md:max-h-[85%]',
+    },
+    {
       name: 'Jane Street',
       logo: janeStreetLogo,
       href: 'https://www.janestreet.com/',
@@ -118,12 +125,12 @@ export function Sponsors() {
     },
   ];
 
-  // Grid layout: rows of 4, 4, 4, 2
+  // Grid layout: rows of 4, 4, 4, 3
   const sponsorRows: Sponsor[][] = [
     sponsors.slice(0, 4),
     sponsors.slice(4, 8),
     sponsors.slice(8, 12),
-    sponsors.slice(12, 14),
+    sponsors.slice(12, 15),
   ];
 
   return (
@@ -161,7 +168,7 @@ export function Sponsors() {
             className="text-[#9A9AA8] text-center"
             style={{ fontFamily: "'Space Mono', monospace", fontSize: '12px' }}
           >
-            15 SPONSORS CONFIRMED
+            16 SPONSORS CONFIRMED
           </p>
         </div>
 

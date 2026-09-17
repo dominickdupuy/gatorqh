@@ -22,7 +22,7 @@ const stats: StatCard[] = [
   },
   {
     label: 'SPONSORS',
-    value: '15',
+    value: '16',
     color: '#2E86FF',
   },
 ];

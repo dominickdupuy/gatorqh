@@ -69,7 +69,7 @@ export function IntroAnimation({ onVisibilityChange }: { onVisibilityChange?: (i
     };
   }, []);
 
-  // Rocket sits on the pad until the visitor pulls/scrolls down or taps the
+  // Rocket sits on the pad until the visitor scrolls/swipes down or taps the
   // prompt — it no longer launches itself.
   useEffect(() => {
     if (!isVisible || !areIntroAssetsReady || launchTriggered) {
@@ -81,7 +81,7 @@ export function IntroAnimation({ onVisibilityChange }: { onVisibilityChange?: (i
     let touchStartY: number | null = null;
 
     const onWheel = (event: WheelEvent) => {
-      if (event.deltaY < -WHEEL_TRIGGER_DELTA) {
+      if (event.deltaY > WHEEL_TRIGGER_DELTA) {
         event.preventDefault();
         trigger();
       }
@@ -96,7 +96,7 @@ export function IntroAnimation({ onVisibilityChange }: { onVisibilityChange?: (i
       const currentY = event.touches[0]?.clientY;
       if (currentY === undefined) return;
 
-      if (currentY - touchStartY > TOUCH_PULL_THRESHOLD_PX) {
+      if (touchStartY - currentY > TOUCH_PULL_THRESHOLD_PX) {
         event.preventDefault();
         trigger();
       }
@@ -240,7 +240,7 @@ export function IntroAnimation({ onVisibilityChange }: { onVisibilityChange?: (i
 
       {areIntroAssetsReady && !launchTriggered && (
         <div className="intro-launch-prompt" aria-hidden="true">
-          <span className="intro-launch-prompt__label">SCROLL UP TO LAUNCH</span>
+          <span className="intro-launch-prompt__label">SCROLL DOWN TO LAUNCH</span>
           <span className="intro-launch-prompt__chevrons">
             <span className="intro-launch-prompt__chevron" />
             <span className="intro-launch-prompt__chevron" />

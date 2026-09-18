@@ -1142,7 +1142,7 @@ body {
   height: 38px;
   border-right: 5px solid #63f6ff;
   border-bottom: 5px solid #63f6ff;
-  transform: rotate(225deg);
+  transform: rotate(45deg);
   filter: drop-shadow(0 0 8px rgba(99, 246, 255, 0.6));
 }
 

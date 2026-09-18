@@ -4,7 +4,7 @@ import celsiusLogo from '../../assets/Celsius.png';
 import citadelLogo from '../../assets/Citadel.png';
 import databentoLogo from '../../assets/Databento.png';
 import elevenLabsLogo from '../../assets/ElevenLabs.png';
-import githubLogo from '../../assets/GitHub.png';
+import geminiLogo from '../../assets/Gemini.png';
 import iotStudentsClubLogo from '../../assets/IoTStudentsClub.png';
 import kariaaLogo from '../../assets/Kariaa.svg';
 import mlhLogo from '../../assets/MLH.png';
@@ -13,7 +13,10 @@ import massiveLogo from '../../assets/Massive.png';
 import polymarketLogo from '../../assets/Polymarket.png';
 import pureButtonsLogo from '../../assets/PureButtons.svg';
 import snowflakeLogo from '../../assets/Snowflake.svg';
+import solanaLogo from '../../assets/Solana.png';
+import tigerDataLogo from '../../assets/TigerData.svg';
 import ufMathLogo from '../../assets/UFMath.png';
+import vultrLogo from '../../assets/Vultr.png';
 import webullLogo from '../../assets/Webull.png';
 
 type Sponsor = {
@@ -93,13 +96,6 @@ export function Sponsors() {
       logoClassName: 'max-w-[84%] max-h-[70%] md:max-w-[78%] md:max-h-[62%]',
     },
     {
-      name: 'GitHub',
-      logo: githubLogo,
-      href: 'https://github.com/',
-      invertLogo: true,
-      logoClassName: 'max-w-[74%] max-h-[56%] md:max-w-[68%] md:max-h-[50%]',
-    },
-    {
       name: 'Snowflake',
       logo: snowflakeLogo,
       href: 'https://www.snowflake.com/',
@@ -117,15 +113,36 @@ export function Sponsors() {
       href: 'https://mlh.io/',
       logoClassName: 'max-w-[85%] max-h-[76%] md:max-w-[79%] md:max-h-[70%]',
     },
+    {
+      name: 'Gemini',
+      logo: geminiLogo,
+      href: 'https://gemini.google.com/',
+      logoClassName: 'max-w-[82%] max-h-[64%] md:max-w-[76%] md:max-h-[58%]',
+    },
+    {
+      name: 'Solana',
+      logo: solanaLogo,
+      href: 'https://solana.com/',
+      logoClassName: 'max-w-[164%] max-h-[128%] md:max-w-[152%] md:max-h-[116%]',
+    },
+    {
+      name: 'Vultr',
+      logo: vultrLogo,
+      href: 'https://www.vultr.com/',
+      logoClassName: 'max-w-[82%] max-h-[64%] md:max-w-[76%] md:max-h-[58%]',
+    },
+    {
+      name: 'Tiger Data',
+      logo: tigerDataLogo,
+      href: 'https://www.tigerdata.com/',
+      logoClassName: 'max-w-[88%] max-h-[68%] md:max-w-[82%] md:max-h-[62%]',
+    },
   ];
 
-  // Grid layout: rows of 4, 4, 4, 2
-  const sponsorRows: Sponsor[][] = [
-    sponsors.slice(0, 4),
-    sponsors.slice(4, 8),
-    sponsors.slice(8, 12),
-    sponsors.slice(12, 14),
-  ];
+  const sponsorRows: Sponsor[][] = Array.from(
+    { length: Math.ceil(sponsors.length / 4) },
+    (_, rowIndex) => sponsors.slice(rowIndex * 4, rowIndex * 4 + 4),
+  );
 
   return (
     <section id="sponsors" className="bg-[#0D0D1A] pb-16 pt-3 md:pb-24 md:pt-5">
@@ -162,7 +179,7 @@ export function Sponsors() {
             className="text-[#9A9AA8] text-center"
             style={{ fontFamily: "'Space Mono', monospace", fontSize: '12px' }}
           >
-            15 SPONSORS CONFIRMED
+            {sponsors.length + 1} SPONSORS CONFIRMED
           </p>
         </Reveal>
 

@@ -34,6 +34,28 @@ const leadSponsor: Sponsor = {
   href: 'https://www.webull.com/',
 };
 
+const midSponsors: Sponsor[] = [
+  {
+    name: 'Jane Street',
+    logo: janeStreetLogo,
+    href: 'https://www.janestreet.com/',
+    invertLogo: true,
+    logoClassName: 'max-w-[86%] max-h-[76%] md:max-w-[80%] md:max-h-[70%]',
+  },
+  {
+    name: 'Polymarket',
+    logo: polymarketLogo,
+    href: 'https://polymarket.com/',
+    logoClassName: 'max-w-[76%] max-h-[58%] md:max-w-[70%] md:max-h-[52%]',
+  },
+  {
+    name: 'Citadel',
+    logo: citadelLogo,
+    href: 'https://www.citadel.com/',
+    logoClassName: 'max-w-[86%] max-h-[76%] md:max-w-[80%] md:max-h-[70%]',
+  },
+];
+
 export function Sponsors() {
   const sponsors: Sponsor[] = [
     {
@@ -66,12 +88,6 @@ export function Sponsors() {
       logoClassName: 'max-w-[80%] max-h-[60%] md:max-w-[74%] md:max-h-[54%]',
     },
     {
-      name: 'Polymarket',
-      logo: polymarketLogo,
-      href: 'https://polymarket.com/',
-      logoClassName: 'max-w-[82%] max-h-[64%] md:max-w-[76%] md:max-h-[58%]',
-    },
-    {
       name: 'UF Mathematics',
       logo: ufMathLogo,
       href: 'https://math.ufl.edu/',
@@ -82,19 +98,6 @@ export function Sponsors() {
       logo: ufStatsLogo,
       href: 'https://stat.ufl.edu/',
       logoClassName: 'max-w-[96%] max-h-[96%] md:max-w-[85%] md:max-h-[85%]',
-    },
-    {
-      name: 'Jane Street',
-      logo: janeStreetLogo,
-      href: 'https://www.janestreet.com/',
-      invertLogo: true,
-      logoClassName: 'max-w-[94%] max-h-[84%] md:max-w-[88%] md:max-h-[78%]',
-    },
-    {
-      name: 'Citadel',
-      logo: citadelLogo,
-      href: 'https://www.citadel.com/',
-      logoClassName: 'max-w-[94%] max-h-[84%] md:max-w-[88%] md:max-h-[78%]',
     },
     {
       name: 'Celsius',
@@ -186,7 +189,7 @@ export function Sponsors() {
             className="text-[#9A9AA8] text-center"
             style={{ fontFamily: "'Space Mono', monospace", fontSize: '12px' }}
           >
-            {sponsors.length + 1} SPONSORS CONFIRMED
+            {sponsors.length + midSponsors.length + 1} SPONSORS CONFIRMED
           </p>
         </Reveal>
 
@@ -223,6 +226,48 @@ export function Sponsors() {
               style={{ imageRendering: 'auto' }}
             />
           </a>
+        </Reveal>
+
+        <Reveal delay={120} className="mb-6 md:mb-8">
+          <div className="mb-3 text-center">
+            <span
+              className="pixel-pill"
+              style={{
+                ['--pill-bg' as string]: '#00FFB3',
+                ['--pill-text' as string]: '#003a2a',
+                ['--pill-border' as string]: '#171717',
+                ['--pill-shadow' as string]: '#00805a',
+                ['--pill-depth' as string]: 'rgba(0,128,90,0.18)',
+                fontFamily: "'Space Mono', monospace",
+                fontSize: '12px',
+                fontWeight: 600,
+              }}
+            >
+              GOLD SPONSORS
+            </span>
+          </div>
+          <div className="flex w-full gap-[2px]">
+            {midSponsors.map((sponsor) => (
+              <a
+                key={sponsor.name}
+                href={sponsor.href}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Visit ${sponsor.name}`}
+                className="group relative flex flex-1 items-center justify-center border-2 border-[#00FFB3] bg-[#0D0D1A] p-3 transition-all duration-200 hover:bg-[#111128] hover:scale-[1.02] hover:z-[2] hover:shadow-[0_0_30px_rgba(0,255,179,0.25)] md:p-6"
+                style={{ aspectRatio: '16 / 9' }}
+              >
+                <img
+                  src={sponsor.logo}
+                  alt={`${sponsor.name} logo`}
+                  className={`${sponsor.logoClassName ?? 'max-w-[80%] max-h-[70%]'} object-contain ${
+                    sponsor.invertLogo ? 'invert' : ''
+                  }`}
+                  style={{ imageRendering: 'auto' }}
+                />
+              </a>
+            ))}
+          </div>
         </Reveal>
 
         <div

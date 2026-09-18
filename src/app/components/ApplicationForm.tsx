@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 const WEBHOOK_URL = import.meta.env.VITE_INTEREST_FORM_WEBHOOK_URL as string;
 
-const DISCORD_INVITE_URL = 'https://discord.gg/PhEnUQXCp';
+const DISCORD_INVITE_URL = 'https://discord.gg/kQX9ZtWFHG';
 
 const MAX_RESUME_BYTES = 4 * 1024 * 1024;
 const ACCEPTED_RESUME_TYPES = '.pdf,.doc,.docx';

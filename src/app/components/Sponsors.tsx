@@ -16,6 +16,7 @@ import snowflakeLogo from '../../assets/Snowflake.svg';
 import solanaLogo from '../../assets/Solana.png';
 import tigerDataLogo from '../../assets/TigerData.svg';
 import ufMathLogo from '../../assets/UFMath.png';
+import ufStatsLogo from '../../assets/UFStats.png';
 import vultrLogo from '../../assets/Vultr.png';
 import webullLogo from '../../assets/Webull.png';
 
@@ -74,6 +75,12 @@ export function Sponsors() {
       name: 'UF Mathematics',
       logo: ufMathLogo,
       href: 'https://math.ufl.edu/',
+      logoClassName: 'max-w-[96%] max-h-[96%] md:max-w-[85%] md:max-h-[85%]',
+    },
+    {
+      name: 'UF Statistics',
+      logo: ufStatsLogo,
+      href: 'https://stat.ufl.edu/',
       logoClassName: 'max-w-[96%] max-h-[96%] md:max-w-[85%] md:max-h-[85%]',
     },
     {

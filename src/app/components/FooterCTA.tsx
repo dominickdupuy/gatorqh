@@ -136,7 +136,7 @@ export function FooterCTA({ onNavigate }: FooterCTAProps = {}) {
               className="mx-auto mb-10 max-w-2xl text-[rgba(255,255,255,0.74)] lg:mx-0"
               style={{ fontFamily: "'Space Mono', monospace", fontSize: '19px', lineHeight: 1.6 }}
             >
-              36 hours. $16,000. One leaderboard. In person at the University of Florida.
+              36 hours. $25,000. One leaderboard. In person at the University of Florida.
             </p>
 
             <ShatterButton

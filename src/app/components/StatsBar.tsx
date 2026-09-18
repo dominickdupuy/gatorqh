@@ -9,7 +9,7 @@ type StatCard = {
 const stats: StatCard[] = [
   {
     label: 'PRIZE PAYLOAD',
-    value: '$16,000',
+    value: '$25,000',
     color: '#FA5A2A',
   },
   {

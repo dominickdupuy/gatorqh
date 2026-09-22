@@ -422,6 +422,12 @@ const validateStep = (stepId: (typeof STEPS)[number]['id'], form: FormState): Fi
   return errors;
 };
 
+/**
+ * Flip to `false` to reopen the application form. While `true`, the `/apply`
+ * route renders the closed notice and the form below is never shown.
+ */
+const APPLICATIONS_CLOSED = true;
+
 export function ApplicationForm() {
   const [stepIndex, setStepIndex] = useState(0);
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
@@ -547,6 +553,10 @@ export function ApplicationForm() {
     if (isLastStep) void handleSubmit();
     else goNext();
   };
+
+  if (APPLICATIONS_CLOSED) {
+    return <ClosedScreen />;
+  }
 
   if (status === 'success') {
     return <SuccessScreen email={form.email.trim()} confirmed={confirmed} />;
@@ -1184,6 +1194,74 @@ function MlhConsentSection({
         onChange={(checked) => update('mlhEmailOptIn', checked)}
         label="I authorize MLH + DEV to send me occasional emails about relevant events, career opportunities, and community announcements."
       />
+    </div>
+  );
+}
+
+function ClosedScreen() {
+  const headingRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    headingRef.current?.focus();
+  }, []);
+
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-[#050508] px-6 py-28">
+      <FormStyles />
+      <div className="gqh-panel relative w-full max-w-[600px] border-2 border-[#294f7d] bg-[#0B0D14]/95 p-9 text-center">
+        <PanelCorners />
+        <div
+          className="mb-4 text-[#FA4616]"
+          style={{
+            fontFamily: "'Orbitron', sans-serif",
+            fontSize: '12px',
+            fontWeight: 700,
+            letterSpacing: '2px',
+          }}
+        >
+          APPLICATIONS CLOSED
+        </div>
+        <h1
+          ref={headingRef}
+          tabIndex={-1}
+          className="mb-5 uppercase text-white outline-none"
+          style={{
+            fontFamily: "'Press Start 2P', monospace",
+            fontSize: 'clamp(18px, 2.6vw, 26px)',
+            lineHeight: 1.45,
+            textShadow: '0 0 24px rgba(4,74,148,0.35)',
+          }}
+        >
+          Boarding Has Ended
+        </h1>
+        <p
+          className="mb-6 text-[rgba(255,255,255,0.7)]"
+          style={{ fontFamily: "'Space Mono', monospace", fontSize: '14px', lineHeight: 1.75 }}
+        >
+          We are no longer accepting applications for Gator Quant Hacks 2026. Thank you to
+          everyone who applied. If you already submitted, keep an eye on your inbox for your
+          decision and prep resources before October 2.
+        </p>
+        <p
+          className="mb-6 text-[rgba(255,255,255,0.7)]"
+          style={{ fontFamily: "'Space Mono', monospace", fontSize: '14px', lineHeight: 1.75 }}
+        >
+          Join the Discord to follow announcements, team-matching, and updates.
+        </p>
+        <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <a
+            href={DISCORD_INVITE_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="gqh-btn-primary inline-block no-underline"
+          >
+            JOIN THE DISCORD
+          </a>
+          <a href="/" className="gqh-btn-ghost inline-block no-underline">
+            BACK TO HOME
+          </a>
+        </div>
+      </div>
     </div>
   );
 }

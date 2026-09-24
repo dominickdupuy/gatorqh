@@ -18,7 +18,7 @@ function DiscordIcon({ size = 24 }: { size?: number }) {
 const TERMS_URL = 'https://github.com/dominickdupuy/gatorqh/blob/main/TERMS.md';
 
 const footerLinks = [
-  { label: 'Contact Us', href: 'mailto:dominickdupuy@ufl.edu' },
+  { label: 'Contact Us', href: 'mailto:gatorquanthacks@gmail.com' },
   { label: 'Join the Discord', href: DISCORD_INVITE_URL },
   { label: 'Apply', href: '/apply' },
   { label: 'Code of Conduct', href: 'https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md' },

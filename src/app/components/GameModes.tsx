@@ -59,7 +59,7 @@ function TrackPlanet({ type }: { type: Track['planetType'] }) {
 export function GameModes() {
   const tracks: Track[] = [
     {
-      title: 'Hardware & Alpha Discovery',
+      title: 'Hardware',
       tagline: 'Take an edge to the metal.',
       description: 'Participants build and demo a testable market signal on real hardware, using FPGAs to move an idea from software prototype to a low-latency implementation. Best suited for students interested in digital design, embedded systems, or high-frequency trading infrastructure who want to see how alpha survives the jump to silicon.',
       comment: 'FIGHTER PROFILE: HARDWARE LAB | LOW LATENCY',

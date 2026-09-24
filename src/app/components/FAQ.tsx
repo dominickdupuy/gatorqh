@@ -12,37 +12,37 @@ const faqItems: FaqItem[] = [
     command: 'WHO CAN PARTICIPATE?',
     prompt: 'Open to all university students.',
     answer:
-      'Gator Quant Hacks is open to all university students, including both undergraduate and graduate students. No prior experience in finance is required, but basic programming skills are recommended.',
+      'Gator Quant Hacks is open to all university students, including both undergraduate and graduate students. Students from universities across the United States are welcome. No prior experience in finance is required, but basic programming skills are recommended.',
   },
   {
     command: 'IS THE EVENT IN PERSON OR VIRTUAL?',
     prompt: 'In person only. No remote play.',
     answer:
-      'Gator Quant Hacks is a fully in-person event held on the University of Florida campus in Gainesville, FL. There is no virtual or hybrid option, so plan to be on site for the full weekend, October 2-4, 2026.',
+      'Gator Quant Hacks is a fully in-person event held at the Reitz Union on the University of Florida campus in Gainesville, FL. There is no virtual or hybrid option, so plan to be on site for the full weekend, October 2-4, 2026.',
   },
   {
     command: 'WHAT SHOULD I BRING?',
     prompt: 'Laptop, chargers, and your build energy.',
     answer:
-      "Bring your laptop, chargers, and any hardware you need. We'll provide WiFi, food, drinks, and plenty of energy drinks. Don't forget a sleeping bag or pillow if you plan to rest during the event!",
+      "Bring a photo ID (student or government), your laptop and chargers, headphones, a water bottle, a jacket, and printed resumes for Saturday's mixer with firm representatives. If you plan to stay overnight, pack toiletries and a pillow or blanket. Meals are provided all weekend.",
   },
   {
     command: 'HOW DO TEAMS WORK?',
-    prompt: 'Solo run or full squad accepted.',
+    prompt: 'No team yet? No problem.',
     answer:
-      'Teams can be 1-4 people. You can form teams before the event or during the team formation session on Day 1. Solo participants are welcome too!',
+      "You don't need a team before you arrive. Find teammates on the Discord, or stay for team formation right after opening remarks on Friday at 6:35 PM. Team-size rules will be published with the track briefs.",
   },
   {
     command: 'ARE THERE PRIZES?',
     prompt: 'Treasure vault is live.',
     answer:
-      'Yes. We have a $25,000 prize pool distributed across all three tracks, plus special prizes from sponsors. Winners also get mentorship opportunities and fast-tracked interviews.',
+      'Yes. Sponsor prizes include Databento data credits, ElevenLabs subscriptions, and MLH partner prizes from Vultr, Solana, Tiger Data, Snowflake, and Gemini. Track prizes for all three tracks will be announced soon.',
   },
   {
     command: 'WHAT KIND OF WORKSHOPS ARE OFFERED?',
     prompt: 'Power-ups from industry experts.',
     answer:
-      "We'll have workshops on machine learning for trading, risk analytics, blockchain development, and more. Industry experts will lead hands-on sessions throughout the weekend.",
+      "Friday night brings an MLH workshop on hacking with GitHub Copilot and a Webull session on its Open API and paperTrade. Saturday adds speaker talks, a sponsor workshop, an advanced technical workshop, and mini-events.",
   },
   {
     command: 'IS THERE FINANCIAL AID FOR TRAVEL?',
@@ -54,13 +54,13 @@ const faqItems: FaqItem[] = [
     command: 'WHAT TECHNOLOGIES CAN I USE?',
     prompt: 'Bring your preferred toolkit.',
     answer:
-      "Any. Popular choices include Python (pandas, scikit-learn, TensorFlow), R, JavaScript, Solidity, and various APIs. Use whatever you're most comfortable with or want to learn.",
+      "Allowed tools and data sources will be listed in each track brief. Popular choices include Python (pandas, scikit-learn), R, and sponsor data and APIs such as Databento and Webull.",
   },
   {
     command: 'HOW ARE PROJECTS JUDGED?',
     prompt: 'Boss-fight scoring rubric.',
     answer:
-      'Projects are evaluated on innovation, technical execution, practical applicability, presentation quality, and alignment with the chosen track. Judges include industry professionals and academics.',
+      'Submissions are due on Devpost by 11:00 AM Sunday, followed by live 5-minute presentations with Q&A from 1:00 to 3:00 PM. Track-specific judging criteria will be published with the track briefs.',
   },
 ];
 

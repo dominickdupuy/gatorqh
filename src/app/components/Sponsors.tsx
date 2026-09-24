@@ -91,9 +91,9 @@ export function Sponsors() {
       logoClassName: 'max-w-[94%] max-h-[84%] md:max-w-[88%] md:max-h-[78%]',
     },
     {
-      name: 'Citadel',
+      name: 'Citadel Securities',
       logo: citadelLogo,
-      href: 'https://www.citadel.com/',
+      href: 'https://www.citadelsecurities.com/',
       logoClassName: 'max-w-[94%] max-h-[84%] md:max-w-[88%] md:max-h-[78%]',
     },
     {

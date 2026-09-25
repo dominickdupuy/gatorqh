@@ -49,9 +49,9 @@ const midSponsors: Sponsor[] = [
     logoClassName: 'max-w-[76%] max-h-[58%] md:max-w-[70%] md:max-h-[52%]',
   },
   {
-    name: 'Citadel',
+    name: 'Citadel Securities',
     logo: citadelLogo,
-    href: 'https://www.citadel.com/',
+    href: 'https://www.citadelsecurities.com/',
     logoClassName: 'max-w-[86%] max-h-[76%] md:max-w-[80%] md:max-h-[70%]',
   },
 ];

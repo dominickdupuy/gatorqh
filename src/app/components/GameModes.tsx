@@ -72,8 +72,9 @@ export function GameModes() {
       systemLabel: 'FPGA BENCH | ALPHA SIGNAL',
     },
     {
-      title: 'Quantitative Puzzles & Brainteasers',
+      title: 'Quantitative Puzzles',
       tagline: 'Low barrier, high upside.',
+      sponsor: 'QuantED',
       description: 'A problem-driven track centered on probability, combinatorics, and game theory. No prior finance experience or datasets required — the most accessible entry point in the event.',
       comment: 'FIGHTER PROFILE: PUZZLE ENGINE | FAST THINKING',
       badges: ['Probability', 'Combinatorics', 'Game Theory', 'No Dataset'],
@@ -799,7 +800,7 @@ export function GameModes() {
                     >
                       SPONSORED BY{' '}
                       <span style={{ color: '#F4F4F4', fontWeight: 700 }}>
-                        {track.sponsor.toUpperCase()}
+                        {track.sponsor}
                       </span>
                     </p>
                   )}

@@ -7,6 +7,7 @@ import orangePlanet from './orangePlanet.png';
 type Track = {
   title: string;
   tagline: string;
+  sponsor?: string;
   description: string;
   comment: string;
   badges: string[];
@@ -61,6 +62,7 @@ export function GameModes() {
     {
       title: 'Hardware',
       tagline: 'Take an edge to the metal.',
+      sponsor: 'Nelms Institute',
       description: 'Participants build and demo a testable market signal on real hardware, using FPGAs to move an idea from software prototype to a low-latency implementation. Best suited for students interested in digital design, embedded systems, or high-frequency trading infrastructure who want to see how alpha survives the jump to silicon.',
       comment: 'FIGHTER PROFILE: HARDWARE LAB | LOW LATENCY',
       badges: ['FPGA', 'Hardware', 'Latency', 'Signals'],
@@ -83,6 +85,7 @@ export function GameModes() {
     {
       title: 'Systematic Trading',
       tagline: 'Optimize the full strategy.',
+      sponsor: 'Webull',
       description: 'Participants build and refine a trading strategy using historical data and quantitative modeling. Performance is evaluated through metrics such as Sharpe ratio, drawdown, and turnover. This track is geared toward students with programming experience who want to apply technical skills to a more realistic trading workflow.',
       comment: 'FIGHTER PROFILE: STRATEGY CORE | RISK-ADJUSTED RUN',
       badges: ['Sharpe Ratio', 'Drawdown', 'Turnover', 'Historical Data'],
@@ -784,6 +787,22 @@ export function GameModes() {
                   >
                     {track.title}
                   </h3>
+
+                  {track.sponsor && (
+                    <p
+                      className="mb-3 text-center text-[#8ea3c4]"
+                      style={{
+                        fontFamily: "'Space Mono', monospace",
+                        fontSize: '11px',
+                        letterSpacing: '1.4px',
+                      }}
+                    >
+                      SPONSORED BY{' '}
+                      <span style={{ color: '#F4F4F4', fontWeight: 700 }}>
+                        {track.sponsor.toUpperCase()}
+                      </span>
+                    </p>
+                  )}
 
                   <p
                     className="mb-5 text-center"

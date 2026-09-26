@@ -509,7 +509,13 @@ export function FAQ() {
                         letterSpacing: '1px',
                       }}
                     >
-                      {`team@gatorquant.com // TRANSMISSION CHANNEL OPEN`}
+                      <a
+                        href="mailto:gatorquanthacks@gmail.com"
+                        className="hover:text-[#00FFB3] hover:underline transition-colors duration-200"
+                      >
+                        gatorquanthacks@gmail.com
+                      </a>
+                      {` // TRANSMISSION CHANNEL OPEN`}
                     </p>
                   </div>
                 </div>

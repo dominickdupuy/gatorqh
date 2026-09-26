@@ -142,10 +142,10 @@ export function FAQSection() {
             Still have questions?
           </p>
           <a 
-            href="mailto:info@gatorquanthackathon.com" 
+            href="mailto:gatorquanthacks@gmail.com" 
             className="text-cyan-400 hover:text-cyan-300 font-mono transition-all hover:scale-110 inline-block relative z-10"
           >
-            info@gatorquanthackathon.com
+            gatorquanthacks@gmail.com
           </a>
         </div>
       </div>

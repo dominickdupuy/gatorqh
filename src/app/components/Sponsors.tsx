@@ -6,7 +6,6 @@ import databentoLogo from '../../assets/Databento.png';
 import elevenLabsLogo from '../../assets/ElevenLabs.png';
 import geminiLogo from '../../assets/Gemini.png';
 import iotStudentsClubLogo from '../../assets/IoTStudentsClub.png';
-import kariaaLogo from '../../assets/Kariaa.svg';
 import mlhLogo from '../../assets/MLH.png';
 import janeStreetLogo from '../../assets/jane-street.png';
 import massiveLogo from '../../assets/Massive.png';
@@ -80,12 +79,6 @@ export function Sponsors() {
       logo: iotStudentsClubLogo,
       href: 'https://iot.institute.ufl.edu/iot-students-club/',
       logoClassName: 'max-w-[62%] max-h-[88%] md:max-w-[56%] md:max-h-[82%]',
-    },
-    {
-      name: 'Kariaa',
-      logo: kariaaLogo,
-      href: 'https://www.kariaa.com',
-      logoClassName: 'max-w-[80%] max-h-[60%] md:max-w-[74%] md:max-h-[54%]',
     },
     {
       name: 'UF Mathematics',

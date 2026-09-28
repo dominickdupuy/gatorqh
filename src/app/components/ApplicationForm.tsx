@@ -426,7 +426,7 @@ const validateStep = (stepId: (typeof STEPS)[number]['id'], form: FormState): Fi
  * Flip to `false` to reopen the application form. While `true`, the `/apply`
  * route renders the closed notice and the form below is never shown.
  */
-const APPLICATIONS_CLOSED = true;
+const APPLICATIONS_CLOSED = false;
 
 export function ApplicationForm() {
   const [stepIndex, setStepIndex] = useState(0);

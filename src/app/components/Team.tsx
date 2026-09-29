@@ -7,6 +7,7 @@ import xanderPhoto from '../../assets/team/xander-robbins.jpg';
 import jaiPhoto from '../../assets/team/jai-patel.jpg';
 import christophePhoto from '../../assets/team/christophe-muracciole.jpg';
 import baderPhoto from '../../assets/team/bader-al-saloum.jpg';
+import oliverPhoto from '../../assets/team/oliver-deng.jpg';
 
 type TeamMember = {
   name: string;
@@ -68,6 +69,12 @@ const volunteers: TeamMember[] = [
     role: 'Volunteer',
     photo: baderPhoto,
     linkedin: 'https://www.linkedin.com/in/bader-al-saloum/',
+  },
+  {
+    name: 'Oliver Deng',
+    role: 'Volunteer',
+    photo: oliverPhoto,
+    linkedin: 'https://www.linkedin.com/in/oliver-deng/',
   },
 ];
 

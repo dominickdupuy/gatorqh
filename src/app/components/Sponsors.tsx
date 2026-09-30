@@ -53,16 +53,16 @@ const midSponsors: Sponsor[] = [
     href: 'https://www.citadelsecurities.com/',
     logoClassName: 'max-w-[86%] max-h-[76%] md:max-w-[80%] md:max-h-[70%]',
   },
+  {
+    name: 'Databento',
+    logo: databentoLogo,
+    href: 'https://databento.com/',
+    logoClassName: 'max-w-[94%] max-h-[84%] md:max-w-[88%] md:max-h-[78%]',
+  },
 ];
 
 export function Sponsors() {
   const sponsors: Sponsor[] = [
-    {
-      name: 'Databento',
-      logo: databentoLogo,
-      href: 'https://databento.com/',
-      logoClassName: 'max-w-[94%] max-h-[84%] md:max-w-[88%] md:max-h-[78%]',
-    },
     {
       name: 'Massive',
       logo: massiveLogo,

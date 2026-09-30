@@ -3,7 +3,7 @@
 ## Event Dates
 **October 2–4, 2026** (Friday–Sunday)
 
-- Day 1: Friday, October 2 — check-in 3:00 PM, hacking begins 6:45 PM
+- Day 1: Friday, October 2 — check-in 3:00 PM, commencement 6:30 PM, hacking begins 7:15 PM
 - Day 2: Saturday, October 3
 - Day 3: Sunday, October 4 — hacking ends 11:00 AM, closing ceremony 3:35 PM, winners announced 3:40 PM
 

@@ -24,13 +24,13 @@ const faqItems: FaqItem[] = [
     command: 'WHAT SHOULD I BRING?',
     prompt: 'Laptop, chargers, and your build energy.',
     answer:
-      "Bring a photo ID (student or government), your laptop and chargers, headphones, a water bottle, a jacket, and printed resumes for Saturday's mixer with firm representatives. If you plan to stay overnight, pack toiletries and a pillow or blanket. Meals are provided all weekend.",
+      "Bring a photo ID (student or government), your laptop and chargers, headphones, a water bottle, a jacket, and printed resumes for Saturday's Webull networking event. If you plan to stay overnight, pack toiletries and a pillow or blanket. Meals are provided all weekend.",
   },
   {
     command: 'HOW DO TEAMS WORK?',
     prompt: 'No team yet? No problem.',
     answer:
-      "You don't need a team before you arrive. Find teammates on the Discord, or stay for team formation right after opening remarks on Friday at 6:35 PM. Team-size rules will be published with the track briefs.",
+      "You don't need a team before you arrive. Find teammates on the Discord, or stay for team formation right after opening remarks on Friday at 6:58 PM. Team-size rules will be published with the track briefs.",
   },
   {
     command: 'ARE THERE PRIZES?',

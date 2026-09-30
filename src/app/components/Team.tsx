@@ -8,6 +8,7 @@ import jaiPhoto from '../../assets/team/jai-patel.jpg';
 import christophePhoto from '../../assets/team/christophe-muracciole.jpg';
 import baderPhoto from '../../assets/team/bader-al-saloum.jpg';
 import oliverPhoto from '../../assets/team/oliver-deng.jpg';
+import cristobalPhoto from '../../assets/team/cristobal-aguilera.jpg';
 
 type TeamMember = {
   name: string;
@@ -75,6 +76,12 @@ const volunteers: TeamMember[] = [
     role: 'Volunteer',
     photo: oliverPhoto,
     linkedin: 'https://www.linkedin.com/in/oliver-deng/',
+  },
+  {
+    name: 'Cristobal Aguilera',
+    role: 'Volunteer',
+    photo: cristobalPhoto,
+    linkedin: 'https://www.linkedin.com/in/cristobalaguilera14/',
   },
 ];
 
@@ -192,7 +199,7 @@ export function Team() {
           </h3>
         </Reveal>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 w-full">
           {volunteers.map((member, index) => (
             <Reveal key={member.name} delay={index * 110}>
               <MemberCard member={member} />

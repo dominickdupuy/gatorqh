@@ -68,7 +68,8 @@ const days: ScheduleDay[] = [
     sectorGlow: 'rgba(51,209,122,0.18)',
     events: [
       { time: '08:30 AM', title: 'Breakfast Served', subtitle: 'Turlington Hall, until 9:30 AM', type: 'standard' },
-      { time: '11:00 AM', title: 'Hacking Ends', subtitle: 'All submissions due on Devpost', type: 'key' },
+      { time: '09:00 AM', title: 'Quant Puzzles Hacking Ends', subtitle: 'Quantitative Puzzles & Brainteasers submissions close', type: 'key' },
+      { time: '11:00 AM', title: 'Hacking Ends', subtitle: 'All other submissions due on Devpost', type: 'key' },
       { time: '12:00 PM', title: 'Lunch Served', subtitle: 'Turlington Hall, until 1:00 PM', type: 'standard' },
       { time: '01:00 PM', title: 'Expo & Judging Begins', subtitle: 'Matthews Suite · live presentations: 5 minutes + Q&A', type: 'standard' },
       { time: '03:00 PM', title: 'Judging Closes', subtitle: 'Expo concludes', type: 'standard' },

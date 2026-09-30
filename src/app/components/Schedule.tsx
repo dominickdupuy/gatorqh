@@ -35,7 +35,7 @@ const days: ScheduleDay[] = [
       { time: '07:15 PM', title: 'Hacking Begins', subtitle: 'Data and API access released', type: 'key' },
       { time: '07:45 PM', title: 'Dinner Served', subtitle: 'Turlington Hall, until 8:30 PM', type: 'standard' },
       { time: '08:00 PM', title: 'Webull Workshop', subtitle: 'Open API & paperTrade · Reitz Room 2365', type: 'support' },
-      { time: '10:00 PM', title: 'Overnight Hacking', subtitle: 'AC Hotel · continues through Saturday morning', type: 'standard' },
+      { time: '10:00 PM', title: 'Overnight Hacking', subtitle: 'AC Hotel conference rooms (open 24/7) · continues through Saturday morning', type: 'standard' },
     ],
   },
   {
@@ -56,8 +56,8 @@ const days: ScheduleDay[] = [
       { time: '05:00 PM', title: 'Track Check-ins', subtitle: 'Grand Ballroom · sign up for a Sunday presentation slot', type: 'standard' },
       { time: '07:30 PM', title: 'Dinner Served', subtitle: 'Turlington Hall, until 8:15 PM', type: 'standard' },
       { time: '08:30 PM', title: 'MLH Mini-Event', subtitle: 'Grand Ballroom · interactive challenge from Major League Hacking', type: 'support' },
-      { time: '10:00 PM', title: 'Overnight Hacking', subtitle: 'AC Hotel · continues through Sunday morning', type: 'standard' },
-      { time: '12:00 AM', title: 'Midnight Snack', subtitle: 'AC Hotel', type: 'standard' },
+      { time: '10:00 PM', title: 'Overnight Hacking', subtitle: 'AC Hotel conference rooms (open 24/7) · continues through Sunday morning', type: 'standard' },
+      { time: '12:00 AM', title: 'Midnight Snack', subtitle: 'AC Hotel conference rooms', type: 'standard' },
     ],
   },
   {

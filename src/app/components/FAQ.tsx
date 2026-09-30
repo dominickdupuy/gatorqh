@@ -24,7 +24,7 @@ const faqItems: FaqItem[] = [
     command: 'WHAT SHOULD I BRING?',
     prompt: 'Laptop, chargers, and your build energy.',
     answer:
-      "Bring a photo ID (student or government), your laptop and chargers, headphones, a water bottle, a jacket, and printed resumes for Saturday's Webull networking event. If you plan to stay overnight, pack toiletries and a pillow or blanket. Meals are provided all weekend.",
+      "Bring a photo ID (student or government), your laptop and chargers, headphones, a water bottle, a jacket, and printed resumes for Saturday's Webull networking event. The AC Hotel conference rooms are open 24/7 for hacking; if you want to sleep, stay with a friendly Gator or book a nearby hotel room. Meals are provided all weekend.",
   },
   {
     command: 'HOW DO TEAMS WORK?',

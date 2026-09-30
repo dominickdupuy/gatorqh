@@ -36,7 +36,7 @@ const faqItems: FaqItem[] = [
     command: 'ARE THERE PRIZES?',
     prompt: 'Treasure vault is live.',
     answer:
-      'Yes. Sponsor prizes include Databento data credits, ElevenLabs subscriptions, and MLH partner prizes from Vultr, Solana, Tiger Data, Snowflake, and Gemini. Track prizes for all three tracks will be announced soon.',
+      'Yes. Sponsor prizes include Databento data credits, ElevenLabs subscriptions, and MLH partner prizes from Vultr, Solana, Tiger Data, Snowflake, and Gemini. Track prizes are one per team member: Systematic Trading 1st place wins an Acer Nitro 34\" curved monitor plus 3 months of ElevenLabs Pro, and 2nd a Samsung Galaxy Watch8; Quantitative Puzzles 1st wins a Logitech MX Master 3S, and 2nd Beats Studio Buds +; Hardware 1st wins a Beats Pill speaker plus 3 months of Apple Music.',
   },
   {
     command: 'WHAT KIND OF WORKSHOPS ARE OFFERED?',

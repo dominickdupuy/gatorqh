@@ -10,6 +10,10 @@ import baderPhoto from '../../assets/team/bader-al-saloum.jpg';
 import oliverPhoto from '../../assets/team/oliver-deng.jpg';
 import cristobalPhoto from '../../assets/team/cristobal-aguilera.jpg';
 import sebastianPhoto from '../../assets/team/sebastian-luscher.jpg';
+import ericPhoto from '../../assets/team/eric-schwarz.jpg';
+import andriaPhoto from '../../assets/team/andria-gonzalez-lopez.jpg';
+import saludPhoto from '../../assets/team/salud-avila.jpg';
+import alejandroPhoto from '../../assets/team/alejandro-pose-santana.jpg';
 
 type TeamMember = {
   name: string;
@@ -50,6 +54,34 @@ const team: TeamMember[] = [
     photo: kenziePhoto,
     linkedin: 'https://www.linkedin.com/in/kenzie-kemerson-b2529731b/',
     objectPosition: 'center 15%',
+  },
+];
+
+const judges: TeamMember[] = [
+  {
+    name: 'Eric Schwarz',
+    role: 'Judge',
+    photo: ericPhoto,
+    linkedin: 'https://www.linkedin.com/in/eric-a-schwarz/',
+    objectPosition: 'center 20%',
+  },
+  {
+    name: 'Andria Gonzalez Lopez',
+    role: 'Judge',
+    photo: andriaPhoto,
+    linkedin: 'https://www.linkedin.com/in/andria-gonzalez-lopez-79713b21b/',
+  },
+  {
+    name: 'Salud Avila',
+    role: 'Judge',
+    photo: saludPhoto,
+    linkedin: 'https://www.linkedin.com/in/saludavila/',
+  },
+  {
+    name: 'Alejandro Pose Santana',
+    role: 'Judge',
+    photo: alejandroPhoto,
+    linkedin: 'https://www.linkedin.com/in/alejandro-pose-santana-019452268/',
   },
 ];
 
@@ -187,6 +219,27 @@ export function Team() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
           {team.map((member, index) => (
+            <Reveal key={member.name} delay={index * 110}>
+              <MemberCard member={member} />
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal className="mb-8 mt-16 text-center md:mt-20">
+          <h3
+            className="text-white text-center"
+            style={{
+              fontFamily: "'Orbitron', sans-serif",
+              fontSize: 'clamp(10px, 2vw, 16px)',
+              lineHeight: 1.7,
+            }}
+          >
+            JUDGES
+          </h3>
+        </Reveal>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 w-full">
+          {judges.map((member, index) => (
             <Reveal key={member.name} delay={index * 110}>
               <MemberCard member={member} />
             </Reveal>

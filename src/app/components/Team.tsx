@@ -9,6 +9,7 @@ import christophePhoto from '../../assets/team/christophe-muracciole.jpg';
 import baderPhoto from '../../assets/team/bader-al-saloum.jpg';
 import oliverPhoto from '../../assets/team/oliver-deng.jpg';
 import cristobalPhoto from '../../assets/team/cristobal-aguilera.jpg';
+import sebastianPhoto from '../../assets/team/sebastian-luscher.jpg';
 
 type TeamMember = {
   name: string;
@@ -82,6 +83,12 @@ const volunteers: TeamMember[] = [
     role: 'Volunteer',
     photo: cristobalPhoto,
     linkedin: 'https://www.linkedin.com/in/cristobalaguilera14/',
+  },
+  {
+    name: 'Sebastian Luscher',
+    role: 'Volunteer',
+    photo: sebastianPhoto,
+    linkedin: 'https://www.linkedin.com/in/sebastianluscher/',
   },
 ];
 

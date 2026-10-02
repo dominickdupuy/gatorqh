@@ -15,6 +15,8 @@ import andriaPhoto from '../../assets/team/andria-gonzalez-lopez.jpg';
 import saludPhoto from '../../assets/team/salud-avila.jpg';
 import alejandroPhoto from '../../assets/team/alejandro-pose-santana.jpg';
 import nicolasPhoto from '../../assets/team/nicolas-murguia.jpg';
+import loganPhoto from '../../assets/team/logan-dapp.jpg';
+import tasminPhoto from '../../assets/team/tasmin-alam.jpg';
 
 type TeamMember = {
   name: string;
@@ -37,12 +39,15 @@ const team: TeamMember[] = [
     role: 'Co-Founder',
     photo: annaClairePhoto,
     linkedin: 'https://www.linkedin.com/in/anna-claire-skipper/',
+    objectPosition: '42% 30%',
+    zoom: 1.4,
   },
   {
     name: 'Xander Robbins',
     role: 'Vice President',
     photo: xanderPhoto,
     linkedin: 'https://www.linkedin.com/in/xander-robbins/',
+    objectPosition: 'center 10%',
   },
   {
     name: 'Alice Krupitsky',
@@ -55,7 +60,8 @@ const team: TeamMember[] = [
     role: 'Digital Designer & Photographer',
     photo: kenziePhoto,
     linkedin: 'https://www.linkedin.com/in/kenzie-kemerson-b2529731b/',
-    objectPosition: 'center 15%',
+    objectPosition: 'center 38%',
+    zoom: 1.3,
   },
 ];
 
@@ -91,6 +97,12 @@ const judges: TeamMember[] = [
     role: 'Judge',
     photo: nicolasPhoto,
     linkedin: 'https://www.linkedin.com/in/nicolasmurguia/',
+  },
+  {
+    name: 'Logan Dapp',
+    role: 'Judge',
+    photo: loganPhoto,
+    linkedin: 'https://www.linkedin.com/in/logandapp/',
   },
 ];
 
@@ -130,6 +142,12 @@ const volunteers: TeamMember[] = [
     role: 'Volunteer',
     photo: sebastianPhoto,
     linkedin: 'https://www.linkedin.com/in/sebastianluscher/',
+  },
+  {
+    name: 'Tasmin Alam',
+    role: 'Volunteer',
+    photo: tasminPhoto,
+    linkedin: 'https://www.linkedin.com/in/tasmin-alam-0790b1349/',
   },
 ];
 

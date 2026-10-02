@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Reveal } from './Reveal';
 import { CygnusSparks, EmberOrbit, GaiaRings, GaiaSphere } from './PlanetField';
-import bluePlanet from './bluePlanet.png';
-import orangePlanet from './orangePlanet.png';
+import bluePlanet from './bluePlanet.webp';
+import orangePlanet from './orangePlanet.webp';
 
 type Track = {
   title: string;
@@ -15,7 +15,11 @@ type Track = {
   planetType: 'algorithm' | 'analysis' | 'risk';
   callSign: string;
   systemLabel: string;
+  // Tracks with a full briefing page open it on click instead of just locking in.
+  briefing?: TrackBriefing;
 };
+
+type TrackBriefing = 'quant-track' | 'hardware-track' | 'systematic-track';
 
 // Each track flies the same planet that appears in the hero field, so a
 // visitor recognizes Ember/Cygnus/Gaia as the same "world" throughout the site.
@@ -40,7 +44,7 @@ function TrackPlanet({ type }: { type: Track['planetType'] }) {
       {type === 'risk' && <GaiaRings half="far" />}
 
       {image ? (
-        <img src={image} alt="" className="track-planet__img" />
+        <img src={image} alt="" className="track-planet__img" loading="lazy" decoding="async" />
       ) : (
         <GaiaSphere className="track-planet__sphere" />
       )}
@@ -57,19 +61,20 @@ function TrackPlanet({ type }: { type: Track['planetType'] }) {
   );
 }
 
-export function GameModes() {
+export function GameModes({ onOpenTrack }: { onOpenTrack?: (briefing: TrackBriefing) => void } = {}) {
   const tracks: Track[] = [
     {
-      title: 'Hardware',
-      tagline: 'Take an edge to the metal.',
+      title: 'FPGA Hardware Trading',
+      tagline: 'Trade at the speed of silicon.',
       sponsor: 'Warren B. Nelms Institute',
-      description: 'Participants build and demo a testable market signal on real hardware, using FPGAs to move an idea from software prototype to a low-latency implementation. Best suited for students interested in digital design, embedded systems, or high-frequency trading infrastructure who want to see how alpha survives the jump to silicon.',
-      comment: 'FIGHTER PROFILE: HARDWARE LAB | LOW LATENCY',
-      badges: ['FPGA', 'Hardware', 'Latency', 'Signals'],
+      description: 'Teams borrow a Tang Nano 20K FPGA and build a trading core in VHDL. It reads price packets over UART, tracks a 16-price moving average for each item, and answers BUY, SELL or NONE. Judges score correctness, reliability, protocol conformance and latency. Suited to students interested in digital design, embedded systems or low-latency trading.',
+      comment: 'FIGHTER PROFILE: SILICON CORE | LOW LATENCY',
+      badges: ['FPGA', 'VHDL', 'UART', 'Low Latency'],
       accentColor: '#FA4616',
       planetType: 'algorithm',
       callSign: 'SILICON',
-      systemLabel: 'FPGA BENCH | ALPHA SIGNAL',
+      systemLabel: 'TANG NANO 20K | 115200 BAUD',
+      briefing: 'hardware-track',
     },
     {
       title: 'Quantitative Puzzles',
@@ -82,6 +87,7 @@ export function GameModes() {
       planetType: 'analysis',
       callSign: 'RIDDLE',
       systemLabel: 'LOGIC LOOPS | OPEN ENTRY',
+      briefing: 'quant-track',
     },
     {
       title: 'Systematic Trading',
@@ -94,6 +100,7 @@ export function GameModes() {
       planetType: 'risk',
       callSign: 'VECTOR',
       systemLabel: 'BACKTEST LOOP | EXECUTION STACK',
+      briefing: 'systematic-track',
     },
   ];
   const [focusedTrackIndex, setFocusedTrackIndex] = useState(0);
@@ -256,12 +263,14 @@ export function GameModes() {
           animation-duration: 1.6s !important;
         }
 
-        .group:hover .planet__asteroid,
-        .ship-active .planet__asteroid {
+        .group:hover .planet__asteroid-track,
+        .ship-active .planet__asteroid-track {
           animation-duration: 9s !important;
         }
 
         .group:hover .planet__moon,
+        .group:hover .planet__moon-size,
+        .ship-active .planet__moon-size,
         .ship-active .planet__moon {
           animation-duration: 2.6s !important;
         }
@@ -588,6 +597,50 @@ export function GameModes() {
           box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
         }
 
+        .craft-briefing {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-top: 1.25rem;
+          padding: 0.7rem 0.85rem;
+          border: 1px solid #2c6dac;
+          background: linear-gradient(90deg, rgba(4, 74, 148, 0.35), rgba(4, 74, 148, 0.08));
+          font-family: 'Space Mono', monospace;
+          font-size: 12px;
+          font-weight: 700;
+          letter-spacing: 1.2px;
+          color: #9cc9ff;
+          transition: border-color 200ms ease, color 200ms ease, box-shadow 200ms ease;
+        }
+
+        .craft-briefing__label {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.55rem;
+        }
+
+        .craft-briefing__dot {
+          width: 7px;
+          height: 7px;
+          background: #63f6ff;
+          box-shadow: 0 0 8px #63f6ff;
+          animation: blink 1s step-end infinite;
+        }
+
+        .craft-briefing__arrow {
+          transition: transform 200ms ease;
+        }
+
+        .group:hover .craft-briefing {
+          border-color: #63f6ff;
+          color: #ffffff;
+          box-shadow: 0 0 18px rgba(99, 246, 255, 0.22);
+        }
+
+        .group:hover .craft-briefing__arrow {
+          transform: translateX(4px);
+        }
+
         @media (max-width: 767px) {
           .craft-title span {
             letter-spacing: 3px;
@@ -708,6 +761,7 @@ export function GameModes() {
                 onClick={() => {
                   setFocusedTrackIndex(index);
                   setSelectedTrackIndex(index);
+                  if (track.briefing) onOpenTrack?.(track.briefing);
                 }}
                 onFocus={() => setFocusedTrackIndex(index)}
                 onKeyDown={(event) => {
@@ -715,6 +769,7 @@ export function GameModes() {
                     event.preventDefault();
                     setFocusedTrackIndex(index);
                     setSelectedTrackIndex(index);
+                    if (track.briefing) onOpenTrack?.(track.briefing);
                   }
                 }}
                 role="button"
@@ -877,7 +932,7 @@ export function GameModes() {
                     {track.comment}
                   </p>
 
-                  <div className="mt-auto flex flex-wrap gap-2">
+                  <div className={`${track.briefing ? '' : 'mt-auto '}flex flex-wrap gap-2`}>
                     {track.badges.map((badge, badgeIndex) => (
                       <span
                         key={badgeIndex}
@@ -894,6 +949,18 @@ export function GameModes() {
                       </span>
                     ))}
                   </div>
+
+                  {track.briefing && (
+                    <div className="craft-briefing mt-auto">
+                      <span className="craft-briefing__label">
+                        <span className="craft-briefing__dot" />
+                        OPEN MISSION BRIEF
+                      </span>
+                      <span className="craft-briefing__arrow" aria-hidden="true">
+                        -&gt;
+                      </span>
+                    </div>
+                  )}
                 </div>
               </article>
               </Reveal>

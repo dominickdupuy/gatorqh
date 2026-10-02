@@ -1,7 +1,10 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+
+// The shatter is plain CSS (`shatter-*` rules in styles/index.css). This was the
+// only framer-motion user on the site, and that library was roughly a third of
+// the home page's JavaScript.
 
 export interface ShatterButtonProps {
   children: ReactNode;
@@ -15,8 +18,6 @@ export interface ShatterButtonProps {
 
 interface Shard {
   id: number;
-  x: number;
-  y: number;
   rotation: number;
   velocityX: number;
   velocityY: number;
@@ -54,8 +55,6 @@ export function ShatterButton({
       const velocity = 100 + Math.random() * 200;
       newShards.push({
         id: index,
-        x: 0,
-        y: 0,
         rotation: Math.random() * 720 - 360,
         velocityX: Math.cos(angle) * velocity,
         velocityY: Math.sin(angle) * velocity,
@@ -82,16 +81,9 @@ export function ShatterButton({
 
   return (
     <div className={`relative ${containerClassName}`.trim()}>
-      <motion.button
-        className={`relative overflow-hidden rounded-xl px-8 py-4 font-semibold focus:outline-none focus-visible:outline-none ${className}`.trim()}
+      <button
+        className={`shatter-btn relative overflow-hidden rounded-xl px-8 py-4 font-semibold focus:outline-none focus-visible:outline-none ${isShattered ? 'shatter-btn--shattered' : ''} ${className}`.trim()}
         onClick={handleClick}
-        animate={{
-          scale: isShattered ? 0 : 1,
-          opacity: isShattered ? 0 : 1,
-        }}
-        transition={{ duration: 0.15 }}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
         style={{
           background: `linear-gradient(135deg, ${shatterColor}22 0%, ${shatterColor}44 100%)`,
           border: `1px solid ${shatterColor}66`,
@@ -101,68 +93,43 @@ export function ShatterButton({
           ...style,
         }}
       >
-        <motion.div
-          className="absolute inset-0 opacity-0"
-          whileHover={{ opacity: 1 }}
+        <div
+          className="shatter-btn__glow absolute inset-0"
           style={{
             background: `radial-gradient(circle at center, ${shatterColor}33 0%, transparent 70%)`,
           }}
         />
         <div className="relative z-10 w-full">{children}</div>
-      </motion.button>
+      </button>
 
-      <AnimatePresence>
-        {shards.map((shard) => (
-          <motion.div
-            key={shard.id}
-            className="pointer-events-none absolute"
-            initial={{
-              x: shard.x,
-              y: shard.y,
-              rotate: 0,
-              opacity: 1,
-              scale: 1,
-            }}
-            animate={{
-              x: shard.velocityX,
-              y: shard.velocityY,
-              rotate: shard.rotation,
-              opacity: 0,
-              scale: 0.5,
-            }}
-            exit={{ opacity: 0 }}
-            transition={{
-              duration: 0.8,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-            style={{
-              left: '50%',
-              top: '50%',
-              width: shard.size,
-              height: shard.size,
-              background: shatterColor,
-              boxShadow: `0 0 10px ${shatterColor}, 0 0 20px ${shatterColor}`,
-              clipPath: shard.clipPath,
-            }}
-          />
-        ))}
-      </AnimatePresence>
+      {shards.map((shard) => (
+        <div
+          key={shard.id}
+          className="shatter-shard pointer-events-none absolute"
+          style={{
+            left: '50%',
+            top: '50%',
+            width: shard.size,
+            height: shard.size,
+            background: shatterColor,
+            boxShadow: `0 0 10px ${shatterColor}, 0 0 20px ${shatterColor}`,
+            clipPath: shard.clipPath,
+            ['--shard-x' as string]: `${shard.velocityX}px`,
+            ['--shard-y' as string]: `${shard.velocityY}px`,
+            ['--shard-rotate' as string]: `${shard.rotation}deg`,
+          }}
+        />
+      ))}
 
-      <AnimatePresence>
-        {isShattered && (
-          <motion.div
-            className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
-            initial={{ width: 0, height: 0, opacity: 1 }}
-            animate={{ width: 300, height: 300, opacity: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
-            style={{
-              border: `2px solid ${shatterColor}`,
-              boxShadow: `0 0 30px ${shatterColor}`,
-            }}
-          />
-        )}
-      </AnimatePresence>
+      {isShattered && (
+        <div
+          className="shatter-ring pointer-events-none absolute left-1/2 top-1/2 rounded-full"
+          style={{
+            border: `2px solid ${shatterColor}`,
+            boxShadow: `0 0 30px ${shatterColor}`,
+          }}
+        />
+      )}
     </div>
   );
 }

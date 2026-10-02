@@ -1,4 +1,3 @@
-@import './fonts.css';
 @import './tailwind.css';
 @import './theme.css';
 
@@ -31,23 +30,13 @@
   }
 }
 
-@keyframes section-drift {
-  0%,
-  100% {
-    transform: translateY(0px);
+/* Hero starfield layers (components/ui/stars.tsx). */
+@keyframes star-layer-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
   }
-  50% {
-    transform: translateY(-6px);
-  }
-}
-
-@keyframes glow-breathe {
-  0%,
-  100% {
-    filter: drop-shadow(0 0 0 rgba(4, 74, 148, 0.18));
-  }
-  50% {
-    filter: drop-shadow(0 0 18px rgba(4, 74, 148, 0.34));
+  to {
+    transform: translate3d(0, -2000px, 0);
   }
 }
 
@@ -1227,21 +1216,6 @@ body {
   }
 }
 
-.site-section {
-  animation: section-drift 16s ease-in-out infinite;
-  will-change: transform;
-}
-
-.site-section:nth-of-type(2n) {
-  animation-duration: 20s;
-  animation-delay: -4s;
-}
-
-.site-section:nth-of-type(3n) {
-  animation-duration: 22s;
-  animation-delay: -7s;
-}
-
 .hero-marquee__track {
   display: inline-block;
   min-width: 200%;
@@ -1273,7 +1247,9 @@ h1,
 h2,
 [class*='text-[#044a94]'],
 [class*='text-[#FA4616]'] {
-  animation: glow-breathe 5s ease-in-out infinite;
+  /* A static glow. Animating filter here repainted every heading and nav link
+     on every frame, site-wide. */
+  filter: drop-shadow(0 0 9px rgba(4, 74, 148, 0.26));
 }
 
 .console-card {
@@ -1398,7 +1374,6 @@ h2,
   transition:
     opacity 640ms cubic-bezier(0.16, 1, 0.3, 1),
     transform 640ms cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
 }
 
 .reveal--visible {
@@ -1413,18 +1388,117 @@ h2,
     transition: none;
   }
 
-  .site-section,
+  [data-slot='star-layer'],
   .site-ambience__stars,
   .site-ambience__grid,
   .site-ambience__noise,
   .site-shell::before,
-  .site-shell::after,
-  h1,
-  h2,
-  [class*='text-[#044a94]'],
-  [class*='text-[#FA4616]'] {
+  .site-shell::after {
     animation: none !important;
   }
+}
+
+/* Low-power mode (app/performance.ts): weak machines keep the look but lose
+   the always-on background motion. The aurora blobs go entirely, since a 90px
+   blur is expensive on integrated graphics even when it isn't moving. */
+html.low-power [data-slot='star-layer'],
+html.low-power .site-ambience__stars,
+html.low-power .site-ambience__grid,
+html.low-power .site-ambience__noise {
+  animation: none !important;
+}
+
+html.low-power .site-shell::before,
+html.low-power .site-shell::after {
+  display: none;
+}
+
+/* A full-viewport blend layer and a frosted nav both make the GPU redo work on
+   every scroll frame; at 10% opacity the noise is barely visible anyway. */
+html.low-power .site-ambience__noise {
+  display: none;
+}
+
+html.low-power .backdrop-blur-sm {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+/* Decorative loops elsewhere on the home page. The footer's asteroid field is
+   a 140vmax square spinning forever, which on a phone is a texture several
+   thousand pixels across. Paused rather than removed, so everything stays
+   where it was drawn. */
+html.low-power .planet-field,
+html.low-power .planet-field *,
+html.low-power .hero-scanline,
+html.low-power .game-modes-scanline::after,
+html.low-power .faq-terminal-glow,
+html.low-power .footer-cta-asteroids {
+  animation-play-state: paused !important;
+}
+
+/* ShatterButton (components/ui/shatter-button.tsx). These replace the shared
+   `translateY(-2px)` hover lift, as framer-motion's inline transform did. */
+button.shatter-btn {
+  transition:
+    transform 150ms ease,
+    box-shadow 220ms ease,
+    filter 220ms ease,
+    opacity 150ms ease;
+}
+
+button.shatter-btn:hover {
+  transform: scale(1.05);
+}
+
+button.shatter-btn:active {
+  transform: scale(0.95);
+}
+
+button.shatter-btn.shatter-btn--shattered {
+  transform: scale(0);
+  opacity: 0;
+}
+
+.shatter-btn__glow {
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+
+.shatter-btn:hover .shatter-btn__glow {
+  opacity: 1;
+}
+
+@keyframes shatter-shard-fly {
+  from {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translate3d(var(--shard-x), var(--shard-y), 0) rotate(var(--shard-rotate)) scale(0.5);
+    opacity: 0;
+  }
+}
+
+.shatter-shard {
+  animation: shatter-shard-fly 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes shatter-ring-grow {
+  from {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 1;
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+  }
+}
+
+.shatter-ring {
+  width: 300px;
+  height: 300px;
+  animation: shatter-ring-grow 600ms ease-out forwards;
 }
 
 /* Custom scrollbar for modern browsers */

@@ -1,21 +1,16 @@
 "use client";
 
 import * as React from "react";
-import {
-  type HTMLMotionProps,
-  motion,
-  type SpringOptions,
-  type Transition,
-  useMotionValue,
-  useSpring,
-} from "motion/react";
 
-import { cn } from "@/components/ui/utils";
+// Each layer is a tile of box-shadow stars scrolled by a CSS transform
+// animation (`star-layer-scroll` in styles/index.css), so the compositor moves
+// an already-painted layer. The previous motion/react version drove the same
+// scroll from JavaScript on every frame, forever.
 
-type StarLayerProps = HTMLMotionProps<"div"> & {
+type StarLayerProps = React.ComponentProps<"div"> & {
   count: number;
   size: number;
-  transition: Transition;
+  duration: number;
   starColor: string;
 };
 
@@ -29,52 +24,28 @@ function generateStars(count: number, starColor: string) {
   return shadows.join(", ");
 }
 
-function StarLayer({
-  count = 1000,
-  size = 1,
-  transition = { repeat: Infinity, duration: 50, ease: "linear" },
-  starColor = "#fff",
-  className,
-  ...props
-}: StarLayerProps) {
-  const [boxShadow, setBoxShadow] = React.useState<string>("");
-
-  React.useEffect(() => {
-    setBoxShadow(generateStars(count, starColor));
-  }, [count, starColor]);
+function StarLayer({ count, size, duration, starColor, className, style, ...props }: StarLayerProps) {
+  const boxShadow = React.useMemo(() => generateStars(count, starColor), [count, starColor]);
 
   return (
-    <motion.div
+    <div
       data-slot="star-layer"
-      animate={{ y: [0, -2000] }}
-      transition={transition}
-      className={cn("absolute left-0 top-0 h-[2000px] w-full", className)}
+      className={`absolute left-0 top-0 h-[2000px] w-full ${className ?? ""}`}
+      style={{ animation: `star-layer-scroll ${duration}s linear infinite`, ...style }}
       {...props}
     >
-      <div
-        className="absolute bg-transparent"
-        style={{
-          width: `${size}px`,
-          height: `${size}px`,
-          boxShadow,
-        }}
-      />
+      <div className="absolute bg-transparent" style={{ width: `${size}px`, height: `${size}px`, boxShadow }} />
       <div
         className="absolute top-[2000px] bg-transparent"
-        style={{
-          width: `${size}px`,
-          height: `${size}px`,
-          boxShadow,
-        }}
+        style={{ width: `${size}px`, height: `${size}px`, boxShadow }}
       />
-    </motion.div>
+    </div>
   );
 }
 
 type StarsBackgroundProps = React.ComponentProps<"div"> & {
   factor?: number;
   speed?: number;
-  transition?: SpringOptions;
   starColor?: string;
 };
 
@@ -83,66 +54,38 @@ export function StarsBackground({
   className,
   factor = 0.05,
   speed = 50,
-  transition = { stiffness: 50, damping: 20 },
   starColor = "#fff",
   ...props
 }: StarsBackgroundProps) {
-  const offsetX = useMotionValue(1);
-  const offsetY = useMotionValue(1);
+  const parallaxRef = React.useRef<HTMLDivElement>(null);
 
-  const springX = useSpring(offsetX, transition);
-  const springY = useSpring(offsetY, transition);
-
+  // Parallax eases toward the pointer with a CSS transition rather than a
+  // per-frame spring.
   const handleMouseMove = React.useCallback(
     (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-      const centerX = window.innerWidth / 2;
-      const centerY = window.innerHeight / 2;
-      const newOffsetX = -(event.clientX - centerX) * factor;
-      const newOffsetY = -(event.clientY - centerY) * factor;
-      offsetX.set(newOffsetX);
-      offsetY.set(newOffsetY);
+      const node = parallaxRef.current;
+      if (!node) return;
+      const x = -(event.clientX - window.innerWidth / 2) * factor;
+      const y = -(event.clientY - window.innerHeight / 2) * factor;
+      node.style.transform = `translate3d(${x}px, ${y}px, 0)`;
     },
-    [offsetX, offsetY, factor],
+    [factor],
   );
 
+  // A caller's className replaces the default position and background
+  // outright, so there's no need for a class-merging library here.
   return (
     <div
       data-slot="stars-background"
-      className={cn(
-        "relative size-full overflow-hidden bg-[radial-gradient(ellipse_at_bottom,_#262626_0%,_#000_100%)]",
-        className,
-      )}
+      className={`size-full overflow-hidden ${className ?? "relative bg-[radial-gradient(ellipse_at_bottom,_#262626_0%,_#000_100%)]"}`}
       onMouseMove={handleMouseMove}
       {...props}
     >
-      <motion.div style={{ x: springX, y: springY }}>
-        <StarLayer
-          count={1000}
-          size={1}
-          transition={{ repeat: Infinity, duration: speed, ease: "linear" }}
-          starColor={starColor}
-        />
-        <StarLayer
-          count={400}
-          size={2}
-          transition={{
-            repeat: Infinity,
-            duration: speed * 2,
-            ease: "linear",
-          }}
-          starColor={starColor}
-        />
-        <StarLayer
-          count={200}
-          size={3}
-          transition={{
-            repeat: Infinity,
-            duration: speed * 3,
-            ease: "linear",
-          }}
-          starColor={starColor}
-        />
-      </motion.div>
+      <div ref={parallaxRef} className="transition-transform duration-700 ease-out">
+        <StarLayer count={1000} size={1} duration={speed} starColor={starColor} />
+        <StarLayer count={400} size={2} duration={speed * 2} starColor={starColor} />
+        <StarLayer count={200} size={3} duration={speed * 3} starColor={starColor} />
+      </div>
       {children}
     </div>
   );

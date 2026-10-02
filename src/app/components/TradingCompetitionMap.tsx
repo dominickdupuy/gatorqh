@@ -72,10 +72,13 @@ const CSS = `
 .tcm .home .lbl2{font-family:"Orbitron",sans-serif;font-weight:700;font-size:30px;letter-spacing:1.5px;
   fill:var(--tcm-red);text-transform:uppercase}
 .tcm .home .leader{stroke:#8a3a34}
-.tcm .ring{fill:none;stroke:rgba(255,59,48,.5);stroke-width:1.5;stroke-dasharray:3 5;
-  transform-box:fill-box;transform-origin:center;animation:tcm-spin 14s linear infinite}
-@keyframes tcm-spin{to{transform:rotate(360deg)}}
-@media (prefers-reduced-motion:reduce){.tcm .ring{animation:none}}
+.tcm .ring{fill:none;stroke:rgba(255,59,48,.5);stroke-width:1.5;stroke-dasharray:3 5}
+.tcm-stage{position:relative}
+.tcm-ring{position:absolute;aspect-ratio:1;pointer-events:none;
+  transform:translate(-50%,-50%);animation:tcm-spin 14s linear infinite}
+.tcm-ring svg{overflow:visible}
+@keyframes tcm-spin{from{transform:translate(-50%,-50%) rotate(0deg)}to{transform:translate(-50%,-50%) rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.tcm-ring{animation:none}}
 `;
 
 type Geometry3 = {
@@ -198,6 +201,7 @@ export default function TradingCompetitionMap({
       <style>{CSS}</style>
       <div className="tcm-inner">
         <h2 className="tcm-title">First Quant Competition in the Southeast</h2>
+        <div className="tcm-stage">
         <svg
           viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
           role="img"
@@ -224,7 +228,6 @@ export default function TradingCompetitionMap({
             <g key={city.id} className={city.home ? 'home' : undefined}>
               {geom.leader && <path className="leader" d={geom.leader} />}
               <circle className="halo" cx={geom.x} cy={geom.y} r={geom.rad + 9} />
-              {city.home && <circle className="ring" cx={geom.x} cy={geom.y} r={geom.rad + 15} />}
               <circle className="disc" cx={geom.x} cy={geom.y} r={geom.rad} />
 
               {geom.big ? (
@@ -245,6 +248,32 @@ export default function TradingCompetitionMap({
             </g>
           ))}
         </svg>
+        {/* The home city's spinning ring sits on its own layer over the map.
+            Rotating it inside the map's SVG repainted every state path on
+            every frame. */}
+        {marks
+          .filter(({ city }) => city.home)
+          .map(({ city, geom }) => {
+            const r = geom.rad + 15;
+            const box = 2 * r + 2;
+            return (
+              <span
+                key={city.id}
+                className="tcm-ring"
+                aria-hidden="true"
+                style={{
+                  left: `${(geom.x / VIEW_W) * 100}%`,
+                  top: `${(geom.y / VIEW_H) * 100}%`,
+                  width: `${(box / VIEW_W) * 100}%`,
+                }}
+              >
+                <svg viewBox={`0 0 ${box} ${box}`}>
+                  <circle className="ring" cx={box / 2} cy={box / 2} r={r} />
+                </svg>
+              </span>
+            );
+          })}
+        </div>
       </div>
     </figure>
   );

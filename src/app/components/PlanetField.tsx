@@ -1,6 +1,7 @@
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
-import bluePlanet from './bluePlanet.png';
-import orangePlanet from './orangePlanet.png';
+import bluePlanet from './bluePlanet.webp';
+import orangePlanet from './orangePlanet.webp';
+import { isLowPower } from '../performance';
 
 type PlanetId = 'cygnus' | 'ember' | 'gaia';
 
@@ -71,11 +72,16 @@ const ORBIT_RADIUS_X = 104;
 const ORBIT_RADIUS_Y = 28;
 const ORBIT_DURATION = '7.5s';
 // Depth is sold with three whole-pixel sprite sizes rather than a fractional
-// scale(), which would resample the sprite and soften its edges.
+// scale(), which would resample the sprite and soften its edges. Each size is
+// its own sprite riding the same carrier; stepped opacity shows the one for the
+// current depth. The carrier moves by transform and the sizes switch by
+// opacity, so the orbit runs on the compositor — keyframing width, height and
+// margin instead re-ran style and paint on every frame.
 const MOON_SIZES = [8, 12, 16];
 
 const buildMoonOrbitFrames = () => {
   const frames: string[] = [];
+  const sizeFrames: Record<number, string[]> = Object.fromEntries(MOON_SIZES.map((size) => [size, []]));
 
   for (let step = 0; step <= ORBIT_STEPS; step += 1) {
     const progress = step / ORBIT_STEPS;
@@ -86,15 +92,30 @@ const buildMoonOrbitFrames = () => {
     const nearness = (1 - Math.cos(angle)) / 2;
     const size = MOON_SIZES[Math.min(MOON_SIZES.length - 1, Math.floor(nearness * MOON_SIZES.length))];
 
-    frames.push(
-      `${(progress * 100).toFixed(3)}% { ` +
-        `transform: translate3d(${x}px, ${y}px, 0); ` +
-        `width: ${size}px; height: ${size}px; ` +
-        `margin: ${-size / 2}px 0 0 ${-size / 2}px; }`
-    );
+    const at = `${(progress * 100).toFixed(3)}%`;
+    frames.push(`${at} { transform: translate3d(${x}px, ${y}px, 0); }`);
+    MOON_SIZES.forEach((candidate) => {
+      sizeFrames[candidate].push(`${at} { opacity: ${candidate === size ? 1 : 0}; }`);
+    });
   }
 
-  return frames.join('\n          ');
+  return {
+    orbit: frames.join('\n          '),
+    sizes: MOON_SIZES.map(
+      (size) => `
+        .planet__moon-size--${size} {
+          top: ${-size / 2}px;
+          left: ${-size / 2}px;
+          width: ${size}px;
+          height: ${size}px;
+          animation-name: planetMoonSize${size};
+        }
+
+        @keyframes planetMoonSize${size} {
+          ${sizeFrames[size].join('\n          ')}
+        }`
+    ).join('\n'),
+  };
 };
 
 const MOON_ORBIT_FRAMES = buildMoonOrbitFrames();
@@ -194,8 +215,11 @@ const GAIA_PIXELS = buildGaiaPixels();
 // Tiny debris orbiting Gaia's ring band. Rotating the ring elements
 // themselves would spin their clip-path split out of alignment with the
 // sphere (the far/near halves are cut in the ring's own local space before
-// its static tilt), so instead each asteroid's left/top is keyframed around
-// the same ellipse the ring traces — real motion, ring geometry untouched.
+// its static tilt), so instead each asteroid travels the same ellipse the ring
+// traces — real motion, ring geometry untouched. Each rock rides a track the
+// size of the debris box, and the track is translated by a percentage of its
+// own size, so the orbit stays on the compositor instead of animating
+// left/top (which would re-run layout every frame).
 const RING_ASTEROID_COUNT = 18;
 const RING_ORBIT_LANES = ['inner', 'mid', 'outer'] as const;
 const RING_ORBIT_RADII: Record<(typeof RING_ORBIT_LANES)[number], number> = {
@@ -211,10 +235,10 @@ const buildOrbitFrames = (radius: number) => {
   for (let step = 0; step <= steps; step += 1) {
     const progress = step / steps;
     const angle = progress * Math.PI * 2;
-    const left = (50 + Math.cos(angle) * radius).toFixed(2);
-    const top = (50 + Math.sin(angle) * radius).toFixed(2);
+    const x = (Math.cos(angle) * radius).toFixed(2);
+    const y = (Math.sin(angle) * radius).toFixed(2);
 
-    frames.push(`${(progress * 100).toFixed(3)}% { left: ${left}%; top: ${top}%; }`);
+    frames.push(`${(progress * 100).toFixed(3)}% { transform: translate3d(${x}%, ${y}%, 0); }`);
   }
 
   return frames.join('\n          ');
@@ -326,14 +350,14 @@ export const GaiaRings = memo(function GaiaRings({ half }: { half: 'far' | 'near
         {RING_ASTEROIDS.map((rock, index) => (
           <span
             key={`${half}-${index}`}
-            className={`planet__asteroid planet__asteroid--${rock.lane}`}
+            className={`planet__asteroid-track planet__asteroid-track--${rock.lane}`}
             style={{
-              width: rock.size,
-              height: rock.size,
               animationDuration: `${rock.duration}s`,
               animationDelay: `${rock.delay}s`,
             }}
-          />
+          >
+            <span className="planet__asteroid" style={{ width: rock.size, height: rock.size }} />
+          </span>
         ))}
       </span>
     </>
@@ -344,7 +368,11 @@ export const EmberOrbit = memo(function EmberOrbit({ half }: { half: 'far' | 'ne
   return (
     <>
       <span className={`planet__ring planet__ring--${half}`} />
-      <span className={`planet__moon planet__moon--${half}`} />
+      <span className={`planet__moon planet__moon--${half}`}>
+        {MOON_SIZES.map((size) => (
+          <span key={size} className={`planet__moon-size planet__moon-size--${size}`} />
+        ))}
+      </span>
     </>
   );
 });
@@ -485,7 +513,9 @@ export function PlanetField({ isIntroActive = false }: { isIntroActive?: boolean
 
     const onViewportChange = () => {
       const root = rootRef.current;
-      if (root && !reducedMotion) {
+      // Writing a style on every scroll event is what makes scrolling stutter
+      // on slow phones, so low-power mode leaves the planets where they are.
+      if (root && !reducedMotion && !isLowPower()) {
         root.style.setProperty('--sy', String(Math.min(window.scrollY, 900)));
       }
 
@@ -686,6 +716,35 @@ export function PlanetField({ isIntroActive = false }: { isIntroActive?: boolean
           50% { transform: translateY(-10px); }
         }
 
+        /* The glow breathes on a separate halo whose opacity animates on the
+           compositor. Animating filter: drop-shadow on the sprite itself
+           repainted it (and Gaia's ~900 SVG cells) on every frame. */
+        /* Each halo spans the visible disc plus the old glow's reach; the
+           sprites sit at different sizes inside their boxes, hence the
+           per-planet inset. */
+        .planet__halo {
+          position: absolute;
+          z-index: -1;
+          inset: var(--halo-inset);
+          border-radius: 50%;
+          background: radial-gradient(circle closest-side, var(--planet-glow) 68%, transparent 100%);
+          opacity: 0;
+          pointer-events: none;
+          animation: planetHalo 6s ease-in-out infinite;
+        }
+
+        .planet--cygnus { --planet-glow: rgba(99, 246, 255, 0.22); --halo-inset: 22px; }
+        .planet--ember { --planet-glow: rgba(250, 70, 22, 0.22); --halo-inset: -9px; }
+        .planet--gaia { --planet-glow: rgba(51, 209, 122, 0.2); --halo-inset: -14px; }
+
+        .planet--ember .planet__halo { animation-delay: -2.8s; }
+        .planet--gaia .planet__halo { animation-delay: -1.4s; }
+
+        @keyframes planetHalo {
+          0%, 100% { opacity: 0; }
+          50% { opacity: 1; }
+        }
+
         .planet__img {
           display: block;
           width: 100%;
@@ -695,22 +754,11 @@ export function PlanetField({ isIntroActive = false }: { isIntroActive?: boolean
         }
 
         .planet--cygnus .planet__img {
-          animation: planetGlowBlue 6s ease-in-out infinite;
+          filter: drop-shadow(8px 8px 0 #000820) drop-shadow(0 0 14px rgba(99,246,255,0.18));
         }
 
         .planet--ember .planet__img {
-          animation: planetGlowOrange 6s ease-in-out infinite;
-          animation-delay: -2.8s;
-        }
-
-        @keyframes planetGlowBlue {
-          0%, 100% { filter: drop-shadow(8px 8px 0 #000820) drop-shadow(0 0 14px rgba(99,246,255,0.18)); }
-          50% { filter: drop-shadow(8px 8px 0 #000820) drop-shadow(0 0 28px rgba(99,246,255,0.38)); }
-        }
-
-        @keyframes planetGlowOrange {
-          0%, 100% { filter: drop-shadow(4px 4px 0 #000820) drop-shadow(0 0 12px rgba(250,70,22,0.18)); }
-          50% { filter: drop-shadow(4px 4px 0 #000820) drop-shadow(0 0 24px rgba(250,70,22,0.38)); }
+          filter: drop-shadow(4px 4px 0 #000820) drop-shadow(0 0 12px rgba(250,70,22,0.18));
         }
 
         /* Small electrical flashes across Cygnus's surface. The clip circle
@@ -755,13 +803,7 @@ export function PlanetField({ isIntroActive = false }: { isIntroActive?: boolean
           display: block;
           width: 100%;
           height: 100%;
-          animation: planetGlowGreen 6s ease-in-out infinite;
-          animation-delay: -1.4s;
-        }
-
-        @keyframes planetGlowGreen {
-          0%, 100% { filter: drop-shadow(6px 6px 0 #000820) drop-shadow(0 0 12px rgba(51,209,122,0.2)); }
-          50% { filter: drop-shadow(6px 6px 0 #000820) drop-shadow(0 0 26px rgba(51,209,122,0.42)); }
+          filter: drop-shadow(6px 6px 0 #000820) drop-shadow(0 0 12px rgba(51,209,122,0.2));
         }
 
         /* Saturn-style bands — three concentric flattened-ellipse outlines
@@ -850,6 +892,17 @@ export function PlanetField({ isIntroActive = false }: { isIntroActive?: boolean
           clip-path: inset(50% 0 0 0);
         }
 
+        .planet__asteroid-track {
+          position: absolute;
+          inset: 0;
+          animation-timing-function: linear;
+          animation-iteration-count: infinite;
+        }
+
+        .planet__asteroid-track--inner { animation-name: planetAsteroidOrbitInner; }
+        .planet__asteroid-track--mid { animation-name: planetAsteroidOrbitMid; }
+        .planet__asteroid-track--outer { animation-name: planetAsteroidOrbitOuter; }
+
         .planet__asteroid {
           position: absolute;
           top: 50%;
@@ -858,13 +911,7 @@ export function PlanetField({ isIntroActive = false }: { isIntroActive?: boolean
           background: #dce8dd;
           box-shadow: 0 0 3px rgba(200, 255, 220, 0.7);
           transform: translate(-50%, -50%);
-          animation-timing-function: linear;
-          animation-iteration-count: infinite;
         }
-
-        .planet__asteroid--inner { animation-name: planetAsteroidOrbitInner; }
-        .planet__asteroid--mid { animation-name: planetAsteroidOrbitMid; }
-        .planet__asteroid--outer { animation-name: planetAsteroidOrbitOuter; }
 
         @keyframes planetAsteroidOrbitInner {
           ${RING_ORBIT_FRAMES.inner}
@@ -906,9 +953,19 @@ export function PlanetField({ isIntroActive = false }: { isIntroActive?: boolean
           position: absolute;
           top: 50%;
           left: 50%;
-          width: 12px;
-          height: 12px;
-          margin: -6px 0 0 -6px;
+          width: 0;
+          height: 0;
+          animation:
+            planetMoonOrbit ${ORBIT_DURATION} step-end infinite,
+            planetMoonPhase ${ORBIT_DURATION} step-end infinite;
+        }
+
+        .planet__moon-size {
+          position: absolute;
+          opacity: 0;
+          animation-duration: ${ORBIT_DURATION};
+          animation-timing-function: step-end;
+          animation-iteration-count: infinite;
           /* Octagonal silhouette — how a small circle gets drawn in pixel art. */
           clip-path: polygon(
             33.333% 0, 66.667% 0, 100% 33.333%, 100% 66.667%,
@@ -917,10 +974,8 @@ export function PlanetField({ isIntroActive = false }: { isIntroActive?: boolean
           /* Two flat tones with a hard terminator, no gradient ramp. */
           background: linear-gradient(135deg, #ffe8e0 0 50%, #d9614a 50% 100%);
           box-shadow: 0 0 0 2px rgba(255, 138, 91, 0.16);
-          animation:
-            planetMoonOrbit ${ORBIT_DURATION} step-end infinite,
-            planetMoonPhase ${ORBIT_DURATION} step-end infinite;
         }
+${MOON_ORBIT_FRAMES.sizes}
 
         .planet__moon--far {
           z-index: 1;
@@ -933,7 +988,7 @@ export function PlanetField({ isIntroActive = false }: { isIntroActive?: boolean
         }
 
         @keyframes planetMoonOrbit {
-          ${MOON_ORBIT_FRAMES}
+          ${MOON_ORBIT_FRAMES.orbit}
         }
 
         /* Hard cut at each horizon crossing — the sprite pops behind the planet
@@ -1132,12 +1187,12 @@ export function PlanetField({ isIntroActive = false }: { isIntroActive?: boolean
         @media (prefers-reduced-motion: reduce) {
           .planet__drift,
           .planet__bob,
-          .planet__img,
-          .planet__sphere,
+          .planet__halo,
           .planet__moon,
+          .planet__moon-size,
           .planet__spark,
           .planet__saturn-ring,
-          .planet__asteroid,
+          .planet__asteroid-track,
           .planet-hud__caret {
             animation: none !important;
           }
@@ -1145,6 +1200,10 @@ export function PlanetField({ isIntroActive = false }: { isIntroActive?: boolean
           .planet__spark,
           .planet__asteroid {
             display: none;
+          }
+
+          .planet__moon-size--12 {
+            opacity: 1;
           }
 
           .planet__saturn-ring {
@@ -1199,6 +1258,7 @@ export function PlanetField({ isIntroActive = false }: { isIntroActive?: boolean
                 </div>
 
                 <div className="planet__bob">
+                  <span className="planet__halo" />
                   {planet.image ? (
                     <img src={planet.image} alt="" className="planet__img" />
                   ) : (

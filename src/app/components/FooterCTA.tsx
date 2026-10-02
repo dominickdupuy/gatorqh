@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ShatterButton } from '@/components/ui/shatter-button';
 import { Reveal } from './Reveal';
-import trophyImage from './trophy.png';
+import trophyImage from './trophy.webp';
 
 type AppPage = 'home' | 'apply';
 
@@ -84,7 +84,7 @@ export function FooterCTA({ onNavigate }: FooterCTAProps = {}) {
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(4,74,148,0.2),transparent_34%),radial-gradient(circle_at_82%_78%,rgba(250,70,22,0.08),transparent_18%),linear-gradient(180deg,rgba(8,10,18,0.12),rgba(5,5,8,0.96))]" />
         <div
-          className="absolute left-1/2 top-1/2 h-[140vmax] w-[140vmax] opacity-[0.18]"
+          className="footer-cta-asteroids absolute left-1/2 top-1/2 h-[140vmax] w-[140vmax] opacity-[0.18]"
           style={{
             transform: 'translate(-50%, -50%)',
             animation: 'asteroidRotate 80s linear infinite',
@@ -262,6 +262,8 @@ export function FooterCTA({ onNavigate }: FooterCTAProps = {}) {
                     >
                       <img
                         src={trophyImage}
+                        loading="lazy"
+                        decoding="async"
                         alt=""
                         className="h-[218px] w-[218px] translate-x-[16px] object-contain"
                         draggable="false"

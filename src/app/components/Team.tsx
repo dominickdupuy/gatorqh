@@ -172,6 +172,8 @@ function MemberCard({ member }: { member: TeamMember }) {
       <div className="aspect-square w-full max-w-56 overflow-hidden rounded-full border-2 border-[#2a2a3e] group-hover:border-[#00FFB3] transition-colors duration-200">
         <img
           src={member.photo}
+          loading="lazy"
+          decoding="async"
           alt={member.name}
           className="h-full w-full object-cover"
           style={{

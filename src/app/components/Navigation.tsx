@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import wallieImage from './WALLIE.jpg';
 
-type AppPage = 'home' | 'apply';
+type AppPage = 'home' | 'apply' | 'quant-track' | 'hardware-track' | 'systematic-track' | 'massive-track';
 
 type NavigationProps = {
   page?: AppPage;
@@ -30,7 +30,7 @@ export function Navigation({ page = 'home', onNavigate }: NavigationProps = {}) 
       }
     };
 
-    if (page === 'apply' && onNavigate) {
+    if (page !== 'home' && onNavigate) {
       onNavigate('home');
       window.setTimeout(run, 80);
       return;

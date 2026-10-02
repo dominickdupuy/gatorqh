@@ -19,12 +19,15 @@ export function About() {
           );
         }
 
+        /* Clipping instead of animating width: a narrowing box re-wraps the
+           text and makes the section ~270px taller for the first seconds,
+           which shoves everything below it when a link jumps to #game-modes. */
         @keyframes typewriter {
           from {
-            width: 0;
+            clip-path: inset(0 100% 0 0);
           }
           to {
-            width: 100%;
+            clip-path: inset(0 0 0 0);
           }
         }
       `}</style>

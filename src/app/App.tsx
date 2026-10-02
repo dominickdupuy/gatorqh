@@ -1,5 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
-import { ApplicationForm } from './components/ApplicationForm';
+import { Suspense, lazy, useCallback, useEffect, useRef, useState } from 'react';
 import { Navigation } from './components/Navigation';
 import { Hero } from './components/Hero';
 import { StatsBar } from './components/StatsBar';
@@ -7,25 +6,62 @@ import { About } from './components/About';
 import { GameModes } from './components/GameModes';
 import { Schedule } from './components/Schedule';
 import { Sponsors } from './components/Sponsors';
-import TradingCompetitionMap from './components/TradingCompetitionMap';
 import { Team } from './components/Team';
 import { FAQ } from './components/FAQ';
 import { FooterCTA } from './components/FooterCTA';
 import { Footer } from './components/Footer';
 import { IntroAnimation } from './components/IntroAnimation';
+import { probeFrameRate } from './performance';
 
-type AppPage = 'home' | 'apply';
+// Track pages carry their own canvas models, so each loads only when visited.
+// The application form only matters on /apply, and the map pulls in d3; keeping
+// both out of the first bundle gets the home page painted sooner on slow phones.
+const ApplicationForm = lazy(() =>
+  import('./components/ApplicationForm').then((m) => ({ default: m.ApplicationForm }))
+);
+const TradingCompetitionMap = lazy(() => import('./components/TradingCompetitionMap'));
+const QuantTrackPage = lazy(() => import('./components/quant-track/QuantTrackPage'));
+const HardwareTrackPage = lazy(() => import('./components/hardware-track/HardwareTrackPage'));
+const SystematicTrackPage = lazy(() => import('./components/systematic-track/SystematicTrackPage'));
+const MassiveTrackPage = lazy(() => import('./components/systematic-track/massive/MassiveTrackPage'));
+
+type AppPage = 'home' | 'apply' | 'quant-track' | 'hardware-track' | 'systematic-track' | 'massive-track';
+type TrackPage = Extract<AppPage, 'quant-track' | 'hardware-track' | 'systematic-track'>;
+
+const TRACK_PAGES: AppPage[] = ['quant-track', 'hardware-track', 'systematic-track', 'massive-track'];
 
 // The older /interest-form links (and the misspelled alias that shipped with
 // them) are already in circulation, so they keep resolving to the portal.
 const APPLY_PATHS = ['/apply', '/interest-form', '/intrest-form'];
+const QUANT_TRACK_PATH = '/tracks/quant-puzzles';
+const HARDWARE_TRACK_PATH = '/tracks/hardware';
+const SYSTEMATIC_TRACK_PATH = '/tracks/systematic-trading';
+const MASSIVE_TRACK_PATH = '/tracks/systematic-trading/massive';
 
 const getPageFromPath = (): AppPage => {
   const path = window.location.pathname.replace(/\/+$/, '');
-  return APPLY_PATHS.includes(path) ? 'apply' : 'home';
+  if (APPLY_PATHS.includes(path)) return 'apply';
+  if (path === QUANT_TRACK_PATH) return 'quant-track';
+  if (path === HARDWARE_TRACK_PATH) return 'hardware-track';
+  if (path === SYSTEMATIC_TRACK_PATH) return 'systematic-track';
+  if (path === MASSIVE_TRACK_PATH) return 'massive-track';
+  return 'home';
 };
 
-const getPathForPage = (page: AppPage) => (page === 'apply' ? '/apply' : '/');
+const getPathForPage = (page: AppPage) => {
+  if (page === 'apply') return '/apply';
+  if (page === 'quant-track') return QUANT_TRACK_PATH;
+  if (page === 'hardware-track') return HARDWARE_TRACK_PATH;
+  if (page === 'systematic-track') return SYSTEMATIC_TRACK_PATH;
+  if (page === 'massive-track') return MASSIVE_TRACK_PATH;
+  return '/';
+};
+
+const scrollToTracks = () => {
+  window.setTimeout(() => {
+    document.getElementById('game-modes')?.scrollIntoView({ behavior: 'instant' as ScrollBehavior, block: 'start' });
+  }, 60);
+};
 
 // The MLH badge stays solid until the visitor has scrolled 5% of the page,
 // then decays to invisible by 15% so it never competes with the content.
@@ -70,11 +106,21 @@ export default function App() {
   const [page, setPage] = useState<AppPage>(() => getPageFromPath());
   const [introActive, setIntroActive] = useState(true);
   const mlhBadgeOpacity = useMlhBadgeOpacity();
+  const pageRef = useRef(page);
+  pageRef.current = page;
+
+  useEffect(() => {
+    if (!introActive) probeFrameRate();
+  }, [introActive]);
 
   useEffect(() => {
     const handlePopState = () => {
-      setPage(getPageFromPath());
-      window.scrollTo({ top: 0 });
+      const nextPage = getPageFromPath();
+      // Backing out of a track page lands on the track cards it was opened from.
+      const leavingTrack = TRACK_PAGES.includes(pageRef.current) && nextPage === 'home';
+      setPage(nextPage);
+      if (leavingTrack) scrollToTracks();
+      else window.scrollTo({ top: 0 });
     };
 
     window.addEventListener('popstate', handlePopState);
@@ -91,6 +137,10 @@ export default function App() {
 
     if (nextPage === 'apply') {
       window.scrollTo({ top: 0 });
+    }
+
+    if (TRACK_PAGES.includes(nextPage)) {
+      window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
     }
   }, []);
 
@@ -190,7 +240,7 @@ export default function App() {
               <About />
             </div>
             <div className="site-section">
-              <GameModes />
+              <GameModes onOpenTrack={(track: TrackPage) => navigateToPage(track)} />
             </div>
             <div className="site-section">
               <Schedule />
@@ -199,7 +249,9 @@ export default function App() {
               <Sponsors />
             </div>
             <div className="site-section">
-              <TradingCompetitionMap />
+              <Suspense fallback={<div style={{ minHeight: 600 }} />}>
+                <TradingCompetitionMap />
+              </Suspense>
             </div>
             <div className="site-section">
               <Team />
@@ -214,8 +266,26 @@ export default function App() {
               <Footer />
             </div>
           </>
+        ) : page === 'quant-track' ? (
+          <Suspense fallback={<div className="min-h-screen bg-[#050508]" />}>
+            <QuantTrackPage onNavigate={navigateToPage} isIntroActive={introActive} />
+          </Suspense>
+        ) : page === 'hardware-track' ? (
+          <Suspense fallback={<div className="min-h-screen bg-[#050508]" />}>
+            <HardwareTrackPage onNavigate={navigateToPage} isIntroActive={introActive} />
+          </Suspense>
+        ) : page === 'systematic-track' ? (
+          <Suspense fallback={<div className="min-h-screen bg-[#050508]" />}>
+            <SystematicTrackPage onNavigate={navigateToPage} isIntroActive={introActive} />
+          </Suspense>
+        ) : page === 'massive-track' ? (
+          <Suspense fallback={<div className="min-h-screen bg-[#050508]" />}>
+            <MassiveTrackPage onNavigate={navigateToPage} isIntroActive={introActive} />
+          </Suspense>
         ) : (
-          <ApplicationForm />
+          <Suspense fallback={<div className="min-h-screen bg-[#050508]" />}>
+            <ApplicationForm />
+          </Suspense>
         )}
       </div>
 

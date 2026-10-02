@@ -78,6 +78,8 @@ export function Footer() {
           <div className="mb-5 flex h-28 w-28 items-center justify-center overflow-hidden border-2 border-[#0b1f3a] bg-white shadow-[0_0_0_2px_rgba(8,13,25,0.95),0_0_18px_rgba(99,246,255,0.18),0_0_34px_rgba(4,74,148,0.24)]">
             <img
               src={wallieImage}
+              loading="lazy"
+              decoding="async"
               alt="Wallie"
               className="h-full w-full scale-110 object-cover object-[40%_center] drop-shadow-[0_0_8px_rgba(4,74,148,0.28)]"
             />

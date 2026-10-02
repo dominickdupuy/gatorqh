@@ -79,18 +79,13 @@ export function Hero({
           box-shadow: 0px 0px 0px #7a1a00;
         }
 
+        /* Moves the scanline overlay instead of its background, so the
+           compositor shifts a painted layer rather than repainting the whole
+           viewport every frame. 16px is four 4px periods, so the loop is
+           seamless. */
         @keyframes scanline {
-          0% { background-position: 0 0; }
-          100% { background-position: 0 16px; }
-        }
-
-        @keyframes heroTitleGlow {
-          0%, 100% { filter: brightness(1) saturate(1); }
-          50% { filter: brightness(1.035) saturate(1.06); }
-        }
-
-        .hero-title-main {
-          animation: heroTitleGlow 7s ease-in-out infinite;
+          0% { transform: translate3d(0, -16px, 0); }
+          100% { transform: translate3d(0, 0, 0); }
         }
 
         .hero-title-stack {
@@ -507,9 +502,10 @@ export function Hero({
       </div>
 
       <div
+        className="hero-scanline"
         style={{
           position: 'absolute',
-          inset: 0,
+          inset: '-16px 0 0 0',
           zIndex: 10,
           pointerEvents: 'none',
           backgroundImage: `repeating-linear-gradient(

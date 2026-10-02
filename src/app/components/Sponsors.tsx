@@ -214,6 +214,8 @@ export function Sponsors() {
           >
             <img
               src={leadSponsor.logo}
+              loading="lazy"
+              decoding="async"
               alt={`${leadSponsor.name} logo`}
               className="max-h-[70%] max-w-[80%] object-contain md:max-h-[75%] md:max-w-[85%]"
               style={{ imageRendering: 'auto' }}
@@ -252,6 +254,8 @@ export function Sponsors() {
               >
                 <img
                   src={sponsor.logo}
+                  loading="lazy"
+                  decoding="async"
                   alt={`${sponsor.name} logo`}
                   className={`${sponsor.logoClassName ?? 'max-w-[80%] max-h-[70%]'} object-contain ${
                     sponsor.invertLogo ? 'invert' : ''
@@ -284,6 +288,8 @@ export function Sponsors() {
                 {sponsor.logo ? (
                   <img
                     src={sponsor.logo}
+                    loading="lazy"
+                    decoding="async"
                     alt={`${sponsor.name} logo`}
                     className={`${
                       sponsor.logoClassName ?? 'max-w-[90%] max-h-[80%] md:max-w-[80%] md:max-h-[70%]'

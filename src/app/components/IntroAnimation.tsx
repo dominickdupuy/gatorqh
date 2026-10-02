@@ -8,8 +8,8 @@ const FIRE_DELAY_MS = 0;
 const IGNITION_DURATION_MS = 420;
 const LAUNCH_DURATION_MS = 850;
 const OVERLAY_FADE_DURATION_MS = 230;
-const ROCKET_SRC = '/rocket.png';
-const PIXEL_FIRES_SRC = '/pixelFires.png';
+const ROCKET_SRC = '/rocket.webp';
+const PIXEL_FIRES_SRC = '/pixelFires.webp';
 
 const smokePuffs = Array.from({ length: 22 }, (_, index) => index);
 const padLights = Array.from({ length: 9 }, (_, index) => index);

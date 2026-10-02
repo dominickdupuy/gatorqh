@@ -300,7 +300,7 @@ export function Schedule() {
 
               return (
                 <div
-                  key={`${day.label}-${event.title}`}
+                  key={`${day.label}-${event.time}-${event.title}`}
                   className="schedule-row grid gap-4 px-6 py-6 md:grid-cols-[160px_minmax(0,1fr)] md:gap-6 md:px-8"
                 >
                   <div className="relative z-10 flex items-start md:justify-start">

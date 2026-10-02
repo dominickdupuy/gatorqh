@@ -14,6 +14,7 @@ import ericPhoto from '../../assets/team/eric-schwarz.jpg';
 import andriaPhoto from '../../assets/team/andria-gonzalez-lopez.jpg';
 import saludPhoto from '../../assets/team/salud-avila.jpg';
 import alejandroPhoto from '../../assets/team/alejandro-pose-santana.jpg';
+import nicolasPhoto from '../../assets/team/nicolas-murguia.jpg';
 
 type TeamMember = {
   name: string;
@@ -21,6 +22,7 @@ type TeamMember = {
   photo: string;
   linkedin?: string;
   objectPosition?: string;
+  zoom?: number;
 };
 
 const team: TeamMember[] = [
@@ -64,6 +66,7 @@ const judges: TeamMember[] = [
     photo: ericPhoto,
     linkedin: 'https://www.linkedin.com/in/eric-a-schwarz/',
     objectPosition: 'center 20%',
+    zoom: 1.6,
   },
   {
     name: 'Andria Gonzalez Lopez',
@@ -82,6 +85,12 @@ const judges: TeamMember[] = [
     role: 'Judge',
     photo: alejandroPhoto,
     linkedin: 'https://www.linkedin.com/in/alejandro-pose-santana-019452268/',
+  },
+  {
+    name: 'Nicolas Murguia',
+    role: 'Judge',
+    photo: nicolasPhoto,
+    linkedin: 'https://www.linkedin.com/in/nicolasmurguia/',
   },
 ];
 
@@ -128,20 +137,35 @@ const nameStyle = {
   fontFamily: "'Orbitron', sans-serif",
   fontSize: '14px',
   letterSpacing: '0.5px',
+  lineHeight: 1.4,
+};
+
+const subheadingStyle = {
+  fontFamily: "'Orbitron', sans-serif",
+  fontSize: 'clamp(10px, 2vw, 16px)',
+  lineHeight: 1.7,
 };
 
 function MemberCard({ member }: { member: TeamMember }) {
   return (
     <div
-      className="group flex flex-col items-center gap-4 border border-[#1a1a2e] bg-[#0D0D1A] p-6 transition-all duration-200 hover:bg-[#111128] hover:border-[#00FFB3] hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(0,255,179,0.15)]"
+      className="group flex h-full flex-col items-center gap-4 border border-[#1a1a2e] bg-[#0D0D1A] p-6 transition-all duration-200 hover:bg-[#111128] hover:border-[#00FFB3] hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(0,255,179,0.15)]"
     >
-      <img
-        src={member.photo}
-        alt={member.name}
-        className="h-48 w-48 md:h-56 md:w-56 rounded-full object-cover border-2 border-[#2a2a3e] group-hover:border-[#00FFB3] transition-colors duration-200"
-        style={{ imageRendering: 'auto', objectPosition: member.objectPosition ?? 'center' }}
-      />
-      <div className="text-center">
+      <div className="aspect-square w-full max-w-56 overflow-hidden rounded-full border-2 border-[#2a2a3e] group-hover:border-[#00FFB3] transition-colors duration-200">
+        <img
+          src={member.photo}
+          alt={member.name}
+          className="h-full w-full object-cover"
+          style={{
+            imageRendering: 'auto',
+            objectPosition: member.objectPosition ?? 'center',
+            transform: member.zoom ? `scale(${member.zoom})` : undefined,
+            transformOrigin: member.objectPosition ?? 'center',
+          }}
+        />
+      </div>
+      {/* Room for a two-line name and two-line role keeps every card the same height. */}
+      <div className="flex min-h-[calc(2*1.4*14px+4px+2*18px)] flex-col items-center justify-center text-center">
         {member.linkedin ? (
           <a
             href={member.linkedin}
@@ -170,6 +194,24 @@ function MemberCard({ member }: { member: TeamMember }) {
           {member.role}
         </p>
       </div>
+    </div>
+  );
+}
+
+// Flex-wrap rather than grid so a partial last row stays centered; every
+// group shares the same card width.
+function MemberGrid({ members }: { members: TeamMember[] }) {
+  return (
+    <div className="flex w-full flex-wrap justify-center gap-6">
+      {members.map((member, index) => (
+        <Reveal
+          key={member.name}
+          delay={index * 110}
+          className="w-full sm:w-[calc((100%-1.5rem)/2)] md:w-[calc((100%-3rem)/3)] lg:w-[calc((100%-6rem)/5)]"
+        >
+          <MemberCard member={member} />
+        </Reveal>
+      ))}
     </div>
   );
 }
@@ -217,55 +259,23 @@ export function Team() {
           }}
         />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
-          {team.map((member, index) => (
-            <Reveal key={member.name} delay={index * 110}>
-              <MemberCard member={member} />
-            </Reveal>
-          ))}
-        </div>
+        <MemberGrid members={team} />
 
         <Reveal className="mb-8 mt-16 text-center md:mt-20">
-          <h3
-            className="text-white text-center"
-            style={{
-              fontFamily: "'Orbitron', sans-serif",
-              fontSize: 'clamp(10px, 2vw, 16px)',
-              lineHeight: 1.7,
-            }}
-          >
-            JUDGES
-          </h3>
-        </Reveal>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 w-full">
-          {judges.map((member, index) => (
-            <Reveal key={member.name} delay={index * 110}>
-              <MemberCard member={member} />
-            </Reveal>
-          ))}
-        </div>
-
-        <Reveal className="mb-8 mt-16 text-center md:mt-20">
-          <h3
-            className="text-white text-center"
-            style={{
-              fontFamily: "'Orbitron', sans-serif",
-              fontSize: 'clamp(10px, 2vw, 16px)',
-              lineHeight: 1.7,
-            }}
-          >
+          <h3 className="text-white text-center" style={subheadingStyle}>
             VOLUNTEERS
           </h3>
         </Reveal>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 w-full">
-          {volunteers.map((member, index) => (
-            <Reveal key={member.name} delay={index * 110}>
-              <MemberCard member={member} />
-            </Reveal>
-          ))}
-        </div>
+        <MemberGrid members={volunteers} />
+
+        <Reveal className="mb-8 mt-16 text-center md:mt-20">
+          <h3 className="text-white text-center" style={subheadingStyle}>
+            JUDGES
+          </h3>
+        </Reveal>
+
+        <MemberGrid members={judges} />
       </div>
     </section>
   );

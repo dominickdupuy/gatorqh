@@ -143,6 +143,13 @@ export function Navigation({ page = 'home', onNavigate }: NavigationProps = {}) 
             Sponsors
           </button>
           <button
+            onClick={() => scrollToSection('team')}
+            className="nav-link text-[#F4F4F4] hover:text-[#044a94] transition-colors"
+            style={{ fontFamily: "'Space Mono', monospace", fontSize: '15px', fontWeight: 700, letterSpacing: '1px' }}
+          >
+            Team
+          </button>
+          <button
             onClick={launchFaqTerminal}
             className="nav-link text-[#F4F4F4] hover:text-[#044a94] transition-colors"
             style={{ fontFamily: "'Space Mono', monospace", fontSize: '15px', fontWeight: 700, letterSpacing: '1px' }}
@@ -207,6 +214,13 @@ export function Navigation({ page = 'home', onNavigate }: NavigationProps = {}) 
               style={{ fontFamily: "'Space Mono', monospace", fontSize: '15px', fontWeight: 700, letterSpacing: '1px' }}
             >
               Sponsors
+            </button>
+            <button
+              onClick={() => scrollToSection('team')}
+              className="nav-link text-[#F4F4F4] hover:text-[#044a94] text-left transition-colors"
+              style={{ fontFamily: "'Space Mono', monospace", fontSize: '15px', fontWeight: 700, letterSpacing: '1px' }}
+            >
+              Team
             </button>
             <button
               onClick={launchFaqTerminal}

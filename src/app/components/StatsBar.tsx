@@ -14,7 +14,7 @@ const stats: StatCard[] = [
   },
   {
     label: 'CREW',
-    value: '500',
+    value: '250',
     color: '#63F6FF',
   },
   {

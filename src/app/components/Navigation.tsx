@@ -115,7 +115,7 @@ export function Navigation({ page = 'home', onNavigate }: NavigationProps = {}) 
           </div>
         </button>
 
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex flex-1 items-center justify-center gap-8">
           <button
             onClick={() => scrollToSection('about')}
             className="nav-link text-[#F4F4F4] hover:text-[#044a94] transition-colors"
@@ -167,28 +167,7 @@ export function Navigation({ page = 'home', onNavigate }: NavigationProps = {}) 
           >
             Guide
           </a>
-          {onNavigate && (
-            <button
-              type="button"
-              onClick={() => onNavigate('apply')}
-              className={`nav-link transition-colors ${
-                page === 'apply' ? 'text-[#FA4616]' : 'text-[#F4F4F4] hover:text-[#044a94]'
-              }`}
-              style={{ fontFamily: "'Space Mono', monospace", fontSize: '15px', fontWeight: 700, letterSpacing: '1px' }}
-            >
-              Apply
-            </button>
-          )}
         </div>
-
-        <button
-          type="button"
-          onClick={() => scrollToSection('register')}
-          className="hidden md:inline-block bg-[#FA4616] hover:bg-[#FA4616]/90 text-white px-6 py-3 border-2 border-[#044a94] shadow-[0_0_20px_rgba(4,74,148,0.3)] transition-all"
-          style={{ fontFamily: "'Space Mono', monospace", fontSize: '14px', fontWeight: 700, letterSpacing: '1px' }}
-        >
-          BOARD NOW -&gt;
-        </button>
 
         <button className="md:hidden text-white" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
           {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -249,30 +228,6 @@ export function Navigation({ page = 'home', onNavigate }: NavigationProps = {}) 
             >
               Hacker Guide
             </a>
-            {onNavigate && (
-              <button
-                type="button"
-                onClick={() => {
-                  onNavigate('apply');
-                  setMobileMenuOpen(false);
-                }}
-                className={`nav-link text-left transition-colors ${
-                  page === 'apply' ? 'text-[#FA4616]' : 'text-[#F4F4F4] hover:text-[#044a94]'
-                }`}
-                style={{ fontFamily: "'Space Mono', monospace", fontSize: '15px', fontWeight: 700, letterSpacing: '1px' }}
-              >
-                Apply
-              </button>
-            )}
-            <button
-              type="button"
-              onClick={() => scrollToSection('register')}
-              className="bg-[#FA4616] hover:bg-[#FA4616]/90 text-white px-6 py-3 border-2 border-[#044a94] shadow-[0_0_20px_rgba(4,74,148,0.3)] transition-all"
-            >
-              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: '15px', fontWeight: 600 }}>
-                BOARD NOW -&gt;
-              </span>
-            </button>
           </div>
         </div>
       )}

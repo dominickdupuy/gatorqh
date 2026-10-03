@@ -18,6 +18,7 @@ function DiscordIcon({ size = 24 }: { size?: number }) {
 const TERMS_URL = 'https://github.com/dominickdupuy/gatorqh/blob/main/TERMS.md';
 
 const footerLinks = [
+  { label: 'Hacker Guide', href: 'https://gqhacks.notion.site/hacker-guide' },
   { label: 'Contact Us', href: 'mailto:gatorquanthacks@gmail.com' },
   { label: 'Join the Discord', href: DISCORD_INVITE_URL },
   { label: 'Apply', href: '/apply' },
@@ -97,6 +98,8 @@ export function Footer() {
             <a
               key={link.label}
               href={link.href}
+              target={link.href.startsWith('http') ? '_blank' : undefined}
+              rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
               className="text-[#9cc9ff] underline decoration-[#044a94] decoration-2 underline-offset-4 transition-colors hover:text-[#FA4616] hover:decoration-[#FA4616]"
               style={{ fontFamily: 'var(--font-heading)', fontSize: '18px', fontWeight: 700 }}
             >

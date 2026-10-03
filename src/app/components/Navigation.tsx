@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import wallieImage from './WALLIE.jpg';
 
+const HACKER_GUIDE_URL = 'https://gqhacks.notion.site/hacker-guide';
+
 type AppPage = 'home' | 'apply' | 'quant-track' | 'hardware-track' | 'systematic-track' | 'massive-track';
 
 type NavigationProps = {
@@ -156,6 +158,15 @@ export function Navigation({ page = 'home', onNavigate }: NavigationProps = {}) 
           >
             FAQ
           </button>
+          <a
+            href={HACKER_GUIDE_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="nav-link text-[#F4F4F4] hover:text-[#044a94] transition-colors"
+            style={{ fontFamily: "'Space Mono', monospace", fontSize: '15px', fontWeight: 700, letterSpacing: '1px' }}
+          >
+            Guide
+          </a>
           {onNavigate && (
             <button
               type="button"
@@ -229,6 +240,15 @@ export function Navigation({ page = 'home', onNavigate }: NavigationProps = {}) 
             >
               FAQ
             </button>
+            <a
+              href={HACKER_GUIDE_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="nav-link text-[#F4F4F4] hover:text-[#044a94] text-left transition-colors"
+              style={{ fontFamily: "'Space Mono', monospace", fontSize: '15px', fontWeight: 700, letterSpacing: '1px' }}
+            >
+              Hacker Guide
+            </a>
             {onNavigate && (
               <button
                 type="button"

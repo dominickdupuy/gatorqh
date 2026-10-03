@@ -43,7 +43,7 @@ export function ScheduleSection() {
     {
       day: "Day 2 - Saturday, October 3",
       events: [
-        { time: "8:00 AM", title: "Breakfast Served", description: "Start your day with fuel" },
+        { time: "8:45 AM", title: "Breakfast Served", description: "Start your day with fuel" },
         { time: "9:00 AM", title: "Workshop & Mini-Events", description: "Hands-on sessions and activities" },
         { time: "12:00 PM", title: "Lunch Served", description: "Midday meal break" },
         { time: "2:00 PM", title: "Afternoon Workshop", description: "Advanced technical sessions" },

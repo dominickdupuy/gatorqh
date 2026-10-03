@@ -54,7 +54,6 @@ const days: ScheduleDay[] = [
       { time: '02:00 PM', title: 'Webull & DSI Workshops', subtitle: 'Webull · Reitz Room 2365  |  DSI · Reitz Room 2355', type: 'support' },
       { time: '03:00 PM', title: 'MLH Workshop', subtitle: 'Reitz Room 2365', type: 'support' },
       { time: '04:00 PM', title: 'Webull Networking Event', subtitle: 'Reitz Room 2355 · bring printed resumes', type: 'key' },
-      { time: '05:00 PM', title: 'Track Check-ins', subtitle: 'Grand Ballroom · sign up for a Sunday presentation slot', type: 'standard' },
       { time: '07:30 PM', title: 'Dinner Served', subtitle: 'Outside Turlington Hall, until 8:15 PM', type: 'standard' },
       { time: '08:30 PM', title: 'MLH Mini-Event', subtitle: 'Grand Ballroom · interactive challenge from Major League Hacking', type: 'support' },
       { time: '10:00 PM', title: 'Overnight Hacking', subtitle: 'AC Hotel conference rooms (open 24/7) · continues through Sunday morning', type: 'standard' },

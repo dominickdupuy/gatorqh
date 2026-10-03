@@ -42,7 +42,7 @@ const HERO_SPECS = [
   ['DELIVERABLES', 'NOTE + CODE'],
   ['QUANT NOTE', '≤ 5 PAGES'],
   ['SCORED', '5 × 10 = 50'],
-  ['DEVPOST', 'SUN 10:00 AM'],
+  ['DEVPOST', 'SUN 11:00 AM'],
 ];
 
 type StoryEntry = { log: string; label: string; text: string };
@@ -514,7 +514,7 @@ export default function SystematicTrackPage({
 
           <Reveal delay={STORY_LOG.length * 90} className="st-story__beat st-story__beat--open">
             <div className="st-story__stamp">
-              <span>SUN 10:00 AM</span>
+              <span>SUN 11:00 AM</span>
               <b>DEVPOST CLOSES</b>
             </div>
             <p className="st-story__text">Note and repo link due on Devpost. You can keep pushing code until 11:00 AM.</p>
@@ -849,7 +849,7 @@ export default function SystematicTrackPage({
             </div>
             <div>
               <span>DEADLINE</span>
-              <b>SUN OCT 4 · 10:00 AM</b>
+              <b>SUN OCT 4 · 11:00 AM</b>
             </div>
             <div>
               <span>DATA ACCESS & HELP</span>
@@ -903,7 +903,7 @@ export default function SystematicTrackPage({
 
         <SubHead>SUBMISSION CHECKLIST</SubHead>
         <Reveal>
-          <FinalChecklist items={FINAL_CHECKS} storageKey={CHECKLIST_KEY} goText="ALL CHECKED · SUBMIT ON DEVPOST BEFORE 10:00 AM" />
+          <FinalChecklist items={FINAL_CHECKS} storageKey={CHECKLIST_KEY} goText="ALL CHECKED · SUBMIT ON DEVPOST BEFORE 11:00 AM" />
         </Reveal>
 
         <SubHead>FURTHER READING (OPTIONAL)</SubHead>

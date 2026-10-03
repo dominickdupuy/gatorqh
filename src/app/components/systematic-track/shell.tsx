@@ -180,7 +180,7 @@ export function BriefingHud({ chapters, active, visible }: { chapters: ChapterLi
 
 
 // Sunday, October 4, 2026, Eastern Daylight Time (UTC−4).
-const DEVPOST_DEADLINE = Date.UTC(2026, 9, 4, 14, 0, 0);
+const DEVPOST_DEADLINE = Date.UTC(2026, 9, 4, 15, 0, 0);
 const CODE_FREEZE = Date.UTC(2026, 9, 4, 15, 0, 0);
 
 const pad2 = (value: number) => String(value).padStart(2, '0');
@@ -194,7 +194,7 @@ export function DeadlineClock() {
   }, []);
 
   const clocks = [
-    { label: 'DEVPOST SUBMISSION', when: 'SUN OCT 4 · 10:00 AM', at: DEVPOST_DEADLINE, note: 'Late submissions are not judged.', tone: 'orange' },
+    { label: 'DEVPOST SUBMISSION', when: 'SUN OCT 4 · 11:00 AM', at: DEVPOST_DEADLINE, note: 'Late submissions are not judged.', tone: 'orange' },
     { label: 'FINAL CODE PUSH', when: 'SUN OCT 4 · 11:00 AM', at: CODE_FREEZE, note: 'Commits after 11:00 AM are not reviewed.', tone: 'amber' },
   ];
 

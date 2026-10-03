@@ -60,7 +60,7 @@ const faqItems: FaqItem[] = [
     command: 'HOW ARE PROJECTS JUDGED?',
     prompt: 'Boss-fight scoring rubric.',
     answer:
-      'Submissions are due on Devpost by 10:00 AM Sunday (8:00 AM for the Quantitative Puzzles track), followed by live 5-minute presentations with Q&A from 1:00 to 3:00 PM. Track-specific judging criteria will be published with the track briefs.',
+      'Submissions are due on Devpost by 11:00 AM Sunday (9:00 AM for the Quantitative Puzzles track), followed by live 5-minute presentations with Q&A from 1:00 to 3:00 PM. Track-specific judging criteria will be published with the track briefs.',
   },
 ];
 

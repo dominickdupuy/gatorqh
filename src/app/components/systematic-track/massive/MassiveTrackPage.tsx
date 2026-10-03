@@ -251,7 +251,7 @@ const SUBMIT = [
 ];
 
 const JUDGING_FLOW = [
-  { when: 'SUN 10:00 AM', what: 'DEVPOST CLOSES', d: 'Submit on Devpost like every project. Code pushes until 11:00 AM.' },
+  { when: 'SUN 11:00 AM', what: 'DEVPOST CLOSES', d: 'Submit on Devpost like every project. Code pushes until 11:00 AM.' },
   { when: 'SUN 1:00 PM', what: 'TOP 10', d: 'GQH judges send their ten strongest Massive entries to Massive.' },
   { when: 'SUN 2:30 PM', what: 'MASSIVE PICKS', d: 'The Massive team chooses the winner from the shortlist.' },
   { when: 'SUN 3:35 PM', what: 'CLOSING CEREMONY', d: 'The winner is announced on stage.' },
@@ -276,7 +276,7 @@ const CHECKS = [
   'Quant note as a PDF, 5 pages or fewer',
   'Public GitHub repo with a README and dependency file',
   'No API key, .env or .massive_cache committed',
-  'Submitted on Devpost by 10:00 AM',
+  'Submitted on Devpost by 11:00 AM',
 ];
 
 function Glossary() {
@@ -948,7 +948,7 @@ export default function MassiveTrackPage({
 
         <SubHead>BEFORE YOU SUBMIT</SubHead>
         <Reveal>
-          <FinalChecklist items={CHECKS} storageKey="gqh-massive-checklist" goText="READY · SUBMIT ON DEVPOST BEFORE 10:00 AM" />
+          <FinalChecklist items={CHECKS} storageKey="gqh-massive-checklist" goText="READY · SUBMIT ON DEVPOST BEFORE 11:00 AM" />
         </Reveal>
 
         <Reveal>

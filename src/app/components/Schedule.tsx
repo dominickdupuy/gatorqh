@@ -68,9 +68,9 @@ const days: ScheduleDay[] = [
     sectorColor: '#33d17a',
     sectorGlow: 'rgba(51,209,122,0.18)',
     events: [
-      { time: '08:00 AM', title: 'Quant Puzzles Submissions Due', subtitle: 'Quantitative Puzzles & Brainteasers · Devpost closes', type: 'key' },
       { time: '08:30 AM', title: 'Breakfast Served', subtitle: 'Outside Turlington Hall, until 9:30 AM', type: 'standard' },
-      { time: '10:00 AM', title: 'Devpost Submissions Due', subtitle: 'Hardware and Systematic Trading tracks', type: 'key' },
+      { time: '09:00 AM', title: 'Quant Puzzles Submissions Due', subtitle: 'Quantitative Puzzles & Brainteasers · Devpost closes', type: 'key' },
+      { time: '11:00 AM', title: 'Devpost Submissions Due', subtitle: 'Hardware and Systematic Trading tracks', type: 'key' },
       { time: '11:00 AM', title: 'Hacking Ends', subtitle: 'Final code pushes close', type: 'key' },
       { time: '11:00 AM', title: 'FPGA Board Return', subtitle: 'Hardware track · IoT Students Club · Reitz Room 2345', type: 'support' },
       { time: '12:00 PM', title: 'Lunch Served', subtitle: 'Outside Turlington Hall, until 1:00 PM', type: 'standard' },
